@@ -53,7 +53,7 @@ export default function ContactPage() {
                   <div className="space-y-1.5">
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Điện thoại / Zalo</p>
                     <a href="tel:0332290865" className="text-sm sm:text-base font-black text-slate-900 hover:text-blue-600 smooth-transition block">
-                      0332.290.865
+                      033.229.0865
                     </a>
                   </div>
                 </div>
