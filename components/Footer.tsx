@@ -12,10 +12,10 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <Link href="/" className="group w-max">
               <div className="bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.12] hover:border-white/20 rounded-2xl px-5 py-3 smooth-transition">
-                <img 
-                  src="/logo-wide.png" 
-                  alt="TinhocGenZ Logo" 
-                  className="h-16 w-auto group-hover:scale-[1.02] transition-all duration-500 ease-out" 
+                <img
+                  src="/logo-wide.png"
+                  alt="TinhocGenZ Logo"
+                  className="h-16 w-auto group-hover:scale-[1.02] transition-all duration-500 ease-out"
                 />
               </div>
             </Link>
@@ -109,7 +109,7 @@ export default function Footer() {
               <li className="flex gap-3 text-slate-400">
                 <Phone size={18} className="text-blue-400 shrink-0 mt-0.5" />
                 <a href="tel:0332290865" className="hover:text-blue-400 smooth-transition">
-                  0332.290.865
+                  033.229.0865
                 </a>
               </li>
               <li className="flex gap-3 text-slate-400">
