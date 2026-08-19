@@ -13,10 +13,10 @@ export interface ContactInfo {
 
 export const CONTACT_INFO: ContactInfo = {
   // Thay đổi số điện thoại ở đây (chỉ cần đổi 1 nơi là toàn bộ web tự cập nhật)
-  phone: "0332290865",
-  displayPhone: "033.229.0865",
-  zaloPhone: "0332290865",
-  zaloUrl: "https://zalo.me/0332290865",
+  phone: "0332298065",
+  displayPhone: "033.229.8065",
+  zaloPhone: "0332298065",
+  zaloUrl: "https://zalo.me/0332298065",
   
   // Thông tin liên hệ khác
   email: "tinhocgenz@gmail.com",
