@@ -1,14 +1,15 @@
 import ContactForm from "@/components/ContactForm";
 import { Phone, Mail, MapPin, MessageSquare, Clock, Sparkles } from "lucide-react";
+import { CONTACT_INFO } from "@/data/contactInfo";
 
 export default function ContactPage() {
   return (
     <div className="flex flex-col w-full bg-slate-50/30">
-      
+
       {/* 1. Header Banner */}
       <section className="bg-white pt-24 pb-16 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <span className="inline-flex items-center border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-black tracking-wider uppercase text-blue-600">
             Liên Hệ Ngay
@@ -26,10 +27,10 @@ export default function ContactPage() {
       <section className="py-24 sm:py-32 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
-            
+
             {/* Left side details */}
             <div className="lg:col-span-5 flex flex-col justify-between gap-8 animate-slide-up">
-              
+
               <div className="space-y-6">
                 <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs font-black text-blue-600 uppercase tracking-widest bg-blue-50 border border-blue-100 px-3.5 py-1.5 rounded-lg w-fit">
                   <Sparkles size={13} className="text-cyan-500" />
@@ -52,8 +53,8 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-1.5">
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Điện thoại / Zalo</p>
-                    <a href="tel:0332290865" className="text-sm sm:text-base font-black text-slate-900 hover:text-blue-600 smooth-transition block">
-                      033.229.0865
+                    <a href={`tel:${CONTACT_INFO.phone}`} className="text-sm sm:text-base font-black text-slate-900 hover:text-blue-600 smooth-transition block">
+                      {CONTACT_INFO.displayPhone}
                     </a>
                   </div>
                 </div>
@@ -65,8 +66,8 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-1.5">
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Hòm thư điện tử</p>
-                    <a href="mailto:tinhocgenz@gmail.com" className="text-sm sm:text-base font-black text-slate-900 hover:text-blue-600 smooth-transition block">
-                      tinhocgenz@gmail.com
+                    <a href={`mailto:${CONTACT_INFO.email}`} className="text-sm sm:text-base font-black text-slate-900 hover:text-blue-600 smooth-transition block">
+                      {CONTACT_INFO.email}
                     </a>
                   </div>
                 </div>
@@ -79,7 +80,7 @@ export default function ContactPage() {
                   <div className="space-y-1.5">
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Mô hình học tập</p>
                     <span className="text-xs sm:text-sm font-black text-slate-900 block leading-normal">
-                      Học trực tuyến & Hỗ trợ toàn quốc
+                      {CONTACT_INFO.address}
                     </span>
                   </div>
                 </div>
@@ -92,7 +93,7 @@ export default function ContactPage() {
                   <div className="space-y-1.5">
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Thời gian làm việc</p>
                     <span className="text-xs sm:text-sm font-black text-slate-900 block">
-                      8:00 - 22:00 (Từ Thứ 2 đến Chủ nhật)
+                      {CONTACT_INFO.workingHours}
                     </span>
                   </div>
                 </div>
@@ -118,7 +119,7 @@ export default function ContactPage() {
               Không như các khóa học online thu âm sẵn nhàm chán, tại Thầy giáo GenZ bạn sẽ học trực tiếp tương tác 100% cùng giảng viên.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-slate-50/50 p-8 rounded-3xl border border-slate-200/60 hover:border-blue-500/25 transition-all duration-500 shadow-premium hover:shadow-premium-hover text-center space-y-4 group">
               <div className="w-12 h-12 rounded-2xl bg-white border border-slate-100 text-blue-600 flex items-center justify-center mx-auto text-sm font-black shadow-sm group-hover:scale-110 group-hover:bg-blue-50 smooth-transition">1</div>
@@ -127,7 +128,7 @@ export default function ContactPage() {
                 Giảng viên chia sẻ màn hình trực quan, hướng dẫn từng thao tác phím tắt, công thức Excel chi tiết và sinh động.
               </p>
             </div>
-            
+
             <div className="bg-slate-50/50 p-8 rounded-3xl border border-slate-200/60 hover:border-blue-500/25 transition-all duration-500 shadow-premium hover:shadow-premium-hover text-center space-y-4 group">
               <div className="w-12 h-12 rounded-2xl bg-white border border-slate-100 text-cyan-500 flex items-center justify-center mx-auto text-sm font-black shadow-sm group-hover:scale-110 group-hover:bg-cyan-50 smooth-transition">2</div>
               <h3 className="font-black text-slate-900 text-base leading-snug">Hỗ Trợ Từ Xa Qua Ultraview</h3>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Laptop, Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
+import { CONTACT_INFO } from "@/data/contactInfo";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,7 +25,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3 mt-4">
               <a
-                href="https://www.facebook.com/Thaygiaogenz13"
+                href={CONTACT_INFO.facebookUrl || "https://www.facebook.com/Thaygiaogenz13"}
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-blue-600 hover:text-white flex items-center justify-center smooth-transition"
@@ -35,7 +36,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://youtube.com"
+                href={CONTACT_INFO.youtubeUrl || "https://youtube.com"}
                 target="_blank"
                 rel="noreferrer"
                 className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-red-600 hover:text-white flex items-center justify-center smooth-transition"
@@ -108,20 +109,20 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3 text-slate-400">
                 <Phone size={18} className="text-blue-400 shrink-0 mt-0.5" />
-                <a href="tel:0332290865" className="hover:text-blue-400 smooth-transition">
-                  033.229.0865
+                <a href={`tel:${CONTACT_INFO.phone}`} className="hover:text-blue-400 smooth-transition font-medium">
+                  {CONTACT_INFO.displayPhone}
                 </a>
               </li>
               <li className="flex gap-3 text-slate-400">
                 <Mail size={18} className="text-blue-400 shrink-0 mt-0.5" />
-                <a href="mailto:tinhocgenz@gmail.com" className="hover:text-blue-400 smooth-transition">
-                  tinhocgenz@gmail.com
+                <a href={`mailto:${CONTACT_INFO.email}`} className="hover:text-blue-400 smooth-transition">
+                  {CONTACT_INFO.email}
                 </a>
               </li>
               <li className="flex gap-3 text-slate-400">
                 <MapPin size={18} className="text-blue-400 shrink-0 mt-0.5" />
                 <span>
-                  Học trực tuyến & Hỗ trợ toàn quốc
+                  {CONTACT_INFO.address}
                 </span>
               </li>
             </ul>
