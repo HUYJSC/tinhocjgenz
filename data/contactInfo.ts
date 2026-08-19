@@ -1,3 +1,5 @@
+import { SITE_CONFIG } from "./siteConfig";
+
 export interface ContactInfo {
   phone: string;
   displayPhone: string;
@@ -12,19 +14,14 @@ export interface ContactInfo {
 }
 
 export const CONTACT_INFO: ContactInfo = {
-  // Thay đổi số điện thoại ở đây (chỉ cần đổi 1 nơi là toàn bộ web tự cập nhật)
-  phone: "0332298065",
-  displayPhone: "033.229.8065",
-  zaloPhone: "0332298065",
-  zaloUrl: "https://zalo.me/0332298065",
-  
-  // Thông tin liên hệ khác
-  email: "tinhocgenz@gmail.com",
-  address: "Học trực tuyến & Hỗ trợ toàn quốc",
-  workingHours: "8:00 - 22:00 (Từ Thứ 2 đến Chủ nhật)",
-  
-  // Mạng xã hội
-  facebookUrl: "https://www.facebook.com/Thaygiaogenz13",
-  youtubeUrl: "https://youtube.com",
-  tiktokUrl: "https://tiktok.com",
+  phone: SITE_CONFIG.contact.phone,
+  displayPhone: SITE_CONFIG.contact.displayPhone,
+  zaloPhone: SITE_CONFIG.contact.zaloPhone,
+  zaloUrl: SITE_CONFIG.contact.zaloUrl,
+  email: SITE_CONFIG.contact.email,
+  address: SITE_CONFIG.contact.address,
+  workingHours: SITE_CONFIG.contact.workingHours,
+  facebookUrl: SITE_CONFIG.socials.facebook,
+  youtubeUrl: SITE_CONFIG.socials.youtube,
+  tiktokUrl: SITE_CONFIG.socials.tiktok,
 };

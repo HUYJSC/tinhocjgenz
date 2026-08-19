@@ -3,6 +3,8 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import FloatingContact from "@/components/FloatingContact";
+import { SITE_CONFIG } from "@/data/siteConfig";
 
 // Configure premium fonts
 const inter = Inter({
@@ -19,26 +21,26 @@ const spaceGrotesk = Space_Grotesk({
 
 // Production-ready SEO Metadata
 export const metadata: Metadata = {
-  title: "Thầy giáo GenZ | Học Tin Học Văn Phòng Thực Chiến Đột Phá",
-  description: "Trung tâm đào tạo Tin học văn phòng thực chiến theo phong cách GenZ tại tinhocgenz.io.vn. Cam kết làm được việc ngay. Excel nâng cao, Word, PowerPoint, Luyện thi MOS. Dịch vụ cài đặt Windows, Office, cài phần mềm đồ họa & theo yêu cầu uy tín.",
-  keywords: ["tin hoc van phong", "excel nang cao", "hoc excel online", "luyen thi mos", "thay giao genz", "tinhocgenz", "cai win", "cai office", "cai phan mem do hoa", "cai phan mem theo yeu cau"],
-  authors: [{ name: "Thầy giáo GenZ" }],
-  metadataBase: new URL("https://tinhocgenz.io.vn"),
+  title: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+  description: SITE_CONFIG.description,
+  keywords: SITE_CONFIG.keywords,
+  authors: [{ name: SITE_CONFIG.author }],
+  metadataBase: new URL(SITE_CONFIG.url),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Thầy giáo GenZ | Học Tin Học Văn Phòng Thực Chiến Đột Phá",
-    description: "Khóa học Tin học văn phòng Excel, Word, PPT thực chiến, cam kết làm được việc. Dịch vụ cài đặt hệ điều hành & cài đặt phần mềm uy tín.",
-    url: "https://tinhocgenz.io.vn",
-    siteName: "Thầy giáo GenZ",
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+    description: SITE_CONFIG.description,
+    url: SITE_CONFIG.url,
+    siteName: SITE_CONFIG.name,
     locale: "vi_VN",
     type: "website",
   },
   robots: {
     index: true,
     follow: true,
-  }
+  },
 };
 
 export default function RootLayout({
@@ -51,12 +53,13 @@ export default function RootLayout({
       <body className="font-sans antialiased min-h-full flex flex-col bg-white text-slate-900">
         {/* Navigation Header */}
         <Header />
-        
+
         {/* Main Content Area */}
-        <main className="flex-grow flex flex-col relative">
-          {children}
-        </main>
-        
+        <main className="flex-grow flex flex-col relative">{children}</main>
+
+        {/* Floating Hotline & Zalo Widget */}
+        <FloatingContact />
+
         {/* Footer Area */}
         <Footer />
       </body>
