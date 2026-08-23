@@ -38,15 +38,13 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo and Brand Typography */}
-          <Link href="/" className="group shrink-0 flex items-center gap-2.5 sm:gap-3 py-0.5">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-2xl bg-white border border-slate-200/90 group-hover:border-blue-300 shadow-sm p-1.5 flex items-center justify-center shrink-0 smooth-transition">
-              <img 
-                src="/logo-icon.png" 
-                alt="PH Digital Education Logo" 
-                className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300" 
-              />
-            </div>
+          {/* Logo and Brand Typography - NO SQUARE BOX, SEAMLESS TRANSPARENT */}
+          <Link href="/" className="group shrink-0 flex items-center gap-3 sm:gap-3.5 py-1">
+            <img 
+              src="/logo-icon.png" 
+              alt="PH Digital Education Logo" 
+              className="h-10 sm:h-12 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" 
+            />
             <div className="flex flex-col justify-center">
               <span className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 leading-tight group-hover:text-blue-600 transition-colors font-display">
                 PH DIGITAL EDUCATION

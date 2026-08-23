@@ -12,13 +12,11 @@ export default function Footer() {
           {/* Column 1: Brand Intro */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="group flex items-center gap-3.5 w-max">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-1.5 shadow-xl border border-slate-700 flex items-center justify-center shrink-0">
-                <img
-                  src="/logo.png"
-                  alt="PH Digital Education"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300"
-                />
-              </div>
+              <img
+                src="/logo-icon.png"
+                alt="PH Digital Education"
+                className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-md"
+              />
               <div className="flex flex-col">
                 <span className="text-base sm:text-lg font-black tracking-tight text-white leading-tight font-display">
                   PH DIGITAL EDUCATION
