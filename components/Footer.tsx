@@ -11,13 +11,25 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Column 1: Brand Intro */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="group inline-block w-max">
-              <div className="bg-white p-2.5 rounded-2xl shadow-xl border border-slate-700 inline-block">
+            <Link href="/" className="group flex items-center gap-3.5 w-max">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-1.5 shadow-xl border border-slate-700 flex items-center justify-center shrink-0">
                 <img
                   src="/logo.png"
                   alt="PH Digital Education"
-                  className="h-16 sm:h-20 md:h-24 w-auto object-contain group-hover:scale-105 transition-all duration-300"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300"
                 />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-base sm:text-lg font-black tracking-tight text-white leading-tight font-display">
+                  PH DIGITAL EDUCATION
+                </span>
+                <div className="text-[10px] sm:text-[11px] font-bold text-slate-400 mt-1 flex items-center gap-1.5 leading-none">
+                  <span>IT</span>
+                  <span className="text-amber-400 font-bold">•</span>
+                  <span className="text-cyan-400 font-black">IC3</span>
+                  <span className="text-amber-400 font-bold">•</span>
+                  <span className="text-blue-400 font-black">MOS</span>
+                </div>
               </div>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mt-1">
