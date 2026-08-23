@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { 
   Menu, X, ArrowRight, Sparkles, BookOpen, Award, 
   FileText, HelpCircle, ShieldCheck, Phone, ChevronDown, 
-  Clock, School, ExternalLink 
+  Clock, School, ExternalLink, Grid 
 } from "lucide-react";
 import { CONTACT_INFO } from "@/data/contactInfo";
 
@@ -35,7 +35,7 @@ export default function Header() {
 
   const mainNavItems = [
     { label: "Trang chủ", href: "/" },
-    { label: "Khóa học MOS / IC3", href: "/khoa-hoc" },
+    { label: "Khóa học MOS/IC3", href: "/khoa-hoc" },
     { label: "Thi Thử Online", href: "/thi-thu", isHot: true },
     { label: "Tài Liệu Free", href: "/tai-lieu" },
     { label: "Bảng Giá", href: "/bang-gia" },
@@ -44,32 +44,54 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm py-2.5 sm:py-3 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
           
-          {/* 1. Logo & Brand Typography */}
-          <Link href="/" className="group shrink-0 flex items-center gap-3 sm:gap-3.5 py-1">
-            <img 
-              src="/logo-icon.png" 
-              alt="PH Digital Education Logo" 
-              className="h-10 sm:h-12 md:h-13 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" 
-            />
-            <div className="flex flex-col justify-center">
-              <span className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 leading-tight group-hover:text-blue-600 transition-colors font-display">
-                PH DIGITAL EDUCATION
-              </span>
-              <div className="text-[9px] sm:text-[11px] font-bold tracking-wider mt-0.5 flex items-center gap-1 sm:gap-1.5 leading-none">
-                <span className="hidden sm:inline text-slate-500">Information Technology</span>
-                <span className="inline sm:hidden text-slate-500">IT</span>
-                <span className="text-amber-500 font-black">•</span>
-                <span className="text-blue-600 font-black">IC3</span>
-                <span className="text-amber-500 font-black">•</span>
-                <span className="text-indigo-600 font-black">MOS</span>
-              </div>
-            </div>
-          </Link>
+          {/* 1. LEFT ZONE: 3-LINE MENU TRIGGER + LOGO & BRAND */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            
+            {/* 3-Line Hamburger Button on the LEFT */}
+            <button
+              type="button"
+              onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
+              className={`px-3 py-2 rounded-2xl transition-all duration-300 flex items-center gap-2 cursor-pointer shadow-xs border ${
+                isMegaMenuOpen
+                  ? "bg-slate-900 text-white border-slate-900 shadow-md"
+                  : "bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200"
+              }`}
+              aria-label="Danh mục tiện ích & khóa học"
+              title="Mở danh mục tiện ích"
+            >
+              {isMegaMenuOpen ? <X size={18} className="text-cyan-400" /> : <Menu size={18} className="text-slate-900" />}
+              <span className="hidden sm:inline text-xs font-black uppercase tracking-wider">Danh Mục</span>
+              <ChevronDown size={14} className={`hidden sm:inline transition-transform duration-300 ${isMegaMenuOpen ? "rotate-180 text-cyan-400" : "text-slate-400"}`} />
+            </button>
 
-          {/* 2. Desktop Quick Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6">
+            {/* Seamless Brand Logo */}
+            <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 py-1">
+              <img 
+                src="/logo-icon.png" 
+                alt="PH Digital Education Logo" 
+                className="h-10 sm:h-11 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" 
+              />
+              <div className="flex flex-col justify-center">
+                <span className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 leading-tight group-hover:text-blue-600 transition-colors font-display">
+                  PH DIGITAL EDUCATION
+                </span>
+                <div className="text-[9px] sm:text-[10.5px] font-bold tracking-wider mt-0.5 flex items-center gap-1 sm:gap-1.5 leading-none">
+                  <span className="hidden md:inline text-slate-500">Information Technology</span>
+                  <span className="inline md:hidden text-slate-500">IT</span>
+                  <span className="text-amber-500 font-black">•</span>
+                  <span className="text-blue-600 font-black">IC3</span>
+                  <span className="text-amber-500 font-black">•</span>
+                  <span className="text-indigo-600 font-black">MOS</span>
+                </div>
+              </div>
+            </Link>
+
+          </div>
+
+          {/* 2. CENTER ZONE: Clean Nav Links */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
             {mainNavItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -79,7 +101,7 @@ export default function Header() {
                   className={`relative py-1.5 px-0.5 text-xs font-black tracking-wide transition-all duration-300 flex items-center gap-1.5 ${
                     isActive
                       ? "text-blue-600 nav-link-active"
-                      : "text-slate-700 hover:text-blue-600"
+                      : "text-slate-600 hover:text-blue-600"
                   }`}
                 >
                   <span>{item.label}</span>
@@ -93,35 +115,32 @@ export default function Header() {
             })}
           </nav>
 
-          {/* 3. Action Buttons + 3-Line Hamburger Button */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          {/* 3. RIGHT ZONE: Direct CTA & Hotline */}
+          <div className="flex items-center gap-3 shrink-0">
             
+            <a
+              href={`tel:${CONTACT_INFO.phone}`}
+              className="hidden xl:flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 text-xs font-black transition-all"
+            >
+              <Phone size={13} className="text-blue-600" />
+              <span>{CONTACT_INFO.displayPhone}</span>
+            </a>
+
             {/* Direct Booking CTA Button */}
             <Link
               href="/lien-he"
-              className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black tracking-wide uppercase btn-premium-primary group shadow-md"
+              className="inline-flex items-center gap-1.5 px-5 sm:px-6 py-2.5 rounded-full text-xs font-black tracking-wide uppercase btn-premium-primary group shadow-md"
             >
               <span>Đăng Ký Học</span>
               <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
-
-            {/* 3-Line Hamburger Dropdown Trigger Button */}
-            <button
-              type="button"
-              onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-              className="p-2 sm:px-3 sm:py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 transition-all flex items-center gap-2 cursor-pointer shadow-xs"
-              aria-label="Danh mục tiện ích & khóa học"
-            >
-              {isMegaMenuOpen ? <X size={20} className="text-slate-900" /> : <Menu size={20} className="text-slate-900" />}
-              <span className="hidden md:inline text-xs font-black uppercase tracking-wider">Danh Mục</span>
-            </button>
 
           </div>
 
         </div>
       </div>
 
-      {/* 4. MEGA MENU SLIDE-DOWN DRAWER (3 Gạch Xổ Xuống Đầy Đủ) */}
+      {/* 4. MEGA MENU SLIDE-DOWN DRAWER */}
       {isMegaMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-2xl animate-fade-in z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
