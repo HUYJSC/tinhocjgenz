@@ -11,13 +11,25 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Column 1: Brand Intro */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="group w-max">
-              <div className="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 rounded-2xl px-4 py-2.5 smooth-transition shadow-lg">
+            <Link href="/" className="group flex items-center gap-3.5 w-max">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white p-1.5 shadow-lg flex items-center justify-center shrink-0 border border-slate-700">
                 <img
-                  src="/logo-dark.png"
-                  alt="PH Digital Education - Tin học MOS IC3"
-                  className="h-10 md:h-12 w-auto object-contain group-hover:scale-[1.02] transition-all duration-300 ease-out"
+                  src="/logo.png"
+                  alt="PH Digital Education"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300"
                 />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-base md:text-lg font-black tracking-tight text-white leading-none">
+                  PH DIGITAL EDUCATION
+                </span>
+                <span className="text-xs font-semibold text-slate-400 mt-1.5 flex items-center gap-1.5">
+                  <span>IT</span>
+                  <span className="text-amber-400 font-bold">•</span>
+                  <span>IC3</span>
+                  <span className="text-amber-400 font-bold">•</span>
+                  <span>MOS</span>
+                </span>
               </div>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mt-2">

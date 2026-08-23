@@ -44,13 +44,25 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
-          <Link href="/" className="group shrink-0 flex items-center">
-            <div className="bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-blue-300/80 rounded-2xl px-3 py-1.5 shadow-sm smooth-transition">
+          <Link href="/" className="group shrink-0 flex items-center gap-3">
+            <div className="w-11 h-11 md:w-13 md:h-13 rounded-2xl bg-white border border-slate-200/90 shadow-sm p-1 flex items-center justify-center shrink-0 group-hover:border-blue-300 smooth-transition">
               <img 
-                src="/logo-wide.png" 
-                alt="PH Digital Education - Tin học MOS IC3" 
-                className="h-10 md:h-12 w-auto object-contain group-hover:scale-[1.02] transition-all duration-300" 
+                src="/logo.png" 
+                alt="PH Digital Education Logo" 
+                className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300" 
               />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm md:text-[15px] font-black tracking-tight text-slate-900 leading-none group-hover:text-blue-600 transition-colors">
+                PH DIGITAL EDUCATION
+              </span>
+              <span className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-wider mt-1 flex items-center gap-1.5 leading-none">
+                <span>IT</span>
+                <span className="text-amber-500 font-black">•</span>
+                <span>IC3</span>
+                <span className="text-amber-500 font-black">•</span>
+                <span>MOS</span>
+              </span>
             </div>
           </Link>
 

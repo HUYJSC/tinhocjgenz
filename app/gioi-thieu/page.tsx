@@ -49,8 +49,8 @@ export default function AboutPage() {
             <div className="lg:col-span-5 flex justify-center items-center">
               <div className="relative w-full max-w-sm aspect-[4/5] rounded-[2rem] bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 shadow-2xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between text-white border border-slate-800 transition-all duration-500">
                 <div className="flex justify-between items-start">
-                  <div className="w-12 h-12 bg-white p-1 rounded-2xl flex items-center justify-center shadow-lg">
-                    <img src="/logo-icon.png" alt="PH Digital Education" className="w-full h-full object-contain" />
+                  <div className="w-14 h-14 bg-white p-1 rounded-2xl flex items-center justify-center shadow-lg border border-slate-700">
+                    <img src="/logo.png" alt="PH Digital Education" className="w-full h-full object-contain" />
                   </div>
                   <span className="text-[10px] uppercase font-black tracking-widest text-cyan-300 bg-blue-900/60 px-3 py-1 rounded-full border border-blue-500/40">
                     Certiport Certified
