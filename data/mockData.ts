@@ -1,7 +1,7 @@
 export interface Course {
   id: string;
-  category: "mos-ic3" | "practical-office" | "it-service";
-  categoryName: string;
+  category?: "mos-ic3" | "practical-office" | "it-service";
+  categoryName?: string;
   title: string;
   tagline: string;
   price: string | number;
@@ -313,10 +313,13 @@ export const coursesData: Course[] = [
   },
   {
     id: "excel-custom-accounting",
+    category: "practical-office",
+    categoryName: "Doanh Nghiệp & Kế Toán",
     title: "Excel \"May Đo\" Riêng Cho Kế Toán",
     tagline: "Xóa tan nỗi ám ảnh sổ sách, báo cáo.",
     price: "Chỉ từ 350.000đ - 400.000đ / buổi",
     duration: "Số buổi tùy chỉnh (Custom) theo mục tiêu",
+    badge: "Kèm 1:1 Doanh Nghiệp",
     description: "Khóa học được thiết kế 1-1, học và thực hành trực tiếp trên chính chứng từ, dữ liệu sống của công ty bạn. Học đến đâu, áp dụng giải quyết công việc ngay đến đó.",
     features: [
       "Giải quyết triệt để các bài toán khó về quản lý kho, công nợ, tính lương.",
@@ -328,10 +331,13 @@ export const coursesData: Course[] = [
   },
   {
     id: "cntt-national-app",
-    title: "Luyện Thi Chứng Chỉ Ứng Dụng CNTT",
+    category: "mos-ic3",
+    categoryName: "Chứng Chỉ Quốc Gia & Chuẩn Đầu Ra",
+    title: "Luyện Thi Chứng Chỉ Ứng Dụng CNTT Chuẩn Quốc Gia",
     tagline: "Nền tảng vững chắc - Tấm vé thông hành sự nghiệp.",
     price: "Cơ bản: 2.500.000đ | Nâng cao: 3.000.000đ",
     duration: "6 buổi",
+    badge: "Chuẩn Quốc Gia",
     description: "Bước đệm hoàn hảo để hoàn thiện hồ sơ thi công chức, viên chức, xét tốt nghiệp đại học. Dạy từ mất gốc đến khi tự tin làm chủ máy tính.",
     features: [
       "Hệ thống lại kiến thức Tin học một cách bài bản, dễ hiểu nhất.",
