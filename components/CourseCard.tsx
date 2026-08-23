@@ -189,10 +189,12 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
           </div>
         </div>
 
-        {/* 3. Bold Title - strictly aligned to 2 lines max height */}
-        <h3 className="text-base sm:text-[17px] font-black text-slate-900 group-hover:text-blue-600 transition-colors duration-300 tracking-tight leading-snug min-h-[2.5rem] flex items-center">
-          <span className="line-clamp-2">{course.title}</span>
-        </h3>
+        {/* 3. Bold Title - clickable to detail page */}
+        <Link href={`/khoa-hoc/${course.id}`} className="group/title block">
+          <h3 className="text-base sm:text-[17px] font-black text-slate-900 group-hover/title:text-blue-600 transition-colors duration-300 tracking-tight leading-snug min-h-[2.5rem] flex items-center">
+            <span className="line-clamp-2">{course.title}</span>
+          </h3>
+        </Link>
 
         {/* 3.5 Course Tagline: Soft Pastel Highlight - strictly aligned to 2 lines */}
         <div className={`mt-2 px-3 py-2 rounded-xl text-[11px] font-black tracking-wide leading-relaxed border min-h-[3.25rem] flex items-center ${meta.taglineBg}`}>
@@ -224,24 +226,32 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
         </ul>
       </div>
 
-      {/* 6 & 7. Card Footer (Price + CTA Button) */}
+      {/* 6 & 7. Card Footer (Price + 2 Action Buttons) */}
       <div className="p-5 sm:p-6 pt-0 bg-slate-50/50 border-t border-slate-100/60 rounded-b-[2.25rem] relative z-10">
         <div className="flex flex-col gap-3">
           
           {/* Price display helper */}
           {renderPricing()}
 
-          {/* Action Register Link */}
-          <Link
-            href={`/lien-he?select=${course.id}`}
-            className={`w-full py-3 rounded-full text-xs font-black tracking-wide uppercase transition-all duration-300 text-center active:scale-[0.98] ${
-              course.popular
-                ? "btn-premium-primary"
-                : "btn-premium-secondary"
-            }`}
-          >
-            Đăng ký ngay
-          </Link>
+          {/* Action Links: Chi tiết & Đăng ký */}
+          <div className="grid grid-cols-2 gap-2">
+            <Link
+              href={`/khoa-hoc/${course.id}`}
+              className="w-full py-2.5 rounded-full text-[11px] font-black tracking-wide uppercase transition-all duration-300 text-center bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200"
+            >
+              Chi tiết
+            </Link>
+            <Link
+              href={`/lien-he?select=${course.id}`}
+              className={`w-full py-2.5 rounded-full text-[11px] font-black tracking-wide uppercase transition-all duration-300 text-center shadow-md ${
+                course.popular
+                  ? "btn-premium-primary"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
+              }`}
+            >
+              Đăng ký
+            </Link>
+          </div>
         </div>
       </div>
     </div>

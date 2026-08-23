@@ -1,3 +1,9 @@
+export interface SyllabusModule {
+  session: number;
+  title: string;
+  contents: string[];
+}
+
 export interface Course {
   id: string;
   category?: "mos-ic3" | "practical-office" | "it-service";
@@ -16,6 +22,7 @@ export interface Course {
   isService?: boolean;
   targetAudience?: string;
   passRate?: string;
+  syllabus?: SyllabusModule[];
 }
 
 export interface TechService {
@@ -229,6 +236,62 @@ export const coursesData: Course[] = [
       "Đặc quyền nhóm: Đăng ký nhóm từ 3 bạn giảm thêm 15% - 30% học phí!",
     ],
     priceNote: "Đi nhóm từ 3 người giảm thêm 15% - 30% học phí",
+    syllabus: [
+      {
+        session: 1,
+        title: "MOS Word Master: Cấu Trúc Văn Bản & Heading Styles",
+        contents: [
+          "Làm chủ giao diện bài thi Certiport và cấu trúc Project/Task",
+          "Định dạng Heading 1, Heading 2, tạo mục lục tự động (TOC)",
+          "Thao tác chèn bảng Table, SmartArt, Bookmark và Hyperlink chuẩn khảo thí"
+        ]
+      },
+      {
+        session: 2,
+        title: "MOS Word Master: Mail Merge & Quản Trị Tài Liệu",
+        contents: [
+          "Trộn thư Mail Merge tự động xuất phiếu điểm / hợp đồng",
+          "Thiết lập Section Break, Header & Footer so le trang chẵn lẻ",
+          "Giải đề thi thử Word Full Project 1 -> 5 có bấm giờ 50 phút"
+        ]
+      },
+      {
+        session: 3,
+        title: "MOS Excel Specialist: Công Thức & Hàm Tính Toán Cốt Lõi",
+        contents: [
+          "Cố định vùng tham chiếu ($) và đặt tên vùng Name Range",
+          "Hàm điều kiện lồng nhau: IF, AND, OR, SUMIFS, COUNTIFS, AVERAGEIFS",
+          "Hàm tìm kiếm nâng cao: XLOOKUP, VLOOKUP, HLOOKUP, INDEX & MATCH"
+        ]
+      },
+      {
+        session: 4,
+        title: "MOS Excel Specialist: Báo Cáo PivotTable & Biểu Đồ Động",
+        contents: [
+          "Tạo báo cáo tổng hợp siêu tốc bằng PivotTable & Slicer lọc dữ liệu",
+          "Định dạng có điều kiện Conditional Formatting theo nhiều quy tắc",
+          "Giải đề thi thử Excel Full Project 1 -> 7 bám sát đề thi IIG 2026"
+        ]
+      },
+      {
+        session: 5,
+        title: "MOS PowerPoint Specialist: Slide Master & Hiệu Ứng Nâng Cao",
+        contents: [
+          "Thiết kế Slide Master đồng bộ nhận diện logo và bố cục toàn bài",
+          "Chèn và định dạng Video, Audio, 3D Models, biểu đồ Chart",
+          "Cấu hình hiệu ứng Morph chuyển cảnh 3D siêu mượt"
+        ]
+      },
+      {
+        session: 6,
+        title: "Thi Thử Máy Ảo Tổng Lực & Kỹ Thuật Đạt Điểm Tuyệt Đối 1000/1000",
+        contents: [
+          "Thi thử trên máy ảo mô phỏng Certiport có chấm điểm tự động",
+          "Giảng viên sửa bài 1:1, chỉ rõ các lỗi thường khiến rớt điểm",
+          "Hướng dẫn quy chế phòng thi và thủ tục nhận bằng Certiport quốc tế"
+        ]
+      }
+    ]
   },
   {
     id: "mos-2019",
@@ -252,6 +315,35 @@ export const coursesData: Course[] = [
       "Tặng video quay lại toàn bộ buổi học để xem lại bất cứ khi nào.",
     ],
     priceNote: "Đăng ký từ 2 môn trở lên giảm ngay 200.000đ/môn",
+    syllabus: [
+      {
+        session: 1,
+        title: "Hệ Thống Kiến Thức Cốt Lõi Bám Sát Matrix Đề Thi",
+        contents: [
+          "Rà soát toàn bộ các câu lệnh thường gặp trong bài thi",
+          "Hướng dẫn cách đọc hiểu đề tiếng Anh / tiếng Việt chuẩn Certiport",
+          "Thực hành 20 bài tập trọng điểm của từng nhóm kỹ năng"
+        ]
+      },
+      {
+        session: 2,
+        title: "Luyện Giải 3 Bộ Đề Mẫu Chuẩn Khảo Thí IIG",
+        contents: [
+          "Thực hành giải chi tiết từng Task trong Project",
+          "Ghi nhớ các mẹo thao tác phím tắt tăng tốc độ làm bài",
+          "Kỹ thuật xử lý câu hỏi khó và phân bổ thời gian hợp lý"
+        ]
+      },
+      {
+        session: 3,
+        title: "Thi Thử Trên Phần Mềm Mô Phỏng & Duyệt Điều Kiện Đi Thi",
+        contents: [
+          "Làm bài thi thử 50 phút trên máy ảo có chấm điểm tự động",
+          "Giảng viên sửa lỗi từng câu làm sai cho đến khi đạt trên 850đ",
+          "Cấp số báo danh và hướng dẫn thủ tục vào phòng thi chính thức"
+        ]
+      }
+    ]
   },
   {
     id: "ic3-gs6",
@@ -272,6 +364,48 @@ export const coursesData: Course[] = [
       "Bảo hành đầu ra: Hỗ trợ ôn luyện liên tục đến khi cầm chứng chỉ trên tay.",
     ],
     priceNote: "Ưu đãi sinh viên giảm 10% khi xuất trình thẻ sinh viên",
+    syllabus: [
+      {
+        session: 1,
+        title: "Công Nghệ Cơ Bản & Quản Trị Thiết Bị Số (Level 1)",
+        contents: [
+          "Phần cứng, phần mềm, hệ điều hành và kết nối mạng",
+          "Quản lý tệp tin, bảo mật mật khẩu và lưu trữ đám mây"
+        ]
+      },
+      {
+        session: 2,
+        title: "Khai Thác Ứng Dụng Số & Xử Lý Dữ Liệu (Level 2)",
+        contents: [
+          "Ứng dụng văn phòng số, bảng tính, trình chiếu trực tuyến",
+          "Kỹ năng tìm kiếm và thẩm định thông tin chuẩn xác trên Internet"
+        ]
+      },
+      {
+        session: 3,
+        title: "An Toàn Mạng, Đạo Đức Số & Định Danh Trực Tuyến (Level 3)",
+        contents: [
+          "Bảo vệ dữ liệu cá nhân, phòng chống mã độc, phishing và lừa đảo số",
+          "Bản quyền tác giả, đạo đức và trách nhiệm trên không gian số"
+        ]
+      },
+      {
+        session: 4,
+        title: "Giải Trọn Bộ Ngân Hàng 200 Câu Hỏi Trắc Nghiệm Mô Phỏng",
+        contents: [
+          "Phân tích cặn kẽ từng bẫy câu hỏi của bài thi IC3 GS6",
+          "Luyện phản xạ chọn đáp án tốc độ cao"
+        ]
+      },
+      {
+        session: 5,
+        title: "Thi Thử & Chuẩn Bị Hồ Sơ Khảo Thí IIG",
+        contents: [
+          "Thi thử trên hệ thống mô phỏng bài thi thật của Hoa Kỳ",
+          "Cam kết đầu ra đỗ chứng chỉ IC3 GS6 quốc tế"
+        ]
+      }
+    ]
   },
   {
     id: "combo-survival-office",
@@ -291,6 +425,37 @@ export const coursesData: Course[] = [
       "Tặng kèm kho template biểu mẫu, hợp đồng, báo cáo doanh nghiệp chuẩn chỉnh.",
     ],
     priceNote: "Đi nhóm 3 người giảm 10-30%",
+    syllabus: [
+      {
+        session: 1,
+        title: "Soạn Thảo Văn Bản Chuẩn Quy Chuẩn Hành Chính",
+        contents: [
+          "Quy định thể thức văn bản hành chính nhà nước mới nhất",
+          "Căn chỉnh lề, phông chữ, giãn dòng, tạo tiêu đề chuẩn"
+        ]
+      },
+      {
+        session: 2,
+        title: "Kỹ Thuật Trộn Thư Hàng Loạt (Mail Merge) & Hợp Đồng",
+        contents: [
+          "Tự động xuất hàng trăm thư mời, hợp đồng, giấy báo lương trong vài giây"
+        ]
+      },
+      {
+        session: 3,
+        title: "Làm Chủ 40+ Hàm Excel Văn Phòng Thông Dụng Nhất",
+        contents: [
+          "Hàm tìm kiếm, hàm ngày tháng, hàm tính toán theo nhiều điều kiện kết hợp"
+        ]
+      },
+      {
+        session: 4,
+        title: "Báo Cáo Pivot Table, Slicer & Biểu Đồ Dashboard Doanh Nghiệp",
+        contents: [
+          "Tổng hợp dữ liệu doanh số, kho bãi tự động và chuyên nghiệp"
+        ]
+      }
+    ]
   },
   {
     id: "ai-office-breakthrough",
@@ -310,6 +475,29 @@ export const coursesData: Course[] = [
       "Tự động hóa xử lý email và tổng hợp dữ liệu cuộc họp.",
     ],
     priceNote: "Tặng trọn bộ 100+ Prompt chuyên biệt cho dân văn phòng",
+    syllabus: [
+      {
+        session: 1,
+        title: "Nghệ Thuật Prompt Engineering: Làm Chủ ChatGPT, Claude, Copilot",
+        contents: [
+          "Cấu trúc câu lệnh chuẩn để AI viết báo cáo, email, văn bản không bị lỗi"
+        ]
+      },
+      {
+        session: 2,
+        title: "Thiết Kế Slide Thuyết Trình Tự Động Trong 2 Phút Với AI",
+        contents: [
+          "Ứng dụng Gamma App, Beautiful.ai biến đề cương thành slide hoàn chỉnh"
+        ]
+      },
+      {
+        session: 3,
+        title: "Phân Tích Dữ Liệu Excel Tự Động Với Trí Tuệ Nhân Tạo",
+        contents: [
+          "Viết công thức Excel phức tạp và tạo biểu đồ chỉ bằng câu lệnh tự nhiên"
+        ]
+      }
+    ]
   },
   {
     id: "excel-custom-accounting",
