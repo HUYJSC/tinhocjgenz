@@ -22,13 +22,29 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
   // Map icons, tagline backgrounds, and category tags dynamically based on course ID
   const getCourseMeta = (id: string) => {
     switch (id) {
+      case "mos-master-combo":
+        return {
+          icon: <Award size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />,
+          category: "Chuẩn Đầu Ra ĐH • Bao Đỗ",
+          badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
+          taglineBg: "bg-blue-50/70 text-blue-900 border border-blue-100/70 shadow-xs",
+          accentColor: "blue"
+        };
       case "mos-2019":
         return {
           icon: <Award size={20} className="text-indigo-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Chứng Chỉ Quốc Tế",
+          category: "Chứng Chỉ Quốc Tế MOS",
           badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-100/50",
           taglineBg: "bg-indigo-50/70 text-indigo-800 border border-indigo-100/50 shadow-xs shadow-indigo-100/10",
           accentColor: "indigo"
+        };
+      case "ic3-gs6":
+        return {
+          icon: <Sparkles size={20} className="text-cyan-600 group-hover:text-white transition-colors duration-300" />,
+          category: "Kỹ Năng Số Quốc Tế IC3",
+          badgeColor: "bg-cyan-50 text-cyan-700 border-cyan-100/50",
+          taglineBg: "bg-cyan-50/70 text-cyan-800 border border-cyan-100/50 shadow-xs",
+          accentColor: "teal"
         };
       case "combo-survival-office":
         return {
@@ -41,7 +57,7 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
       case "ai-office-breakthrough":
         return {
           icon: <Sparkles size={20} className="text-rose-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Kỹ Năng Tương Lai",
+          category: "Kỹ Năng AI Tương Lai",
           badgeColor: "bg-rose-50 text-rose-700 border-rose-100/50",
           taglineBg: "bg-rose-50/70 text-rose-800 border border-rose-100/50 shadow-xs shadow-rose-100/10",
           accentColor: "rose"
@@ -49,18 +65,10 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
       case "excel-custom-accounting":
         return {
           icon: <FileSpreadsheet size={20} className="text-emerald-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Giải Pháp Doanh Nghiệp",
+          category: "Doanh Nghiệp & Kế Toán",
           badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-100/50",
           taglineBg: "bg-emerald-50/70 text-emerald-800 border border-emerald-100/50 shadow-xs shadow-emerald-100/10",
           accentColor: "emerald"
-        };
-      case "cntt-national-app":
-        return {
-          icon: <Award size={20} className="text-amber-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Chứng Chỉ Quốc Gia",
-          badgeColor: "bg-amber-50 text-amber-700 border-amber-100/50",
-          taglineBg: "bg-amber-50/70 text-amber-800 border border-amber-100/50 shadow-xs shadow-amber-100/10",
-          accentColor: "amber"
         };
       default:
         return {

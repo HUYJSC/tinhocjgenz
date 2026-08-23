@@ -1,23 +1,24 @@
 import PricingTable from "@/components/PricingTable";
-import { HelpCircle, Star, Sparkles } from "lucide-react";
+import { HelpCircle, Star, Sparkles, ShieldCheck, Users, Award, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function PricingPage() {
   const faqs = [
     {
-      q: "Tôi có được giảm học phí khi đăng ký nhiều khóa học không?",
-      a: "Có! Khi đăng ký Combo từ 2 khóa học trở lên (ví dụ: Excel nâng cao + Luyện thi MOS), bạn sẽ được giảm trực tiếp 10% trên tổng giá trị học phí."
+      q: "Nếu tôi thi không đạt chuẩn đầu ra thì có được học lại không?",
+      a: "Hoàn toàn miễn phí! PH Digital Education cam kết bao đỗ 100%. Nếu không đạt điểm chuẩn trong kỳ thi Certiport chính thức, bạn sẽ được kèm cặp và học lại hoàn toàn miễn phí cho đến khi cầm chứng chỉ trên tay."
+    },
+    {
+      q: "Chính sách giảm giá theo nhóm sinh viên áp dụng như thế nào?",
+      a: "Nhóm từ 3 bạn được giảm ngay 15% học phí/bạn; nhóm từ 5 bạn giảm 25% học phí; nhóm từ 8 bạn trở lên giảm tới 35% - 40% học phí trọn gói kèm tặng trọn bộ phần mềm thi thử."
     },
     {
       q: "Giá dịch vụ cài Win và Office đã bao gồm bản quyền chưa?",
-      a: "Giá dịch vụ đã bao gồm việc cài đặt, kích hoạt đầy đủ tính năng sử dụng ổn định trọn đời và hỗ trợ fix lỗi phát sinh miễn phí cho bạn."
+      a: "Giá dịch vụ đã bao gồm việc cài đặt, kích hoạt đầy đủ tính năng sử dụng ổn định trọn đời và hỗ trợ fix lỗi phát sinh miễn phí cho bạn qua Ultraviewer/Anydesk."
     },
     {
-      q: "Phương thức thanh toán học phí như thế nào?",
-      a: "Bạn có thể thanh toán qua chuyển khoản ngân hàng hoặc ví điện tử (Momo/ZaloPay). Bạn có thể đóng 100% học phí hoặc chia làm 2 đợt đóng đối với khóa học dài hạn."
-    },
-    {
-      q: "Tôi có thể yêu cầu cài đặt các phần mềm đặc thù chuyên ngành khác không?",
-      a: "Hoàn toàn được! Bên cạnh các phần mềm thiết kế và Office thông dụng, Thầy giáo GenZ hỗ trợ tìm kiếm, cài đặt và cấu hình tất cả các phần mềm học tập, làm việc đặc thù khác (SPSS, Matlab, Solidworks, Eclipse...) theo đúng yêu cầu cấu hình máy của bạn."
+      q: "Thời gian ôn thi cấp tốc 3 buổi có kịp cho đợt xét tốt nghiệp không?",
+      a: "Rất kịp thời! Giáo trình được thiết kế cô đọng 100% dạng đề thi thật Certiport. 99.4% học viên hoàn thành khóa 3 buổi đều vượt qua kỳ thi với số điểm trên 850/1000."
     }
   ];
 
@@ -26,53 +27,79 @@ export default function PricingPage() {
       
       {/* 1. Header Banner */}
       <section className="bg-white pt-20 pb-14 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[450px] h-[450px] bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 rounded-full blur-[100px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-          <span className="inline-flex items-center border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-black tracking-wider uppercase text-blue-600">
-            Bảng Giá Dịch Vụ
+          <span className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-black tracking-wider uppercase text-blue-700">
+            <Award size={13} className="text-blue-600" />
+            PH DIGITAL EDUCATION • HỌC PHÍ MINH BẠCH
           </span>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Báo Giá Khóa Học & Dịch Vụ IT
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            Bảng Giá Khóa Học & Dịch Vụ IT
           </h1>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Bảng giá minh bạch, tối ưu chi phí dành riêng cho học sinh sinh viên. Cam kết không phát sinh bất kỳ khoản chi phí phụ nào khác.
+            Học phí tối ưu dành cho sinh viên và người đi làm. Cam kết trọn gói, không phát sinh chi phí, bảo hành đầu ra thi đỗ 100%.
           </p>
         </div>
       </section>
 
-      {/* 2. Main Table Section */}
+      {/* 2. Group Promo Highlight Banner */}
+      <section className="py-8 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-white/10 rounded-xl">
+              <Users size={24} className="text-cyan-300" />
+            </div>
+            <div>
+              <h3 className="text-base sm:text-lg font-black leading-tight">
+                Ưu Đãi Đăng Ký Theo Nhóm: Giảm Sốc 15% - 40% Học Phí
+              </h3>
+              <p className="text-xs text-blue-100 mt-0.5">
+                Càng đông càng rẻ - Cùng bạn bè đạt chuẩn đầu ra xét tốt nghiệp sớm!
+              </p>
+            </div>
+          </div>
+          <Link
+            href="/lien-he"
+            className="shrink-0 px-6 py-2.5 rounded-full bg-white text-blue-900 font-black text-xs uppercase tracking-wider hover:bg-slate-100 shadow-lg transition-all"
+          >
+            Nhận Mã Giảm Nhóm
+          </Link>
+        </div>
+      </section>
+
+      {/* 3. Main Table Section */}
       <section className="py-16 sm:py-20 bg-[#f8fafc]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <PricingTable />
         </div>
       </section>
 
-      {/* 3. FAQ Section */}
+      {/* 4. FAQ Section */}
       <section className="py-16 bg-white border-t border-slate-100/60 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="text-center mb-20 space-y-3">
-            <div className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-black tracking-wider uppercase text-blue-600">
+          <div className="text-center mb-16 space-y-3">
+            <div className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-black tracking-wider uppercase text-blue-700">
               <HelpCircle size={13} />
               <span>Góc Giải Đáp</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight leading-none">Câu Hỏi Thường Gặp</h2>
             <p className="text-slate-500 text-sm leading-relaxed max-w-lg mx-auto">
-              Một số thắc mắc phổ biến của các bạn học viên và khách hàng trước khi đăng ký dịch vụ.
+              Giải đáp các thắc mắc phổ biến về kỳ thi Certiport, chuẩn đầu ra đại học và hình thức học tại PH Digital Education.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {faqs.map((faq, index) => (
-              <div key={index} className="space-y-3 bg-slate-50/50 p-6 rounded-3xl border border-slate-200/60 hover:border-blue-500/25 transition-all duration-500 shadow-premium hover:shadow-premium-hover group flex flex-col justify-between">
-                <h3 className="font-black text-slate-900 text-sm leading-snug flex gap-2.5">
-                  <div className="p-1 bg-white border border-slate-100 rounded-lg shadow-sm shrink-0 text-cyan-500 group-hover:scale-110 smooth-transition">
+              <div key={index} className="space-y-3 bg-slate-50/70 p-6 rounded-3xl border border-slate-200/70 hover:border-blue-500/25 transition-all duration-300 shadow-premium hover:shadow-premium-hover flex flex-col justify-between">
+                <h3 className="font-black text-slate-900 text-sm leading-snug flex items-start gap-2.5">
+                  <div className="p-1 bg-white border border-slate-200/60 rounded-lg shadow-sm shrink-0 text-cyan-500 mt-0.5">
                     <Star size={14} fill="currentColor" />
                   </div>
-                  {faq.q}
+                  <span>{faq.q}</span>
                 </h3>
-                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed pl-7.5">
+                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed pl-8">
                   {faq.a}
                 </p>
               </div>

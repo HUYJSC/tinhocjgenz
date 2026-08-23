@@ -24,25 +24,26 @@ export interface SiteConfig {
 }
 
 export const SITE_CONFIG: SiteConfig = {
-  name: "Thầy giáo GenZ",
-  shortName: "TinhocGenZ",
-  tagline: "Học Tin Học Văn Phòng Thực Chiến Đột Phá",
+  name: "PH Digital Education",
+  shortName: "PH Digital Education",
+  tagline: "Đào Tạo CNTT • Luyện Thi Chứng Chỉ Quốc Tế MOS & IC3 • Chuẩn Đầu Ra Đại Học",
   description:
-    "Trung tâm đào tạo Tin học văn phòng thực chiến theo phong cách GenZ tại tinhocgenz.io.vn. Cam kết làm được việc ngay. Excel nâng cao, Word, PowerPoint, Luyện thi MOS. Dịch vụ cài đặt Windows, Office, cài phần mềm đồ họa & theo yêu cầu uy tín.",
+    "PH DIGITAL EDUCATION - Hệ thống đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 chuẩn Certiport. Cam kết chuẩn đầu ra các trường Đại học (DNTU, Lạc Hồng, Kinh Tế...) bao đỗ 100%. Dịch vụ cài đặt phần mềm máy tính uy tín chuyên nghiệp.",
   domain: "tinhocgenz.io.vn",
   url: "https://www.tinhocgenz.io.vn",
-  author: "Thầy giáo GenZ",
+  author: "PH Digital Education",
   keywords: [
-    "tin hoc van phong",
-    "excel nang cao",
-    "hoc excel online",
-    "luyen thi mos",
-    "thay giao genz",
-    "tinhocgenz",
-    "cai win",
-    "cai office",
-    "cai phan mem do hoa",
-    "cai phan mem theo yeu cau",
+    "PH Digital Education",
+    "luyện thi MOS",
+    "chứng chỉ IC3",
+    "chuẩn đầu ra tin học DNTU",
+    "tin học văn phòng thực chiến",
+    "học excel nâng cao",
+    "chứng chỉ tin học quốc tế certiport",
+    "thầy giáo genz",
+    "cài win",
+    "cài office bản quyền",
+    "cài phần mềm đồ họa",
   ],
   contact: {
     phone: "0332298065",
@@ -50,8 +51,8 @@ export const SITE_CONFIG: SiteConfig = {
     zaloPhone: "0332298065",
     zaloUrl: "https://zalo.me/0332298065",
     email: "tinhocgenz@gmail.com",
-    address: "Học trực tuyến & Hỗ trợ toàn quốc",
-    workingHours: "8:00 - 22:00 (Từ Thứ 2 đến Chủ nhật)",
+    address: "Đào tạo Online Toàn quốc & Trực tiếp tại Cơ sở liên kết",
+    workingHours: "8:00 - 22:30 (Hỗ trợ 24/7 từ Thứ 2 đến Chủ nhật)",
   },
   socials: {
     facebook: "https://www.facebook.com/Thaygiaogenz13",
@@ -59,3 +60,4 @@ export const SITE_CONFIG: SiteConfig = {
     tiktok: "https://tiktok.com",
   },
 };
+

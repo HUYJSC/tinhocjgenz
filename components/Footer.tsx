@@ -12,11 +12,11 @@ export default function Footer() {
           {/* Column 1: Brand Intro */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="group w-max">
-              <div className="bg-white/[0.08] hover:bg-white/[0.12] border border-white/[0.12] hover:border-white/20 rounded-2xl px-5 py-3 smooth-transition">
+              <div className="bg-white hover:bg-slate-50 border border-slate-700/60 hover:border-slate-500 rounded-2xl px-3.5 py-2 smooth-transition shadow-lg">
                 <img
                   src="/logo-wide.png"
-                  alt="TinhocGenZ Logo"
-                  className="h-16 w-auto group-hover:scale-[1.02] transition-all duration-500 ease-out"
+                  alt="PH Digital Education - Tin học MOS IC3"
+                  className="h-12 md:h-14 w-auto object-contain group-hover:scale-[1.03] transition-all duration-300 ease-out"
                 />
               </div>
             </Link>

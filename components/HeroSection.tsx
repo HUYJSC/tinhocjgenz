@@ -1,152 +1,228 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, CheckCircle, Sparkles } from "lucide-react";
+import { 
+  ArrowRight, 
+  Sparkles, 
+  CheckCircle2, 
+  ShieldCheck, 
+  GraduationCap, 
+  Briefcase, 
+  Award,
+  Zap,
+  Star
+} from "lucide-react";
 
 export default function HeroSection() {
+  const [activeTab, setActiveTab] = useState<"student" | "worker">("student");
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#f8fafc] via-white to-white pt-16 pb-24 md:pt-24 md:pb-36 tech-grid-pattern">
-      {/* Background Decorative Tech Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-blue-500/10 to-cyan-500/10 rounded-full blur-[120px] pointer-events-none z-0" />
-      <div className="absolute top-1/3 left-10 w-[400px] h-[400px] bg-cyan-400/5 rounded-full blur-[100px] pointer-events-none z-0" />
-      <div className="absolute bottom-10 right-10 w-[350px] h-[350px] bg-indigo-500/5 rounded-full blur-[90px] pointer-events-none z-0" />
+    <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white">
+      {/* Decorative Blur Backgrounds */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-500/10 via-cyan-400/10 to-indigo-500/10 blur-[120px] pointer-events-none -z-10" />
 
-      {/* Subtle bottom glowing line decoration */}
-      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Hero Left Content */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left gap-6 animate-slide-up">
+          {/* Left Column: Heading, Badges, Tabs, CTAs */}
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             
-            {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/80 backdrop-blur-sm border border-blue-100 text-xs font-black text-blue-700 shadow-[0_2px_10px_-4px_rgba(37,99,235,0.1)]">
-              <Sparkles size={14} className="text-cyan-500 animate-pulse" />
-              <span>Phương Pháp Đào Tạo Mới Nhất 2026</span>
+            {/* Top Partner Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-100 shadow-sm backdrop-blur-sm text-blue-800 text-[11px] font-black uppercase tracking-wider">
+              <span className="flex h-2 w-2 rounded-full bg-blue-600 animate-ping" />
+              <Award size={14} className="text-blue-600" />
+              <span>PH DIGITAL EDUCATION • CHUẨN QUỐC TẾ MOS & IC3</span>
             </div>
 
-            {/* Main Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.1] max-w-2xl">
-              Học Tin học văn phòng <br />
-              <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-sm">
-                theo phong cách GenZ
+            {/* Main Headline */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]">
+              Luyện Thi Chứng Chỉ <br />
+              <span className="bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 bg-clip-text text-transparent">
+                MOS & IC3 Cấp Tốc
               </span>
+              <br />
+              Chuẩn Đầu Ra Đại Học
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg font-medium text-slate-500 leading-relaxed max-w-2xl">
-              Dễ hiểu – Thực hành – Làm được việc ngay. Loại bỏ lý thuyết suông, tập trung thực chiến 100% để bứt phá hiệu suất học tập và làm việc của bạn.
+            {/* Sub-headline */}
+            <p className="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl">
+              Hệ sinh thái đào tạo Tin học Văn phòng Thực chiến & Luyện thi chứng chỉ quốc tế Certiport hàng đầu. Đồng hành cùng sinh viên <strong className="text-slate-900 font-extrabold">ĐH Công Nghệ Đồng Nai (DNTU)</strong>, Lạc Hồng, UEH... cam kết bao đỗ 100%.
             </p>
 
-            {/* Key Benefits Bullet Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg mt-2">
-              <div className="flex items-center gap-3 text-slate-700 font-bold text-xs sm:text-sm">
-                <div className="w-5 h-5 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                  <CheckCircle size={12} className="text-blue-600" />
-                </div>
-                <span>Không cần kiến thức nền tảng</span>
-              </div>
-              <div className="flex items-center gap-3 text-slate-700 font-bold text-xs sm:text-sm">
-                <div className="w-5 h-5 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                  <CheckCircle size={12} className="text-blue-600" />
-                </div>
-                <span>Thực hành case-study thực tế</span>
-              </div>
-              <div className="flex items-center gap-3 text-slate-700 font-bold text-xs sm:text-sm">
-                <div className="w-5 h-5 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                  <CheckCircle size={12} className="text-blue-600" />
-                </div>
-                <span>Thầy giáo hỗ trợ 24/7 trọn đời</span>
-              </div>
-              <div className="flex items-center gap-3 text-slate-700 font-bold text-xs sm:text-sm">
-                <div className="w-5 h-5 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center shrink-0">
-                  <CheckCircle size={12} className="text-blue-600" />
-                </div>
-                <span>Tặng kho templates độc quyền</span>
-              </div>
+            {/* Audience Segment Switcher */}
+            <div className="w-full max-w-md p-1.5 bg-slate-100/90 rounded-2xl flex items-center border border-slate-200/80">
+              <button
+                onClick={() => setActiveTab("student")}
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-black transition-all duration-300 ${
+                  activeTab === "student"
+                    ? "bg-white text-blue-700 shadow-sm border border-slate-200/60"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <GraduationCap size={15} />
+                <span>Sinh Viên (Chuẩn Đầu Ra)</span>
+              </button>
+              <button
+                onClick={() => setActiveTab("worker")}
+                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-black transition-all duration-300 ${
+                  activeTab === "worker"
+                    ? "bg-white text-blue-700 shadow-sm border border-slate-200/60"
+                    : "text-slate-600 hover:text-slate-900"
+                }`}
+              >
+                <Briefcase size={15} />
+                <span>Người Đi Làm (Thực Chiến)</span>
+              </button>
+            </div>
+
+            {/* Dynamic Value Propositions based on Active Tab */}
+            <div className="w-full bg-blue-50/50 border border-blue-100/80 rounded-2xl p-4 text-left space-y-2">
+              {activeTab === "student" ? (
+                <>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-800">
+                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+                    <span>Lộ trình cấp tốc 3 - 5 buổi, cam kết đỗ 100% (Học lại miễn phí nếu chưa đạt)</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-800">
+                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+                    <span>Tặng phần mềm thi thử giống 99% đề thi Certiport thật tại phòng thi IIG</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-800">
+                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />
+                    <span>Ưu đãi nhóm từ 3 bạn: Giảm 15% - 30% học phí</span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-800">
+                    <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
+                    <span>Excel Dashboard chuyên sâu, Pivot Table động, tự động hóa xử lý báo cáo</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-800">
+                    <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
+                    <span>Ứng dụng AI (ChatGPT, Copilot, Gamma) tăng tốc hiệu suất làm việc 10X</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm font-extrabold text-slate-800">
+                    <CheckCircle2 size={16} className="text-blue-600 shrink-0" />
+                    <span>Học 1-1 trực tiếp trên file dữ liệu công việc thực tế của công ty bạn</span>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mt-4 z-10">
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto pt-2">
               <Link
                 href="/lien-he"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-extrabold uppercase tracking-wide btn-premium-primary group text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-xs font-black uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all hover:scale-105"
               >
-                Đăng ký ngay
-                <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform duration-300" />
+                Đăng Ký Tư Vấn Lộ Trình
+                <ArrowRight size={15} />
               </Link>
+              
               <Link
                 href="/khoa-hoc"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm font-extrabold uppercase tracking-wide btn-premium-secondary group text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full text-xs font-black uppercase tracking-wider text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 shadow-sm transition-all"
               >
-                <BookOpen size={16} className="text-blue-600 group-hover:scale-110 transition-transform duration-350" />
-                Xem khóa học
+                Xem Danh Sách Khóa Học
               </Link>
             </div>
+
+            {/* Quick Proof Metrics */}
+            <div className="flex items-center gap-6 pt-3 border-t border-slate-100 text-xs text-slate-500">
+              <div className="flex items-center gap-1.5">
+                <div className="flex text-amber-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={13} fill="currentColor" />
+                  ))}
+                </div>
+                <span className="font-extrabold text-slate-700">4.9/5.0</span>
+                <span>(5.200+ đánh giá)</span>
+              </div>
+              <div className="hidden sm:flex items-center gap-1 text-emerald-600 font-extrabold">
+                <ShieldCheck size={14} />
+                <span>Cam kết chuẩn đầu ra 100%</span>
+              </div>
+            </div>
+
           </div>
 
-          {/* Hero Right Visual Column */}
-          <div className="lg:col-span-5 relative flex justify-center items-center z-10 lg:mt-0 mt-12">
-            <div className="relative w-full max-w-sm aspect-square rounded-[2rem] bg-gradient-to-tr from-blue-600 via-blue-500 to-cyan-400 p-[1.5px] shadow-featured shadow-premium overflow-hidden group hover:shadow-featured-hover transition-all duration-500">
-              <div className="absolute inset-0 bg-slate-950 opacity-10" />
-              {/* Abstract Glassmorphism Tech Visual */}
-              <div className="absolute inset-3.5 rounded-[1.7rem] bg-slate-900/95 backdrop-blur-sm p-6 sm:p-7 flex flex-col justify-between border border-white/10 text-white">
-                <div className="flex justify-between items-start">
-                  <div className="flex gap-2">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+          {/* Right Column: Visual Showcase Card */}
+          <div className="lg:col-span-5 relative">
+            <div className="relative mx-auto max-w-md bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 p-6 sm:p-8 rounded-[32px] shadow-2xl border border-slate-800/80 text-white overflow-hidden">
+              
+              {/* Top Accent */}
+              <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-6">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md overflow-hidden">
+                    <img src="/logo-icon.png" alt="PH Digital Education" className="w-full h-full object-contain" />
                   </div>
-                  <span className="text-[9px] tracking-widest uppercase font-bold text-slate-400 bg-slate-800/80 px-3 py-1 rounded-full border border-slate-700">
-                    tinhocgenz.io.vn
+                  <div>
+                    <h3 className="text-xs font-black text-white leading-none">PH DIGITAL EDUCATION</h3>
+                    <p className="text-[10px] text-cyan-400 font-bold mt-1">Certiport Authorized Training</p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                  Tỷ lệ đỗ 99.4%
+                </span>
+              </div>
+
+              {/* Central Certificate Badge Box */}
+              <div className="space-y-4 bg-slate-900/90 border border-slate-800 rounded-2xl p-5">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-400 uppercase font-black tracking-wider text-[10px]">Học viên tiêu biểu</span>
+                  <span className="text-amber-400 font-extrabold flex items-center gap-1">
+                    <Award size={13} /> 980 / 1000 Điểm
                   </span>
                 </div>
 
-                <div className="my-auto space-y-4">
-                  <div className="space-y-1">
-                    <p className="text-[10px] font-extrabold text-cyan-400 uppercase tracking-widest leading-none">Excel Dashboard</p>
-                    <h3 className="text-lg font-black tracking-tight text-white leading-snug">Khóa học Excel Thực Chiến</h3>
-                  </div>
-                  
-                  {/* Fake Code / Visual Interface */}
-                  <div className="space-y-2 bg-slate-950/70 p-4 rounded-2xl border border-slate-800/60 text-[11px] font-mono leading-relaxed">
-                    <p className="text-slate-400"><span className="text-blue-400">const</span> course = <span className="text-emerald-400">"Excel Nâng Cao"</span>;</p>
-                    <p className="text-slate-400"><span className="text-blue-400">const</span> style = <span className="text-emerald-400">"GenZ Vibe"</span>;</p>
-                    <p className="text-slate-400"><span className="text-blue-400">function</span> learn() &#123;</p>
-                    <p className="text-slate-300 pl-4">return <span className="text-cyan-400">{"\"Thực hành 100% -> Làm được việc!\""}</span>;</p>
-                    <p className="text-slate-400">&#125;</p>
-                  </div>
+                <div className="space-y-1.5">
+                  <p className="text-sm font-extrabold text-white">
+                    Chứng Chỉ MOS Excel 2019 Specialist
+                  </p>
+                  <p className="text-xs text-slate-300">
+                    Sinh viên ĐH Công Nghệ Đồng Nai (DNTU) - Hoàn thành xét tốt nghiệp sớm
+                  </p>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-slate-800/80 pt-4 mt-2">
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md overflow-hidden shrink-0 border border-slate-700/30">
-                      <img src="/logo-icon.png" alt="PH Icon" className="w-full h-full object-cover scale-[1.15]" />
-                    </div>
-                    <div>
-                      <p className="text-[11px] font-extrabold leading-none text-white">Thầy giáo GenZ</p>
-                      <p className="text-[8px] text-slate-400 leading-none mt-1">Microsoft MOS Certified</p>
-                    </div>
+                {/* Score progress bar */}
+                <div className="space-y-1">
+                  <div className="flex justify-between text-[11px] font-bold">
+                    <span className="text-slate-400">Điểm thi Certiport</span>
+                    <span className="text-cyan-400">98% (Xuất Sắc)</span>
                   </div>
-                  <div className="text-right">
-                    <p className="text-[8px] text-slate-500 uppercase leading-none font-extrabold">Học viên hài lòng</p>
-                    <p className="text-sm font-black text-cyan-400 leading-none mt-1">95%</p>
+                  <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                    <div className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full w-[98%] rounded-full" />
                   </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Small floating badge */}
-            <div className="absolute -bottom-4 -left-4 bg-white p-3.5 rounded-2xl shadow-premium shadow-xl border border-slate-100/80 flex items-center gap-3 animate-bounce max-w-[190px]">
-              <div className="bg-emerald-50 text-emerald-600 p-2 rounded-xl shrink-0">
-                <CheckCircle size={18} />
+
+              {/* Quick Feature List */}
+              <div className="mt-5 grid grid-cols-2 gap-3 text-[11px] text-slate-300">
+                <div className="p-2.5 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                  <p className="font-bold text-white">Ôn thi cấp tốc</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">3 - 5 buổi trọng tâm</p>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-800/50 border border-slate-700/50">
+                  <p className="font-bold text-white">Kèm 1:1 trực tiếp</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">Sửa lỗi bài tập 24/7</p>
+                </div>
               </div>
-              <div>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wide leading-none">Cam kết</p>
-                <p className="text-xs font-black text-slate-800 mt-1 leading-none">Làm được việc ngay!</p>
+
+              {/* Floating Action Hint */}
+              <div className="mt-6 pt-4 border-t border-slate-800 text-center">
+                <p className="text-xs text-slate-400">
+                  Bạn đang cần chứng chỉ gấp?{" "}
+                  <Link href="/lien-he" className="text-cyan-400 font-extrabold underline hover:text-cyan-300">
+                    Nhận lịch học & thi ngay
+                  </Link>
+                </p>
               </div>
+
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>

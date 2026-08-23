@@ -58,15 +58,22 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
           {getInitials(testimonial.name)}
         </div>
         
-        <div className="flex flex-col min-w-0">
-          <cite className="not-italic text-sm font-black text-slate-900 leading-snug truncate">
-            {testimonial.name}
-          </cite>
-          <span className="text-[10px] font-black text-blue-600 uppercase tracking-wide mt-1.5 truncate">
+        <div className="flex flex-col min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-1">
+            <cite className="not-italic text-sm font-black text-slate-900 leading-snug truncate">
+              {testimonial.name}
+            </cite>
+            {testimonial.score && (
+              <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black shrink-0">
+                {testimonial.score}
+              </span>
+            )}
+          </div>
+          <span className="text-[10px] font-black text-blue-600 uppercase tracking-wide mt-1 truncate">
             {testimonial.courseOrService}
           </span>
-          <span className="text-[9px] text-slate-400 font-bold tracking-normal mt-0.5 truncate">
-            {testimonial.role}
+          <span className="text-[10px] text-slate-500 font-bold tracking-normal mt-0.5 truncate">
+            {testimonial.role} • {testimonial.universityOrCompany}
           </span>
         </div>
 

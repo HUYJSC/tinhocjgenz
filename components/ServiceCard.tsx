@@ -11,20 +11,18 @@ export default function ServiceCard({ service, index = 0 }: ServiceCardProps) {
   // Map icons dynamically
   const getIcon = (id: string) => {
     switch (id) {
+      case "cai-win-office":
+        return <Monitor size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />;
+      case "cai-phan-mem-do-hoa":
+        return <Palette size={20} className="text-cyan-500 group-hover:text-white transition-colors duration-300" />;
+      case "thiet-ke-excel-custom":
+        return <FileSpreadsheet size={20} className="text-emerald-600 group-hover:text-white transition-colors duration-300" />;
       case "cai-windows":
         return <Monitor size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />;
       case "cai-office":
         return <Cpu size={20} className="text-cyan-500 group-hover:text-white transition-colors duration-300" />;
-      case "sua-may-tinh":
-        return <Monitor size={20} className="text-blue-500 group-hover:text-white transition-colors duration-300" />;
-      case "ve-sinh-laptop":
-        return <Cpu size={20} className="text-teal-500 group-hover:text-white transition-colors duration-300" />;
-      case "danh-van-ban":
-        return <FileText size={20} className="text-teal-600 group-hover:text-white transition-colors duration-300" />;
-      case "thiet-ke-excel":
-        return <FileSpreadsheet size={20} className="text-emerald-600 group-hover:text-white transition-colors duration-300" />;
       default:
-        return <Monitor size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />;
+        return <Terminal size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />;
     }
   };
 
