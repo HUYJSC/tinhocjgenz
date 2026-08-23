@@ -86,10 +86,20 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: University Standards */}
+          {/* Column 3: University Standards & Open Tools */}
           <div>
-            <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Chuẩn Đầu Ra ĐH</h3>
+            <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Tiện Ích & Học Liệu</h3>
             <ul className="space-y-3.5 text-sm">
+              <li>
+                <Link href="/thi-thu" className="hover:text-cyan-400 font-bold smooth-transition text-cyan-300 hover:translate-x-1 inline-block">
+                  🎯 Thi thử MOS & IC3 Online Free
+                </Link>
+              </li>
+              <li>
+                <Link href="/tai-lieu" className="hover:text-emerald-400 font-bold smooth-transition text-emerald-300 hover:translate-x-1 inline-block">
+                  📚 Tải bộ 50 đề thi thử Certiport
+                </Link>
+              </li>
               <li>
                 <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
                   Chuẩn đầu ra ĐH Công Nghệ Đồng Nai (DNTU)
@@ -97,17 +107,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Chuẩn đầu ra ĐH Lạc Hồng (LHU)
-                </Link>
-              </li>
-              <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Chuẩn đầu ra ĐH Kinh Tế TP.HCM (UEH)
-                </Link>
-              </li>
-              <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Hội đồng khảo thí Certiport Hoa Kỳ
+                  Chuẩn đầu ra ĐH Lạc Hồng & UEH
                 </Link>
               </li>
             </ul>

@@ -4,6 +4,9 @@ import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import UniversityPathway from "@/components/UniversityPathway";
 import ScheduleSection from "@/components/ScheduleSection";
+import HallOfFame from "@/components/HallOfFame";
+import ExamGuide from "@/components/ExamGuide";
+import GuaranteePolicy from "@/components/GuaranteePolicy";
 import CourseCard from "@/components/CourseCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import { coursesData, testimonialsData, valuesData } from "@/data/mockData";
@@ -75,10 +78,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Real-Time Schedule & Exam Batches */}
+      {/* 5. Hall of Fame - Real Student Certificates */}
+      <HallOfFame />
+
+      {/* 6. Real-Time Schedule & Exam Batches */}
       <ScheduleSection />
 
-      {/* 6. Why Choose PH Digital Education */}
+      {/* 7. Exam Procedure 4-Step Walkthrough */}
+      <ExamGuide />
+
+      {/* 8. 4 Golden Pass Guarantees */}
+      <GuaranteePolicy />
+
+      {/* 9. Why Choose PH Digital Education */}
       <section className="py-24 sm:py-32 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
@@ -121,7 +133,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. Testimonials Section */}
+      {/* 10. Testimonials Section */}
       <section className="py-24 sm:py-32 bg-gradient-to-b from-[#f8fafc] to-white border-t border-slate-100/60 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           

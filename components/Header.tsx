@@ -26,10 +26,12 @@ export default function Header() {
   // Navigation Links
   const navItems = [
     { label: "Trang chủ", href: "/" },
-    { label: "Giới thiệu", href: "/gioi-thieu" },
-    { label: "Khóa học & Luyện thi", href: "/khoa-hoc" },
-    { label: "Bảng giá", href: "/bang-gia" },
-    { label: "Liên hệ", href: "/lien-he" },
+    { label: "Khóa học MOS/IC3", href: "/khoa-hoc" },
+    { label: "Thi Thử Online", href: "/thi-thu" },
+    { label: "Tài Liệu Free", href: "/tai-lieu" },
+    { label: "Bảng Giá", href: "/bang-gia" },
+    { label: "Giới Thiệu", href: "/gioi-thieu" },
+    { label: "Liên Hệ", href: "/lien-he" },
   ];
 
   return (
