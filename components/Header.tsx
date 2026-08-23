@@ -34,28 +34,24 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-500 w-full ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-slate-100/80 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.05)] py-2"
-          : "bg-transparent py-3 sm:py-4"
-      }`}
+      className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm py-2.5 sm:py-3 transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo and Brand Typography */}
-          <Link href="/" className="group shrink-0 flex items-center gap-3 sm:gap-3.5 py-0.5">
-            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-2xl bg-white border border-slate-200/90 group-hover:border-blue-300 shadow-sm p-1.5 flex items-center justify-center shrink-0 smooth-transition">
+          <Link href="/" className="group shrink-0 flex items-center gap-2.5 sm:gap-3 py-0.5">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-13 md:h-13 rounded-2xl bg-white border border-slate-200/90 group-hover:border-blue-300 shadow-sm p-1.5 flex items-center justify-center shrink-0 smooth-transition">
               <img 
-                src="/logo.png" 
+                src="/logo-icon.png" 
                 alt="PH Digital Education Logo" 
                 className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300" 
               />
             </div>
             <div className="flex flex-col justify-center">
-              <span className="text-sm sm:text-base md:text-lg lg:text-xl font-black tracking-tight text-slate-900 leading-tight group-hover:text-blue-600 transition-colors font-display">
+              <span className="text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 leading-tight group-hover:text-blue-600 transition-colors font-display">
                 PH DIGITAL EDUCATION
               </span>
-              <div className="text-[9px] sm:text-[11px] md:text-xs font-bold tracking-wider mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 leading-none">
+              <div className="text-[9px] sm:text-[11px] font-bold tracking-wider mt-0.5 flex items-center gap-1 sm:gap-1.5 leading-none">
                 <span className="hidden sm:inline text-slate-500">Information Technology</span>
                 <span className="inline sm:hidden text-slate-500">IT</span>
                 <span className="text-amber-500 font-black">•</span>
