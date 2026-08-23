@@ -34,8 +34,8 @@ export default function PricingPage() {
             <Award size={13} className="text-blue-600" />
             PH DIGITAL EDUCATION • HỌC PHÍ MINH BẠCH
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-            Bảng Giá Khóa Học & Dịch Vụ IT
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight font-display">
+            Bảng Giá Khóa Học & Luyện Thi MOS / IC3
           </h1>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             Học phí tối ưu dành cho sinh viên và người đi làm. Cam kết trọn gói, không phát sinh chi phí, bảo hành đầu ra thi đỗ 100%.

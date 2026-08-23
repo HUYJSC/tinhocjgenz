@@ -25,7 +25,7 @@ export default function CoursesPage() {
             <Award size={13} className="text-blue-600" />
             PH DIGITAL EDUCATION • HỆ THỐNG KHÓA HỌC CHUẨN QUỐC TẾ
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight font-display">
             Chương Trình Đào Tạo & Luyện Thi Chứng Chỉ
           </h1>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">

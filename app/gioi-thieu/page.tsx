@@ -31,7 +31,7 @@ export default function AboutPage() {
             <School size={13} className="text-blue-600" />
             PH DIGITAL EDUCATION • HỆ SINH THÁI ĐÀO TẠO CNTT
           </span>
-          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight font-display">
             Sứ Mệnh & Giá Trị Cốt Lõi
           </h1>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">

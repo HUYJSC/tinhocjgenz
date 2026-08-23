@@ -6,16 +6,16 @@ import Footer from "@/components/Footer";
 import FloatingContact from "@/components/FloatingContact";
 import { SITE_CONFIG } from "@/data/siteConfig";
 
-// Configure premium fonts
+// Configure premium fonts with Vietnamese support
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   display: "swap",
 });
 
