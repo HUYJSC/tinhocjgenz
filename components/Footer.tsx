@@ -12,16 +12,16 @@ export default function Footer() {
           {/* Column 1: Brand Intro */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="group w-max">
-              <div className="bg-white hover:bg-slate-50 border border-slate-700/60 hover:border-slate-500 rounded-2xl px-3.5 py-2 smooth-transition shadow-lg">
+              <div className="bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 rounded-2xl px-4 py-2.5 smooth-transition shadow-lg">
                 <img
-                  src="/logo-wide.png"
+                  src="/logo-dark.png"
                   alt="PH Digital Education - Tin học MOS IC3"
-                  className="h-12 md:h-14 w-auto object-contain group-hover:scale-[1.03] transition-all duration-300 ease-out"
+                  className="h-10 md:h-12 w-auto object-contain group-hover:scale-[1.02] transition-all duration-300 ease-out"
                 />
               </div>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mt-2">
-              Khóa học Tin học văn phòng thực chiến theo phong cách hiện đại. Học nhanh - Thực hành ngay - Làm được việc luôn. Đột phá hiệu suất công việc cùng chuyên gia GenZ.
+              Hệ sinh thái đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 chuẩn Certiport. Cam kết chuẩn đầu ra Đại học bao đỗ 100%.
             </p>
             <div className="flex items-center gap-3 mt-4">
               <a
@@ -55,22 +55,22 @@ export default function Footer() {
             <ul className="space-y-3.5 text-sm">
               <li>
                 <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Tin học văn phòng Toàn diện 4.0
+                  Luyện thi MOS 3 môn chuẩn đầu ra
                 </Link>
               </li>
               <li>
                 <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Excel Master Pro thực chiến
+                  Chứng chỉ kỹ năng số IC3 GS6
                 </Link>
               </li>
               <li>
                 <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Combo Word & PowerPoint GenZ
+                  Excel Dashboard chuyên sâu doanh nghiệp
                 </Link>
               </li>
               <li>
                 <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Luyện thi chứng chỉ MOS quốc tế
+                  Ứng dụng AI văn phòng 10X hiệu suất
                 </Link>
               </li>
             </ul>
@@ -82,22 +82,22 @@ export default function Footer() {
             <ul className="space-y-3.5 text-sm">
               <li>
                 <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Cài hệ điều hành Windows
+                  Cài hệ điều hành Windows & Office
                 </Link>
               </li>
               <li>
                 <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Cài bộ Microsoft Office
+                  Cài trọn bộ Adobe, AutoCAD đồ họa
                 </Link>
               </li>
               <li>
                 <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Cài đặt phần mềm đồ họa
+                  Thiết kế bảng tính Excel theo yêu cầu
                 </Link>
               </li>
               <li>
                 <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Cài phần mềm theo yêu cầu
+                  Hỗ trợ kỹ thuật máy tính từ xa
                 </Link>
               </li>
             </ul>
@@ -135,10 +135,10 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="border-t border-slate-800 pt-8 mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {currentYear} Thầy giáo GenZ. All rights reserved. Bản quyền thuộc về tinhocgenz.io.vn.</p>
+          <p>© {currentYear} PH DIGITAL EDUCATION. All rights reserved. Hệ thống đào tạo CNTT & Chứng chỉ Quốc tế.</p>
           <div className="flex gap-6">
-            <Link href="/gioi-thieu" className="hover:text-slate-400 smooth-transition">Điều khoản dịch vụ</Link>
-            <Link href="/lien-he" className="hover:text-slate-400 smooth-transition">Chính sách bảo mật</Link>
+            <Link href="/gioi-thieu" className="hover:text-slate-400 smooth-transition">Điều khoản đào tạo</Link>
+            <Link href="/lien-he" className="hover:text-slate-400 smooth-transition">Cam kết chuẩn đầu ra</Link>
           </div>
         </div>
       </div>

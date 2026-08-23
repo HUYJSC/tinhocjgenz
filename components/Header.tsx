@@ -44,12 +44,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo and Brand */}
-          <Link href="/" className="group shrink-0 flex items-center gap-2.5">
-            <div className="bg-white hover:bg-slate-50 border border-slate-200/80 hover:border-blue-200 rounded-xl px-2.5 py-1 shadow-sm smooth-transition">
+          <Link href="/" className="group shrink-0 flex items-center">
+            <div className="bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-blue-300/80 rounded-2xl px-3 py-1.5 shadow-sm smooth-transition">
               <img 
                 src="/logo-wide.png" 
                 alt="PH Digital Education - Tin học MOS IC3" 
-                className="h-9 md:h-11 w-auto object-contain group-hover:scale-[1.03] transition-all duration-300" 
+                className="h-10 md:h-12 w-auto object-contain group-hover:scale-[1.02] transition-all duration-300" 
               />
             </div>
           </Link>

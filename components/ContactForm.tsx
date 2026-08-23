@@ -131,7 +131,7 @@ function ContactFormContent() {
         <div className="space-y-2">
           <h3 className="text-2xl font-black text-slate-900 tracking-tight">Đăng Ký Thành Công!</h3>
           <p className="text-slate-600 text-sm max-w-md mx-auto leading-relaxed">
-            Chào <strong className="text-blue-600 font-bold">{formData.name}</strong>, Thầy giáo GenZ đã ghi nhận yêu cầu đăng ký của bạn.
+            Chào <strong className="text-blue-600 font-bold">{formData.name}</strong>, PH Digital Education đã ghi nhận yêu cầu đăng ký của bạn.
           </p>
           <div className="bg-slate-900 text-white rounded-2xl p-4 text-xs font-mono text-left max-w-sm mx-auto shadow-inner space-y-2 mt-4">
             <p className="text-slate-400"># THÔNG TIN ĐĂNG KÝ:</p>
@@ -149,7 +149,7 @@ function ContactFormContent() {
         
         <div className="bg-blue-50 border border-blue-100 rounded-xl px-5 py-3.5 text-xs text-blue-700 font-semibold flex items-center gap-2 max-w-md shadow-sm">
           <Sparkles size={16} className="text-cyan-500 shrink-0" />
-          <span>Thầy giáo sẽ liên hệ trực tiếp qua số <strong>{formData.phone}</strong> trong vòng 15 phút nữa nhé!</span>
+          <span>Ban tư vấn PH Digital Education sẽ liên hệ trực tiếp qua số <strong>{formData.phone}</strong> trong vòng 15 phút nhé!</span>
         </div>
 
         <button
@@ -171,10 +171,10 @@ function ContactFormContent() {
       <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-600 to-cyan-500" />
 
       <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-2">
-        Nhận Tư Vấn Miễn Phí
+        Nhận Tư Vấn Lộ Trình Miễn Phí
       </h3>
       <p className="text-slate-500 text-xs sm:text-sm mb-6 leading-relaxed">
-        Để lại thông tin, Thầy giáo GenZ sẽ chủ động gọi điện để tư vấn lộ trình học tập tối ưu hoặc lên lịch cài đặt dịch vụ giúp bạn ngay!
+        Để lại thông tin, giảng viên PH Digital Education sẽ chủ động gọi điện để tư vấn lộ trình học tập tối ưu hoặc xếp lịch thi Certiport gần nhất cho bạn!
       </p>
 
       {submitError && (
