@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { CheckCircle2, AlertCircle, ArrowRight, Loader2, Sparkles } from "lucide-react";
-import { coursesData, servicesData } from "@/data/mockData";
+import { coursesData } from "@/data/mockData";
 
 // Wrapper component to provide Suspense boundary
 export default function ContactForm() {
@@ -22,10 +22,16 @@ export default function ContactForm() {
 function ContactFormContent() {
   const searchParams = useSearchParams();
   
-  // Combine all selectable courses & services
+  // Combine all selectable courses & university standards
   const selectionOptions = [
-    { category: "Khóa học Tin học", items: coursesData.map(c => ({ id: c.id, name: c.title })) },
-    { category: "Dịch vụ Máy tính", items: servicesData.map(s => ({ id: s.id, name: s.name })) }
+    { 
+      category: "Chứng Chỉ Quốc Tế MOS & IC3", 
+      items: coursesData.filter(c => c.category === "mos-ic3").map(c => ({ id: c.id, name: c.title })) 
+    },
+    { 
+      category: "Tin Học Thực Chiến & Doanh Nghiệp", 
+      items: coursesData.filter(c => c.category !== "mos-ic3").map(c => ({ id: c.id, name: c.title })) 
+    }
   ];
 
   // Form State
@@ -46,8 +52,7 @@ function ContactFormContent() {
   useEffect(() => {
     const preselect = searchParams.get("select");
     if (preselect) {
-      // Find matching item inside courses or services
-      const hasMatch = [...coursesData, ...servicesData].some(item => item.id === preselect);
+      const hasMatch = coursesData.some(item => item.id === preselect);
       if (hasMatch) {
         setFormData(prev => ({ ...prev, selection: preselect }));
       }
@@ -139,9 +144,9 @@ function ContactFormContent() {
             <p>• SĐT: {formData.phone}</p>
             <p>• Đăng ký: {
               (() => {
-                const item = [...coursesData, ...servicesData].find(x => x.id === formData.selection);
-                if (!item) return "Tư vấn chung";
-                return "title" in item ? item.title : item.name;
+                const item = coursesData.find(x => x.id === formData.selection);
+                if (!item) return "Tư vấn lộ trình chuẩn đầu ra MOS/IC3";
+                return item.title;
               })()
             }</p>
           </div>

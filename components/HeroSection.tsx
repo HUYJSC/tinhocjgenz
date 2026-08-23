@@ -154,13 +154,13 @@ export default function HeroSection() {
               
               {/* Top Accent */}
               <div className="flex items-center justify-between border-b border-slate-800/80 pb-4 mb-6">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-12 h-12 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md overflow-hidden border border-slate-700">
+                <div className="flex items-center gap-3">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white p-1.5 flex items-center justify-center shadow-lg overflow-hidden border border-slate-700 shrink-0">
                     <img src="/logo.png" alt="PH Digital Education" className="w-full h-full object-contain" />
                   </div>
                   <div>
-                    <h3 className="text-xs font-black text-white leading-none">PH DIGITAL EDUCATION</h3>
-                    <p className="text-[10px] text-cyan-400 font-bold mt-1">Certiport Authorized Training</p>
+                    <h3 className="text-sm sm:text-base font-black text-white leading-tight">PH DIGITAL EDUCATION</h3>
+                    <p className="text-[11px] text-cyan-400 font-bold mt-0.5">Certiport Authorized Training</p>
                   </div>
                 </div>
                 <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">

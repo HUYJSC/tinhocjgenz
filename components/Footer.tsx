@@ -11,31 +11,19 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Column 1: Brand Intro */}
           <div className="flex flex-col gap-4">
-            <Link href="/" className="group flex items-center gap-3.5 w-max">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white p-1.5 shadow-lg flex items-center justify-center shrink-0 border border-slate-700">
+            <Link href="/" className="group inline-block w-max">
+              <div className="bg-white p-2.5 rounded-2xl shadow-xl border border-slate-700 inline-block">
                 <img
                   src="/logo.png"
                   alt="PH Digital Education"
-                  className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300"
+                  className="h-16 sm:h-20 md:h-24 w-auto object-contain group-hover:scale-105 transition-all duration-300"
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-base md:text-lg font-black tracking-tight text-white leading-none">
-                  PH DIGITAL EDUCATION
-                </span>
-                <span className="text-xs font-semibold text-slate-400 mt-1.5 flex items-center gap-1.5">
-                  <span>IT</span>
-                  <span className="text-amber-400 font-bold">•</span>
-                  <span>IC3</span>
-                  <span className="text-amber-400 font-bold">•</span>
-                  <span>MOS</span>
-                </span>
-              </div>
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed mt-2">
+            <p className="text-slate-400 text-sm leading-relaxed mt-1">
               Hệ sinh thái đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 chuẩn Certiport. Cam kết chuẩn đầu ra Đại học bao đỗ 100%.
             </p>
-            <div className="flex items-center gap-3 mt-4">
+            <div className="flex items-center gap-3 mt-3">
               <a
                 href={CONTACT_INFO.facebookUrl || "https://www.facebook.com/Thaygiaogenz13"}
                 target="_blank"
@@ -88,28 +76,28 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Tech Services */}
+          {/* Column 3: University Standards */}
           <div>
-            <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Dịch vụ IT</h3>
+            <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Chuẩn Đầu Ra ĐH</h3>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Cài hệ điều hành Windows & Office
+                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                  Chuẩn đầu ra ĐH Công Nghệ Đồng Nai (DNTU)
                 </Link>
               </li>
               <li>
-                <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Cài trọn bộ Adobe, AutoCAD đồ họa
+                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                  Chuẩn đầu ra ĐH Lạc Hồng (LHU)
                 </Link>
               </li>
               <li>
-                <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Thiết kế bảng tính Excel theo yêu cầu
+                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                  Chuẩn đầu ra ĐH Kinh Tế TP.HCM (UEH)
                 </Link>
               </li>
               <li>
-                <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Hỗ trợ kỹ thuật máy tính từ xa
+                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                  Hội đồng khảo thí Certiport Hoa Kỳ
                 </Link>
               </li>
             </ul>

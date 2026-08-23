@@ -27,8 +27,7 @@ export default function Header() {
   const navItems = [
     { label: "Trang chủ", href: "/" },
     { label: "Giới thiệu", href: "/gioi-thieu" },
-    { label: "Khóa học", href: "/khoa-hoc" },
-    { label: "Dịch vụ", href: "/dich-vu" },
+    { label: "Khóa học & Luyện thi", href: "/khoa-hoc" },
     { label: "Bảng giá", href: "/bang-gia" },
     { label: "Liên hệ", href: "/lien-he" },
   ];
@@ -37,44 +36,32 @@ export default function Header() {
     <header
       className={`sticky top-0 z-50 transition-all duration-500 w-full ${
         scrolled
-          ? "bg-white/75 backdrop-blur-md border-b border-slate-100/80 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.03)] py-2"
-          : "bg-transparent py-5"
+          ? "bg-white/95 backdrop-blur-md border-b border-slate-100/80 shadow-[0_4px_20px_-12px_rgba(0,0,0,0.05)] py-2"
+          : "bg-transparent py-3 sm:py-4"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo and Brand */}
-          <Link href="/" className="group shrink-0 flex items-center gap-3">
-            <div className="w-11 h-11 md:w-13 md:h-13 rounded-2xl bg-white border border-slate-200/90 shadow-sm p-1 flex items-center justify-center shrink-0 group-hover:border-blue-300 smooth-transition">
+          {/* Logo and Brand - BIGGER & PROMINENT */}
+          <Link href="/" className="group shrink-0 flex items-center py-0.5">
+            <div className="bg-white hover:bg-slate-50 border border-slate-200/90 hover:border-blue-300 rounded-2xl p-1.5 shadow-sm smooth-transition">
               <img 
                 src="/logo.png" 
                 alt="PH Digital Education Logo" 
-                className="w-full h-full object-contain group-hover:scale-105 transition-all duration-300" 
+                className="h-12 sm:h-14 md:h-16 lg:h-18 w-auto object-contain group-hover:scale-105 transition-all duration-300" 
               />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm md:text-[15px] font-black tracking-tight text-slate-900 leading-none group-hover:text-blue-600 transition-colors">
-                PH DIGITAL EDUCATION
-              </span>
-              <span className="text-[10px] md:text-[11px] font-bold text-slate-500 tracking-wider mt-1 flex items-center gap-1.5 leading-none">
-                <span>IT</span>
-                <span className="text-amber-500 font-black">•</span>
-                <span>IC3</span>
-                <span className="text-amber-500 font-black">•</span>
-                <span>MOS</span>
-              </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4">
+          <nav className="hidden md:flex items-center gap-5">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative py-1.5 px-0.5 text-xs lg:text-sm font-bold tracking-wide transition-all duration-300 nav-link-animated ${
+                  className={`relative py-1.5 px-0.5 text-xs lg:text-sm font-black tracking-wide transition-all duration-300 nav-link-animated ${
                     isActive
                       ? "text-blue-600 nav-link-active"
                       : "text-slate-600 hover:text-blue-600"

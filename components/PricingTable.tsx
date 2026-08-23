@@ -117,54 +117,14 @@ export default function PricingTable() {
                 <td className="py-3.5 px-4 text-center">
                   <Link
                     href={`/lien-he?select=${course.id}`}
-                    className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[9px] font-black tracking-wide uppercase transition-all duration-300 ${
+                    className={`inline-flex items-center gap-1 px-3.5 py-2 rounded-full text-[10px] font-black tracking-wide uppercase transition-all duration-300 ${
                       course.popular
                         ? "btn-premium-primary"
                         : "btn-premium-secondary"
                     }`}
                   >
                     Đăng ký
-                    <ArrowRight size={9} />
-                  </Link>
-                </td>
-              </tr>
-            ))}
-
-            {/* --- SECTION 2: DỊCH VỤ CÀI ĐẶT HỆ ĐIỀU HÀNH & PHẦN MỀM --- */}
-            <tr className="bg-slate-700/[0.05]">
-              <td colSpan={4} className="py-3 px-5 font-black text-slate-700 text-[10px] sm:text-[11px] tracking-widest uppercase border-l-[3px] border-l-slate-400">
-                <div className="flex items-center gap-2 font-display">
-                  <Wrench size={12} className="text-slate-500" />
-                  DỊCH VỤ CÀI ĐẶT HỆ ĐIỀU HÀNH & PHẦN MỀM CHUYÊN NGHIỆP
-                </div>
-              </td>
-            </tr>
-            {servicesData.map((service) => (
-              <tr key={service.id} className="hover:bg-slate-50/50 smooth-transition group">
-                {/* Name */}
-                <td className="py-3.5 px-5">
-                  <span className="font-bold text-slate-900 text-xs sm:text-sm group-hover:text-blue-600 smooth-transition">{service.name}</span>
-                  <p className="text-slate-400 text-[10px] mt-0.5 leading-relaxed line-clamp-1">{service.description}</p>
-                </td>
-                
-                {/* Price */}
-                <td className="py-3.5 px-4">
-                  <span className="font-black text-blue-600 text-xs sm:text-sm">{service.price}</span>
-                </td>
-                
-                {/* Features (Short notes) */}
-                <td className="py-3.5 px-4 text-slate-500 text-[10px] sm:text-[11px] font-semibold leading-relaxed">
-                  {service.features[0]}{service.features[1] ? ` & ${service.features[1].toLowerCase()}` : ""}
-                </td>
-                
-                {/* Action Link */}
-                <td className="py-3.5 px-4 text-center">
-                  <Link
-                    href={`/lien-he?select=${service.id}`}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-[9px] font-black tracking-wide uppercase btn-premium-secondary"
-                  >
-                    Đặt lịch
-                    <ArrowRight size={9} />
+                    <ArrowRight size={10} />
                   </Link>
                 </td>
               </tr>
@@ -175,9 +135,9 @@ export default function PricingTable() {
       </div>
       
       {/* Table Footer Helper */}
-      <div className="bg-slate-50/60 px-4 py-3 border-t border-slate-100/60 text-[10px] sm:text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-1.5">
-        <p className="font-medium">* Học viên đăng ký Combo từ 2 khóa học trở lên được giảm ngay 10% học phí tổng.</p>
-        <p className="font-black text-slate-700">Hỗ trợ cài đặt phần mềm học tập miễn phí suốt khóa học!</p>
+      <div className="bg-slate-50/80 px-5 py-4 border-t border-slate-100/80 text-xs text-slate-600 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p className="font-semibold">* Học viên đăng ký theo nhóm từ 3 bạn được giảm ngay 15% - 40% tổng học phí.</p>
+        <p className="font-black text-blue-700">Cam kết bao đỗ 100% - Học lại miễn phí nếu chưa đạt!</p>
       </div>
 
     </div>
