@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { 
   Menu, X, ArrowRight, Sparkles, BookOpen, Award, 
   FileText, ShieldCheck, Phone, ChevronDown, 
-  School, ExternalLink, GraduationCap 
+  School, ExternalLink, GraduationCap, Zap
 } from "lucide-react";
 import { CONTACT_INFO } from "@/data/contactInfo";
 
@@ -16,7 +16,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Scroll detection
+  // Scroll detection for enhanced glassmorphism
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -36,41 +36,45 @@ export default function Header() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-sm py-2.5 sm:py-3 transition-all duration-300">
+    <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      scrolled 
+        ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200/80 py-2 sm:py-2.5" 
+        : "bg-white border-b border-slate-200/60 py-2.5 sm:py-3"
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-3 lg:gap-6">
           
-          {/* 1. LEFT: CLEAN BRAND LOGO & TYPOGRAPHY (PURE, NO CLUTTER) */}
-          <Link href="/" className="group flex items-center gap-3 py-1 shrink-0">
+          {/* 1. LEFT: REFINED SLEEK BRAND LOGO */}
+          <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 py-0.5">
             <img 
               src="/logo-icon.png" 
               alt="PH Digital Education Logo" 
-              className="h-10 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" 
+              className="h-9 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300" 
             />
             <div className="flex flex-col justify-center">
-              <span className="text-sm sm:text-base md:text-[17px] font-black tracking-tight text-slate-900 leading-tight group-hover:text-blue-600 transition-colors font-display">
+              <span className="text-sm sm:text-[15px] font-black tracking-tight text-slate-900 leading-none group-hover:text-blue-600 transition-colors font-display whitespace-nowrap">
                 PH DIGITAL EDUCATION
               </span>
-              <div className="text-[9px] sm:text-[11px] font-bold tracking-wider mt-0.5 flex items-center gap-1 sm:gap-1.5 leading-none">
-                <span className="hidden md:inline text-slate-500">Information Technology</span>
-                <span className="inline md:hidden text-slate-500">IT</span>
-                <span className="text-amber-500 font-black">•</span>
-                <span className="text-blue-600 font-black">IC3</span>
-                <span className="text-amber-500 font-black">•</span>
-                <span className="text-indigo-600 font-black">MOS</span>
+              <div className="text-[10px] text-slate-500 font-bold tracking-wider mt-1 flex items-center gap-1.5 leading-none whitespace-nowrap">
+                <span className="text-blue-600 font-black">MOS</span>
+                <span className="text-amber-500">•</span>
+                <span className="text-cyan-600 font-black">IC3</span>
+                <span className="text-amber-500">•</span>
+                <span>CHỨNG CHỈ QUỐC TẾ</span>
               </div>
             </div>
           </Link>
 
-          {/* 2. CENTER: ULTRA-CLEAN MODERN DESKTOP NAVIGATION */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-7">
+          {/* 2. CENTER: CLEAN SINGLE-LINE DESKTOP NAVIGATION (NO WRAPPING) */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 shrink-0">
+            
             <Link
               href="/"
-              className={`text-xs xl:text-sm font-black tracking-wide transition-colors ${
-                pathname === "/" ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
+              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
+                pathname === "/" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
               }`}
             >
-              Trang chủ
+              Trang Chủ
             </Link>
 
             {/* Interactive Mega Menu Dropdown Button */}
@@ -78,36 +82,36 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                className={`text-xs xl:text-sm font-black tracking-wide transition-colors flex items-center gap-1.5 cursor-pointer py-1.5 ${
+                className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1 cursor-pointer py-1.5 whitespace-nowrap ${
                   isMegaMenuOpen || pathname.startsWith("/khoa-hoc")
-                    ? "text-blue-600 font-black"
+                    ? "text-blue-600 font-extrabold"
                     : "text-slate-700 hover:text-blue-600"
                 }`}
               >
-                <span>Khóa Học & Danh Mục</span>
+                <span>Khóa Học</span>
                 <ChevronDown
-                  size={14}
-                  className={`transition-transform duration-300 ${isMegaMenuOpen ? "rotate-180 text-blue-600" : "text-slate-400"}`}
+                  size={13}
+                  className={`transition-transform duration-200 ${isMegaMenuOpen ? "rotate-180 text-blue-600" : "text-slate-400"}`}
                 />
               </button>
             </div>
 
             <Link
               href="/thi-thu"
-              className={`text-xs xl:text-sm font-black tracking-wide transition-colors flex items-center gap-1.5 ${
-                pathname === "/thi-thu" ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
+              className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1.5 py-1.5 whitespace-nowrap ${
+                pathname === "/thi-thu" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
               }`}
             >
               <span>Thi Thử Online</span>
-              <span className="px-1.5 py-0.5 rounded-full text-[9px] font-black bg-cyan-50 text-cyan-700 border border-cyan-200">
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-cyan-50 text-cyan-700 border border-cyan-200">
                 HOT
               </span>
             </Link>
 
             <Link
               href="/tai-lieu"
-              className={`text-xs xl:text-sm font-black tracking-wide transition-colors ${
-                pathname === "/tai-lieu" ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
+              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
+                pathname === "/tai-lieu" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
               }`}
             >
               Tài Liệu Free
@@ -115,17 +119,17 @@ export default function Header() {
 
             <Link
               href="/blog"
-              className={`text-xs xl:text-sm font-black tracking-wide transition-colors flex items-center gap-1.5 ${
-                pathname.startsWith("/blog") ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
+              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
+                pathname.startsWith("/blog") ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
               }`}
             >
-              <span>Cẩm Nang & Blog</span>
+              Cẩm Nang & Blog
             </Link>
 
             <Link
               href="/bang-gia"
-              className={`text-xs xl:text-sm font-black tracking-wide transition-colors ${
-                pathname === "/bang-gia" ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
+              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
+                pathname === "/bang-gia" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
               }`}
             >
               Bảng Giá
@@ -133,34 +137,35 @@ export default function Header() {
 
             <Link
               href="/gioi-thieu"
-              className={`text-xs xl:text-sm font-black tracking-wide transition-colors ${
-                pathname === "/gioi-thieu" ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
+              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
+                pathname === "/gioi-thieu" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
               }`}
             >
               Giới Thiệu
             </Link>
+
           </nav>
 
-          {/* 3. RIGHT: DIRECT ACTIONS & MOBILE HAMBURGER */}
-          <div className="flex items-center gap-3 shrink-0">
+          {/* 3. RIGHT: DIRECT ACTION BUTTON & MOBILE TOGGLE */}
+          <div className="flex items-center gap-2.5 shrink-0">
             
-            {/* Direct CTA */}
+            {/* Direct CTA Button */}
             <Link
               href="/lien-he"
-              className="hidden sm:inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-black tracking-wide uppercase btn-premium-primary group shadow-md"
+              className="hidden sm:inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-black tracking-wide uppercase bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 text-white shadow-sm hover:shadow-md transition-all hover:scale-[1.02] whitespace-nowrap"
             >
               <span>Đăng Ký Học</span>
-              <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight size={13} />
             </Link>
 
             {/* Mobile Hamburger Button */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors"
+              className="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors"
               aria-label="Toggle mobile menu"
             >
-              {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
 
           </div>
@@ -168,7 +173,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* 4. DESKTOP MEGA MENU DROPDOWN (Khi bấm Khóa Học & Danh Mục) */}
+      {/* 4. DESKTOP MEGA MENU DROPDOWN */}
       {isMegaMenuOpen && (
         <div className="hidden lg:block absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-2xl animate-fade-in z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -257,12 +262,12 @@ export default function Header() {
               <div className="space-y-4 bg-slate-900 text-white p-5 rounded-3xl">
                 <div className="text-xs font-black text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
                   <Sparkles size={14} />
-                  <span>Hỗ Trợ & Học Liệu Mở</span>
+                  <span>Học Liệu & Tiện Ích Mở</span>
                 </div>
                 <ul className="space-y-2 text-xs font-bold">
                   <li>
                     <Link href="/blog" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5">
-                      <span>💡 Cẩm nang & Bí quyết luyện thi 1000đ</span>
+                      <span>💡 Cẩm nang & Bí quyết thi 1000đ</span>
                     </Link>
                   </li>
                   <li>
@@ -301,32 +306,32 @@ export default function Header() {
       {/* 5. MOBILE DRAWER MENU */}
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-2xl animate-fade-in z-50">
-          <div className="px-5 py-6 space-y-3 max-h-[85vh] overflow-y-auto">
+          <div className="px-5 py-6 space-y-2 max-h-[85vh] overflow-y-auto">
             <Link
               href="/"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               Trang chủ
             </Link>
             <Link
               href="/khoa-hoc"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               Khóa học MOS & IC3
             </Link>
             <Link
               href="/blog"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               💡 Cẩm Nang & Bí Quyết Luyện Thi
             </Link>
             <Link
               href="/thi-thu"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-bold text-blue-600 bg-blue-50/60"
+              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold text-blue-600 bg-blue-50/60"
             >
               <span>🎯 Thi Thử MOS / IC3 Online</span>
               <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-cyan-100 text-cyan-800">Free</span>
@@ -334,28 +339,28 @@ export default function Header() {
             <Link
               href="/tai-lieu"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               📚 Kho Tài Liệu & Đề Thi Mẫu
             </Link>
             <Link
               href="/bang-gia"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               Bảng Giá Học Phí
             </Link>
             <Link
               href="/gioi-thieu"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               Giới Thiệu Trung Tâm
             </Link>
             <Link
               href="/admin"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-500 hover:bg-slate-50"
+              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-50"
             >
               Trang Quản Trị (Admin)
             </Link>
@@ -364,7 +369,7 @@ export default function Header() {
               <Link
                 href="/lien-he"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-3.5 rounded-full bg-blue-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
+                className="w-full py-3 rounded-full bg-blue-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
               >
                 <span>Đăng Ký Khóa Học Ngay</span>
                 <ArrowRight size={14} />
