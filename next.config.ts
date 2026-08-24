@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
     // Ensure production deployment on Vercel never gets blocked by strict type lints
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     unoptimized: true,
   },

@@ -91,6 +91,11 @@ export default function Footer() {
             <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Tiện Ích & Học Liệu</h3>
             <ul className="space-y-3.5 text-sm">
               <li>
+                <Link href="/blog" className="hover:text-amber-400 font-bold smooth-transition text-amber-300 hover:translate-x-1 inline-block">
+                  💡 Cẩm nang & Bí quyết thi 1000đ
+                </Link>
+              </li>
+              <li>
                 <Link href="/thi-thu" className="hover:text-cyan-400 font-bold smooth-transition text-cyan-300 hover:translate-x-1 inline-block">
                   🎯 Thi thử MOS & IC3 Online Free
                 </Link>

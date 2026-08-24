@@ -114,6 +114,15 @@ export default function Header() {
             </Link>
 
             <Link
+              href="/blog"
+              className={`text-xs xl:text-sm font-black tracking-wide transition-colors flex items-center gap-1.5 ${
+                pathname.startsWith("/blog") ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
+              }`}
+            >
+              <span>Cẩm Nang & Blog</span>
+            </Link>
+
+            <Link
               href="/bang-gia"
               className={`text-xs xl:text-sm font-black tracking-wide transition-colors ${
                 pathname === "/bang-gia" ? "text-blue-600 font-black" : "text-slate-700 hover:text-blue-600"
@@ -252,6 +261,11 @@ export default function Header() {
                 </div>
                 <ul className="space-y-2 text-xs font-bold">
                   <li>
+                    <Link href="/blog" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5">
+                      <span>💡 Cẩm nang & Bí quyết luyện thi 1000đ</span>
+                    </Link>
+                  </li>
+                  <li>
                     <Link href="/thi-thu" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5">
                       <span>🎯 Thi thử MOS / IC3 Online Free</span>
                     </Link>
@@ -301,6 +315,13 @@ export default function Header() {
               className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               Khóa học MOS & IC3
+            </Link>
+            <Link
+              href="/blog"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-4 py-3 rounded-2xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+            >
+              💡 Cẩm Nang & Bí Quyết Luyện Thi
             </Link>
             <Link
               href="/thi-thu"

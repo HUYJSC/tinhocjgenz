@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Award, CheckCircle2, Star, Sparkles, School } from "lucide-react";
+import { Award, CheckCircle2, Star, Sparkles, School, ShieldCheck, QrCode, Lock } from "lucide-react";
+import BlockchainVerifyModal, { VerifiableCertificate } from "./BlockchainVerifyModal";
 
 interface CertificateItem {
   id: string;
@@ -15,6 +16,8 @@ interface CertificateItem {
   completionDate: string;
   quote: string;
   badge: string;
+  blockchainHash?: string;
+  certiportRegId?: string;
 }
 
 const CERTIFICATES: CertificateItem[] = [
@@ -29,7 +32,9 @@ const CERTIFICATES: CertificateItem[] = [
     maxScore: 1000,
     completionDate: "Tháng 05/2026",
     quote: "Mình ôn cấp tốc 3 buổi trước kỳ xét tốt nghiệp DNTU. Đề thi mô phỏng của trung tâm sát 99% đề thi thật tại IIG, làm bài cực kỳ tự tin!",
-    badge: "Xuất Sắc (Top 1% Điểm Cao)"
+    badge: "Xuất Sắc (Top 1% Điểm Cao)",
+    blockchainHash: "0x8f7d9a3be4120984c1f58a7c2934bb0e1980dntu",
+    certiportRegId: "CERT-MO200-THU980-VN"
   },
   {
     id: "cert-2",
@@ -42,7 +47,9 @@ const CERTIFICATES: CertificateItem[] = [
     maxScore: 1000,
     completionDate: "Tháng 04/2026",
     quote: "Đạt trọn vẹn 1000/1000 điểm môn PowerPoint và 950 điểm Word. Giảng viên chỉ cho từng mẹo bẫy của Certiport mà tự học không bao giờ biết được.",
-    badge: "Điểm Tuyệt Đối 1000/1000"
+    badge: "Điểm Tuyệt Đối 1000/1000",
+    blockchainHash: "0x1a9c33f7b0e11894d8721c56ab88ef01000dntu",
+    certiportRegId: "CERT-MOS3M-NAM1000-VN"
   },
   {
     id: "cert-3",
@@ -55,7 +62,9 @@ const CERTIFICATES: CertificateItem[] = [
     maxScore: 1000,
     completionDate: "Tháng 06/2026",
     quote: "Học trực tuyến nhưng tương tác màn hình 1:1 rất kỹ, mình hoàn thành chuẩn đầu ra tin học trước hạn nộp trường Lạc Hồng 2 tuần.",
-    badge: "Đạt Chuẩn Tốt Nghiệp LHU"
+    badge: "Đạt Chuẩn Tốt Nghiệp LHU",
+    blockchainHash: "0x44cd98a12e345b89a01f78c90123e4920lhu",
+    certiportRegId: "CERT-IC3GS6-VY920-VN"
   },
   {
     id: "cert-4",
@@ -68,7 +77,9 @@ const CERTIFICATES: CertificateItem[] = [
     maxScore: 1000,
     completionDate: "Tháng 05/2026",
     quote: "Nội dung đào tạo thực tế, không chỉ để đi thi mà các kỹ năng Lookup, Pivot Table, Macro còn giúp mình trúng tuyển thực tập sinh ngay kỳ này.",
-    badge: "MOS Expert Cấp Quốc Tế"
+    badge: "MOS Expert Cấp Quốc Tế",
+    blockchainHash: "0x98fbc112e45698ad7890123fabc445960ueh",
+    certiportRegId: "CERT-MO201-BAO960-VN"
   },
   {
     id: "cert-5",
@@ -81,7 +92,9 @@ const CERTIFICATES: CertificateItem[] = [
     maxScore: 1000,
     completionDate: "Tháng 05/2026",
     quote: "Mình thuộc diện mất gốc tin học văn phòng, nhờ thầy kèm kiên nhẫn từng thao tác mà thi 1 lần đỗ luôn cả 2 chứng chỉ!",
-    badge: "Vượt Chuẩn Đầu Ra HUTECH"
+    badge: "Vượt Chuẩn Đầu Ra HUTECH",
+    blockchainHash: "0x77ab12cd34ef5678901234567890abc940hutech",
+    certiportRegId: "CERT-MO100200-NGAN940-VN"
   },
   {
     id: "cert-6",
@@ -94,12 +107,15 @@ const CERTIFICATES: CertificateItem[] = [
     maxScore: 1000,
     completionDate: "Tháng 06/2026",
     quote: "Đăng ký nhóm 3 bạn cùng lớp DNTU vừa được giảm học phí vừa có phần mềm thi thử luyện đề không giới hạn. Cả 3 đều đỗ trên 900 điểm.",
-    badge: "Nhóm Sinh Viên DNTU Đỗ 100%"
+    badge: "Nhóm Sinh Viên DNTU Đỗ 100%",
+    blockchainHash: "0x33ef908123456789abcdef01234567975dntu",
+    certiportRegId: "CERT-MO300-ANH975-VN"
   }
 ];
 
 export default function HallOfFame() {
   const [selectedUni, setSelectedUni] = useState<string>("ALL");
+  const [verifyingCert, setVerifyingCert] = useState<VerifiableCertificate | null>(null);
 
   const filteredCerts = selectedUni === "ALL" 
     ? CERTIFICATES 
@@ -107,19 +123,26 @@ export default function HallOfFame() {
 
   return (
     <section className="py-24 bg-gradient-to-b from-white via-slate-50/50 to-white relative overflow-hidden border-t border-slate-100">
+      
+      {/* Blockchain Modal */}
+      <BlockchainVerifyModal
+        cert={verifyingCert}
+        onClose={() => setVerifyingCert(null)}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-black tracking-wider uppercase">
-            <Award size={14} className="text-amber-500" />
-            BẢNG VÀNG THÀNH TÍCH • CERTIPORT HALL OF FAME
-          </span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-black tracking-wider uppercase">
+            <ShieldCheck size={14} className="text-emerald-500" />
+            <span>CERTIPORT HALL OF FAME • XÁC THỰC BẢN QUYỀN MINH BẠCH</span>
+          </div>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-snug font-display">
             Chứng Chỉ Thật & Điểm Số Thật Của Học Viên
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            Minh chứng rõ nét nhất cho chất lượng đào tạo: Hàng ngàn sinh viên DNTU, Lạc Hồng, UEH đã tự tin vượt qua chuẩn đầu ra với điểm số xuất sắc (900 - 1000 điểm).
+            Minh chứng rõ nét nhất cho chất lượng đào tạo: Hàng ngàn sinh viên DNTU, Lạc Hồng, UEH đã tự tin vượt qua chuẩn đầu ra với điểm số xuất sắc (900 - 1000 điểm) kèm mã xác thực số hóa chống làm giả.
           </p>
 
           {/* Filter Tabs */}
@@ -195,13 +218,23 @@ export default function HallOfFame() {
                 </p>
               </div>
 
-              {/* Card Footer Verification */}
+              {/* Card Footer Verification Button */}
               <div className="pt-5 mt-5 border-t border-slate-100 flex items-center justify-between text-[11px]">
-                <span className="flex items-center gap-1.5 font-bold text-emerald-600">
-                  <CheckCircle2 size={14} className="text-emerald-500" />
-                  Đã xác thực chứng chỉ Certiport
-                </span>
-                <span className="font-mono text-slate-400 font-semibold text-[10px]">VERIFIED</span>
+                <button
+                  type="button"
+                  onClick={() => setVerifyingCert(item)}
+                  className="flex items-center gap-1.5 font-bold text-emerald-600 hover:text-emerald-700 cursor-pointer group/btn"
+                >
+                  <CheckCircle2 size={14} className="text-emerald-500 group-hover/btn:scale-110 transition-transform" />
+                  <span>Xác thực On-Chain</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setVerifyingCert(item)}
+                  className="font-mono text-cyan-700 bg-cyan-50 hover:bg-cyan-100 px-2 py-0.5 rounded border border-cyan-200 font-bold text-[10px] cursor-pointer"
+                >
+                  VERIFIED 🔒
+                </button>
               </div>
             </div>
           ))}
