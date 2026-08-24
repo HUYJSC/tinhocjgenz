@@ -3,6 +3,7 @@ import Link from "next/link";
 import { coursesData, upcomingBatchesData } from "@/data/mockData";
 import { Award, CheckCircle2, Clock, Calendar, ShieldCheck, Sparkles, ArrowRight, UserCheck, School, ArrowLeft, BookOpen, Star } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
+import CourseScheduleWidget from "@/components/CourseScheduleWidget";
 
 export async function generateStaticParams() {
   return coursesData.map((course) => ({
@@ -230,30 +231,10 @@ export default async function CourseDetailPage(props: { params: Promise<{ id: st
             </div>
 
             {/* Sidebar: Upcoming Batches & Registration */}
-            <div className="lg:col-span-4 space-y-8">
+            <div className="lg:col-span-4 space-y-6">
               
-              {/* Upcoming Batches Card */}
-              <div className="bg-slate-50/80 p-6 rounded-3xl border border-slate-200/80 space-y-4">
-                <h3 className="text-base font-black text-slate-900 flex items-center gap-2">
-                  <Calendar size={16} className="text-blue-600" />
-                  Lịch Khai Giảng Dự Kiến
-                </h3>
-
-                <div className="space-y-3">
-                  {relevantBatches.map((batch) => (
-                    <div key={batch.id} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1.5">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-black text-slate-900">{batch.name}</span>
-                        <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-red-50 text-red-700 border border-red-200">
-                          {batch.status}
-                        </span>
-                      </div>
-                      <p className="text-xs text-blue-600 font-bold">{batch.time}</p>
-                      <p className="text-[11px] text-slate-500">Khai giảng: {batch.startDate}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              {/* Interactive Schedule Widget */}
+              <CourseScheduleWidget courseTitle={course.title} />
 
               {/* Target Audience */}
               {course.targetAudience && (
