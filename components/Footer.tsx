@@ -86,7 +86,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: University Standards & Open Tools */}
+          {/* Column 3: Tools & Resources */}
           <div>
             <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Tiện Ích & Học Liệu</h3>
             <ul className="space-y-3.5 text-sm">
@@ -106,13 +106,13 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Chuẩn đầu ra ĐH Công Nghệ Đồng Nai (DNTU)
+                <Link href="/bang-gia" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                  Bảng giá học phí & Ưu đãi nhóm 30%
                 </Link>
               </li>
               <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Chuẩn đầu ra ĐH Lạc Hồng & UEH
+                <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                  Dịch vụ cài Win & Office bản quyền
                 </Link>
               </li>
             </ul>

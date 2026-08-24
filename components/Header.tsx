@@ -173,125 +173,108 @@ export default function Header() {
         </div>
       </div>
 
-      {/* 4. DESKTOP MEGA MENU DROPDOWN */}
+      {/* 4. DESKTOP MEGA MENU DROPDOWN (COMPACT 3-COLUMN LAYOUT) */}
       {isMegaMenuOpen && (
-        <div className="hidden lg:block absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-2xl animate-fade-in z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="hidden lg:block absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-xl animate-fade-in z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
             
-            <div className="grid grid-cols-4 gap-8">
+            <div className="grid grid-cols-3 gap-8">
               
               {/* Col 1: Khóa Học Quốc Tế */}
-              <div className="space-y-4">
+              <div className="space-y-3.5">
                 <div className="flex items-center gap-2 text-blue-600 font-black text-xs uppercase tracking-wider">
-                  <Award size={16} />
+                  <Award size={15} />
                   <span>Chứng Chỉ Quốc Tế MOS & IC3</span>
                 </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm font-bold">
+                <ul className="space-y-2 text-xs sm:text-[13px] font-bold">
                   <li>
-                    <Link href="/khoa-hoc/mos-master-combo" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group">
-                      <span>Combo MOS 3 Môn (Word/Excel/PPT)</span>
+                    <Link href="/khoa-hoc/mos-master-combo" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
+                      <span>Combo MOS 3 Môn (Word / Excel / PPT)</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/khoa-hoc/mos-2019" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group">
-                      <span>Luyện Thi MOS Từng Môn (Cấp Tốc)</span>
+                    <Link href="/khoa-hoc/mos-2019" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
+                      <span>Luyện Thi MOS Từng Môn (Cấp Tốc 3 Buổi)</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/khoa-hoc/ic3-gs6" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group">
-                      <span>Chứng Chỉ Kỹ Năng Số IC3 GS6</span>
+                    <Link href="/khoa-hoc/ic3-gs6" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
+                      <span>Chứng Chỉ Kỹ Năng Số IC3 GS6 Toàn Diện</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/khoa-hoc" className="text-blue-600 font-black flex items-center gap-1 pt-1">
+                  <li className="pt-1">
+                    <Link href="/khoa-hoc" className="text-blue-600 font-extrabold flex items-center gap-1">
                       <span>Xem toàn bộ khóa học →</span>
                     </Link>
                   </li>
                 </ul>
               </div>
 
-              {/* Col 2: Tin Học Văn Phòng Thực Chiến */}
-              <div className="space-y-4">
+              {/* Col 2: Tin Học Văn Phòng Thực Chiến & AI */}
+              <div className="space-y-3.5">
                 <div className="flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-wider">
-                  <BookOpen size={16} />
+                  <BookOpen size={15} />
                   <span>Thực Chiến & AI Văn Phòng</span>
                 </div>
-                <ul className="space-y-2.5 text-xs sm:text-sm font-bold">
+                <ul className="space-y-2 text-xs sm:text-[13px] font-bold">
                   <li>
-                    <Link href="/khoa-hoc/combo-survival-office" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group">
-                      <span>Combo Thực Chiến Word & Excel</span>
+                    <Link href="/khoa-hoc/combo-survival-office" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
+                      <span>Combo Thực Chiến Word & Excel Chuyên Sâu</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/khoa-hoc/ai-office-breakthrough" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group">
-                      <span>Ứng Dụng AI Đột Phá Hiệu Suất 10X</span>
+                    <Link href="/khoa-hoc/ai-office-breakthrough" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
+                      <span>Ứng Dụng AI Văn Phòng Đột Phá 10X</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/bang-gia" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group">
+                    <Link href="/bang-gia" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
                       <span>Bảng Học Phí & Ưu Đãi Nhóm 30%</span>
+                      <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                  </li>
+                  <li className="pt-1">
+                    <Link href="/dich-vu" className="text-indigo-600 font-extrabold flex items-center gap-1">
+                      <span>Dịch vụ cài Win & Office bản quyền →</span>
                     </Link>
                   </li>
                 </ul>
               </div>
 
-              {/* Col 3: Chuẩn Đầu Ra Các Trường ĐH */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-cyan-600 font-black text-xs uppercase tracking-wider">
-                  <School size={16} />
-                  <span>Chuẩn Đầu Ra Đại Học</span>
-                </div>
-                <ul className="space-y-2 text-xs text-slate-600 font-medium">
-                  <li className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                    <div className="font-bold text-slate-900">ĐH Công Nghệ Đồng Nai (DNTU)</div>
-                    <div className="text-[11px] text-blue-600 font-semibold">MOS Word/Excel/PPT ≥ 700đ hoặc IC3</div>
-                  </li>
-                  <li className="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
-                    <div className="font-bold text-slate-900">ĐH Lạc Hồng (LHU) & UEH</div>
-                    <div className="text-[11px] text-blue-600 font-semibold">MOS Specialist & IC3 GS6 Toàn Diện</div>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Col 4: Tiện Ích & Hỗ Trợ 24/7 */}
-              <div className="space-y-4 bg-slate-900 text-white p-5 rounded-3xl">
+              {/* Col 3: Học Liệu & Hỗ Trợ */}
+              <div className="space-y-3.5 bg-slate-900 text-white p-5 rounded-2xl">
                 <div className="text-xs font-black text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
                   <Sparkles size={14} />
                   <span>Học Liệu & Tiện Ích Mở</span>
                 </div>
                 <ul className="space-y-2 text-xs font-bold">
                   <li>
-                    <Link href="/blog" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5">
-                      <span>💡 Cẩm nang & Bí quyết thi 1000đ</span>
+                    <Link href="/thi-thu" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5 py-0.5">
+                      <span>🎯 Thi thử MOS & IC3 Online Free</span>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/thi-thu" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5">
-                      <span>🎯 Thi thử MOS / IC3 Online Free</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/tai-lieu" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5">
+                    <Link href="/tai-lieu" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5 py-0.5">
                       <span>📚 Tải trọn bộ 50 đề thi Certiport</span>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/admin" className="text-slate-400 hover:text-white flex items-center gap-1.5 pt-1">
-                      <span>⚙️ Trang Quản Trị (Admin Portal)</span>
+                    <Link href="/blog" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5 py-0.5">
+                      <span>💡 Cẩm nang & Bí quyết thi 1000 điểm</span>
                     </Link>
                   </li>
                 </ul>
-                <div className="pt-3 border-t border-slate-800">
+                <div className="pt-2 border-t border-slate-800">
                   <Link
                     href="/lien-he"
-                    className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 text-center"
+                    className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 text-center transition-colors"
                   >
-                    <span>Tư Vấn Miễn Phí</span>
+                    <span>Nhận Tư Vấn Xếp Lớp</span>
                     <ArrowRight size={13} />
                   </Link>
                 </div>

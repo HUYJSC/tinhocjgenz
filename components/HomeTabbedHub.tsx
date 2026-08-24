@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { School, Award, Trophy, ShieldCheck, Sparkles, ArrowRight, CheckCircle2, Clock } from "lucide-react";
-import UniversityPathway from "./UniversityPathway";
+import { Users, Award, Trophy, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
+import LearningPathway from "./LearningPathway";
 import CourseCard from "./CourseCard";
 import HallOfFame from "./HallOfFame";
 import GuaranteePolicy from "./GuaranteePolicy";
@@ -19,41 +19,37 @@ export default function HomeTabbedHub() {
   const tabs = [
     {
       id: "pathway",
-      label: "Chuẩn Đầu Ra ĐH",
-      sub: "DNTU, LHU, UEH...",
-      icon: <School size={16} />,
-      color: "blue"
+      label: "Lộ Trình Đào Tạo",
+      sub: "Học sinh, Sinh viên, Đi làm",
+      icon: <Users size={16} />,
     },
     {
       id: "courses",
       label: "Khóa Học Trọng Tâm",
-      sub: "Combo MOS, IC3 GS6",
+      sub: "Combo MOS, IC3 GS6, AI",
       icon: <Award size={16} />,
-      color: "cyan"
     },
     {
       id: "halloffame",
       label: "Bảng Vàng Điểm Cao",
       sub: "Chứng chỉ 980 - 1000đ",
       icon: <Trophy size={16} />,
-      color: "amber"
     },
     {
       id: "guarantee",
       label: "Cam Kết Bao Đỗ 100%",
-      sub: "Học lại 0đ nếu rớt",
+      sub: "Học lại 0đ nếu chưa đạt",
       icon: <ShieldCheck size={16} />,
-      color: "emerald"
     }
   ];
 
   return (
-    <section className="py-12 sm:py-16 bg-gradient-to-b from-white via-slate-50/50 to-white relative">
+    <section className="py-10 sm:py-14 bg-gradient-to-b from-white via-slate-50/50 to-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Modern Interactive Tab Selector Bar (Sticky-friendly, Anti-Long-Scroll) */}
-        <div className="bg-slate-900 text-white p-2 sm:p-3 rounded-3xl sm:rounded-full shadow-2xl border border-slate-800 max-w-4xl mx-auto mb-10">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+        <div className="bg-slate-900 text-white p-1.5 sm:p-2.5 rounded-2xl sm:rounded-full shadow-xl border border-slate-800 max-w-3xl mx-auto mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-1.5">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.id;
               return (
@@ -61,9 +57,9 @@ export default function HomeTabbedHub() {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`py-3 px-3 sm:px-4 rounded-2xl sm:rounded-full text-center transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
+                  className={`py-2.5 px-3 rounded-xl sm:rounded-full text-center transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
                     isActive
-                      ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg scale-[1.02]"
+                      ? "bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-md scale-[1.02]"
                       : "text-slate-400 hover:text-white hover:bg-slate-800/60"
                   }`}
                 >
@@ -83,19 +79,19 @@ export default function HomeTabbedHub() {
         {/* Tab Content Display Area */}
         <div className="transition-all duration-500">
           
-          {/* TAB 1: UNIVERSITY EXIT PATHWAY */}
+          {/* TAB 1: UNIVERSAL LEARNING PATHWAY */}
           {activeTab === "pathway" && (
             <div className="animate-fade-in space-y-6">
-              <UniversityPathway />
+              <LearningPathway />
             </div>
           )}
 
           {/* TAB 2: FEATURED COURSES (TOP 3) */}
           {activeTab === "courses" && (
-            <div className="animate-fade-in space-y-10">
+            <div className="animate-fade-in space-y-8">
               <div className="text-center max-w-2xl mx-auto space-y-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-extrabold text-[10px] uppercase tracking-wider">
-                  <Sparkles size={12} className="text-cyan-500" />
+                  <Sparkles size={12} className="text-blue-600" />
                   LỘ TRÌNH TINH GỌN 3 - 9 BUỔI
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
@@ -103,16 +99,16 @@ export default function HomeTabbedHub() {
                 </h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
                 {featuredCourses.map((course, index) => (
                   <CourseCard key={course.id} course={course} index={index} />
                 ))}
               </div>
 
-              <div className="text-center pt-4">
+              <div className="text-center pt-2">
                 <Link
                   href="/khoa-hoc"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-900 hover:bg-blue-600 text-white font-black text-xs uppercase tracking-wider shadow-md transition-all group"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-black text-xs uppercase tracking-wider shadow-md transition-all group"
                 >
                   <span>Xem Toàn Bộ 6+ Khóa Học & Bảng Giá Chi Tiết</span>
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

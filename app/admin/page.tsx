@@ -97,10 +97,10 @@ export default function AdminPortalPage() {
 
   // Leads CRM
   const [leads, setLeads] = useState([
-    { id: "lead-1", name: "Nguyễn Văn Tuấn", phone: "0968123456", course: "Combo MOS 3 Môn", university: "ĐH Công nghệ Đồng Nai (DNTU)", date: "24/08/2026", status: "Chờ gọi", note: "Cần thi gấp xét tốt nghiệp tháng 9" },
-    { id: "lead-2", name: "Lê Thị Mai", phone: "0912345678", course: "Chứng chỉ IC3 GS6", university: "ĐH Lạc Hồng (LHU)", date: "23/08/2026", status: "Đã tư vấn", note: "Đăng ký nhóm 3 bạn giảm 30%" },
-    { id: "lead-3", name: "Trần Minh Quang", phone: "0987654321", course: "MOS Excel 2019", university: "ĐH Kinh Tế TP.HCM (UEH)", date: "23/08/2026", status: "Đã đóng học phí", note: "Học lớp tối 2-4-6" },
-    { id: "lead-4", name: "Hoàng Thảo My", phone: "0933456789", course: "Ứng dụng AI Văn Phòng", university: "Doanh nghiệp / Đi làm", date: "22/08/2026", status: "Đã tư vấn", note: "Đang phân vân học kèm 1:1" }
+    { id: "lead-1", name: "Nguyễn Văn Tuấn", phone: "0968123456", course: "Combo MOS 3 Môn", university: "Sinh viên Đại học", date: "24/08/2026", status: "Chờ gọi", note: "Cần thi gấp lấy chứng chỉ quốc tế" },
+    { id: "lead-2", name: "Lê Thị Mai", phone: "0912345678", course: "Chứng chỉ IC3 GS6", university: "Học sinh THPT", date: "23/08/2026", status: "Đã tư vấn", note: "Đăng ký nhóm 3 bạn giảm 30%" },
+    { id: "lead-3", name: "Trần Minh Quang", phone: "0987654321", course: "MOS Excel 2019", university: "Chuyên viên Kế toán", date: "23/08/2026", status: "Đã đóng học phí", note: "Học lớp tối 2-4-6" },
+    { id: "lead-4", name: "Hoàng Thảo My", phone: "0933456789", course: "Ứng dụng AI Văn Phòng", university: "Doanh nghiệp / Quản lý", date: "22/08/2026", status: "Đã tư vấn", note: "Đang phân vân học kèm 1:1" }
   ]);
   const [leadFilter, setLeadFilter] = useState<string>("all");
 
@@ -793,7 +793,7 @@ export default function AdminPortalPage() {
                       <th className="p-4">Họ Và Tên</th>
                       <th className="p-4">Số Điện Thoại</th>
                       <th className="p-4">Khóa Học</th>
-                      <th className="p-4">Trường ĐH / Ghi Chú</th>
+                      <th className="p-4">Đối Tượng / Ghi Chú</th>
                       <th className="p-4">Ngày Nhận</th>
                       <th className="p-4">Trạng Thái</th>
                       <th className="p-4 text-right">Thao Tác</th>

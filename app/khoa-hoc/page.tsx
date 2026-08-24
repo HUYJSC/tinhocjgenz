@@ -29,7 +29,7 @@ export default function CoursesPage() {
             Chương Trình Đào Tạo & Luyện Thi Chứng Chỉ
           </h1>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Học thực chiến cùng đội ngũ giảng viên đạt chuẩn MOS Master & chuyên gia CNTT. Cam kết 100% đạt chuẩn đầu ra đại học và làm chủ kỹ năng số trong doanh nghiệp.
+            Học thực chiến cùng đội ngũ giảng viên đạt chuẩn MOS Master & chuyên gia CNTT. Cam kết 100% đạt chứng chỉ quốc tế và làm chủ kỹ năng số trong công việc & doanh nghiệp.
           </p>
 
           {/* Filter Tabs */}
@@ -52,7 +52,7 @@ export default function CoursesPage() {
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              🎓 Chuẩn Đầu Ra MOS & IC3 (Certiport)
+              🏆 Chứng Chỉ Quốc Tế MOS & IC3 (Certiport)
             </button>
             <button
               onClick={() => setSelectedCategory("practical-office")}
@@ -87,7 +87,7 @@ export default function CoursesPage() {
               Bảng So Sánh Chứng Chỉ: <span className="text-blue-600">Nên Học MOS Hay IC3?</span>
             </h2>
             <p className="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto">
-              Giúp sinh viên ĐH Công Nghệ Đồng Nai (DNTU) và các trường dễ dàng lựa chọn đúng chứng chỉ phù hợp theo quy định xét tốt nghiệp.
+              Giúp bạn dễ dàng lựa chọn đúng chứng chỉ phù hợp với mục tiêu học tập, tốt nghiệp và nâng cao kỹ năng đi làm.
             </p>
           </div>
 
@@ -117,9 +117,9 @@ export default function CoursesPage() {
                   <td className="p-4 text-emerald-600 font-bold">Vô thời hạn (Vĩnh viễn)</td>
                 </tr>
                 <tr className="bg-white">
-                  <td className="p-4 font-extrabold text-slate-900">Chuẩn đầu ra ĐH (DNTU, LHU...)</td>
-                  <td className="p-4 text-blue-700 font-bold">Phổ biến nhất, bắt buộc cho khối Kinh tế & CNTT</td>
-                  <td className="p-4 text-cyan-700 font-bold">Chuẩn kỹ năng số quốc tế, áp dụng cho nhiều khoa</td>
+                  <td className="p-4 font-extrabold text-slate-900">Mục đích sử dụng</td>
+                  <td className="p-4 text-blue-700 font-bold">Chuẩn quốc tế phổ biến nhất, ưu tiên tuyển dụng doanh nghiệp</td>
+                  <td className="p-4 text-cyan-700 font-bold">Chuẩn kỹ năng số toàn diện về máy tính & công nghệ</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-extrabold text-slate-900">Cam kết tại PH Digital Education</td>

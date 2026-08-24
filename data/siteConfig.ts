@@ -26,9 +26,9 @@ export interface SiteConfig {
 export const SITE_CONFIG: SiteConfig = {
   name: "PH Digital Education",
   shortName: "PH Digital Education",
-  tagline: "Đào Tạo CNTT • Luyện Thi Chứng Chỉ Quốc Tế MOS & IC3 • Chuẩn Đầu Ra Đại Học",
+  tagline: "Đào Tạo Tin Học Thực Chiến & Luyện Thi Chứng Chỉ Quốc Tế MOS, IC3 Toàn Diện",
   description:
-    "PH DIGITAL EDUCATION - Hệ thống đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 chuẩn Certiport. Cam kết chuẩn đầu ra các trường Đại học (DNTU, Lạc Hồng, Kinh Tế...) bao đỗ 100%. Dịch vụ cài đặt phần mềm máy tính uy tín chuyên nghiệp.",
+    "PH DIGITAL EDUCATION - Hệ sinh thái đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 chuẩn Certiport cho Học sinh, Sinh viên, Người đi làm và Doanh nghiệp trên toàn quốc. Cam kết bao đỗ 100%.",
   domain: "tinhocgenz.io.vn",
   url: "https://www.tinhocgenz.io.vn",
   author: "PH Digital Education",
@@ -36,14 +36,13 @@ export const SITE_CONFIG: SiteConfig = {
     "PH Digital Education",
     "luyện thi MOS",
     "chứng chỉ IC3",
-    "chuẩn đầu ra tin học DNTU",
     "tin học văn phòng thực chiến",
     "học excel nâng cao",
     "chứng chỉ tin học quốc tế certiport",
-    "thầy giáo genz",
-    "cài win",
+    "tin học cho người đi làm",
+    "tin học cho sinh viên",
     "cài office bản quyền",
-    "cài phần mềm đồ họa",
+    "ứng dụng AI văn phòng",
   ],
   contact: {
     phone: "0332298065",
@@ -51,7 +50,7 @@ export const SITE_CONFIG: SiteConfig = {
     zaloPhone: "0332298065",
     zaloUrl: "https://zalo.me/0332298065",
     email: "tinhocgenz@gmail.com",
-    address: "Đào tạo Online Toàn quốc & Trực tiếp tại Cơ sở liên kết",
+    address: "Đào tạo Online Toàn quốc & Trực tiếp tại Cơ sở đào tạo liên kết",
     workingHours: "8:00 - 22:30 (Hỗ trợ 24/7 từ Thứ 2 đến Chủ nhật)",
   },
   socials: {
@@ -60,4 +59,3 @@ export const SITE_CONFIG: SiteConfig = {
     tiktok: "https://tiktok.com",
   },
 };
-

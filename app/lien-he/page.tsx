@@ -19,7 +19,7 @@ export default function ContactPage() {
             Liên Hệ Nhận Tư Vấn & Lịch Thi
           </h1>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Bạn cần tư vấn chuẩn đầu ra xét tốt nghiệp đại học (DNTU, Lạc Hồng, UEH...) hay đăng ký thi chứng chỉ quốc tế Certiport? Đội ngũ giảng viên PH Digital Education sẵn sàng hỗ trợ 24/7.
+            Bạn cần tư vấn lộ trình luyện thi chứng chỉ quốc tế MOS, IC3 hay nâng cao kỹ năng tin học văn phòng thực chiến? Đội ngũ giảng viên PH Digital Education sẵn sàng hỗ trợ 24/7.
           </p>
         </div>
       </section>

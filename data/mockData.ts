@@ -60,23 +60,6 @@ export interface StatItem {
   description: string;
 }
 
-export interface UniversityRequirement {
-  id: string;
-  universityCode: string;
-  universityName: string;
-  shortName: string;
-  logoText: string;
-  badgeColor: string;
-  requiredCertificates: {
-    name: string;
-    targetScore: string;
-    recommendation: string;
-    standard: string;
-  }[];
-  urgencyNote: string;
-  suggestedCourseId: string;
-}
-
 export interface BatchSchedule {
   id: string;
   courseName: string;
@@ -87,87 +70,6 @@ export interface BatchSchedule {
   slotsRemaining: number;
   status: "Đang mở đăng ký" | "Sắp đầy chỗ" | "Chỉ còn 2 suất";
 }
-
-export const universityStandards: UniversityRequirement[] = [
-  {
-    id: "dntu",
-    universityCode: "DNTU",
-    universityName: "Trường Đại học Công nghệ Đồng Nai",
-    shortName: "ĐH Công Nghệ Đồng Nai",
-    logoText: "DNTU",
-    badgeColor: "bg-red-500 text-white",
-    requiredCertificates: [
-      {
-        name: "MOS 2019 / 365 (Word + Excel + PPT)",
-        targetScore: "Tối thiểu 700 / 1000 điểm",
-        recommendation: "Bắt buộc đối với sinh viên Khối ngành Kinh tế, Quản trị, Ngôn ngữ & CNTT để đủ điều kiện xét tốt nghiệp.",
-        standard: "Chuẩn đầu ra Bậc Đại học chính quy",
-      },
-      {
-        name: "IC3 Digital Literacy (GS6 / Spark)",
-        targetScore: "Đạt chuẩn 3 Module Certiport",
-        recommendation: "Áp dụng cho các khóa xét chuẩn kỹ năng công nghệ số và liên thông đại học.",
-        standard: "Chuẩn Kỹ năng Số Quốc tế",
-      },
-    ],
-    urgencyNote: "Khóa K19 - K22 cần hoàn tất chứng chỉ trước đợt xét tốt nghiệp chính thức!",
-    suggestedCourseId: "mos-master-combo",
-  },
-  {
-    id: "lhu",
-    universityCode: "LHU",
-    universityName: "Trường Đại học Lạc Hồng",
-    shortName: "ĐH Lạc Hồng",
-    logoText: "LHU",
-    badgeColor: "bg-blue-600 text-white",
-    requiredCertificates: [
-      {
-        name: "MOS (Word / Excel Specialist)",
-        targetScore: ">= 700 điểm Certiport",
-        recommendation: "Yêu cầu hoàn thành trước kỳ thực tập doanh nghiệp năm cuối.",
-        standard: "Chuẩn đầu ra bắt buộc",
-      },
-    ],
-    urgencyNote: "Học cấp tốc 3 - 5 buổi cam kết thi đỗ ngay đợt thi gần nhất!",
-    suggestedCourseId: "mos-2019",
-  },
-  {
-    id: "ueh",
-    universityCode: "UEH",
-    universityName: "Đại học Kinh tế TP. Hồ Chí Minh",
-    shortName: "ĐH Kinh Tế TP.HCM",
-    logoText: "UEH",
-    badgeColor: "bg-emerald-600 text-white",
-    requiredCertificates: [
-      {
-        name: "MOS Excel & Word Nâng Cao (Expert)",
-        targetScore: ">= 750 điểm",
-        recommendation: "Đáp ứng chuẩn kỹ năng tin học quốc tế cho sinh viên kinh tế, tài chính, kiểm toán.",
-        standard: "Chuẩn đầu ra xuất sắc",
-      },
-    ],
-    urgencyNote: "Được ưu tiên tham gia các dự án phân tích dữ liệu và báo cáo chuyên sâu.",
-    suggestedCourseId: "excel-advanced-pro",
-  },
-  {
-    id: "hutech",
-    universityCode: "HUTECH",
-    universityName: "Đại học Công nghệ TP.HCM (HUTECH)",
-    shortName: "HUTECH",
-    logoText: "HUTECH",
-    badgeColor: "bg-amber-600 text-white",
-    requiredCertificates: [
-      {
-        name: "MOS / IC3 GS6 Chuẩn Certiport",
-        targetScore: "Đạt 700+ điểm",
-        recommendation: "Điều kiện cần để nhận bằng tốt nghiệp chính quy và làm đẹp hồ sơ ứng tuyển tập đoàn.",
-        standard: "Chuẩn đầu ra sinh viên",
-      },
-    ],
-    urgencyNote: "Lộ trình ôn sát đề thi thật 99%, có phần mềm luyện thi thử không giới hạn.",
-    suggestedCourseId: "mos-master-combo",
-  },
-];
 
 export const upcomingBatchesData: BatchSchedule[] = [
   {
@@ -582,18 +484,18 @@ export const testimonialsData: Testimonial[] = [
   {
     id: "t1",
     name: "Nguyễn Thùy Linh",
-    role: "Cựu Sinh Viên K19",
-    universityOrCompany: "Trường Đại học Công nghệ Đồng Nai (DNTU)",
+    role: "Chuyên Viên Ngân Hàng",
+    universityOrCompany: "Ngân hàng Thương Mại Cổ Phần",
     courseOrService: "Combo MOS 3 Môn (Word, Excel, PowerPoint)",
     score: "980/1000 Điểm",
-    content: "Lúc sắp nộp hồ sơ xét tốt nghiệp tại DNTU mình lo sốt vó vì chưa có chứng chỉ MOS. May mắn biết đến PH Digital Education, thầy kèm sát đề 3 buổi là mình tự tin đi thi và đạt luôn 980 điểm! Giờ mình đã nhận bằng và đi làm tại ngân hàng.",
+    content: "Lúc cần chứng chỉ gấp để hoàn thiện hồ sơ mình khá lo lắng vì thời gian gấp. May mắn biết đến PH Digital Education, thầy kèm sát đề 3 buổi là mình tự tin đi thi và đạt luôn 980 điểm! Giờ mình đã tự tin làm việc và thăng tiến.",
     rating: 5,
   },
   {
     id: "t2",
     name: "Trần Minh Quang",
-    role: "Sinh Viên Khoa CNTT",
-    universityOrCompany: "Đại học Lạc Hồng (LHU)",
+    role: "Sinh Viên Đại Học",
+    universityOrCompany: "Học Viên Luyện Thi Chứng Chỉ",
     courseOrService: "Luyện Thi IC3 GS6 & MOS Excel",
     score: "950/1000 Điểm",
     content: "Phương pháp ôn tại đây cực kỳ logic và sát đề thi thật. Phần mềm thi thử giao diện giống hệt phòng thi Certiport nên lúc thi không hề bị bỡ ngỡ. Rất cảm ơn thầy đã nhiệt tình giải đáp cả lúc đêm muộn!",
@@ -602,8 +504,8 @@ export const testimonialsData: Testimonial[] = [
   {
     id: "t3",
     name: "Lê Hoàng Yến",
-    role: "Chuyên Viên Nhân Sự",
-    universityOrCompany: "Tập Đoàn Bán Lẻ tại TP. Biên Hòa",
+    role: "Chuyên Viên Nhân Sự & Tiền Lương",
+    universityOrCompany: "Tập Đoàn Bán Lẻ & Chuỗi Cung Ứng",
     courseOrService: "Excel Thực Chiến & Ứng Dụng AI",
     content: "Trước đây mỗi lần làm bảng tính lương và tổng hợp báo cáo nhân sự là mình phải tăng ca tới 8-9h tối. Sau khóa học tại PH Digital Education, mình tự viết được macro và dashboard tự động, tiết kiệm được 70% thời gian làm việc.",
     rating: 5,
@@ -611,11 +513,11 @@ export const testimonialsData: Testimonial[] = [
   {
     id: "t4",
     name: "Phạm Quốc Anh",
-    role: "Sinh Viên K21",
-    universityOrCompany: "Đại học Kinh tế TP.HCM (UEH)",
+    role: "Chuyên Viên Phân Tích Dữ Liệu",
+    universityOrCompany: "Công Ty Tài Chính Quốc Tế",
     courseOrService: "Luyện Thi MOS Excel Expert",
     score: "1000/1000 Điểm Tuyệt Đối",
-    content: "Giảng viên siêu có tâm, hướng dẫn mẹo làm bài cực chuẩn. Mình đạt điểm tối đa 1000/1000 ngay lần thi đầu. Các bạn sinh viên muốn có chứng chỉ nhanh và điểm cao chắc chắn nên học ở đây!",
+    content: "Giảng viên siêu có tâm, hướng dẫn mẹo làm bài cực chuẩn. Mình đạt điểm tối đa 1000/1000 ngay lần thi đầu. Các bạn muốn có chứng chỉ nhanh và điểm cao chắc chắn nên học ở đây!",
     rating: 5,
   },
 ];
@@ -652,19 +554,19 @@ export const statsData: StatItem[] = [
     id: "students",
     value: "5.200+",
     label: "Học viên đã tốt nghiệp",
-    description: "Sinh viên các trường ĐH & nhân sự doanh nghiệp",
+    description: "Học sinh, sinh viên & nhân sự doanh nghiệp",
   },
   {
     id: "pass-rate",
     value: "99.4%",
-    label: "Tỷ lệ đỗ lần 1",
+    label: "Tỷ lệ đỗ ngay lần 1",
     description: "Điểm trung bình học viên đạt từ 850/1000",
   },
   {
     id: "universities",
-    value: "18+",
-    label: "Trường ĐH tương thích chuẩn",
-    description: "DNTU, Lạc Hồng, UEH, UEF, HUTECH, HUB...",
+    value: "100%",
+    label: "Cam kết chuẩn quốc tế",
+    description: "Chứng chỉ Certiport có giá trị trọn đời toàn cầu",
   },
   {
     id: "cert-instructors",

@@ -3,7 +3,7 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   coverImage: string;
-  category: "mos-ic3" | "chuan-dau-ra" | "excel-office" | "ai-technology";
+  category: "mos-ic3" | "chuan-quoc-te" | "excel-office" | "ai-technology";
   categoryName: string;
   author: {
     name: string;
@@ -82,67 +82,69 @@ export const BLOG_POSTS: BlogPost[] = [
       </ul>
 
       <h2>5. Lộ trình ôn luyện cấp tốc 3 - 5 buổi bao đỗ 100%</h2>
-      <p>Tại <strong>PH Digital Education</strong>, học viên được tiếp cận với phần mềm thi thử bản quyền Certiport có độ sát thực 99% so với đề thi thật tại IIG Việt Nam. Giảng viên MOS Master trực tiếp sửa từng lỗi thao tác 1:1, giúp các bạn sinh viên DNTU, Lạc Hồng, UEH tự tin thi đỗ ngay lần đầu chỉ sau 3 - 5 buổi học trọng tâm.</p>
+      <p>Tại <strong>PH Digital Education</strong>, học viên được tiếp cận với phần mềm thi thử bản quyền Certiport có độ sát thực 99% so với đề thi thật tại IIG Việt Nam. Giảng viên MOS Master trực tiếp sửa từng lỗi thao tác 1:1, giúp học viên tự tin thi đỗ ngay lần đầu chỉ sau 3 - 5 buổi học trọng tâm.</p>
     `
   },
   {
-    slug: "quy-che-chuan-dau-ra-tin-hoc-dntu-dong-nai-moi-nhat",
-    title: "Quy Định Chuẩn Đầu Ra Tin Học Đại Học Công Nghệ Đồng Nai (DNTU) Mới Nhất",
-    excerpt: "Cập nhật chi tiết quy chế chuẩn đầu ra MOS / IC3 xét tốt nghiệp DNTU: Điểm chuẩn tối thiểu, thời hạn nộp chứng chỉ và lộ trình lấy bằng cấp tốc.",
+    slug: "cam-nang-chuan-tin-hoc-quoc-te-mos-ic3-toan-dien",
+    title: "Cẩm Nang Chuẩn Tin Học Quốc Tế MOS & IC3: Quy Định & Lợi Ích Tuyển Dụng",
+    excerpt: "Tổng quan toàn diện về giá trị của chứng chỉ quốc tế Microsoft MOS và Certiport IC3: Tiêu chuẩn chuẩn đầu ra, quy chế miễn trừ môn học và lợi thế cạnh tranh khi xin việc.",
     coverImage: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1000&auto=format&fit=crop&q=80",
-    category: "chuan-dau-ra",
-    categoryName: "Chuẩn Đầu Ra Đại Học",
+    category: "chuan-quoc-te",
+    categoryName: "Chứng Chỉ Quốc Tế",
     author: {
       name: "Ban Đào Tạo PH Digital",
-      role: "Chuyên Viên Khảo Thí & Chuẩn ĐH",
+      role: "Chuyên Viên Khảo Thí & Chứng Chỉ Quốc Tế",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80"
     },
     publishedAt: "2026-08-18",
     readTime: "5 phút đọc",
     views: 4890,
     featured: true,
-    tags: ["DNTU", "Chuẩn đầu ra DNTU", "Xét tốt nghiệp Đồng Nai", "MOS DNTU"],
+    tags: ["Chuẩn quốc tế", "Chứng chỉ MOS", "IC3 GS6", "Lợi ích nghề nghiệp"],
     relatedCourseId: "mos-master-combo",
     tableOfContents: [
-      { id: "quy-dinh-chung", title: "1. Quy định chuẩn đầu ra Tin học tại DNTU" },
-      { id: "cac-chung-chi-duoc-chap-nhan", title: "2. Danh mục chứng chỉ tin học quốc tế được công nhận" },
-      { id: "thoi-han-nop-bang", title: "3. Thời hạn nộp chứng chỉ để xét tốt nghiệp các đợt" },
-      { id: "giai-phap-cap-toc", title: "4. Giải pháp ôn thi cấp tốc 3 - 5 buổi cho sinh viên DNTU" }
+      { id: "gia-tri-chung-chi", title: "1. Giá trị toàn cầu của chứng chỉ MOS & IC3" },
+      { id: "cac-cap-do-chung-chi", title: "2. Các cấp độ chứng chỉ và đối tượng phù hợp" },
+      { id: "loi-ich-tuyen-dung", title: "3. Lợi thế vượt trội trong mắt nhà tuyển dụng" },
+      { id: "lo-trinh-on-thi", title: "4. Lộ trình ôn thi cấp tốc 3 - 5 buổi bao đỗ 100%" }
     ],
     content: `
-      <h2>1. Quy định chuẩn đầu ra Tin học tại DNTU</h2>
-      <p>Trường Đại học Công nghệ Đồng Nai (DNTU) áp dụng chuẩn đầu ra công nghệ thông tin & tin học ứng dụng bắt buộc đối với tất cả sinh viên hệ đại học chính quy để đủ điều kiện nhận bằng tốt nghiệp.</p>
+      <h2>1. Giá trị toàn cầu của chứng chỉ MOS & IC3</h2>
+      <p>Chứng chỉ <strong>Microsoft Office Specialist (MOS)</strong> và <strong>Internet and Computing Core Certification (IC3)</strong> do tập đoàn khảo thí Certiport (Hoa Kỳ) cấp, có giá trị <strong>vô thời hạn trên toàn thế giới</strong> và được công nhận rộng rãi tại hơn 150 quốc gia.</p>
 
-      <h2>2. Danh mục chứng chỉ tin học quốc tế được công nhận</h2>
+      <h2>2. Các cấp độ chứng chỉ và đối tượng phù hợp</h2>
       <div class="overflow-x-auto my-4">
         <table class="w-full text-left border-collapse border border-slate-200 text-sm">
           <thead>
             <tr class="bg-slate-100 font-bold text-slate-900">
               <th class="border p-3">Loại Chứng Chỉ</th>
-              <th class="border p-3">Yêu Cầu Môn / Module</th>
-              <th class="border p-3">Điểm Đạt Chuẩn Tối Thiểu</th>
+              <th class="border p-3">Nội Dung Đánh Giá</th>
+              <th class="border p-3">Đối Tượng Phù Hợp</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="border p-3 font-semibold text-blue-700">MOS (Microsoft Office Specialist)</td>
-              <td class="border p-3">Word, Excel, PowerPoint (MOS 2016 / 2019 / 365)</td>
-              <td class="border p-3">≥ 700 / 1000 điểm mỗi môn</td>
+              <td class="border p-3 font-semibold text-blue-700">MOS Specialist</td>
+              <td class="border p-3">Thành thạo từng ứng dụng Word, Excel, PowerPoint</td>
+              <td class="border p-3">Học sinh, Sinh viên, Nhân viên văn phòng</td>
             </tr>
             <tr class="bg-slate-50">
-              <td class="border p-3 font-semibold text-indigo-700">IC3 GS5 / GS6 (Digital Literacy)</td>
-              <td class="border p-3">3 bài thi thành phần (CF, KA, LO hoặc Level 1-2-3)</td>
-              <td class="border p-3">Đạt theo thang điểm Certiport</td>
+              <td class="border p-3 font-semibold text-indigo-700">IC3 GS6</td>
+              <td class="border p-3">Kỹ năng số toàn diện (Phần cứng, Mạng, An toàn thông tin)</td>
+              <td class="border p-3">Học sinh, Sinh viên cần chuẩn kỹ năng số</td>
+            </tr>
+            <tr>
+              <td class="border p-3 font-semibold text-purple-700">MOS Expert</td>
+              <td class="border p-3">Kỹ năng nâng cao: Xử lý dữ liệu lớn, Macro, Pivot nâng cao</td>
+              <td class="border p-3">Kế toán, Phân tích dữ liệu, Quản lý</td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <h2>3. Thời hạn nộp chứng chỉ để xét tốt nghiệp các đợt</h2>
-      <p>Sinh viên cần hoàn thành và nộp bản photo công chứng chứng chỉ về phòng Khảo thí / Đào tạo của trường trước ít nhất <strong>30 ngày</strong> trước đợt xét tốt nghiệp chính thức (thường diễn ra vào các tháng 3, 6, 9 và 12 hàng năm).</p>
-
-      <h2>4. Giải pháp ôn thi cấp tốc 3 - 5 buổi cho sinh viên DNTU</h2>
-      <p>PH Digital Education đã đào tạo hơn <strong>2.500+ sinh viên DNTU</strong> vượt qua chuẩn đầu ra với tỷ lệ đỗ 100%. Lớp học được thiết kế linh hoạt buổi tối hoặc cuối tuần, kèm 1:1 sát đề thi, tặng phần mềm luyện thi Certiport không giới hạn.</p>
+      <h2>3. Lợi thế vượt trội trong mắt nhà tuyển dụng</h2>
+      <p>Hơn 85% nhà tuyển dụng ưu tiên ứng viên sở hữu chứng chỉ MOS/IC3 vì đây là minh chứng xác thực, không thể làm giả cho kỹ năng sử dụng máy tính và xử lý tài liệu thực tế.</p>
     `
   },
   {
@@ -218,14 +220,14 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "so-sanh-mos-2016-mos-2019-va-mos-365-nen-thi-loai-nao",
-    title: "So Sánh MOS 2016, MOS 2019 và MOS 365: Sinh Viên Nên Thi Phiên Bản Nào?",
-    excerpt: "Phân tích chi tiết sự khác biệt về giao diện, độ khó và tính ứng dụng của các phiên bản chứng chỉ MOS để giúp bạn chọn đúng môn thi phù hợp chuẩn trường ĐH.",
+    title: "So Sánh MOS 2016, MOS 2019 và MOS 365: Nên Thi Phiên Bản Nào?",
+    excerpt: "Phân tích chi tiết sự khác biệt về giao diện, độ khó và tính ứng dụng của các phiên bản chứng chỉ MOS để giúp bạn chọn đúng môn thi phù hợp.",
     coverImage: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1000&auto=format&fit=crop&q=80",
     category: "mos-ic3",
     categoryName: "Luyện Thi MOS & IC3",
     author: {
       name: "Ban Đào Tạo PH Digital",
-      role: "Chuyên Viên Khảo Thí & Chuẩn ĐH",
+      role: "Chuyên Viên Khảo Thí & Chứng Chỉ Quốc Tế",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80"
     },
     publishedAt: "2026-08-05",
@@ -240,7 +242,7 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     content: `
       <h2>1. Tổng quan 3 phiên bản MOS phổ biến hiện nay</h2>
-      <p>Chứng chỉ Microsoft Office Specialist (MOS) có giá trị <strong>vô thời hạn trên toàn cầu</strong>. Tuy nhiên, việc lựa chọn phiên bản 2016, 2019 hay Microsoft 365 Apps ảnh hưởng trực tiếp đến chuẩn đầu ra và cơ hội nghề nghiệp.</p>
+      <p>Chứng chỉ Microsoft Office Specialist (MOS) có giá trị <strong>vô thời hạn trên toàn cầu</strong>. Việc lựa chọn phiên bản 2016, 2019 hay Microsoft 365 Apps ảnh hưởng trực tiếp đến tính ứng dụng thực tế.</p>
 
       <h2>2. Bảng so sánh tính năng và giao diện thi</h2>
       <div class="overflow-x-auto my-4">
@@ -264,9 +266,9 @@ export const BLOG_POSTS: BlogPost[] = [
               <td class="border p-3 font-bold text-emerald-600">Chuẩn khuyến nghị 2026</td>
             </tr>
             <tr>
-              <td class="border p-3 font-semibold">Công nhận chuẩn ĐH</td>
-              <td class="border p-3">Đa số vẫn chấp nhận</td>
-              <td class="border p-3 font-bold text-blue-600">100% tất cả các trường ĐH chấp nhận</td>
+              <td class="border p-3 font-semibold">Công nhận toàn cầu</td>
+              <td class="border p-3">Công nhận rộng rãi</td>
+              <td class="border p-3 font-bold text-blue-600">100% doanh nghiệp & tổ chức quốc tế chấp nhận</td>
             </tr>
           </tbody>
         </table>
@@ -277,33 +279,33 @@ export const BLOG_POSTS: BlogPost[] = [
     `
   },
   {
-    slug: "chuan-dau-ra-tin-hoc-dai-hoc-lac-hong-lhu",
-    title: "Chuẩn Đầu Ra Tin Học Đại Học Lạc Hồng (LHU) - Hướng Dẫn Chi Tiết A-Z",
-    excerpt: "Thông tin chuẩn đầu ra IC3 GS6 và MOS dành cho sinh viên Lạc Hồng (LHU): Khung điểm yêu cầu, cách đăng ký dự thi và bí quyết đạt điểm cao.",
+    slug: "lo-trinh-luyen-thi-ic3-gs6-cap-toc-cho-nguoi-moi-bat-dau",
+    title: "Lộ Trình Luyện Thi IC3 GS6 Cấp Tốc Dành Cho Người Mới Bắt Đầu",
+    excerpt: "Hướng dẫn chi tiết phương pháp học và luyện thi chứng chỉ tin học quốc tế IC3 GS6: Khung cấu trúc 3 level và chiến thuật đỗ 100% chỉ trong 3 - 5 buổi.",
     coverImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1000&auto=format&fit=crop&q=80",
-    category: "chuan-dau-ra",
-    categoryName: "Chuẩn Đầu Ra Đại Học",
+    category: "chuan-quoc-te",
+    categoryName: "Chứng Chỉ Quốc Tế",
     author: {
       name: "Ban Đào Tạo PH Digital",
-      role: "Chuyên Viên Khảo Thí & Chuẩn ĐH",
+      role: "Chuyên Viên Khảo Thí & Chứng Chỉ Quốc Tế",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80"
     },
     publishedAt: "2026-08-10",
     readTime: "5 phút đọc",
     views: 3180,
-    tags: ["LHU", "Chuẩn đầu ra Lạc Hồng", "IC3 LHU", "MOS Lạc Hồng"],
+    tags: ["IC3 GS6", "Luyện thi IC3", "Kỹ năng số", "Tự học tin học"],
     relatedCourseId: "ic3-gs6",
     tableOfContents: [
-      { id: "quy-dinh-lhu", title: "1. Quy định chuẩn đầu ra CNTT Đại học Lạc Hồng" },
-      { id: "cac-lua-chon-chung-chi", title: "2. Các chứng chỉ sinh viên LHU có thể lựa chọn" },
-      { id: "lop-on-thi-lhu", title: "3. Lớp luyện thi chuyên biệt dành cho sinh viên LHU" }
+      { id: "cau-truc-ic3-gs6", title: "1. Cấu trúc bài thi IC3 GS6 mới nhất" },
+      { id: "cac-module-trong-tam", title: "2. Ba cấp độ bài thi thành phần (Level 1, 2, 3)" },
+      { id: "lop-on-thi-cap-toc", title: "3. Lớp luyện thi kèm 1:1 bao đỗ 100%" }
     ],
     content: `
-      <h2>1. Quy định chuẩn đầu ra CNTT Đại học Lạc Hồng</h2>
-      <p>Sinh viên Trường Đại học Lạc Hồng (LHU) cần hoàn thành chuẩn đầu ra tin học trước khi nhận đồ án/khóa luận tốt nghiệp. Trường công nhận cả hai hệ thống chứng chỉ là <strong>MOS (Word + Excel)</strong> và <strong>IC3 GS5 / GS6</strong>.</p>
+      <h2>1. Cấu trúc bài thi IC3 GS6 mới nhất</h2>
+      <p>Chứng chỉ IC3 GS6 (Global Standard 6) là tiêu chuẩn kỹ năng số quốc tế đánh giá năng lực công nghệ thông tin toàn diện, gồm 3 cấp độ từ cơ bản đến nâng cao.</p>
       
-      <h2>2. Các chứng chỉ sinh viên LHU có thể lựa chọn</h2>
-      <p>Lựa chọn phổ biến nhất và tiết kiệm thời gian nhất cho sinh viên LHU là khóa <strong>IC3 GS6 (Kỹ năng số toàn diện)</strong> hoặc <strong>Combo 2 môn MOS Word & Excel</strong>.</p>
+      <h2>2. Ba cấp độ bài thi thành phần (Level 1, 2, 3)</h2>
+      <p>Học viên có thể thi từng cấp độ hoặc hoàn thành trọn bộ 3 cấp độ để nhận chứng chỉ Master Kỹ năng số quốc tế.</p>
     `
   }
 ];
@@ -311,7 +313,7 @@ export const BLOG_POSTS: BlogPost[] = [
 export const BLOG_CATEGORIES = [
   { id: "all", label: "Tất cả bài viết", icon: "Sparkles" },
   { id: "mos-ic3", label: "Luyện Thi MOS & IC3", icon: "Award" },
-  { id: "chuan-dau-ra", label: "Chuẩn Đầu Ra ĐH", icon: "School" },
+  { id: "chuan-quoc-te", label: "Chứng Chỉ Quốc Tế", icon: "ShieldCheck" },
   { id: "excel-office", label: "Thực Chiến Excel & Office", icon: "BookOpen" },
   { id: "ai-technology", label: "Ứng Dụng AI Văn Phòng", icon: "Zap" },
 ];

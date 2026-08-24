@@ -5,7 +5,7 @@ import Link from "next/link";
 import { 
   Sparkles, 
   Brain, 
-  School, 
+  Users, 
   Award, 
   Clock, 
   CheckCircle2, 
@@ -14,7 +14,9 @@ import {
   Zap, 
   ShieldCheck, 
   X,
-  MessageSquare
+  MessageSquare,
+  Briefcase,
+  GraduationCap
 } from "lucide-react";
 import { AnalyticsEvents } from "@/lib/analytics";
 
@@ -26,40 +28,51 @@ interface Props {
 
 export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = false }: Props) {
   const [step, setStep] = useState<"input" | "analyzing" | "result">("input");
-  const [university, setUniversity] = useState<string>("dntu");
+  const [userRole, setUserRole] = useState<string>("worker");
   const [certificateTarget, setCertificateTarget] = useState<string>("mos-combo");
   const [currentLevel, setCurrentLevel] = useState<string>("basic");
   const [targetTimeline, setTargetTimeline] = useState<string>("urgent");
 
   const startAnalysis = () => {
     setStep("analyzing");
-    AnalyticsEvents.VIEW_ARTICLE("ai-advisor-used", `AI Advisor: ${university} - ${certificateTarget}`);
+    AnalyticsEvents.VIEW_ARTICLE("ai-advisor-used", `AI Advisor: ${userRole} - ${certificateTarget}`);
     setTimeout(() => {
       setStep("result");
-    }, 1800);
+    }, 1600);
   };
 
   const resetAnalysis = () => {
     setStep("input");
   };
 
-  const getUniversityName = () => {
-    switch (university) {
-      case "dntu": return "ĐH Công Nghệ Đồng Nai (DNTU)";
-      case "lhu": return "ĐH Lạc Hồng (LHU)";
-      case "ueh": return "ĐH Kinh Tế TP.HCM (UEH)";
-      case "hutech": return "ĐH Công Nghệ TP.HCM (HUTECH)";
-      default: return "Đại học / Cao đẳng Toàn quốc";
+  const getRoleLabel = () => {
+    switch (userRole) {
+      case "student": return "Học Sinh & Sinh Viên";
+      case "worker": return "Người Đi Làm & Kế Toán";
+      case "business": return "Doanh Nghiệp & Tổ Chức";
+      default: return "Người Mới Bắt Đầu";
     }
   };
 
   const getCourseRecommendation = () => {
+    if (userRole === "worker" && certificateTarget === "excel-ai") {
+      return {
+        title: "Combo Thực Chiến Excel & Ứng Dụng AI Đột Phá 10X",
+        link: "/khoa-hoc/combo-survival-office",
+        duration: "4 - 6 buổi thực chiến",
+        passRate: "100% ứng dụng ngay",
+        scoreTarget: "Tối ưu 80% thời gian làm việc",
+        discount: "Giảm 30% khi đăng ký hôm nay",
+        code: "AI-PRO-30",
+        summary: "Làm chủ Excel Dashboard, PivotTable động, các hàm nâng cao và ứng dụng AI tự động hóa công việc văn phòng."
+      };
+    }
     if (certificateTarget === "ic3") {
       return {
         title: "Khóa Luyện Thi Chứng Chỉ Kỹ Năng Số IC3 GS6",
         link: "/khoa-hoc/ic3-gs6",
         duration: "3 - 5 buổi trọng tâm",
-        passRate: "100%",
+        passRate: "100% bao đỗ",
         scoreTarget: "950+ / 1000",
         discount: "Giảm 30% khi đăng ký nhóm",
         code: "AI-IC3-30",
@@ -71,9 +84,9 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
         title: "Luyện Thi MOS 2019 / 365 Từng Môn Cấp Tốc (Word / Excel)",
         link: "/khoa-hoc/mos-2019",
         duration: "3 buổi thực chiến",
-        passRate: "100%",
+        passRate: "100% bao đỗ",
         scoreTarget: "980+ / 1000",
-        discount: "Tặng phần mềm thi thử Certiport",
+        discount: "Tặng tài khoản thi thử Certiport",
         code: "AI-MOS-FAST",
         summary: "Luyện thẳng trên ngân hàng đề thi thật Multi-Project của IIG, chỉ mẹo tránh bẫy đạt điểm tuyệt đối."
       };
@@ -82,11 +95,11 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       title: "Combo MOS Master 3 Môn (Word + Excel + PowerPoint)",
       link: "/khoa-hoc/mos-master-combo",
       duration: "6 - 9 buổi toàn diện",
-      passRate: "100%",
+      passRate: "100% bao đỗ",
       scoreTarget: "1000 / 1000 Điểm",
-      discount: "Tiết kiệm 50% học phí so với học lẻ",
+      discount: "Tiết kiệm 50% học phí trọn gói",
       code: "AI-COMBO-HOT",
-      summary: "Gói giải pháp trọn gói hoàn thành chuẩn đầu ra xét tốt nghiệp sớm và tự tin làm việc tại mọi doanh nghiệp."
+      summary: "Gói giải pháp trọn gói nâng cao kỹ năng và sở hữu bằng quốc tế Certiport trọn đời."
     };
   };
 
@@ -114,13 +127,13 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       <div className="space-y-2 mb-6">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs font-black uppercase tracking-wider">
           <Brain size={14} className="text-cyan-400 animate-pulse" />
-          <span>PH DIGITAL AI ADVISOR 2.0 • PHÂN TÍCH LỘ TRÌNH THÔNG MINH</span>
+          <span>PH DIGITAL AI ADVISOR • TƯ VẤN LỘ TRÌNH THÔNG MINH</span>
         </div>
         <h3 className="text-xl sm:text-2xl font-black text-white font-display">
-          Trợ Lý AI Chuẩn Đoán & Thiết Kế Lộ Trình Đỗ 100%
+          Trợ Lý AI Chuẩn Đoán & Thiết Kế Lộ Trình Phù Hợp Nhất
         </h3>
         <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-          Nhập thông tin trường và mục tiêu của bạn để thuật toán AI xây dựng kế hoạch ôn thi cấp tốc chuẩn xác nhất.
+          Nhập mục tiêu của bạn để thuật toán AI xây dựng kế hoạch đào tạo tối ưu và cấp mã ưu đãi học phí.
         </p>
       </div>
 
@@ -128,25 +141,25 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       {step === "input" && (
         <div className="space-y-5">
           
-          {/* Select University */}
+          {/* Select Target Role */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <School size={14} className="text-blue-400" />
-              <span>Trường Đại Học / Cao Đẳng Của Bạn:</span>
+              <Users size={14} className="text-blue-400" />
+              <span>Đối Tượng / Nhu Cầu Của Bạn:</span>
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {[
-                { id: "dntu", label: "ĐH Đồng Nai (DNTU)" },
-                { id: "lhu", label: "ĐH Lạc Hồng (LHU)" },
-                { id: "ueh", label: "ĐH Kinh Tế (UEH)" },
-                { id: "other", label: "Trường Khác" },
+                { id: "worker", label: "Người Đi Làm" },
+                { id: "student", label: "Học Sinh / Sinh Viên" },
+                { id: "beginner", label: "Mất Gốc / Số 0" },
+                { id: "business", label: "Doanh Nghiệp" },
               ].map((u) => (
                 <button
                   key={u.id}
                   type="button"
-                  onClick={() => setUniversity(u.id)}
+                  onClick={() => setUserRole(u.id)}
                   className={`py-2.5 px-3 rounded-xl text-xs font-black transition-all border text-center cursor-pointer ${
-                    university === u.id
+                    userRole === u.id
                       ? "bg-blue-600 border-blue-400 text-white shadow-md scale-[1.02]"
                       : "bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white"
                   }`}
@@ -157,16 +170,16 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
             </div>
           </div>
 
-          {/* Select Target Certificate */}
+          {/* Select Target Goal */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
               <Award size={14} className="text-amber-400" />
-              <span>Chứng Chỉ Bạn Cần Đạt Chuẩn:</span>
+              <span>Mục Tiêu Đào Tạo Bạn Hướng Đến:</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {[
-                { id: "mos-combo", label: "Combo MOS 3 Môn (Word, Excel, PPT)", badge: "Khuyên Dùng" },
-                { id: "mos-single", label: "MOS 1 Môn Cấp Tốc (Word/Excel)", badge: "Cấp Tốc" },
+                { id: "mos-combo", label: "Combo MOS 3 Môn Quốc Tế", badge: "Khuyên Dùng" },
+                { id: "excel-ai", label: "Thực Chiến Excel & AI", badge: "Đi Làm" },
                 { id: "ic3", label: "Kỹ Năng Số IC3 GS6", badge: "Chuẩn Quốc Tế" },
               ].map((c) => (
                 <button
@@ -197,26 +210,26 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
               >
                 <option value="zero">Chưa biết gì / Mất gốc tin học</option>
                 <option value="basic">Biết gõ văn bản & tính toán cơ bản</option>
-                <option value="advanced">Đã từng học nhưng chưa thi Certiport</option>
+                <option value="advanced">Đã có nền tảng, muốn học nâng cao</option>
               </select>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-300">Thời Gian Cần Bằng:</label>
+              <label className="text-xs font-bold text-slate-300">Kế Hoạch Thời Gian:</label>
               <select
                 value={targetTimeline}
                 onChange={(e) => setTargetTimeline(e.target.value)}
                 className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 font-medium"
               >
-                <option value="urgent">Gấp trong 3 - 7 ngày tới (Xét tốt nghiệp đợt này)</option>
+                <option value="urgent">Cấp tốc trong 3 - 7 ngày tới</option>
                 <option value="month">Trong tháng này</option>
-                <option value="flexible">Học thong thả trong 1 - 2 tháng</option>
+                <option value="flexible">Linh hoạt trong 1 - 2 tháng</option>
               </select>
             </div>
           </div>
 
           {/* Action Button */}
-          <div className="pt-3">
+          <div className="pt-2">
             <button
               onClick={startAnalysis}
               className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
@@ -241,10 +254,10 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
 
           <div className="space-y-1">
             <p className="text-sm font-black text-white">
-              AI Đang Phân Tích Chuẩn Đầu Ra & Đối Soát Đề Thi...
+              AI Đang Tính Toán Lộ Trình Tối Ưu Cho Bạn...
             </p>
             <p className="text-xs text-slate-400">
-              Đang tối ưu lịch học kèm 1:1 và áp dụng mã học bổng xét tốt nghiệp sớm.
+              Đang phân bổ lịch học kèm 1:1 và tạo mã học bổng ưu đãi riêng biệt.
             </p>
           </div>
         </div>
@@ -258,34 +271,34 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <div className="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-black uppercase tracking-wider text-cyan-400">
-                KẾT QUẢ PHÂN TÍCH AI HOÀN TẤT
+                KẾT QUẢ PHÂN TÍCH DÀNH CHO: {getRoleLabel()}
               </span>
               <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
-                Cam Kết Đỗ 100%
+                Cam Kết Bao Đỗ 100%
               </span>
             </div>
 
-            <h4 className="text-base sm:text-lg font-black text-white leading-snug">
+            <h4 className="text-base sm:text-lg font-black text-white leading-snug font-display">
               {rec.title}
             </h4>
 
             <p className="text-slate-300 text-xs leading-relaxed">
-              {rec.summary} Phù hợp 100% với chuẩn xét tốt nghiệp của <strong>{getUniversityName()}</strong>.
+              {rec.summary}
             </p>
 
             {/* Metrics */}
             <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center">
               <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-[10px] text-slate-400">Thời gian học:</span>
+                <span className="text-[10px] text-slate-400">Thời lượng:</span>
                 <p className="text-xs font-black text-white mt-0.5">{rec.duration}</p>
               </div>
               <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-[10px] text-slate-400">Mục tiêu điểm:</span>
+                <span className="text-[10px] text-slate-400">Mục tiêu:</span>
                 <p className="text-xs font-black text-amber-400 mt-0.5">{rec.scoreTarget}</p>
               </div>
               <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-[10px] text-slate-400">Tỷ lệ đỗ:</span>
-                <p className="text-xs font-black text-emerald-400 mt-0.5">100% (Học lại 0đ)</p>
+                <span className="text-[10px] text-slate-400">Cam kết:</span>
+                <p className="text-xs font-black text-emerald-400 mt-0.5">{rec.passRate}</p>
               </div>
             </div>
           </div>
@@ -293,7 +306,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           {/* AI Voucher Card */}
           <div className="bg-gradient-to-r from-amber-500/10 via-blue-500/10 to-cyan-500/10 border border-amber-400/30 p-4 rounded-2xl flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-black text-amber-300">Ưu Đãi AI Học Viên:</p>
+              <p className="text-xs font-black text-amber-300">Ưu Đãi Học Viên:</p>
               <p className="text-[11px] text-slate-300">{rec.discount}</p>
             </div>
             <div className="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-mono font-black text-xs tracking-wider">
@@ -307,7 +320,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
               href="/lien-he"
               className="w-full sm:flex-1 py-3 px-5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-lg transition-all"
             >
-              <span>Đăng Ký Xếp Lớp Kèm Ngay</span>
+              <span>Đăng Ký Xếp Lớp Ngay</span>
               <ArrowRight size={14} />
             </Link>
 
@@ -318,7 +331,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
               className="w-full sm:w-auto py-3 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-black uppercase tracking-wider text-center border border-slate-700 transition-all flex items-center justify-center gap-1.5"
             >
               <MessageSquare size={14} />
-              <span>Gặp Giảng Viên Tư Vấn</span>
+              <span>Tư Vấn Trực Tiếp Zalo</span>
             </a>
           </div>
 
@@ -329,7 +342,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
               className="text-[11px] text-slate-400 hover:text-slate-200 inline-flex items-center gap-1 cursor-pointer"
             >
               <RefreshCw size={11} />
-              <span>Thử phân tích với trường/chứng chỉ khác</span>
+              <span>Thử phân tích với mục tiêu khác</span>
             </button>
           </div>
 

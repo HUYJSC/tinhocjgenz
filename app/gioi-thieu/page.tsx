@@ -80,11 +80,11 @@ export default function AboutPage() {
             {/* Story Text Detail */}
             <div className="lg:col-span-7 space-y-6">
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-snug">
-                Đồng Hành Cùng Sinh Viên Đạt Chuẩn Đầu Ra & Bứt Phá Năng Lực Doanh Nghiệp
+                Đồng Hành Cùng Học Viên Đạt Chứng Chỉ Quốc Tế & Bứt Phá Năng Lực Doanh Nghiệp
               </h2>
               
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                <strong>PH DIGITAL EDUCATION</strong> được thành lập từ sự thấu hiểu sâu sắc trước những khó khăn của sinh viên các trường Đại học lớn (như ĐH Công Nghệ Đồng Nai - DNTU, ĐH Lạc Hồng, UEH, HUTECH...) khi phải đối mặt với kỳ thi chuẩn đầu ra MOS / IC3 để kịp xét tốt nghiệp.
+                <strong>PH DIGITAL EDUCATION</strong> được thành lập từ sự thấu hiểu sâu sắc trước những khó khăn của học sinh, sinh viên và người đi làm khi phải đối mặt với kỳ thi chứng chỉ quốc tế MOS, IC3 hoặc các rào cản xử lý dữ liệu bảng tính trong công việc hàng ngày.
               </p>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">

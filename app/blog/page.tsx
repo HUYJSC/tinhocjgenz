@@ -15,7 +15,8 @@ import {
   Tag, 
   ChevronRight,
   TrendingUp,
-  GraduationCap
+  GraduationCap,
+  ShieldCheck
 } from "lucide-react";
 import { BLOG_POSTS, BLOG_CATEGORIES, BlogPost } from "@/data/blogData";
 
@@ -41,8 +42,8 @@ export default function BlogPage() {
     switch (id) {
       case "mos-ic3":
         return <Award size={15} />;
-      case "chuan-dau-ra":
-        return <School size={15} />;
+      case "chuan-quoc-te":
+        return <ShieldCheck size={15} />;
       case "excel-office":
         return <BookOpen size={15} />;
       case "ai-technology":
@@ -62,16 +63,16 @@ export default function BlogPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-800 text-[11px] font-black uppercase tracking-wider">
-            <GraduationCap size={14} className="text-blue-600" />
-            <span>KHO TRI THỨC TIN HỌC & CẨM NANG CHUẨN ĐẦU RA ĐẠI HỌC</span>
+            <Sparkles size={14} className="text-blue-600" />
+            <span>KHO TRI THỨC TIN HỌC THỰC CHIẾN & CHỨNG CHỈ QUỐC TẾ</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight font-display max-w-3xl mx-auto">
-            Bí Quyết Ôn Thi MOS / IC3 & Thủ Thuật Tin Học Thực Chiến
+            Bí Quyết Ôn Thi MOS, IC3 & Thủ Thuật Tin Học Thực Chiến
           </h1>
           
           <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Tổng hợp các bài viết hướng dẫn chuyên sâu từ đội ngũ giảng viên MOS Master: mẹo thi 1000 điểm Certiport, quy chế tốt nghiệp các trường ĐH và thủ thuật Excel tự động hóa.
+            Tổng hợp các bài viết hướng dẫn chuyên sâu từ đội ngũ giảng viên MOS Master: mẹo thi 1000 điểm Certiport, cẩm nang phím tắt văn phòng và thủ thuật Excel tự động hóa.
           </p>
 
           {/* Search Box */}
@@ -80,7 +81,7 @@ export default function BlogPage() {
               <Search className="absolute left-4 text-slate-400" size={18} />
               <input
                 type="text"
-                placeholder="Tìm kiếm bài viết, mẹo thi MOS, chuẩn đầu ra DNTU, hàm Excel..."
+                placeholder="Tìm kiếm bài viết, mẹo thi MOS 1000đ, chứng chỉ IC3, hàm Excel..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-11 pr-4 py-3.5 text-xs sm:text-sm text-slate-800 bg-transparent rounded-2xl focus:outline-none font-medium"
