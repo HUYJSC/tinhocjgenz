@@ -22,7 +22,10 @@ const spaceGrotesk = Space_Grotesk({
 
 // Production-ready SEO Metadata
 export const metadata: Metadata = {
-  title: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+  title: {
+    default: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+    template: `%s | ${SITE_CONFIG.name}`,
+  },
   description: SITE_CONFIG.description,
   keywords: SITE_CONFIG.keywords,
   authors: [{ name: SITE_CONFIG.author }],
@@ -37,10 +40,32 @@ export const metadata: Metadata = {
     siteName: SITE_CONFIG.name,
     locale: "vi_VN",
     type: "website",
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/og-cover.png`,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_CONFIG.name} - ${SITE_CONFIG.tagline}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_CONFIG.name} | ${SITE_CONFIG.tagline}`,
+    description: SITE_CONFIG.description,
+    images: [`${SITE_CONFIG.url}/og-cover.png`],
+    creator: "@tinhocgenz",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   icons: {
     icon: [

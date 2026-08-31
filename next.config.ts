@@ -57,6 +57,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/(icon.*|apple-icon.*|favicon.ico|logo.*|site.webmanifest)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, immutable",
+          },
+        ],
+      },
     ];
   },
   async redirects() {

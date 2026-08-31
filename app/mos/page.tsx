@@ -10,8 +10,8 @@ import { coursesData } from "@/data/mockData";
 import { Award, CheckCircle2, Star, ShieldCheck, Clock, FileSpreadsheet, FileText, Presentation, HelpCircle, ArrowRight, BookOpen, GraduationCap } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Khóa Học MOS 2019/365 Cấp Tốc - Cam Kết Đậu 100% | Tin Học Gen Z",
-  description: "Luyện thi chứng chỉ MOS Word, Excel, PowerPoint chuẩn quốc tế Certiport. Lộ trình tinh gọn 3-5 buổi, thực hành 100% trên đề thi thật, bao đỗ đầu ra.",
+  title: "Khóa Học Luyện Thi MOS 2019 / 365 Cấp Tốc",
+  description: "Luyện thi chứng chỉ MOS Word, Excel, PowerPoint chuẩn quốc tế Certiport. Lộ trình tinh gọn 3-5 buổi, thực hành trên máy ảo, tài trợ học lại 100% miễn phí nếu chưa đạt.",
   path: "/mos",
   keywords: [
     "khóa học MOS",

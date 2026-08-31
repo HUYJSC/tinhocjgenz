@@ -24,11 +24,11 @@ export interface SiteConfig {
 }
 
 export const SITE_CONFIG: SiteConfig = {
-  name: "Tin Học Gen Z | Đào Tạo MOS, IC3 & Tin Học Văn Phòng Thực Chiến",
+  name: "Tin Học Gen Z",
   shortName: "Tin Học Gen Z",
-  tagline: "Hệ Sinh Thái Đào Tạo Tin Học Thực Chiến & Luyện Thi MOS, IC3 Chuẩn Quốc Tế",
+  tagline: "Đào Tạo MOS, IC3 & Tin Học Văn Phòng Thực Chiến",
   description:
-    "Tin Học Gen Z - Đào tạo tin học văn phòng thực chiến, luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport cho sinh viên và người đi làm. Cam kết bao đỗ 100%.",
+    "Hệ sinh thái đào tạo Tin học văn phòng thực chiến, luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport. Cam kết tài trợ học lại 100% miễn phí cho đến khi thi đỗ.",
   domain: "tinhocgenz.io.vn",
   url: "https://tinhocgenz.io.vn",
   author: "Tin Học Gen Z",

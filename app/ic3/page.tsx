@@ -10,7 +10,7 @@ import { coursesData } from "@/data/mockData";
 import { GraduationCap, Award, CheckCircle2, ShieldCheck, HelpCircle, Monitor, Laptop, Globe } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Khóa Học Luyện Thi IC3 GS6 Cấp Tốc - Chuẩn Đầu Ra Đại Học | Tin Học Gen Z",
+  title: "Khóa Học Luyện Thi IC3 GS6 Cấp Tốc",
   description: "Khóa học luyện thi chứng chỉ tin học quốc tế IC3 Digital Literacy GS6 chuẩn Certiport. Lộ trình ôn tập 3 module: Computing Fundamentals, Key Applications, Living Online.",
   path: "/ic3",
   keywords: [

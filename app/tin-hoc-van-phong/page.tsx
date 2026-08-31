@@ -10,7 +10,7 @@ import { coursesData } from "@/data/mockData";
 import { CheckCircle2, Briefcase, FileSpreadsheet, FileText, Presentation, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Khóa Học Tin Học Văn Phòng Thực Chiến Cho Người Đi Làm | Tin Học Gen Z",
+  title: "Khóa Học Tin Học Văn Phòng Thực Chiến",
   description: "Khóa học tin học văn phòng cấp tốc (Word, Excel, PowerPoint) ứng dụng thực tế 100%. Nâng cao hiệu suất công việc, xử lý báo cáo, hợp đồng chuyên nghiệp.",
   path: "/tin-hoc-van-phong",
   keywords: [

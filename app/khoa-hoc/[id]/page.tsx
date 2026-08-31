@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
   }
 
   return buildMetadata({
-    title: `${course.title} - Cam Kết Đậu 100%`,
+    title: `${course.title} | Đào Tạo Chuẩn Quốc Tế`,
     description: course.description,
     path: `/khoa-hoc/${course.id}`,
     keywords: [course.title, course.badge || "", "luyện thi tin học", "khóa học tin học"],

@@ -10,7 +10,7 @@ import { coursesData } from "@/data/mockData";
 import { FileSpreadsheet, CheckCircle2, ShieldCheck, BarChart3, Database, Sparkles, Layers } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Khóa Học Excel Từ Cơ Bản Đến Nâng Cao & Tự Động Hóa | Tin Học Gen Z",
+  title: "Khóa Học Excel Nâng Cao & Báo Cáo Dashboard",
   description: "Khóa học Excel thực hành chuyên sâu: Hàm nâng cao (XLOOKUP, INDEX-MATCH, SUMIFS), Pivot Table, Dashboard tương tác và tự động hóa xử lý dữ liệu doanh nghiệp.",
   path: "/excel",
   keywords: [
