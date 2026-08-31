@@ -105,6 +105,11 @@ const nextConfig: NextConfig = {
         destination: "/tin-hoc-van-phong",
         permanent: true,
       },
+      {
+        source: "/dich-vu",
+        destination: "/khoa-hoc",
+        permanent: true,
+      },
     ];
   },
 };

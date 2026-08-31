@@ -1,12 +1,20 @@
+import { Metadata } from "next";
 import PricingTable from "@/components/PricingTable";
 import { HelpCircle, Star, Sparkles, ShieldCheck, Users, Award, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Bảng Giá Học Phí Khóa Học MOS & IC3 Ưu Đãi Sinh Viên",
+  description: "Bảng giá học phí công khai các khóa luyện thi MOS, IC3 GS6, Tin học văn phòng và Excel thực chiến. Giảm tới 40% cho nhóm sinh viên, tài trợ học lại miễn phí.",
+  path: "/bang-gia",
+});
 
 export default function PricingPage() {
   const faqs = [
     {
       q: "Nếu tôi thi không đạt chuẩn đầu ra thì có được học lại không?",
-      a: "Hoàn toàn miễn phí! PH Digital Education cam kết bao đỗ 100%. Nếu không đạt điểm chuẩn trong kỳ thi Certiport chính thức, bạn sẽ được kèm cặp và học lại hoàn toàn miễn phí cho đến khi cầm chứng chỉ trên tay."
+      a: "Hoàn toàn miễn phí! Tin Học Gen Z cam kết tài trợ 100% học lại miễn phí. Nếu không đạt điểm chuẩn trong kỳ thi Certiport chính thức, bạn sẽ được giảng viên kèm cặp và ôn thi lại miễn phí cho đến khi thi đạt chứng chỉ."
     },
     {
       q: "Chính sách giảm giá theo nhóm sinh viên áp dụng như thế nào?",

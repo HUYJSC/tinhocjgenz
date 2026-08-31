@@ -1,5 +1,13 @@
+import { Metadata } from "next";
 import ResourceHub from "@/components/ResourceHub";
 import { BookOpen, Sparkles, ShieldCheck } from "lucide-react";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Kho Tài Liệu & Bộ Đề Thi MOS / IC3 Miễn Phí",
+  description: "Tải trọn bộ 50+ đề thi thử MOS 2019, IC3 GS6 bám sát đề thi thật Certiport, tài liệu phím tắt và bài tập thực hành Excel hoàn toàn miễn phí.",
+  path: "/tai-lieu",
+});
 
 export default function ResourcesPage() {
   return (

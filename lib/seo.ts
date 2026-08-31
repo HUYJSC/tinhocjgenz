@@ -33,7 +33,8 @@ export function buildMetadata({
   const baseUrl = SITE_CONFIG.url.replace(/\/$/, "");
   const cleanPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
   const canonicalUrl = `${baseUrl}${cleanPath}`;
-  const fullTitle = title.includes(SITE_CONFIG.name) ? title : `${title} | ${SITE_CONFIG.name}`;
+  const cleanTitle = title.replace(/\s*\|\s*Tin Học Gen Z.*$/i, "").trim();
+  const fullTitle = `${cleanTitle} | ${SITE_CONFIG.name}`;
   const image = ogImage || `${baseUrl}/og-cover.png`;
 
   const allKeywords = Array.from(
@@ -49,7 +50,7 @@ export function buildMetadata({
   );
 
   return {
-    title: fullTitle,
+    title: cleanTitle,
     description: description || SITE_CONFIG.description,
     keywords: allKeywords,
     authors: authors ? authors.map((name) => ({ name })) : [{ name: SITE_CONFIG.author }],

@@ -1,5 +1,13 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { Award, Target, BookOpen, ShieldCheck, Heart, Sparkles, School, CheckCircle2, ArrowRight } from "lucide-react";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Giới Thiệu Hệ Thống Đào Tạo Tin Học Quốc Tế",
+  description: "Tìm hiểu về đội ngũ giảng viên Certiport Master Trainer, triết lý đào tạo thực chiến và sứ mệnh phổ cập chứng chỉ tin học quốc tế cho sinh viên Việt Nam.",
+  path: "/gioi-thieu",
+});
 
 export default function AboutPage() {
   const values = [

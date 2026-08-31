@@ -1,5 +1,13 @@
+import { Metadata } from "next";
 import MockExamQuiz from "@/components/MockExamQuiz";
 import { Sparkles, HelpCircle, CheckCircle2, ShieldCheck } from "lucide-react";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Thi Thử MOS & IC3 Online Miễn Phí",
+  description: "Hệ thống thi thử tin học quốc tế MOS & IC3 GS6 trực tuyến. Dự đoán điểm thi Certiport theo thang 1000 điểm và phân tích lỗ hổng kỹ năng trong 5 phút.",
+  path: "/thi-thu",
+});
 
 export default function MockExamPage() {
   return (
@@ -18,7 +26,7 @@ export default function MockExamPage() {
             Thi Thử MOS & IC3 Online Miễn Phí
           </h1>
           <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Kiểm tra ngay trình độ tin học của bạn trong 5 phút. Xem ngay dự đoán điểm thi quốc tế Certiport và nhận lộ trình ôn luyện cấp tốc bao đỗ 100%.
+            Kiểm tra ngay trình độ tin học của bạn trong 5 phút. Xem ngay dự đoán điểm thi quốc tế Certiport và nhận lộ trình ôn luyện cấp tốc đạt chuẩn đầu ra.
           </p>
         </div>
       </section>

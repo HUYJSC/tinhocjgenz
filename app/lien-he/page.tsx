@@ -1,6 +1,14 @@
+import { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import { Phone, Mail, MapPin, MessageSquare, Clock, Sparkles, School, ShieldCheck } from "lucide-react";
 import { CONTACT_INFO } from "@/data/contactInfo";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Liên Hệ Tư Vấn Khóa Học & Lịch Thi Tin Học",
+  description: "Liên hệ Hotline/Zalo 033.229.8065 nhận tư vấn lộ trình học cấp tốc MOS, IC3 GS6, hỗ trợ xếp lớp online/offline và giải đáp quy chế chuẩn đầu ra đại học 24/7.",
+  path: "/lien-he",
+});
 
 export default function ContactPage() {
   return (

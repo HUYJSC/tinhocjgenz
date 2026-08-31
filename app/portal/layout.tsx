@@ -1,6 +1,20 @@
 import React from "react";
+import { Metadata } from "next";
 import Link from "next/link";
 import { GraduationCap, Users, BookOpen, ShieldCheck, ArrowLeft, Sparkles } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Cổng Đào Tạo & Học Vụ | PH Digital Education",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
+};
 
 export default function PortalLayout({ children }: { children: React.ReactNode }) {
   return (

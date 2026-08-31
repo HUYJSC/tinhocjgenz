@@ -90,11 +90,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/dich-vu`,
-      lastModified: SITE_RELEASE_DATE,
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/gioi-thieu`,
       lastModified: SITE_RELEASE_DATE,
       priority: 0.6,
