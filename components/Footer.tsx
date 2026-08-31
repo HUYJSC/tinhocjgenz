@@ -161,9 +161,12 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="border-t border-slate-800 pt-8 mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>© {currentYear} TIN HỌC GEN Z. All rights reserved. Hệ thống đào tạo CNTT & Chứng chỉ Quốc tế.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap gap-4 sm:gap-6 items-center">
             <Link href="/gioi-thieu" className="hover:text-slate-400 transition-colors">Điều khoản đào tạo</Link>
             <Link href="/lien-he" className="hover:text-slate-400 transition-colors">Cam kết chuẩn đầu ra</Link>
+            <Link href="/admin" className="hover:text-amber-400 text-slate-400 transition-colors flex items-center gap-1 font-semibold">
+              <ShieldCheck size={13} className="text-amber-400" /> Cổng Quản Trị (/admin)
+            </Link>
           </div>
         </div>
       </div>

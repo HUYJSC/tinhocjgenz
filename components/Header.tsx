@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
-  Menu, X, ArrowRight, Sparkles, BookOpen, Award, ChevronDown 
+  Menu, X, ArrowRight, Sparkles, BookOpen, Award, ChevronDown, ShieldCheck 
 } from "lucide-react";
 
 export default function Header() {
@@ -158,8 +158,22 @@ export default function Header() {
           </nav>
 
           {/* 3. RIGHT: DIRECT ACTION BUTTON & MOBILE TOGGLE */}
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex items-center gap-2 shrink-0">
             
+            {/* Direct Admin Portal Link */}
+            <Link
+              href="/admin"
+              className={`hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
+                pathname.startsWith("/admin")
+                  ? "bg-blue-50 text-blue-600 border border-blue-200"
+                  : "text-slate-500 hover:text-blue-600 hover:bg-slate-100"
+              }`}
+              title="Cổng Quản Trị Hệ Thống (/admin)"
+            >
+              <ShieldCheck size={14} />
+              <span>Admin</span>
+            </Link>
+
             {/* Direct CTA Button */}
             <Link
               href="/lien-he"
