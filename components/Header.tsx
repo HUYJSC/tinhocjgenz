@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
-  Menu, X, ArrowRight, Sparkles, BookOpen, Award, ChevronDown, ShieldCheck 
+  Menu, X, ArrowRight, Sparkles, BookOpen, Award, ChevronDown, ShieldCheck, GraduationCap, Users 
 } from "lucide-react";
 
 export default function Header() {
@@ -155,6 +155,65 @@ export default function Header() {
               Giới Thiệu
             </Link>
 
+            {/* Cổng Đào Tạo & Học Vụ */}
+            <div className="relative group">
+              <button
+                type="button"
+                className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1 py-1.5 whitespace-nowrap cursor-pointer ${
+                  pathname.startsWith("/portal") || pathname.startsWith("/admin")
+                    ? "text-blue-600 font-extrabold"
+                    : "text-slate-700 hover:text-blue-600"
+                }`}
+              >
+                <GraduationCap size={14} className="text-blue-600" />
+                <span>Cổng Đào Tạo</span>
+                <ChevronDown size={11} className="text-slate-400 group-hover:rotate-180 transition-transform" />
+              </button>
+              <div className="absolute top-full left-0 hidden group-hover:block pt-2 z-50">
+                <div className="w-56 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 space-y-1">
+                  <Link
+                    href="/portal/student"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                  >
+                    <GraduationCap size={15} className="text-cyan-500" />
+                    <div>
+                      <div>Cổng Học Viên</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Lộ trình & Nộp bài</div>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/portal/teacher"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                  >
+                    <Users size={15} className="text-emerald-500" />
+                    <div>
+                      <div>Cổng Giảng Viên</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Điểm danh & Chấm bài</div>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/portal/academic"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition-colors"
+                  >
+                    <BookOpen size={15} className="text-amber-500" />
+                    <div>
+                      <div>Cổng Giáo Vụ</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Xếp lớp & Cảnh báo</div>
+                    </div>
+                  </Link>
+                  <Link
+                    href="/admin"
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border-t border-slate-100"
+                  >
+                    <ShieldCheck size={15} className="text-purple-500" />
+                    <div>
+                      <div>Cổng Quản Trị Hệ Thống</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Control Hub</div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </nav>
 
           {/* 3. RIGHT: DIRECT ACTION BUTTON & MOBILE TOGGLE */}
@@ -379,12 +438,40 @@ export default function Header() {
             >
               Giới Thiệu Trung Tâm
             </Link>
+            <div className="pt-2 pb-1 border-t border-slate-100">
+              <span className="px-4 text-[10px] font-black uppercase text-blue-600 tracking-wider">Cổng Đào Tạo & Học Vụ</span>
+            </div>
+            <Link
+              href="/portal/student"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+            >
+              <GraduationCap size={15} className="text-cyan-500" />
+              <span>Cổng Học Viên (Lộ trình & Nộp bài)</span>
+            </Link>
+            <Link
+              href="/portal/teacher"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+            >
+              <Users size={15} className="text-emerald-500" />
+              <span>Cổng Giảng Viên (Điểm danh & Chấm bài)</span>
+            </Link>
+            <Link
+              href="/portal/academic"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+            >
+              <BookOpen size={15} className="text-amber-500" />
+              <span>Cổng Giáo Vụ (Xếp lớp & Cảnh báo)</span>
+            </Link>
             <Link
               href="/admin"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-50"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50"
             >
-              Trang Quản Trị (Admin)
+              <ShieldCheck size={15} className="text-purple-500" />
+              <span>Cổng Quản Trị Hệ Thống (Admin)</span>
             </Link>
 
             <div className="pt-3 border-t border-slate-100">

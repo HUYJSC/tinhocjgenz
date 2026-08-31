@@ -41,7 +41,7 @@ const ic3Faqs = [
 
 export default function Ic3PillarPage() {
   const ic3Courses = coursesData.filter(
-    (c) => c.category === "ic3" || c.id.includes("ic3")
+    (c) => c.id.includes("ic3") || c.title.toLowerCase().includes("ic3")
   );
 
   const courseSchema = generateCourseSchema({

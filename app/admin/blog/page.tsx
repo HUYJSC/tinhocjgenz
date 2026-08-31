@@ -37,9 +37,13 @@ export default function AdminBlogCMSPage() {
       excerpt: "",
       content: "",
       coverImage: "/logo-icon.png",
+      category: "mos-ic3",
+      categoryName: "Luyện Thi MOS & IC3",
       publishedAt: new Date().toLocaleDateString("vi-VN"),
       readTime: "5 phút",
+      views: 0,
       tags: ["MOS", "Kinh Nghiệm"],
+      tableOfContents: [],
       author: {
         name: "Ban Đào Tạo Tin Học Gen Z",
         avatar: "/logo-icon.png",

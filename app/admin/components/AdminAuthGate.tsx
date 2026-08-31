@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Lock, KeyRound, ShieldCheck, AlertCircle, ArrowLeft, Sparkles, CheckCircle2 } from "lucide-react";
+import { Lock, KeyRound, ShieldCheck, AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { useAdminAuth } from "../context/AdminAuthContext";
 
 export function AdminAuthGate({ children }: { children: React.ReactNode }) {
@@ -15,7 +15,7 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-white">
         <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-400 text-sm font-medium">Đang kiểm tra quyền điều khiển trang...</p>
+        <p className="text-slate-400 text-sm font-medium">Đang xác thực phiên quản trị máy chủ...</p>
       </div>
     );
   }
@@ -24,14 +24,19 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
     setSubmitting(true);
 
-    const res = login(pinInput);
-    if (!res.success) {
-      setErrorMsg(res.message || "Mã xác thực không hợp lệ.");
+    try {
+      const res = await login(pinInput);
+      if (!res.success) {
+        setErrorMsg(res.message || "Mã xác thực không hợp lệ.");
+      }
+    } catch {
+      setErrorMsg("Có lỗi xảy ra khi kết nối đến máy chủ xác thực.");
+    } finally {
       setSubmitting(false);
     }
   };
@@ -60,10 +65,10 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
             CỔNG QUẢN TRỊ HỆ THỐNG
           </h1>
           <p className="text-xs font-bold text-blue-400 tracking-wider uppercase mt-1 flex items-center justify-center gap-1.5">
-            <ShieldCheck size={14} /> TIN HỌC GEN Z • ADMIN CONTROL HUB
+            <ShieldCheck size={14} /> PH DIGITAL EDUCATION • RBAC SECURE GATE
           </p>
           <p className="text-slate-400 text-xs mt-2 leading-relaxed">
-            Khu vực hạn chế dành riêng cho Quản trị viên, Trưởng bộ môn & Giảng viên phụ trách đào tạo.
+            Khu vực kiểm soát quyền hạn cao dành riêng cho Quản trị viên, Giáo vụ và Giảng viên được cấp phép.
           </p>
         </div>
 
@@ -78,9 +83,8 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center justify-between">
-              <span>Mã PIN / Khóa Quản Trị</span>
-              <span className="text-[10px] text-slate-500 font-mono">Default: ph2026</span>
+            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">
+              Mã PIN / Mật Khẩu Quản Trị Hệ Thống
             </label>
             <div className="relative">
               <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
@@ -88,7 +92,7 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
                 type="password"
                 value={pinInput}
                 onChange={(e) => setPinInput(e.target.value)}
-                placeholder="Nhập mã PIN (ví dụ: ph2026)..."
+                placeholder="Nhập mật mã quản trị bảo mật..."
                 required
                 autoFocus
                 className="w-full pl-10 pr-4 py-3 bg-slate-950/80 border border-slate-700/80 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all tracking-wider font-mono"
@@ -101,33 +105,24 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
             disabled={submitting}
             className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm tracking-wide shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
           >
-            <ShieldCheck size={16} />
-            <span>XÁC THỰC QUYỀN TRUY CẬP</span>
+            {submitting ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                <span>ĐANG XÁC THỰC MÁY CHỦ...</span>
+              </>
+            ) : (
+              <>
+                <ShieldCheck size={16} />
+                <span>XÁC THỰC QUYỀN TRUY CẬP</span>
+              </>
+            )}
           </button>
         </form>
 
-        {/* Quick Fill Demo Helper */}
-        <div className="mt-5 pt-4 border-t border-slate-800/80 text-center">
-          <p className="text-[11px] text-slate-400 mb-2">Đăng nhập nhanh kiểm thử hệ thống:</p>
-          <div className="flex items-center justify-center gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setPinInput("ph2026");
-                login("ph2026");
-              }}
-              className="px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-blue-400 hover:text-white text-xs font-bold transition-colors flex items-center gap-1 cursor-pointer border border-slate-700/60"
-            >
-              <Sparkles size={12} className="text-amber-400" />
-              <span>Dùng mã mẫu: ph2026</span>
-            </button>
-          </div>
-        </div>
-
         {/* Safety Note */}
-        <div className="mt-4 text-center">
-          <p className="text-[10px] text-slate-500">
-            Phiên đăng nhập được mã hóa và ghi nhớ an toàn trên thiết bị này.
+        <div className="mt-6 text-center border-t border-slate-800/80 pt-4">
+          <p className="text-[11px] text-slate-500">
+            Hệ thống bảo vệ đa tầng ASVS Level 2, chống brute-force và mã hóa phiên theo chuẩn quốc tế.
           </p>
         </div>
       </div>

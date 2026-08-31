@@ -27,7 +27,7 @@ export default function AdminSchedulesPage() {
       courseType: "MOS",
       startDate: "Thứ 2 tuần tới",
       scheduleTime: "Tối 2 - 4 - 6 (19:30 - 21:30)",
-      mode: "Online qua Zoom / Google Meet",
+      mode: "Online qua Zoom/Google Meet",
       slotsRemaining: 5,
       status: "Đang mở đăng ký"
     });
@@ -186,13 +186,13 @@ export default function AdminSchedulesPage() {
                   <label className="block text-xs font-bold text-slate-300 mb-1">Môn Thi:</label>
                   <select
                     value={editingBatch.courseType}
-                    onChange={(e) => setEditingBatch({ ...editingBatch, courseType: e.target.value })}
+                    onChange={(e) => setEditingBatch({ ...editingBatch, courseType: e.target.value as BatchSchedule["courseType"] })}
                     className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-white text-sm"
                   >
                     <option value="MOS">MOS</option>
                     <option value="IC3">IC3 GS6</option>
-                    <option value="CNTT">CNTT Cơ Bản</option>
-                    <option value="AI">AI Văn Phòng</option>
+                    <option value="Excel">Excel Thực Chiến</option>
+                    <option value="AI Office">AI Văn Phòng</option>
                   </select>
                 </div>
                 <div>

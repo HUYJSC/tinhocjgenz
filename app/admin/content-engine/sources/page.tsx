@@ -135,7 +135,7 @@ export default function SourcesManagementPage() {
     }
   };
 
-  const handleTestFeed = async (sourceOrUrl: { id?: string; feedUrl?: string; name?: string }) => {
+  const handleTestFeed = async (sourceOrUrl: { id?: string; feedUrl?: string; name?: string; sourceType?: string }) => {
     try {
       setIsTesting(true);
       setShowTestModal(true);

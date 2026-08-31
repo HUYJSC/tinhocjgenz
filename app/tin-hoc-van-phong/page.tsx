@@ -36,7 +36,7 @@ const officeFaqs = [
 
 export default function TinHocVanPhongPage() {
   const officeCourses = coursesData.filter(
-    (c) => c.category === "van-phong" || c.category === "nang-cao"
+    (c) => c.category === "practical-office" || c.id.includes("office")
   );
 
   const courseSchema = generateCourseSchema({

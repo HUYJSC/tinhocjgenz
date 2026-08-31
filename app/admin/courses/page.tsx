@@ -26,7 +26,7 @@ export default function AdminCoursesPage() {
     (c) =>
       c.title.toLowerCase().includes(courseSearch.toLowerCase()) ||
       c.description.toLowerCase().includes(courseSearch.toLowerCase()) ||
-      c.categoryName.toLowerCase().includes(courseSearch.toLowerCase())
+      c.categoryName?.toLowerCase().includes(courseSearch.toLowerCase())
   );
 
   const handleOpenAdd = () => {

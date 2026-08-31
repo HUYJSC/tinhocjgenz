@@ -47,7 +47,7 @@ const mosFaqs = [
 
 export default function MosPillarPage() {
   const mosCourses = coursesData.filter(
-    (c) => c.category === "mos" || c.id.includes("mos")
+    (c) => c.id.includes("mos") || c.title.toLowerCase().includes("mos")
   );
 
   const courseSchema = generateCourseSchema({

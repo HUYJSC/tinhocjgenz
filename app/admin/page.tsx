@@ -211,13 +211,12 @@ export default function AdminDashboardOverviewPage() {
                   </div>
                 </div>
                 <div className="shrink-0 text-right">
-                  <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                    lead.status === "Chờ gọi"
-                      ? "bg-amber-950/80 text-amber-300 border border-amber-800/60"
-                      : lead.status === "Đã tư vấn"
+                  <span className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${lead.status === "Chờ gọi"
+                    ? "bg-amber-950/80 text-amber-300 border border-amber-800/60"
+                    : lead.status === "Đã tư vấn"
                       ? "bg-blue-950/80 text-blue-300 border border-blue-800/60"
                       : "bg-emerald-950/80 text-emerald-300 border border-emerald-800/60"
-                  }`}>
+                    }`}>
                     {lead.status}
                   </span>
                   <div className="text-[10px] text-slate-400 mt-1">{lead.date}</div>

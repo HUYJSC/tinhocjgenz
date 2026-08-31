@@ -45,10 +45,12 @@ export class ContentCollectorService {
       return String(mediaThumb["@_url"]);
     }
     // 2. Enclosure tag
-    if (item.enclosure && item.enclosure["@_url"]) {
-      const type = item.enclosure["@_type"] || "";
-      if (type.startsWith("image/") || item.enclosure["@_url"].match(/\.(jpg|jpeg|png|webp|avif)/i)) {
-        return item.enclosure["@_url"];
+    const enclosure = item.enclosure as Record<string, unknown> | undefined;
+    if (enclosure && enclosure["@_url"]) {
+      const url = String(enclosure["@_url"]);
+      const type = String(enclosure["@_type"] || "");
+      if (type.startsWith("image/") || url.match(/\.(jpg|jpeg|png|webp|avif)/i)) {
+        return url;
       }
     }
     // 3. Extract <img> from content / description

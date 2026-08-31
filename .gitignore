@@ -42,3 +42,12 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Python & Django
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
