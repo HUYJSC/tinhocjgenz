@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Users,
   Phone,
@@ -28,16 +28,28 @@ interface Lead {
 }
 
 export default function AdminLeadsCRMPage() {
-  const [leads, setLeads] = useState<Lead[]>([
-    { id: "lead-1", name: "Nguyễn Văn Tuấn", phone: "0968123456", course: "Combo MOS 3 Môn", university: "Sinh viên Đại học", date: "24/08/2026", status: "Chờ gọi", note: "Cần thi gấp lấy chứng chỉ quốc tế xét tốt nghiệp" },
-    { id: "lead-2", name: "Lê Thị Mai", phone: "0912345678", course: "Chứng chỉ IC3 GS6", university: "Học sinh THPT", date: "23/08/2026", status: "Đã tư vấn", note: "Đăng ký nhóm 3 bạn giảm 30% học phí" },
-    { id: "lead-3", name: "Trần Minh Quang", phone: "0987654321", course: "MOS Excel 2019", university: "Chuyên viên Kế toán", date: "23/08/2026", status: "Đã đóng học phí", note: "Học lớp tối 2-4-6, đã gửi hóa đơn" },
-    { id: "lead-4", name: "Hoàng Thảo My", phone: "0933456789", course: "Ứng dụng AI Văn Phòng", university: "Doanh nghiệp / Quản lý", date: "22/08/2026", status: "Đã tư vấn", note: "Đang phân vân học kèm 1:1" },
-    { id: "lead-5", name: "Đặng Hữu Phúc", phone: "0977889900", course: "MOS Word & Excel", university: "ĐH Kinh Tế TP.HCM", date: "21/08/2026", status: "Chờ gọi", note: "Cần tư vấn thời gian ôn thi cấp tốc 1 tuần" }
-  ]);
-
+  const [leads, setLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
   const [leadFilter, setLeadFilter] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  const loadLeads = async () => {
+    try {
+      const res = await fetch("/api/admin/leads");
+      if (res.ok) {
+        const json = await res.json();
+        if (json.data) setLeads(json.data);
+      }
+    } catch (e) {
+      console.warn("Lỗi tải leads:", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadLeads();
+  }, []);
 
   const filteredLeads = leads.filter((l) => {
     const matchesFilter = leadFilter === "all" || l.status === leadFilter;
@@ -45,17 +57,27 @@ export default function AdminLeadsCRMPage() {
       l.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       l.phone.includes(searchQuery) ||
       l.course.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      l.university.toLowerCase().includes(searchQuery.toLowerCase());
+      (l.university && l.university.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesFilter && matchesSearch;
   });
 
-  const handleUpdateStatus = (id: string, newStatus: Lead["status"]) => {
+  const handleUpdateStatus = async (id: string, newStatus: Lead["status"]) => {
     setLeads(leads.map((l) => (l.id === id ? { ...l, status: newStatus } : l)));
+    try {
+      await fetch("/api/admin/leads", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+    } catch {}
   };
 
-  const handleDeleteLead = (id: string) => {
+  const handleDeleteLead = async (id: string) => {
     if (confirm("Xóa thông tin học viên này khỏi CRM?")) {
       setLeads(leads.filter((l) => l.id !== id));
+      try {
+        await fetch(`/api/admin/leads?id=${id}`, { method: "DELETE" });
+      } catch {}
     }
   };
 

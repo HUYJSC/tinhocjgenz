@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   BookOpen,
@@ -26,12 +26,18 @@ import { coursesData, upcomingBatchesData } from "@/data/mockData";
 import { BLOG_POSTS } from "@/data/blogData";
 
 export default function AdminDashboardOverviewPage() {
-  // Recent leads sample
-  const [recentLeads] = useState([
-    { id: "lead-1", name: "Nguyễn Văn Tuấn", phone: "0968123456", course: "Combo MOS 3 Môn", university: "Sinh viên Đại học", date: "Hôm nay", status: "Chờ gọi", note: "Cần thi gấp lấy chứng chỉ quốc tế" },
-    { id: "lead-2", name: "Lê Thị Mai", phone: "0912345678", course: "Chứng chỉ IC3 GS6", university: "Học sinh THPT", date: "Hôm qua", status: "Đã tư vấn", note: "Đăng ký nhóm 3 bạn giảm 30%" },
-    { id: "lead-3", name: "Trần Minh Quang", phone: "0987654321", course: "MOS Excel 2019", university: "Chuyên viên Kế toán", date: "2 ngày trước", status: "Đã đóng học phí", note: "Học lớp tối 2-4-6" },
-  ]);
+  const [recentLeads, setRecentLeads] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/admin/leads")
+      .then((r) => r.json())
+      .then((res) => {
+        if (res.data) setRecentLeads(res.data);
+      })
+      .catch(() => {});
+  }, []);
+
+  const pendingCount = recentLeads.filter((l) => l.status === "Chờ gọi").length;
 
   const stats = [
     {
@@ -54,8 +60,8 @@ export default function AdminDashboardOverviewPage() {
     },
     {
       title: "Học Viên Đăng Ký (Leads)",
-      value: "14",
-      subtext: "3 học viên chờ tư vấn",
+      value: recentLeads.length.toString(),
+      subtext: `${pendingCount} học viên chờ tư vấn`,
       href: "/admin/leads",
       icon: Users,
       color: "from-emerald-600 to-teal-600",

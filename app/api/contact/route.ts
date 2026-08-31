@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { LeadsStore } from "@/lib/leads-store";
 
 export async function POST(req: Request) {
   try {
@@ -12,40 +13,36 @@ export async function POST(req: Request) {
       );
     }
 
-    // 2. Check if Google Apps Script URL is set
-    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
-    if (!googleScriptUrl) {
-      // If not configured, we log and return success to ensure graceful degradation for user
-      console.warn("GOOGLE_SCRIPT_URL is not set in environment variables.");
-      return NextResponse.json(
-        { 
-          status: "success", 
-          message: "Đăng ký thành công (Chế độ mô phỏng - GOOGLE_SCRIPT_URL chưa được cấu hình)" 
-        }
-      );
-    }
-
-    // 3. Forward request to Google Apps Script Web App
-    const response = await fetch(googleScriptUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+    // 2. Persist lead in database / CRM
+    const newLead = LeadsStore.addLead({
+      name: String(data.name).trim(),
+      phone: String(data.phone).trim(),
+      course: data.course || data.subject || "Khóa học MOS / IC3 Cấp Tốc",
+      university: data.university || data.school || "Học viên Website",
+      note: data.note || data.message || `Đăng ký từ biểu mẫu: ${data.formType || "Tư vấn trực tiếp"}`,
     });
 
-    if (!response.ok) {
-      throw new Error(`Google Script returned status: ${response.status}`);
+    // 3. Optional: Forward request to Google Apps Script Web App if configured
+    const googleScriptUrl = process.env.GOOGLE_SCRIPT_URL;
+    if (googleScriptUrl) {
+      fetch(googleScriptUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      }).catch((e) => console.warn("Lỗi forward Google Script:", e));
     }
 
-    const result = await response.json();
-    return NextResponse.json(result);
+    return NextResponse.json({
+      status: "success",
+      message: "Đăng ký tư vấn thành công! Giảng viên sẽ liên hệ trong 15 phút.",
+      leadId: newLead.id,
+    });
   } catch (error: any) {
-    console.error("Contact Form Integration Error:", error);
+    console.error("Contact Form Error:", error);
     return NextResponse.json(
-      { 
-        status: "error", 
-        message: "Có lỗi xảy ra khi gửi thông tin đăng ký. Vui lòng liên hệ trực tiếp số điện thoại." 
+      {
+        status: "error",
+        message: "Có lỗi xảy ra khi tiếp nhận thông tin. Vui lòng gọi trực tiếp hotline 033.229.8065.",
       },
       { status: 500 }
     );
