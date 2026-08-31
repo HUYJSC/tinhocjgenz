@@ -24,24 +24,24 @@ export interface SiteConfig {
 }
 
 export const SITE_CONFIG: SiteConfig = {
-  name: "PH Digital Education",
-  shortName: "PH Digital Education",
-  tagline: "Đào Tạo Tin Học Thực Chiến & Luyện Thi Chứng Chỉ Quốc Tế MOS, IC3 Toàn Diện",
+  name: "Tin Học Gen Z | Đào Tạo MOS, IC3 & Tin Học Văn Phòng Thực Chiến",
+  shortName: "Tin Học Gen Z",
+  tagline: "Hệ Sinh Thái Đào Tạo Tin Học Thực Chiến & Luyện Thi MOS, IC3 Chuẩn Quốc Tế",
   description:
-    "PH DIGITAL EDUCATION - Hệ sinh thái đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 chuẩn Certiport cho Học sinh, Sinh viên, Người đi làm và Doanh nghiệp trên toàn quốc. Cam kết bao đỗ 100%.",
+    "Tin Học Gen Z - Đào tạo tin học văn phòng thực chiến, luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport cho sinh viên và người đi làm. Cam kết bao đỗ 100%.",
   domain: "tinhocgenz.io.vn",
-  url: "https://www.tinhocgenz.io.vn",
-  author: "PH Digital Education",
+  url: "https://tinhocgenz.io.vn",
+  author: "Tin Học Gen Z",
   keywords: [
-    "PH Digital Education",
+    "Tin Học Gen Z",
+    "tinhocgenz",
     "luyện thi MOS",
-    "chứng chỉ IC3",
+    "chứng chỉ IC3 GS6",
     "tin học văn phòng thực chiến",
-    "học excel nâng cao",
-    "chứng chỉ tin học quốc tế certiport",
-    "tin học cho người đi làm",
-    "tin học cho sinh viên",
-    "cài office bản quyền",
+    "khóa học excel nâng cao",
+    "chứng chỉ tin học quốc tế",
+    "tin học sinh viên",
+    "tin học người đi làm",
     "ứng dụng AI văn phòng",
   ],
   contact: {

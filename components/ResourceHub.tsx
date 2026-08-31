@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, FileSpreadsheet, FileText, Sparkles, CheckCircle2, Send, Lock, BookOpen } from "lucide-react";
-import { CONTACT_INFO } from "@/data/contactInfo";
+import { Download, CheckCircle2, Send, Lock, BookOpen } from "lucide-react";
 
 interface ResourceItem {
   id: string;

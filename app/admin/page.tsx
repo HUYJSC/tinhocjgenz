@@ -2,11 +2,11 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
-import { 
-  Lock, KeyRound, LayoutDashboard, BookOpen, Calendar, 
-  FileText, Users, Plus, Edit2, Trash2, Save, Download, 
-  CheckCircle2, AlertCircle, Sparkles, ExternalLink, LogOut, 
-  ArrowRight, ShieldCheck, Upload, Video, Image, FileSpreadsheet, 
+import {
+  Lock, KeyRound, LayoutDashboard, BookOpen, Calendar,
+  FileText, Users, Plus, Edit2, Trash2, Save, Download,
+  CheckCircle2, AlertCircle, Sparkles, ExternalLink, LogOut,
+  ArrowRight, ShieldCheck, Upload, Video, Image, FileSpreadsheet,
   Copy, Eye, X, Check, Search, Filter, PlayCircle, TrendingUp,
   Brain, QrCode, FileCheck2, School, Phone, Mail, Award, Clock,
   ChevronRight, RefreshCw, BarChart3, Database
@@ -119,8 +119,8 @@ export default function AdminPortalPage() {
   const filteredLeads = leads.filter(l => leadFilter === "all" || l.status === leadFilter);
 
   // Filtered Courses
-  const filteredCourses = courses.filter(c => 
-    c.title.toLowerCase().includes(courseSearch.toLowerCase()) || 
+  const filteredCourses = courses.filter(c =>
+    c.title.toLowerCase().includes(courseSearch.toLowerCase()) ||
     c.description.toLowerCase().includes(courseSearch.toLowerCase())
   );
 
@@ -289,9 +289,9 @@ export default function AdminPortalPage() {
       <div className="min-h-screen flex items-center justify-center p-4 bg-slate-950 relative overflow-hidden">
         {/* Background glow accents */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
-        
+
         <div className="relative z-10 bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 sm:p-10 max-w-md w-full shadow-2xl space-y-6 text-white text-center">
-          
+
           <div className="w-14 h-14 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mx-auto text-cyan-400 shadow-inner">
             <Lock size={28} />
           </div>
@@ -349,7 +349,7 @@ export default function AdminPortalPage() {
   // --- AUTHENTICATED ADMIN DASHBOARD ---
   return (
     <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col font-sans">
-      
+
       {/* 1. Admin Top Executive Bar */}
       <header className="bg-slate-900/90 backdrop-blur-md border-b border-slate-800/90 py-3 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-40">
         <div className="flex items-center gap-3">
@@ -384,10 +384,10 @@ export default function AdminPortalPage() {
 
       {/* 2. Admin Layout: Sidebar + Main Content */}
       <div className="flex-1 flex flex-col lg:flex-row">
-        
+
         {/* Left Sidebar Navigation */}
         <aside className="w-full lg:w-64 bg-slate-900/60 border-r border-slate-800/80 p-4 space-y-2 shrink-0">
-          
+
           <div className="px-3 py-2 text-[10px] font-black uppercase tracking-wider text-slate-400">
             Menu Quản Trị
           </div>
@@ -407,20 +407,18 @@ export default function AdminPortalPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-black transition-all cursor-pointer ${
-                    isActive
-                      ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                      : "text-slate-400 hover:text-white hover:bg-slate-800/60"
-                  }`}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-black transition-all cursor-pointer ${isActive
+                    ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                    : "text-slate-400 hover:text-white hover:bg-slate-800/60"
+                    }`}
                 >
                   <div className="flex items-center gap-2.5">
                     {tab.icon}
                     <span>{tab.label}</span>
                   </div>
                   {tab.badge && (
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md ${
-                      isActive ? "bg-white/20 text-white" : "bg-slate-800 text-slate-400"
-                    }`}>
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-md ${isActive ? "bg-white/20 text-white" : "bg-slate-800 text-slate-400"
+                      }`}>
                       {tab.badge}
                     </span>
                   )}
@@ -429,8 +427,24 @@ export default function AdminPortalPage() {
             })}
           </nav>
 
+          {/* Direct Link to Tin học GenZ Content Engine */}
+          <div className="pt-3">
+            <Link
+              href="/admin/content-engine"
+              className="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-black shadow-lg shadow-blue-600/30 transition-all border border-cyan-400/30 group"
+            >
+              <div className="flex items-center gap-2.5">
+                <Sparkles size={16} className="text-cyan-200 group-hover:rotate-12 transition-transform" />
+                <span>AI Content Engine</span>
+              </div>
+              <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-white/20 text-white">
+                AUTO
+              </span>
+            </Link>
+          </div>
+
           {/* Quick System Status Widget in Sidebar */}
-          <div className="pt-6 mt-6 border-t border-slate-800">
+          <div className="pt-4 mt-4 border-t border-slate-800">
             <div className="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/80 space-y-2">
               <div className="flex items-center justify-between text-[11px] font-bold">
                 <span className="text-slate-400">Trợ Lý AI Advisor:</span>
@@ -451,11 +465,11 @@ export default function AdminPortalPage() {
 
         {/* Main Dashboard Canvas */}
         <main className="flex-1 p-4 sm:p-8 overflow-y-auto space-y-8">
-          
+
           {/* TAB 1: EXECUTIVE KPI DASHBOARD */}
           {activeTab === "dashboard" && (
             <div className="space-y-8 animate-fade-in">
-              
+
               {/* Header Title */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
@@ -463,14 +477,14 @@ export default function AdminPortalPage() {
                   <p className="text-xs text-slate-400 mt-0.5">Tổng hợp số liệu hiệu quả hoạt động đào tạo và tuyển sinh theo thời gian thực.</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button 
+                  <button
                     onClick={handleExportCSV}
                     className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 transition-colors flex items-center gap-1.5 border border-slate-700 cursor-pointer"
                   >
                     <Download size={13} />
                     <span>Xuất Báo Cáo CRM</span>
                   </button>
-                  <button 
+                  <button
                     onClick={handleOpenAddCourse}
                     className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-black text-white transition-all flex items-center gap-1.5 shadow-md cursor-pointer"
                   >
@@ -482,7 +496,7 @@ export default function AdminPortalPage() {
 
               {/* 4 Primary KPI Metrics Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                
+
                 <div className="bg-slate-900/80 border border-slate-800/80 p-5 rounded-2xl shadow-sm space-y-2">
                   <div className="flex items-center justify-between text-slate-400">
                     <span className="text-xs font-bold uppercase tracking-wider">Học Viên Mới (Tháng này)</span>
@@ -574,13 +588,12 @@ export default function AdminPortalPage() {
                           <td className="py-3 text-slate-300">{lead.course}</td>
                           <td className="py-3 text-slate-400">{lead.university}</td>
                           <td className="py-3">
-                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                              lead.status === "Chờ gọi"
-                                ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
-                                : lead.status === "Đã tư vấn"
+                            <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${lead.status === "Chờ gọi"
+                              ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                              : lead.status === "Đã tư vấn"
                                 ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
                                 : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                            }`}>
+                              }`}>
                               {lead.status}
                             </span>
                           </td>
@@ -633,7 +646,7 @@ export default function AdminPortalPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredCourses.map((course) => (
-                  <div 
+                  <div
                     key={course.id}
                     className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between space-y-4 hover:border-slate-700 transition-all shadow-sm"
                   >
@@ -651,7 +664,7 @@ export default function AdminPortalPage() {
 
                       <h3 className="text-base font-black text-white leading-snug font-display">{course.title}</h3>
                       <p className="text-slate-400 text-xs line-clamp-2">{course.description}</p>
-                      
+
                       <div className="pt-2 flex items-center justify-between text-xs">
                         <span className="text-slate-400">Thời lượng: <strong>{course.duration}</strong></span>
                         <span className="text-amber-400 font-black text-sm">

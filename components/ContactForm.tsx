@@ -2,92 +2,85 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { CheckCircle2, AlertCircle, ArrowRight, Loader2, Sparkles } from "lucide-react";
+import { CheckCircle2, AlertCircle, ArrowRight, Loader2, Sparkles, PhoneCall } from "lucide-react";
 import { coursesData } from "@/data/mockData";
+import { SITE_CONFIG } from "@/data/siteConfig";
+import { AnalyticsEvents } from "@/lib/analytics";
 
-// Wrapper component to provide Suspense boundary
-export default function ContactForm() {
+interface ContactFormProps {
+  defaultCourse?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+export default function ContactForm(props: ContactFormProps) {
   return (
-    <Suspense fallback={
-      <div className="flex items-center justify-center p-8 bg-white rounded-2xl border border-slate-200 shadow-xl">
-        <Loader2 className="animate-spin text-blue-600 mr-2" />
-        <span className="text-slate-500 font-medium">Đang tải biểu mẫu...</span>
-      </div>
-    }>
-      <ContactFormContent />
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center p-8 bg-white rounded-2xl border border-slate-200 shadow-xl">
+          <Loader2 className="animate-spin text-blue-600 mr-2" />
+          <span className="text-slate-500 font-medium">Đang tải biểu mẫu...</span>
+        </div>
+      }
+    >
+      <ContactFormContent {...props} />
     </Suspense>
   );
 }
 
-function ContactFormContent() {
+function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps) {
   const searchParams = useSearchParams();
-  
-  // Combine all selectable courses & university standards
-  const selectionOptions = [
-    { 
-      category: "Chứng Chỉ Quốc Tế MOS & IC3", 
-      items: coursesData.filter(c => c.category === "mos-ic3").map(c => ({ id: c.id, name: c.title })) 
-    },
-    { 
-      category: "Tin Học Thực Chiến & Doanh Nghiệp", 
-      items: coursesData.filter(c => c.category !== "mos-ic3").map(c => ({ id: c.id, name: c.title })) 
-    }
-  ];
 
-  // Form State
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    selection: "",
-    message: ""
+    selection: defaultCourse || "",
+    message: "",
   });
 
-  // Validation States
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // Pre-fill selection based on search parameters
   useEffect(() => {
-    const preselect = searchParams.get("select");
+    const preselect = searchParams?.get("select");
     if (preselect) {
-      const hasMatch = coursesData.some(item => item.id === preselect);
-      if (hasMatch) {
-        setFormData(prev => ({ ...prev, selection: preselect }));
+      const match = coursesData.find((c) => c.id === preselect);
+      if (match) {
+        setFormData((prev) => ({ ...prev, selection: match.title }));
       }
+    } else if (defaultCourse && !formData.selection) {
+      setFormData((prev) => ({ ...prev, selection: defaultCourse }));
     }
-  }, [searchParams]);
+  }, [searchParams, defaultCourse]);
 
-  // Handle Input Changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    // Clear errors when typing
+    setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
-    // Clear global submit error when typing
     setSubmitError(null);
   };
 
-  // Submit Handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: typeof errors = {};
     setSubmitError(null);
 
-    // Name Validation
     if (!formData.name.trim()) {
       newErrors.name = "Vui lòng nhập họ và tên của bạn";
     }
 
-    // Vietnamese Phone Validation Regex
     const phoneRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
+    const cleanPhone = formData.phone.replace(/\s+/g, "");
     if (!formData.phone.trim()) {
       newErrors.phone = "Vui lòng nhập số điện thoại";
-    } else if (!phoneRegex.test(formData.phone.replace(/\s+/g, ""))) {
-      newErrors.phone = "Số điện thoại không đúng định dạng (Ví dụ: 0987654321)";
+    } else if (!phoneRegex.test(cleanPhone)) {
+      newErrors.phone = "Số điện thoại chưa đúng định dạng (Ví dụ: 0987654321)";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -95,223 +88,199 @@ function ContactFormContent() {
       return;
     }
 
-    // Submit request to Next.js API route
     setIsSubmitting(true);
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const result = await response.json();
       if (response.ok && result.status === "success") {
         setSubmitSuccess(true);
+        AnalyticsEvents.SUBMIT_LEAD(formData.selection || "Tư vấn tổng quát", formData.name);
       } else {
-        setSubmitError(result.message || "Có lỗi xảy ra khi gửi thông tin đăng ký. Vui lòng liên hệ trực tiếp.");
+        setSubmitError(
+          result.message || "Có lỗi xảy ra khi gửi thông tin. Vui lòng liên hệ Hotline trực tiếp."
+        );
       }
-    } catch (err) {
-      console.error("Submit error:", err);
-      setSubmitError("Lỗi kết nối mạng. Vui lòng kiểm tra lại đường truyền internet của bạn.");
+    } catch {
+      setSubmitError("Lỗi kết nối mạng. Vui lòng kiểm tra lại đường truyền internet.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Reset form to submit again
   const handleReset = () => {
-    setFormData({ name: "", phone: "", selection: "", message: "" });
+    setFormData({ name: "", phone: "", selection: defaultCourse || "", message: "" });
     setSubmitSuccess(false);
     setSubmitError(null);
   };
 
   if (submitSuccess) {
     return (
-      <div className="bg-gradient-to-br from-blue-50 to-white p-8 sm:p-10 rounded-2xl border border-blue-200 shadow-xl text-center flex flex-col items-center gap-6 animate-fade-in">
-        <div className="w-16 h-16 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-500 flex items-center justify-center shadow-md animate-pulse">
-          <CheckCircle2 size={36} className="stroke-[2.5]" />
+      <div className="bg-gradient-to-br from-blue-50 to-white p-8 sm:p-10 rounded-2xl border border-blue-200 shadow-xl text-center flex flex-col items-center gap-5">
+        <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-md">
+          <CheckCircle2 size={32} className="stroke-[2.5]" />
         </div>
         <div className="space-y-2">
-          <h3 className="text-2xl font-black text-slate-900 tracking-tight">Đăng Ký Thành Công!</h3>
-          <p className="text-slate-600 text-sm max-w-md mx-auto leading-relaxed">
-            Chào <strong className="text-blue-600 font-bold">{formData.name}</strong>, PH Digital Education đã ghi nhận yêu cầu đăng ký của bạn.
+          <h3 className="text-2xl font-black text-slate-900">Đăng Ký Thành Công!</h3>
+          <p className="text-slate-600 text-sm max-w-md mx-auto">
+            Cảm ơn <strong className="text-blue-600">{formData.name}</strong>, đội ngũ giảng viên sẽ liên hệ qua SĐT <strong className="text-blue-600">{formData.phone}</strong> trong vòng 15 phút.
           </p>
-          <div className="bg-slate-900 text-white rounded-2xl p-4 text-xs font-mono text-left max-w-sm mx-auto shadow-inner space-y-2 mt-4">
-            <p className="text-slate-400"># THÔNG TIN ĐĂNG KÝ:</p>
-            <p>• Họ tên: {formData.name}</p>
-            <p>• SĐT: {formData.phone}</p>
-            <p>• Đăng ký: {
-              (() => {
-                const item = coursesData.find(x => x.id === formData.selection);
-                if (!item) return "Tư vấn lộ trình chuẩn đầu ra MOS/IC3";
-                return item.title;
-              })()
-            }</p>
-          </div>
         </div>
-        
-        <div className="bg-blue-50 border border-blue-100 rounded-xl px-5 py-3.5 text-xs text-blue-700 font-semibold flex items-center gap-2 max-w-md shadow-sm">
-          <Sparkles size={16} className="text-cyan-500 shrink-0" />
-          <span>Ban tư vấn PH Digital Education sẽ liên hệ trực tiếp qua số <strong>{formData.phone}</strong> trong vòng 15 phút nhé!</span>
+        <div className="flex gap-3 pt-2">
+          <button
+            type="button"
+            onClick={handleReset}
+            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+          >
+            Đăng ký thêm người khác
+          </button>
+          <a
+            href={SITE_CONFIG.contact.zaloUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+          >
+            <PhoneCall size={13} />
+            <span>Chat Zalo Ngay</span>
+          </a>
         </div>
-
-        <button
-          onClick={handleReset}
-          className="mt-2 text-xs font-bold text-slate-500 hover:text-blue-600 underline smooth-transition"
-        >
-          Gửi biểu mẫu khác
-        </button>
       </div>
     );
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-premium hover:shadow-premium-hover transition-all duration-500 relative overflow-hidden"
-    >
-      {/* Visual Accent Bar */}
-      <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-blue-600 to-cyan-500" />
-
-      <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-2">
-        Nhận Tư Vấn Lộ Trình Miễn Phí
-      </h3>
-      <p className="text-slate-500 text-xs sm:text-sm mb-6 leading-relaxed">
-        Để lại thông tin, giảng viên PH Digital Education sẽ chủ động gọi điện để tư vấn lộ trình học tập tối ưu hoặc xếp lịch thi Certiport gần nhất cho bạn!
-      </p>
-
-      {submitError && (
-        <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-100 text-red-700 text-xs sm:text-sm font-semibold flex items-center gap-2.5 animate-fade-in shadow-sm">
-          <AlertCircle size={16} className="shrink-0" />
-          <span>{submitError}</span>
+    <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl">
+      {title && (
+        <div className="mb-6 text-center space-y-1">
+          <h3 className="text-xl sm:text-2xl font-black text-slate-900">{title}</h3>
+          {subtitle && <p className="text-slate-500 text-xs sm:text-sm">{subtitle}</p>}
         </div>
       )}
 
-      <div className="space-y-4">
-        {/* Name input */}
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="name" className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
-            Họ và tên <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {submitError && (
+          <div className="p-3.5 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs flex items-center gap-2">
+            <AlertCircle size={16} className="shrink-0" />
+            <span>{submitError}</span>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <label htmlFor="name" className="text-xs font-bold text-slate-700">
+              Họ và tên <span className="text-red-500">*</span>
+            </label>
             <input
-              type="text"
               id="name"
               name="name"
-              required
+              type="text"
+              placeholder="Nguyễn Văn A"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Ví dụ: Nguyễn Văn A"
-              className={`w-full px-4 py-3 rounded-xl border text-sm font-semibold smooth-transition focus:outline-none focus:ring-2 ${
+              className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
                 errors.name
-                  ? "border-red-300 focus:ring-red-100"
-                  : "border-slate-200 focus:border-blue-500 focus:ring-blue-100"
+                  ? "border-red-400 focus:ring-red-200 bg-red-50/20"
+                  : "border-slate-300 focus:border-blue-500 focus:ring-blue-100"
               }`}
             />
-            {errors.name && (
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500 flex items-center gap-1">
-                <AlertCircle size={16} />
-              </div>
-            )}
+            {errors.name && <p className="text-[11px] text-red-500 font-medium">{errors.name}</p>}
           </div>
-          {errors.name && <p className="text-red-500 text-[11px] font-bold mt-0.5">{errors.name}</p>}
-        </div>
 
-        {/* Phone input */}
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="phone" className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
-            Số điện thoại <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
+          <div className="space-y-1.5">
+            <label htmlFor="phone" className="text-xs font-bold text-slate-700">
+              Số điện thoại / Zalo <span className="text-red-500">*</span>
+            </label>
             <input
-              type="tel"
               id="phone"
               name="phone"
-              required
+              type="tel"
+              placeholder="0912 345 678"
               value={formData.phone}
               onChange={handleChange}
-              placeholder="Ví dụ: 0968123456"
-              className={`w-full px-4 py-3 rounded-xl border text-sm font-semibold smooth-transition focus:outline-none focus:ring-2 ${
+              className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
                 errors.phone
-                  ? "border-red-300 focus:ring-red-100"
-                  : "border-slate-200 focus:border-blue-500 focus:ring-blue-100"
+                  ? "border-red-400 focus:ring-red-200 bg-red-50/20"
+                  : "border-slate-300 focus:border-blue-500 focus:ring-blue-100"
               }`}
             />
-            {errors.phone && (
-              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-red-500 flex items-center gap-1">
-                <AlertCircle size={16} />
-              </div>
-            )}
+            {errors.phone && <p className="text-[11px] text-red-500 font-medium">{errors.phone}</p>}
           </div>
-          {errors.phone && <p className="text-red-500 text-[11px] font-bold mt-0.5">{errors.phone}</p>}
         </div>
 
-        {/* Dropdown Selection */}
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="selection" className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
-            Nội dung quan tâm (Khóa học / Dịch vụ)
+        <div className="space-y-1.5">
+          <label htmlFor="selection" className="text-xs font-bold text-slate-700">
+            Khóa học quan tâm
           </label>
           <select
             id="selection"
             name="selection"
             value={formData.selection}
             onChange={handleChange}
-            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-semibold bg-white text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 smooth-transition"
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-slate-800"
           >
-            <option value="">-- Chọn Khóa học hoặc Dịch vụ (Không bắt buộc) --</option>
-            {selectionOptions.map((group) => (
-              <optgroup key={group.category} label={group.category} className="font-bold text-slate-900">
-                {group.items.map((item) => (
-                  <option key={item.id} value={item.id} className="font-normal text-slate-700">
-                    {item.name}
+            <option value="">-- Chọn khóa học hoặc tư vấn theo yêu cầu --</option>
+            <optgroup label="Chứng Chỉ Quốc Tế MOS & IC3">
+              {coursesData
+                .filter((c) => c.category === "mos-ic3" || c.id.includes("mos") || c.id.includes("ic3"))
+                .map((c) => (
+                  <option key={c.id} value={c.title}>
+                    {c.title} ({c.price})
                   </option>
                 ))}
-              </optgroup>
-            ))}
+            </optgroup>
+            <optgroup label="Tin Học Văn Phòng Thực Chiến">
+              {coursesData
+                .filter((c) => c.category !== "mos-ic3" && !c.id.includes("mos") && !c.id.includes("ic3"))
+                .map((c) => (
+                  <option key={c.id} value={c.title}>
+                    {c.title} ({c.price})
+                  </option>
+                ))}
+            </optgroup>
           </select>
         </div>
 
-        {/* Message Input */}
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="message" className="text-xs font-extrabold text-slate-800 uppercase tracking-wider">
-            Lời nhắn thêm (Không bắt buộc)
+        <div className="space-y-1.5">
+          <label htmlFor="message" className="text-xs font-bold text-slate-700">
+            Ghi chú thêm (Mục tiêu điểm số, thời gian rảnh...)
           </label>
           <textarea
             id="message"
             name="message"
-            rows={3}
+            rows={2}
+            placeholder="Ví dụ: Em muốn ôn cấp tốc 3 buổi để thi vào cuối tuần sau..."
             value={formData.message}
             onChange={handleChange}
-            placeholder="Ví dụ: Mình muốn học ca tối, hoặc muốn cài Win vào thứ 7..."
-            className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-semibold focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 smooth-transition"
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all resize-none"
           />
         </div>
-      </div>
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full mt-6 py-4 rounded-full text-xs font-black tracking-wide uppercase transition-all duration-300 active:scale-[0.98] disabled:scale-100 disabled:opacity-85 btn-premium-primary flex items-center justify-center gap-2 group cursor-pointer"
-      >
-        {isSubmitting ? (
-          <>
-            <Loader2 className="animate-spin" size={15} />
-            Đang ghi nhận...
-          </>
-        ) : (
-          <>
-            Đăng ký ngay
-            <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-300" />
-          </>
-        )}
-      </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full py-3.5 px-6 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-md shadow-amber-400/20 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-70"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 size={16} className="animate-spin text-slate-900" />
+              <span>Đang gửi thông tin...</span>
+            </>
+          ) : (
+            <>
+              <span>Gửi Đăng Ký & Nhận Ưu Đãi Nhóm 30%</span>
+              <ArrowRight size={16} />
+            </>
+          )}
+        </button>
 
-      <p className="text-slate-400 text-[10px] text-center mt-4">
-        * Thầy giáo cam kết không chia sẻ hay sử dụng thông tin của bạn vào mục đích spam.
-      </p>
-    </form>
+        <p className="text-center text-[11px] text-slate-400 font-medium">
+          🔒 Thông tin cá nhân của bạn được bảo mật tuyệt đối theo chính sách đào tạo.
+        </p>
+      </form>
+    </div>
   );
 }

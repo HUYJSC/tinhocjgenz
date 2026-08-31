@@ -1,0 +1,11 @@
+[
+  {
+    "id": "log-init",
+    "action": "source_add",
+    "entityType": "system",
+    "entityId": "system",
+    "user": "System",
+    "details": "Hệ thống Tin học GenZ Content Engine khởi tạo thành công.",
+    "timestamp": "2026-08-25T13:20:39.556Z"
+  }
+]

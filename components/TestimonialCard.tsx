@@ -46,7 +46,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
         {/* Content */}
         <blockquote className="text-slate-600 text-xs sm:text-sm leading-relaxed font-semibold italic flex-1">
-          "{testimonial.content}"
+          &ldquo;{testimonial.content}&rdquo;
         </blockquote>
       </div>
 

@@ -19,6 +19,7 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { BLOG_POSTS, BLOG_CATEGORIES, BlogPost } from "@/data/blogData";
+import { SITE_CONFIG } from "@/data/siteConfig";
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -345,12 +346,12 @@ export default function BlogPage() {
                 <ArrowRight size={14} />
               </Link>
               <a
-                href="https://zalo.me/0332298065"
+                href={SITE_CONFIG.contact.zaloUrl}
                 target="_blank"
                 rel="noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-xs font-black uppercase tracking-wider bg-white/10 hover:bg-white/20 border border-white/20 text-white transition-all"
               >
-                Chat Zalo (033.229.8065)
+                Chat Zalo ({SITE_CONFIG.contact.displayPhone})
               </a>
             </div>
           </div>

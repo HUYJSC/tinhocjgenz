@@ -19,7 +19,7 @@ export interface TargetPathway {
   id: string;
   title: string;
   subtitle: string;
-  icon: any;
+  icon: React.ReactNode;
   targetAudience: string;
   duration: string;
   outcomes: string[];

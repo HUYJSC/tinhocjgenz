@@ -4,6 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import HomeTabbedHub from "@/components/HomeTabbedHub";
 import { BLOG_POSTS } from "@/data/blogData";
+import { SITE_CONFIG } from "@/data/siteConfig";
 
 export default function Home() {
   const latestGuides = BLOG_POSTS.slice(0, 3);
@@ -126,7 +127,7 @@ export default function Home() {
             </Link>
             
             <a
-              href="https://zalo.me/0332298065"
+              href={SITE_CONFIG.contact.zaloUrl}
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-xs font-black tracking-wide uppercase text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-300"

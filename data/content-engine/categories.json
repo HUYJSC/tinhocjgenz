@@ -1,0 +1,56 @@
+[
+  {
+    "id": "cat-ai",
+    "name": "AI & Trí tuệ nhân tạo",
+    "slug": "ai-tri-tue-nhan-tao",
+    "description": "Cập nhật ứng dụng ChatGPT, Google Gemini, Copilot và các công cụ AI hỗ trợ công việc học tập.",
+    "icon": "Brain",
+    "order": 1,
+    "isActive": true
+  },
+  {
+    "id": "cat-office",
+    "name": "Microsoft Office & MOS",
+    "slug": "microsoft-office-mos",
+    "description": "Thủ thuật Excel, Word, PowerPoint, luyện thi chứng chỉ MOS và mẹo xử lý bảng tính thực tế.",
+    "icon": "FileSpreadsheet",
+    "order": 2,
+    "isActive": true
+  },
+  {
+    "id": "cat-google",
+    "name": "Google Workspace & IC3",
+    "slug": "google-workspace-ic3",
+    "description": "Khai thác tối đa Google Docs, Sheets, Drive, Meet và chứng chỉ tin học quốc tế IC3.",
+    "icon": "Layers",
+    "order": 3,
+    "isActive": true
+  },
+  {
+    "id": "cat-security",
+    "name": "An toàn thông tin & Bảo mật",
+    "slug": "an-toan-thong-tin",
+    "description": "Cảnh báo lừa đảo mạng, bảo mật tài khoản cá nhân, phòng chống mã độc và kỹ năng số an toàn.",
+    "icon": "ShieldAlert",
+    "order": 4,
+    "isActive": true
+  },
+  {
+    "id": "cat-dev",
+    "name": "Công cụ Lập trình & Tech Trends",
+    "slug": "cong-cu-lap-trinh",
+    "description": "Công cụ GitHub, VS Code, công nghệ Web, Cloud và các xu hướng công nghệ mới nhất.",
+    "icon": "Code2",
+    "order": 5,
+    "isActive": true
+  },
+  {
+    "id": "cat-productivity",
+    "name": "Kỹ năng số & Hiệu suất",
+    "slug": "ky-nang-so-hieu-suat",
+    "description": "Mẹo nâng cao tốc độ làm việc văn phòng, thiết kế Canva, quản lý dữ liệu và tự động hóa.",
+    "icon": "Zap",
+    "order": 6,
+    "isActive": true
+  }
+]

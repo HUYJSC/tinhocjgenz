@@ -10,15 +10,11 @@ import {
   Award, 
   Star,
   Brain,
-  Zap,
-  TrendingUp,
   FileSpreadsheet,
   Clock,
   ChevronRight,
-  BookOpen,
   Laptop
 } from "lucide-react";
-import { AnalyticsEvents } from "@/lib/analytics";
 
 export default function HeroSection() {
   const [selectedGoal, setSelectedGoal] = useState<"mos" | "excel" | "ic3" | "ai">("mos");
@@ -200,7 +196,7 @@ export default function HeroSection() {
                       <button
                         key={tab.id}
                         type="button"
-                        onClick={() => setSelectedGoal(tab.id as any)}
+                        onClick={() => setSelectedGoal(tab.id as "mos" | "excel" | "ic3" | "ai")}
                         className={`py-2 px-2.5 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                           isSelected
                             ? "bg-white text-blue-700 shadow-xs border border-slate-200/60"

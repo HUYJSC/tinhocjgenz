@@ -19,6 +19,7 @@ import {
 import { BLOG_POSTS, BlogPost } from "@/data/blogData";
 import { SITE_CONFIG } from "@/data/siteConfig";
 import { coursesData } from "@/data/mockData";
+import Breadcrumb from "@/components/Breadcrumb";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -127,13 +128,12 @@ export default async function BlogPostPage({ params }: PageProps) {
       {/* 1. Breadcrumbs & Top Bar */}
       <div className="bg-white border-b border-slate-200/80 pt-20 pb-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-2 text-xs font-semibold text-slate-500 overflow-x-auto no-scrollbar">
-            <Link href="/" className="hover:text-blue-600">Trang chủ</Link>
-            <ChevronRight size={13} className="text-slate-400" />
-            <Link href="/blog" className="hover:text-blue-600">Cẩm nang & Tri thức</Link>
-            <ChevronRight size={13} className="text-slate-400" />
-            <span className="text-slate-800 font-bold truncate max-w-xs sm:max-w-md">{post.title}</span>
-          </nav>
+          <Breadcrumb
+            items={[
+              { name: "Cẩm nang & Tri thức", url: "/blog" },
+              { name: post.title, url: `/blog/${post.slug}` },
+            ]}
+          />
         </div>
       </div>
 
@@ -309,7 +309,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     Bạn cần tài liệu hoặc thắc mắc về đề thi?
                   </p>
                   <a
-                    href="https://zalo.me/0332298065"
+                    href={SITE_CONFIG.contact.zaloUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="mt-2 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-black uppercase tracking-wide transition-colors"

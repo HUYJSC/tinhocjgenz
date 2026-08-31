@@ -1,9 +1,17 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { coursesData, upcomingBatchesData } from "@/data/mockData";
 import { Award, CheckCircle2, Clock, Calendar, ShieldCheck, Sparkles, ArrowRight, UserCheck, School, ArrowLeft, BookOpen, Star } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import CourseScheduleWidget from "@/components/CourseScheduleWidget";
+import Breadcrumb from "@/components/Breadcrumb";
+import { buildMetadata } from "@/lib/seo";
+import { generateCourseSchema } from "@/lib/schema";
+
+interface CoursePageProps {
+  params: Promise<{ id: string }>;
+}
 
 export async function generateStaticParams() {
   return coursesData.map((course) => ({
@@ -11,7 +19,25 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function CourseDetailPage(props: { params: Promise<{ id: string }> }) {
+export async function generateMetadata({ params }: CoursePageProps): Promise<Metadata> {
+  const { id } = await params;
+  const course = coursesData.find((c) => c.id === id);
+
+  if (!course) {
+    return {
+      title: "Khóa học không tồn tại",
+    };
+  }
+
+  return buildMetadata({
+    title: `${course.title} - Cam Kết Đậu 100%`,
+    description: course.description,
+    path: `/khoa-hoc/${course.id}`,
+    keywords: [course.title, course.badge || "", "luyện thi tin học", "khóa học tin học"],
+  });
+}
+
+export default async function CourseDetailPage(props: CoursePageProps) {
   const params = await props.params;
   const course = coursesData.find((c) => c.id === params.id);
 
@@ -19,11 +45,36 @@ export default async function CourseDetailPage(props: { params: Promise<{ id: st
     notFound();
   }
 
+  const courseSchema = generateCourseSchema({
+    name: course.title,
+    description: course.description,
+    url: `https://tinhocgenz.io.vn/khoa-hoc/${course.id}`,
+    price: course.price,
+    courseCode: course.examCode,
+  });
+
   // Find upcoming batches for this course or relevant ones
   const relevantBatches = upcomingBatchesData.slice(0, 3);
 
   return (
     <div className="flex flex-col w-full bg-slate-50/40">
+      {/* Course JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
+
+      {/* Breadcrumb Navigation */}
+      <div className="bg-slate-900 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb
+            items={[
+              { name: "Khóa học", url: "/khoa-hoc" },
+              { name: course.title, url: `/khoa-hoc/${course.id}` },
+            ]}
+          />
+        </div>
+      </div>
 
       {/* 1. Header Banner & Course Overview */}
       <section className="bg-gradient-to-b from-slate-900 via-slate-950 to-blue-950 text-white pt-24 pb-16 relative overflow-hidden border-b border-slate-800">

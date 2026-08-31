@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Laptop, Phone, Mail, MapPin, ShieldCheck } from "lucide-react";
-import { CONTACT_INFO } from "@/data/contactInfo";
+import { Phone, Mail, MapPin, ShieldCheck, Award } from "lucide-react";
+import { SITE_CONFIG } from "@/data/siteConfig";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -14,12 +14,12 @@ export default function Footer() {
             <Link href="/" className="group flex items-center gap-3.5 w-max">
               <img
                 src="/logo-icon.png"
-                alt="PH Digital Education"
+                alt="Tin Học Gen Z"
                 className="h-12 sm:h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-md"
               />
               <div className="flex flex-col">
                 <span className="text-base sm:text-lg font-black tracking-tight text-white leading-tight font-display">
-                  PH DIGITAL EDUCATION
+                  TIN HỌC GEN Z
                 </span>
                 <div className="text-[10px] sm:text-[11px] font-bold text-slate-400 mt-1 flex items-center gap-1.5 leading-none">
                   <span>IT</span>
@@ -31,14 +31,14 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mt-1">
-              Hệ sinh thái đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 chuẩn Certiport. Cam kết chuẩn đầu ra Đại học bao đỗ 100%.
+              Hệ sinh thái đào tạo Tin học Văn phòng Thực chiến & Luyện thi Chứng chỉ Quốc tế MOS, IC3 GS6 chuẩn Certiport. Cam kết chuẩn đầu ra Đại học bao đỗ 100%.
             </p>
             <div className="flex items-center gap-3 mt-3">
               <a
-                href={CONTACT_INFO.facebookUrl || "https://www.facebook.com/Thaygiaogenz13"}
+                href={SITE_CONFIG.socials.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-blue-600 hover:text-white flex items-center justify-center smooth-transition"
+                className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5 text-slate-400 hover:text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -46,10 +46,10 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href={CONTACT_INFO.youtubeUrl || "https://youtube.com"}
+                href={SITE_CONFIG.socials.youtube}
                 target="_blank"
                 rel="noreferrer"
-                className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-red-600 hover:text-white flex items-center justify-center smooth-transition"
+                className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-red-600 hover:text-white flex items-center justify-center transition-colors"
                 aria-label="Youtube"
               >
                 <svg className="w-5 h-5 text-slate-400 hover:text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -59,28 +59,38 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Courses Quicklinks */}
+          {/* Column 2: Topic Pillars */}
           <div>
-            <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Khóa Học</h3>
+            <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Chuyên Mục Đào Tạo</h3>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Luyện thi MOS 3 môn chuẩn đầu ra
+                <Link href="/mos" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
+                  Luyện thi MOS 2019 / 365 (Bao đậu)
                 </Link>
               </li>
               <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                <Link href="/ic3" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
                   Chứng chỉ kỹ năng số IC3 GS6
                 </Link>
               </li>
               <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Excel Dashboard chuyên sâu doanh nghiệp
+                <Link href="/excel" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
+                  Master Excel & Phân tích Dashboard
                 </Link>
               </li>
               <li>
-                <Link href="/khoa-hoc" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
-                  Ứng dụng AI văn phòng 10X hiệu suất
+                <Link href="/tin-hoc-van-phong" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
+                  Tin học văn phòng thực chiến
+                </Link>
+              </li>
+              <li>
+                <Link href="/python" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
+                  Python tự động hóa công việc
+                </Link>
+              </li>
+              <li>
+                <Link href="/cntt-co-ban" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
+                  Ứng dụng CNTT Cơ Bản (TT03)
                 </Link>
               </li>
             </ul>
@@ -91,27 +101,27 @@ export default function Footer() {
             <h3 className="text-white text-base font-bold mb-5 tracking-wide uppercase">Tiện Ích & Học Liệu</h3>
             <ul className="space-y-3.5 text-sm">
               <li>
-                <Link href="/blog" className="hover:text-amber-400 font-bold smooth-transition text-amber-300 hover:translate-x-1 inline-block">
+                <Link href="/blog" className="hover:text-amber-400 font-bold transition-colors text-amber-300 hover:translate-x-1 inline-block">
                   💡 Cẩm nang & Bí quyết thi 1000đ
                 </Link>
               </li>
               <li>
-                <Link href="/thi-thu" className="hover:text-cyan-400 font-bold smooth-transition text-cyan-300 hover:translate-x-1 inline-block">
+                <Link href="/thi-thu" className="hover:text-cyan-400 font-bold transition-colors text-cyan-300 hover:translate-x-1 inline-block">
                   🎯 Thi thử MOS & IC3 Online Free
                 </Link>
               </li>
               <li>
-                <Link href="/tai-lieu" className="hover:text-emerald-400 font-bold smooth-transition text-emerald-300 hover:translate-x-1 inline-block">
+                <Link href="/tai-lieu" className="hover:text-emerald-400 font-bold transition-colors text-emerald-300 hover:translate-x-1 inline-block">
                   📚 Tải bộ 50 đề thi thử Certiport
                 </Link>
               </li>
               <li>
-                <Link href="/bang-gia" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                <Link href="/bang-gia" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
                   Bảng giá học phí & Ưu đãi nhóm 30%
                 </Link>
               </li>
               <li>
-                <Link href="/dich-vu" className="hover:text-blue-400 smooth-transition text-slate-400 hover:translate-x-1 inline-block">
+                <Link href="/dich-vu" className="hover:text-blue-400 transition-colors text-slate-400 hover:translate-x-1 inline-block">
                   Dịch vụ cài Win & Office bản quyền
                 </Link>
               </li>
@@ -124,20 +134,20 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li className="flex gap-3 text-slate-400">
                 <Phone size={18} className="text-blue-400 shrink-0 mt-0.5" />
-                <a href={`tel:${CONTACT_INFO.phone}`} className="hover:text-blue-400 smooth-transition font-medium">
-                  {CONTACT_INFO.displayPhone}
+                <a href={`tel:${SITE_CONFIG.contact.phone}`} className="hover:text-blue-400 transition-colors font-medium">
+                  {SITE_CONFIG.contact.displayPhone}
                 </a>
               </li>
               <li className="flex gap-3 text-slate-400">
                 <Mail size={18} className="text-blue-400 shrink-0 mt-0.5" />
-                <a href={`mailto:${CONTACT_INFO.email}`} className="hover:text-blue-400 smooth-transition">
-                  {CONTACT_INFO.email}
+                <a href={`mailto:${SITE_CONFIG.contact.email}`} className="hover:text-blue-400 transition-colors">
+                  {SITE_CONFIG.contact.email}
                 </a>
               </li>
               <li className="flex gap-3 text-slate-400">
                 <MapPin size={18} className="text-blue-400 shrink-0 mt-0.5" />
                 <span>
-                  {CONTACT_INFO.address}
+                  {SITE_CONFIG.contact.address}
                 </span>
               </li>
             </ul>
@@ -150,10 +160,10 @@ export default function Footer() {
 
         {/* Footer Bottom */}
         <div className="border-t border-slate-800 pt-8 mt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <p>© {currentYear} PH DIGITAL EDUCATION. All rights reserved. Hệ thống đào tạo CNTT & Chứng chỉ Quốc tế.</p>
+          <p>© {currentYear} TIN HỌC GEN Z. All rights reserved. Hệ thống đào tạo CNTT & Chứng chỉ Quốc tế.</p>
           <div className="flex gap-6">
-            <Link href="/gioi-thieu" className="hover:text-slate-400 smooth-transition">Điều khoản đào tạo</Link>
-            <Link href="/lien-he" className="hover:text-slate-400 smooth-transition">Cam kết chuẩn đầu ra</Link>
+            <Link href="/gioi-thieu" className="hover:text-slate-400 transition-colors">Điều khoản đào tạo</Link>
+            <Link href="/lien-he" className="hover:text-slate-400 transition-colors">Cam kết chuẩn đầu ra</Link>
           </div>
         </div>
       </div>

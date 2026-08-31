@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Calendar, Clock, Users, ArrowRight, Sparkles, CheckCircle2, ShieldAlert } from "lucide-react";
+import { Calendar, Clock, Users, ArrowRight, CheckCircle2, ShieldAlert } from "lucide-react";
 import { upcomingBatchesData } from "@/data/mockData";
 
 export default function ScheduleSection() {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Monitor, Cpu, Palette, Terminal, Check, FileText, FileSpreadsheet } from "lucide-react";
+import { Monitor, Cpu, Palette, Terminal, Check, FileSpreadsheet } from "lucide-react";
 import { TechService } from "@/data/mockData";
 
 interface ServiceCardProps {

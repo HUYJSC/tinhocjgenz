@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { Sparkles, ArrowRight, BookOpen, Wrench } from "lucide-react";
-import { coursesData, servicesData } from "@/data/mockData";
+import { Sparkles, ArrowRight, BookOpen } from "lucide-react";
+import { coursesData } from "@/data/mockData";
 
 export default function PricingTable() {
   // Format price into localized currency style or return raw string

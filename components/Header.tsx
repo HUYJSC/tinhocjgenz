@@ -4,17 +4,22 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
-  Menu, X, ArrowRight, Sparkles, BookOpen, Award, 
-  FileText, ShieldCheck, Phone, ChevronDown, 
-  School, ExternalLink, GraduationCap, Zap
+  Menu, X, ArrowRight, Sparkles, BookOpen, Award, ChevronDown 
 } from "lucide-react";
-import { CONTACT_INFO } from "@/data/contactInfo";
 
 export default function Header() {
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  // Close menus on route change during render
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
+    setIsMegaMenuOpen(false);
+    setIsMobileMenuOpen(false);
+  }
 
   // Scroll detection for enhanced glassmorphism
   useEffect(() => {
@@ -29,12 +34,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menus on route change
-  useEffect(() => {
-    setIsMegaMenuOpen(false);
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
-
   return (
     <header className={`sticky top-0 z-50 w-full transition-all duration-300 ${
       scrolled 
@@ -48,19 +47,19 @@ export default function Header() {
           <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 py-0.5">
             <img 
               src="/logo-icon.png" 
-              alt="PH Digital Education Logo" 
+              alt="Tin Học Gen Z Logo" 
               className="h-9 sm:h-10 w-auto object-contain group-hover:scale-105 transition-transform duration-300" 
             />
             <div className="flex flex-col justify-center">
               <span className="text-sm sm:text-[15px] font-black tracking-tight text-slate-900 leading-none group-hover:text-blue-600 transition-colors font-display whitespace-nowrap">
-                PH DIGITAL EDUCATION
+                TIN HỌC GEN Z
               </span>
               <div className="text-[10px] text-slate-500 font-bold tracking-wider mt-1 flex items-center gap-1.5 leading-none whitespace-nowrap">
                 <span className="text-blue-600 font-black">MOS</span>
                 <span className="text-amber-500">•</span>
                 <span className="text-cyan-600 font-black">IC3</span>
                 <span className="text-amber-500">•</span>
-                <span>CHỨNG CHỈ QUỐC TẾ</span>
+                <span>TIN HỌC VĂN PHÒNG</span>
               </div>
             </div>
           </Link>
@@ -127,6 +126,18 @@ export default function Header() {
             </Link>
 
             <Link
+              href="/tin-cong-nghe"
+              className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1.5 py-1.5 whitespace-nowrap ${
+                pathname.startsWith("/tin-cong-nghe") ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
+              }`}
+            >
+              <span>Tin Công Nghệ</span>
+              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-0.5">
+                <Sparkles size={9} /> AI
+              </span>
+            </Link>
+
+            <Link
               href="/bang-gia"
               className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
                 pathname === "/bang-gia" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
@@ -188,20 +199,20 @@ export default function Header() {
                 </div>
                 <ul className="space-y-2 text-xs sm:text-[13px] font-bold">
                   <li>
-                    <Link href="/khoa-hoc/mos-master-combo" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
-                      <span>Combo MOS 3 Môn (Word / Excel / PPT)</span>
+                    <Link href="/mos" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
+                      <span>Luyện Thi MOS 2019 / 365 (Bao Đậu)</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/khoa-hoc/mos-2019" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
-                      <span>Luyện Thi MOS Từng Môn (Cấp Tốc 3 Buổi)</span>
+                    <Link href="/ic3" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
+                      <span>Chứng Chỉ Kỹ Năng Số IC3 GS6 Chuẩn ĐH</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/khoa-hoc/ic3-gs6" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
-                      <span>Chứng Chỉ Kỹ Năng Số IC3 GS6 Toàn Diện</span>
+                    <Link href="/cntt-co-ban" className="text-slate-700 hover:text-blue-600 flex items-center justify-between group py-0.5">
+                      <span>Ứng Dụng CNTT Cơ Bản (Thông Tư 03)</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
@@ -217,30 +228,36 @@ export default function Header() {
               <div className="space-y-3.5">
                 <div className="flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-wider">
                   <BookOpen size={15} />
-                  <span>Thực Chiến & AI Văn Phòng</span>
+                  <span>Thực Chiến & Chuyên Đề</span>
                 </div>
                 <ul className="space-y-2 text-xs sm:text-[13px] font-bold">
                   <li>
-                    <Link href="/khoa-hoc/combo-survival-office" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
-                      <span>Combo Thực Chiến Word & Excel Chuyên Sâu</span>
+                    <Link href="/excel" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
+                      <span>Master Excel (Hàm, Pivot, Dashboard)</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/khoa-hoc/ai-office-breakthrough" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
-                      <span>Ứng Dụng AI Văn Phòng Đột Phá 10X</span>
+                    <Link href="/word" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
+                      <span>Master Word (Soạn Thảo Chuẩn NĐ 30)</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li>
-                    <Link href="/bang-gia" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
-                      <span>Bảng Học Phí & Ưu Đãi Nhóm 30%</span>
+                    <Link href="/powerpoint" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
+                      <span>Master PowerPoint (Thiết Kế Slide 3D)</span>
+                      <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/python" className="text-slate-700 hover:text-indigo-600 flex items-center justify-between group py-0.5">
+                      <span>Python Tự Động Hóa Dữ Liệu Excel</span>
                       <ArrowRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </Link>
                   </li>
                   <li className="pt-1">
-                    <Link href="/dich-vu" className="text-indigo-600 font-extrabold flex items-center gap-1">
-                      <span>Dịch vụ cài Win & Office bản quyền →</span>
+                    <Link href="/tin-hoc-van-phong" className="text-indigo-600 font-extrabold flex items-center gap-1">
+                      <span>Tin học văn phòng toàn diện →</span>
                     </Link>
                   </li>
                 </ul>
@@ -310,6 +327,14 @@ export default function Header() {
               className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
             >
               💡 Cẩm Nang & Bí Quyết Luyện Thi
+            </Link>
+            <Link
+              href="/tin-cong-nghe"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold text-indigo-700 bg-indigo-50/60"
+            >
+              <span>⚡️ Tin Công Nghệ & AI Engine</span>
+              <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">Mới</span>
             </Link>
             <Link
               href="/thi-thu"

@@ -19,6 +19,7 @@ import {
   GraduationCap
 } from "lucide-react";
 import { AnalyticsEvents } from "@/lib/analytics";
+import { SITE_CONFIG } from "@/data/siteConfig";
 
 interface Props {
   isOpen?: boolean;
@@ -325,7 +326,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
             </Link>
 
             <a
-              href="https://zalo.me/0332298065"
+              href={SITE_CONFIG.contact.zaloUrl}
               target="_blank"
               rel="noreferrer"
               className="w-full sm:w-auto py-3 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-black uppercase tracking-wider text-center border border-slate-700 transition-all flex items-center justify-center gap-1.5"

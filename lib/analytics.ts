@@ -2,10 +2,12 @@
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
-    dataLayer?: any[];
-    fbq?: (...args: any[]) => void;
-    ttq?: any;
+    gtag?: (command: string, action: string, params?: Record<string, unknown>) => void;
+    dataLayer?: Array<Record<string, unknown>>;
+    fbq?: (action: string, eventName: string, params?: Record<string, unknown>) => void;
+    ttq?: {
+      track: (eventName: string, params?: Record<string, unknown>) => void;
+    };
   }
 }
 
@@ -13,7 +15,7 @@ export interface AnalyticsEventParams {
   category?: string;
   label?: string;
   value?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**
@@ -23,7 +25,7 @@ export function trackEvent(eventName: string, params: AnalyticsEventParams = {})
   try {
     // 1. Google Analytics (gtag)
     if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", eventName, params);
+      window.gtag("event", eventName, params as Record<string, unknown>);
     }
 
     // 2. Google Tag Manager (dataLayer)
@@ -38,20 +40,20 @@ export function trackEvent(eventName: string, params: AnalyticsEventParams = {})
     // 3. Meta Pixel (Facebook)
     if (typeof window !== "undefined" && window.fbq) {
       if (eventName === "lead_form_submitted") {
-        window.fbq("track", "Lead", params);
+        window.fbq("track", "Lead", params as Record<string, unknown>);
       } else if (eventName === "view_course") {
-        window.fbq("track", "ViewContent", params);
+        window.fbq("track", "ViewContent", params as Record<string, unknown>);
       } else {
-        window.fbq("trackCustom", eventName, params);
+        window.fbq("trackCustom", eventName, params as Record<string, unknown>);
       }
     }
 
     // 4. TikTok Pixel
     if (typeof window !== "undefined" && window.ttq) {
       if (eventName === "lead_form_submitted") {
-        window.ttq.track("SubmitForm", params);
+        window.ttq.track("SubmitForm", params as Record<string, unknown>);
       } else {
-        window.ttq.track("Click", params);
+        window.ttq.track("Click", params as Record<string, unknown>);
       }
     }
 

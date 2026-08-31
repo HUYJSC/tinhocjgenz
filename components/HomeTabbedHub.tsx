@@ -56,7 +56,7 @@ export default function HomeTabbedHub() {
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => setActiveTab(tab.id as "pathway" | "courses" | "halloffame" | "guarantee")}
                   className={`py-2.5 px-3 rounded-xl sm:rounded-full text-center transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
                     isActive
                       ? "bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-md scale-[1.02]"
