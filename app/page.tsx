@@ -98,42 +98,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Strategic Bottom CTA Banner */}
-      <section className="py-16 sm:py-20 bg-gradient-to-tr from-slate-950 via-blue-950 to-slate-900 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* 4. Strategic Bottom CTA Floating Banner */}
+      <section className="py-16 sm:py-20 bg-slate-50/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white p-8 sm:p-14 text-center shadow-2xl shadow-blue-900/20 border border-blue-500/20">
+            {/* Ambient glows */}
+            <div className="absolute -top-24 -left-24 w-72 h-72 bg-cyan-400/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-blue-400/20 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-cyan-300">
-            <School size={14} />
-            <span>Tự Tin Đạt Chuẩn Đầu Ra Xét Tốt Nghiệp Sớm</span>
-          </div>
+            <div className="relative z-10 max-w-3xl mx-auto space-y-6">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-cyan-200">
+                <School size={14} className="text-cyan-300" />
+                <span>CHỨNG CHỈ QUỐC TẾ • TÀI TRỢ HỌC LẠI 0Đ</span>
+              </span>
 
-          <h2 className="text-2xl sm:text-4xl font-black tracking-tight leading-snug max-w-2xl mx-auto font-display">
-            Sẵn Sàng Nhận Bằng MOS & IC3 Với Điểm Tuyệt Đối?
-          </h2>
-          
-          <p className="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
-            Đăng ký ngay hôm nay để nhận quyền truy cập phần mềm thi thử bản quyền Certiport và ưu đãi nhóm giảm tới 30% học phí!
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-            <Link
-              href="/lien-he"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-xs font-black tracking-wide uppercase bg-blue-600 hover:bg-blue-500 text-white shadow-xl transition-all duration-300 group hover:-translate-y-0.5"
-            >
-              <span>Đăng Ký Tư Vấn & Xếp Lớp</span>
-              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-            
-            <a
-              href={SITE_CONFIG.contact.zaloUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-xs font-black tracking-wide uppercase text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-300"
-            >
-              Chat Trực Tiếp Qua Zalo
-            </a>
+              <h2 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight font-display">
+                Sẵn Sàng Làm Chủ Tin Học & Nhận Bằng MOS / IC3 Quốc Tế?
+              </h2>
+
+              <p className="text-blue-100 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+                Đăng ký ngay hôm nay để nhận tài khoản phần mềm thi thử bản quyền Certiport và ưu đãi nhóm giảm tới 30% - 40% học phí trọn gói!
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
+                <Link
+                  href="/lien-he"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-xs font-black tracking-wide uppercase bg-white text-blue-700 hover:bg-cyan-50 shadow-lg hover:shadow-xl transition-all duration-300 group hover:scale-[1.02]"
+                >
+                  <span>Đăng Ký Tư Vấn & Xếp Lớp</span>
+                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                </Link>
+
+                <a
+                  href={SITE_CONFIG.contact.zaloUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-xs font-black tracking-wide uppercase text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-300 backdrop-blur-md"
+                >
+                  Chat Trực Tiếp Qua Zalo
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

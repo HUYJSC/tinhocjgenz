@@ -19,6 +19,8 @@ export default function Footer() {
 
   return (
     <footer className="bg-slate-950 text-slate-300 pt-16 pb-10 border-t border-slate-800/80 relative overflow-hidden font-sans">
+      {/* Top accent glow line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/60 to-transparent" />
       {/* Subtle background ambient light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-blue-500/5 blur-3xl pointer-events-none" />
 
