@@ -20,6 +20,7 @@ import { BLOG_POSTS, BlogPost } from "@/data/blogData";
 import { SITE_CONFIG } from "@/data/siteConfig";
 import { coursesData } from "@/data/mockData";
 import Breadcrumb from "@/components/Breadcrumb";
+import { generateBreadcrumbSchema } from "@/lib/schema";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${post.title} | ${SITE_CONFIG.name}`,
+    title: post.title,
     description: post.excerpt,
     keywords: [...post.tags, ...SITE_CONFIG.keywords],
     authors: [{ name: post.author.name }],
@@ -116,13 +117,23 @@ export default async function BlogPostPage({ params }: PageProps) {
     },
   };
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Trang chủ", url: "/" },
+    { name: "Cẩm nang", url: "/blog" },
+    { name: post.title, url: `/blog/${post.slug}` },
+  ]);
+
   return (
     <div className="flex flex-col w-full bg-slate-50/40 min-h-screen">
       
-      {/* Inject Article JSON-LD */}
+      {/* Inject Article & Breadcrumb JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       {/* 1. Breadcrumbs & Top Bar */}
