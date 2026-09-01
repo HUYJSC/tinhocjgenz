@@ -4,7 +4,23 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
-  Menu, X, ArrowRight, Sparkles, BookOpen, Award, ChevronDown, ShieldCheck, GraduationCap, Users 
+  Menu, 
+  X, 
+  ArrowRight, 
+  Sparkles, 
+  BookOpen, 
+  Award, 
+  ChevronDown, 
+  ShieldCheck, 
+  GraduationCap, 
+  Users, 
+  FileText, 
+  FileSpreadsheet,
+  Target, 
+  Tag, 
+  PhoneCall,
+  Flame,
+  Bot
 } from "lucide-react";
 
 export default function Header() {
@@ -13,7 +29,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  // Close menus on route change during render
+  // Close menus on route change
   const [prevPath, setPrevPath] = useState(pathname);
   if (prevPath !== pathname) {
     setPrevPath(pathname);
@@ -21,7 +37,7 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   }
 
-  // Scroll detection for enhanced glassmorphism
+  // Scroll detection for glassmorphism
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -41,9 +57,9 @@ export default function Header() {
         : "bg-white border-b border-slate-200/60 py-2.5 sm:py-3"
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-3 lg:gap-6">
+        <div className="flex items-center justify-between gap-4 lg:gap-8">
           
-          {/* 1. LEFT: REFINED SLEEK BRAND LOGO */}
+          {/* 1. LEFT: SLEEK BRAND LOGO */}
           <Link href="/" className="group flex items-center gap-2.5 sm:gap-3 shrink-0 py-0.5">
             <img 
               src="/logo-icon.png" 
@@ -64,27 +80,30 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* 2. CENTER: CLEAN SINGLE-LINE DESKTOP NAVIGATION (NO WRAPPING) */}
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 shrink-0">
+          {/* 2. CENTER: COMPACT & ELEGANT DROPDOWN NAVIGATION (NO WRAPPING) */}
+          <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2.5 shrink-0">
             
+            {/* Nav 1: Trang Chủ */}
             <Link
               href="/"
-              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
-                pathname === "/" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
+              className={`text-[13px] font-bold px-3 py-1.5 rounded-xl transition-all whitespace-nowrap ${
+                pathname === "/" 
+                  ? "text-blue-600 bg-blue-50/80 font-extrabold" 
+                  : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
               }`}
             >
               Trang Chủ
             </Link>
 
-            {/* Interactive Mega Menu Dropdown Button */}
+            {/* Nav 2: Khóa Học (Mega Menu Dropdown) */}
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setIsMegaMenuOpen(!isMegaMenuOpen)}
-                className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1 cursor-pointer py-1.5 whitespace-nowrap ${
-                  isMegaMenuOpen || pathname.startsWith("/khoa-hoc")
-                    ? "text-blue-600 font-extrabold"
-                    : "text-slate-700 hover:text-blue-600"
+                className={`text-[13px] font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1 cursor-pointer whitespace-nowrap ${
+                  isMegaMenuOpen || pathname.startsWith("/khoa-hoc") || pathname === "/mos" || pathname === "/ic3" || pathname === "/excel"
+                    ? "text-blue-600 bg-blue-50/80 font-extrabold"
+                    : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
                 }`}
               >
                 <span>Khóa Học</span>
@@ -95,144 +114,268 @@ export default function Header() {
               </button>
             </div>
 
-            <Link
-              href="/thi-thu"
-              className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1.5 py-1.5 whitespace-nowrap ${
-                pathname === "/thi-thu" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              <span>Thi Thử Online</span>
-              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-cyan-50 text-cyan-700 border border-cyan-200">
-                HOT
-              </span>
-            </Link>
-
-            <Link
-              href="/tai-lieu"
-              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
-                pathname === "/tai-lieu" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Tài Liệu Free
-            </Link>
-
-            <Link
-              href="/blog"
-              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
-                pathname.startsWith("/blog") ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Cẩm Nang & Blog
-            </Link>
-
-            <Link
-              href="/tin-cong-nghe"
-              className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1.5 py-1.5 whitespace-nowrap ${
-                pathname.startsWith("/tin-cong-nghe") ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              <span>Tin Công Nghệ</span>
-              <span className="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-0.5">
-                <Sparkles size={9} /> AI
-              </span>
-            </Link>
-
-            <Link
-              href="/bang-gia"
-              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
-                pathname === "/bang-gia" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Bảng Giá
-            </Link>
-
-            <Link
-              href="/gioi-thieu"
-              className={`text-[13px] font-bold tracking-normal transition-colors py-1.5 whitespace-nowrap ${
-                pathname === "/gioi-thieu" ? "text-blue-600 font-extrabold" : "text-slate-700 hover:text-blue-600"
-              }`}
-            >
-              Giới Thiệu
-            </Link>
-
-            {/* Cổng Đào Tạo & Học Vụ */}
+            {/* Nav 3: Luyện Thi & Học Liệu (Dropdown Box) */}
             <div className="relative group">
               <button
                 type="button"
-                className={`text-[13px] font-bold tracking-normal transition-colors flex items-center gap-1 py-1.5 whitespace-nowrap cursor-pointer ${
-                  pathname.startsWith("/portal") || pathname.startsWith("/admin")
-                    ? "text-blue-600 font-extrabold"
-                    : "text-slate-700 hover:text-blue-600"
+                className={`text-[13px] font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  pathname === "/thi-thu" || pathname === "/tai-lieu"
+                    ? "text-blue-600 bg-blue-50/80 font-extrabold"
+                    : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
                 }`}
               >
-                <GraduationCap size={14} className="text-blue-600" />
-                <span>Cổng Đào Tạo</span>
-                <ChevronDown size={11} className="text-slate-400 group-hover:rotate-180 transition-transform" />
+                <span>Luyện Thi & Học Liệu</span>
+                <ChevronDown size={12} className="text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
               </button>
+
               <div className="absolute top-full left-0 hidden group-hover:block pt-2 z-50">
-                <div className="w-56 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 space-y-1">
+                <div className="w-72 bg-white rounded-2xl shadow-xl border border-slate-200/80 p-2.5 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
                   <Link
-                    href="/portal/student"
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                    href="/thi-thu"
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-blue-50 group/item transition-colors"
                   >
-                    <GraduationCap size={15} className="text-cyan-500" />
+                    <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                      <Target size={17} />
+                    </div>
                     <div>
-                      <div>Cổng Học Viên</div>
-                      <div className="text-[10px] text-slate-400 font-normal">Lộ trình & Nộp bài</div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-bold text-slate-800 group-hover/item:text-blue-600">Thi Thử Online</span>
+                        <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-cyan-100 text-cyan-800 border border-cyan-200">
+                          HOT
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 font-normal mt-0.5 leading-snug">
+                        Làm bài test 5 phút dự đoán điểm thi Certiport 1000đ
+                      </p>
                     </div>
                   </Link>
+
                   <Link
-                    href="/portal/teacher"
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                    href="/tai-lieu"
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-emerald-50 group/item transition-colors"
                   >
-                    <Users size={15} className="text-emerald-500" />
-                    <div>
-                      <div>Cổng Giảng Viên</div>
-                      <div className="text-[10px] text-slate-400 font-normal">Điểm danh & Chấm bài</div>
+                    <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                      <BookOpen size={17} />
                     </div>
-                  </Link>
-                  <Link
-                    href="/portal/academic"
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition-colors"
-                  >
-                    <BookOpen size={15} className="text-amber-500" />
                     <div>
-                      <div>Cổng Giáo Vụ</div>
-                      <div className="text-[10px] text-slate-400 font-normal">Xếp lớp & Cảnh báo</div>
-                    </div>
-                  </Link>
-                  <Link
-                    href="/admin"
-                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border-t border-slate-100"
-                  >
-                    <ShieldCheck size={15} className="text-purple-500" />
-                    <div>
-                      <div>Cổng Quản Trị Hệ Thống</div>
-                      <div className="text-[10px] text-slate-400 font-normal">Control Hub</div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-bold text-slate-800 group-hover/item:text-emerald-600">Kho Tài Liệu Mở</span>
+                        <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-emerald-100 text-emerald-800">
+                          Free
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 font-normal mt-0.5 leading-snug">
+                        50+ bộ đề thi thật, cẩm nang phím tắt & file mẫu
+                      </p>
                     </div>
                   </Link>
                 </div>
               </div>
             </div>
+
+            {/* Nav 4: Tin Tức & Cẩm Nang (Dropdown Box) */}
+            <div className="relative group">
+              <button
+                type="button"
+                className={`text-[13px] font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  pathname.startsWith("/blog") || pathname.startsWith("/tin-cong-nghe")
+                    ? "text-blue-600 bg-blue-50/80 font-extrabold"
+                    : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+                }`}
+              >
+                <span>Tin Tức & Cẩm Nang</span>
+                <ChevronDown size={12} className="text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+              </button>
+
+              <div className="absolute top-full left-0 hidden group-hover:block pt-2 z-50">
+                <div className="w-72 bg-white rounded-2xl shadow-xl border border-slate-200/80 p-2.5 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <Link
+                    href="/blog"
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-blue-50 group/item transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                      <FileText size={17} />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-800 group-hover/item:text-blue-600 block">
+                        Cẩm Nang & Kinh Nghiệm
+                      </span>
+                      <p className="text-[11px] text-slate-500 font-normal mt-0.5 leading-snug">
+                        Bí quyết đạt 1000 điểm MOS, mẹo thi và giải đề
+                      </p>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/tin-cong-nghe"
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-indigo-50 group/item transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                      <Bot size={17} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-xs font-bold text-slate-800 group-hover/item:text-indigo-600">Tin Công Nghệ & AI</span>
+                        <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-indigo-100 text-indigo-800 flex items-center gap-0.5">
+                          <Sparkles size={9} /> AI
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 font-normal mt-0.5 leading-snug">
+                        Xu hướng tự động hóa văn phòng & công cụ AI
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Nav 5: Thông Tin & Học Phí (Dropdown Box) */}
+            <div className="relative group">
+              <button
+                type="button"
+                className={`text-[13px] font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  pathname === "/bang-gia" || pathname === "/gioi-thieu" || pathname === "/lien-he"
+                    ? "text-blue-600 bg-blue-50/80 font-extrabold"
+                    : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+                }`}
+              >
+                <span>Thông Tin & Biểu Phí</span>
+                <ChevronDown size={12} className="text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+              </button>
+
+              <div className="absolute top-full left-0 hidden group-hover:block pt-2 z-50">
+                <div className="w-64 bg-white rounded-2xl shadow-xl border border-slate-200/80 p-2.5 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <Link
+                    href="/bang-gia"
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-blue-50 group/item transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                      <Tag size={16} />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-800 group-hover/item:text-blue-600 block">
+                        Bảng Giá & Ưu Đãi
+                      </span>
+                      <p className="text-[11px] text-slate-500 font-normal mt-0.5 leading-snug">
+                        Học phí công khai, giảm tới 40% nhóm
+                      </p>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/gioi-thieu"
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-blue-50 group/item transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                      <Users size={16} />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-800 group-hover/item:text-blue-600 block">
+                        Giới Thiệu Trung Tâm
+                      </span>
+                      <p className="text-[11px] text-slate-500 font-normal mt-0.5 leading-snug">
+                        Đội ngũ giảng viên Certiport Master Trainer
+                      </p>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/lien-he"
+                    className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-blue-50 group/item transition-colors border-t border-slate-100 pt-2"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 transition-transform">
+                      <PhoneCall size={16} />
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-slate-800 group-hover/item:text-blue-600 block">
+                        Liên Hệ & Địa Điểm
+                      </span>
+                      <p className="text-[11px] text-slate-500 font-normal mt-0.5 leading-snug">
+                        Hotline/Zalo 24/7: 033.229.8065
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Nav 6: Cổng Đào Tạo (Dropdown Box) */}
+            <div className="relative group">
+              <button
+                type="button"
+                className={`text-[13px] font-bold px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
+                  pathname.startsWith("/portal") || pathname.startsWith("/admin")
+                    ? "text-blue-600 bg-blue-50/80 font-extrabold"
+                    : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+                }`}
+              >
+                <GraduationCap size={15} className="text-blue-600" />
+                <span>Cổng Đào Tạo</span>
+                <ChevronDown size={12} className="text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+              </button>
+              
+              <div className="absolute top-full right-0 hidden group-hover:block pt-2 z-50">
+                <div className="w-64 bg-white rounded-2xl shadow-xl border border-slate-200/80 p-2.5 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <Link
+                    href="/portal/student"
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0">
+                      <GraduationCap size={15} />
+                    </div>
+                    <div>
+                      <div className="text-slate-900 font-bold">Cổng Học Viên</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Lộ trình & Nộp bài</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/portal/teacher"
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+                      <Users size={15} />
+                    </div>
+                    <div>
+                      <div className="text-slate-900 font-bold">Cổng Giảng Viên</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Điểm danh & Chấm bài</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/portal/academic"
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                      <BookOpen size={15} />
+                    </div>
+                    <div>
+                      <div className="text-slate-900 font-bold">Cổng Giáo Vụ</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Xếp lớp & Chứng nhận QR</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/admin"
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border-t border-slate-100 pt-2"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+                      <ShieldCheck size={15} />
+                    </div>
+                    <div>
+                      <div className="text-purple-700 font-bold">Quản Trị Hệ Thống</div>
+                      <div className="text-[10px] text-slate-400 font-normal">Control Hub & Leads CRM</div>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
           </nav>
 
           {/* 3. RIGHT: DIRECT ACTION BUTTON & MOBILE TOGGLE */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-3 shrink-0">
             
-            {/* Direct Admin Portal Link */}
-            <Link
-              href="/admin"
-              className={`hidden md:inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold transition-all ${
-                pathname.startsWith("/admin")
-                  ? "bg-blue-50 text-blue-600 border border-blue-200"
-                  : "text-slate-500 hover:text-blue-600 hover:bg-slate-100"
-              }`}
-              title="Cổng Quản Trị Hệ Thống (/admin)"
-            >
-              <ShieldCheck size={14} />
-              <span>Admin</span>
-            </Link>
-
             {/* Direct CTA Button */}
             <Link
               href="/lien-he"
@@ -246,7 +389,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors"
+              className="lg:hidden p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer"
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -257,9 +400,9 @@ export default function Header() {
         </div>
       </div>
 
-      {/* 4. DESKTOP MEGA MENU DROPDOWN (COMPACT 3-COLUMN LAYOUT) */}
+      {/* 4. DESKTOP MEGA MENU DROPDOWN (FOR KHÓA HỌC) */}
       {isMegaMenuOpen && (
-        <div className="hidden lg:block absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-xl animate-fade-in z-50">
+        <div className="hidden lg:block absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-xl animate-in fade-in slide-in-from-top-1 duration-200 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
             
             <div className="grid grid-cols-3 gap-8">
@@ -350,12 +493,12 @@ export default function Header() {
                   </li>
                   <li>
                     <Link href="/tai-lieu" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5 py-0.5">
-                      <span>📚 Tải trọn bộ 50 đề thi Certiport</span>
+                      <span>📚 Thư viện tài liệu & đề thi</span>
                     </Link>
                   </li>
                   <li>
-                    <Link href="/blog" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5 py-0.5">
-                      <span>💡 Cẩm nang & Bí quyết thi 1000 điểm</span>
+                    <Link href="/bang-gia" className="text-slate-200 hover:text-cyan-300 flex items-center gap-1.5 py-0.5">
+                      <span>💰 Bảng giá học phí ưu đãi nhóm</span>
                     </Link>
                   </li>
                 </ul>
@@ -376,9 +519,9 @@ export default function Header() {
         </div>
       )}
 
-      {/* 5. MOBILE DRAWER MENU */}
+      {/* 5. MOBILE ACCORDION DRAWER MENU */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-2xl animate-fade-in z-50">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200 z-50">
           <div className="px-5 py-6 space-y-2 max-h-[85vh] overflow-y-auto">
             <Link
               href="/"
@@ -387,59 +530,97 @@ export default function Header() {
             >
               Trang chủ
             </Link>
+
+            <div className="pt-2 pb-1 border-t border-slate-100">
+              <span className="px-4 text-[10px] font-black uppercase text-blue-600 tracking-wider">Chương Trình Đào Tạo</span>
+            </div>
             <Link
               href="/khoa-hoc"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
             >
-              Khóa học MOS & IC3
+              Tất Cả Khóa Học & Lộ Trình
             </Link>
+            <Link
+              href="/mos"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+            >
+              Luyện Thi MOS 2019 / 365 (Bao Đậu)
+            </Link>
+            <Link
+              href="/ic3"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+            >
+              Chứng Chỉ IC3 GS6 Chuẩn ĐH
+            </Link>
+            <Link
+              href="/excel"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+            >
+              Master Excel & Dashboard
+            </Link>
+
+            <div className="pt-2 pb-1 border-t border-slate-100">
+              <span className="px-4 text-[10px] font-black uppercase text-cyan-600 tracking-wider">Luyện Thi & Học Liệu</span>
+            </div>
+            <Link
+              href="/thi-thu"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center justify-between px-4 py-2 rounded-xl text-xs font-bold text-blue-600 bg-blue-50/60"
+            >
+              <span>🎯 Thi Thử MOS / IC3 Online</span>
+              <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-cyan-100 text-cyan-800">HOT</span>
+            </Link>
+            <Link
+              href="/tai-lieu"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+            >
+              📚 Kho Tài Liệu & Đề Thi Mẫu Free
+            </Link>
+
+            <div className="pt-2 pb-1 border-t border-slate-100">
+              <span className="px-4 text-[10px] font-black uppercase text-indigo-600 tracking-wider">Tin Tức & Cẩm Nang</span>
+            </div>
             <Link
               href="/blog"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
             >
               💡 Cẩm Nang & Bí Quyết Luyện Thi
             </Link>
             <Link
               href="/tin-cong-nghe"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold text-indigo-700 bg-indigo-50/60"
+              className="flex items-center justify-between px-4 py-2 rounded-xl text-xs font-bold text-indigo-700 bg-indigo-50/60"
             >
               <span>⚡️ Tin Công Nghệ & AI Engine</span>
               <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-indigo-100 text-indigo-800">Mới</span>
             </Link>
-            <Link
-              href="/thi-thu"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-bold text-blue-600 bg-blue-50/60"
-            >
-              <span>🎯 Thi Thử MOS / IC3 Online</span>
-              <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-cyan-100 text-cyan-800">Free</span>
-            </Link>
-            <Link
-              href="/tai-lieu"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
-            >
-              📚 Kho Tài Liệu & Đề Thi Mẫu
-            </Link>
+
+            <div className="pt-2 pb-1 border-t border-slate-100">
+              <span className="px-4 text-[10px] font-black uppercase text-amber-600 tracking-wider">Thông Tin & Học Phí</span>
+            </div>
             <Link
               href="/bang-gia"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
             >
-              Bảng Giá Học Phí
+              💰 Bảng Giá Học Phí & Ưu Đãi
             </Link>
             <Link
               href="/gioi-thieu"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block px-4 py-2.5 rounded-xl text-sm font-bold text-slate-800 hover:bg-slate-50"
+              className="block px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
             >
               Giới Thiệu Trung Tâm
             </Link>
+
             <div className="pt-2 pb-1 border-t border-slate-100">
-              <span className="px-4 text-[10px] font-black uppercase text-blue-600 tracking-wider">Cổng Đào Tạo & Học Vụ</span>
+              <span className="px-4 text-[10px] font-black uppercase text-purple-600 tracking-wider">Cổng Đào Tạo & Học Vụ</span>
             </div>
             <Link
               href="/portal/student"
@@ -468,7 +649,7 @@ export default function Header() {
             <Link
               href="/admin"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-500 hover:bg-slate-50"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-purple-600 hover:bg-purple-50"
             >
               <ShieldCheck size={15} className="text-purple-500" />
               <span>Cổng Quản Trị Hệ Thống (Admin)</span>
@@ -478,7 +659,7 @@ export default function Header() {
               <Link
                 href="/lien-he"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full py-3 rounded-full bg-blue-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg"
+                className="w-full py-3 rounded-full bg-blue-600 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg text-center"
               >
                 <span>Đăng Ký Khóa Học Ngay</span>
                 <ArrowRight size={14} />
