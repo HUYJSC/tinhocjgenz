@@ -13,10 +13,12 @@ const MASTER_SECRET =
   process.env.CRON_SECRET ||
   "ph_digital_education_secure_master_session_secret_2026";
 
-interface AdminSessionPayload {
+export type UserRoleType = "super_admin" | "admin" | "academic" | "teacher" | "student";
+
+export interface AdminSessionPayload {
   userId: string;
   name: string;
-  role: "super_admin" | "academic" | "teacher";
+  role: UserRoleType;
   exp: number;
 }
 
@@ -44,7 +46,7 @@ async function signData(data: string, secret: string): Promise<string> {
 export async function createSessionToken(user: {
   userId: string;
   name: string;
-  role: "super_admin" | "academic" | "teacher";
+  role: UserRoleType;
 }): Promise<string> {
   const payload: AdminSessionPayload = {
     ...user,

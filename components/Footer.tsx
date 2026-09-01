@@ -314,13 +314,15 @@ export default function Footer() {
                 </Link>
               </li>
               <li className="pt-2 border-t border-slate-900">
-                <Link 
-                  href="/portal/student" 
+                <a 
+                  href="https://hoctructuyen.tinhocgenz.io.vn/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-cyan-400 font-extrabold hover:text-cyan-300 transition-colors inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
                 >
-                  <span>Cổng học tập học viên</span>
+                  <span>Cổng học tập trực tuyến (LMS)</span>
                   <ArrowRight size={13} aria-hidden="true" />
-                </Link>
+                </a>
               </li>
             </ul>
           </nav>
@@ -459,13 +461,15 @@ export default function Footer() {
             >
               Sitemap
             </Link>
-            <Link 
-              href="/admin" 
-              className="text-purple-400 hover:text-purple-300 transition-colors font-bold inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-purple-400 rounded py-1 pl-1"
+            <a 
+              href="https://hoctructuyen.tinhocgenz.io.vn/" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors font-bold inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-1 pl-1"
             >
               <ShieldCheck size={13} aria-hidden="true" />
-              <span>Quản Trị (/admin)</span>
-            </Link>
+              <span>Đăng Nhập LMS</span>
+            </a>
           </nav>
         </div>
 

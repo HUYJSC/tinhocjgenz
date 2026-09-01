@@ -334,74 +334,48 @@ export default function Header() {
             </div>
           </div>
 
-          {/* Item 4: CỔNG ĐÀO TẠO (Cổng Phân Quyền) */}
+          {/* Item 4: CỔNG ĐÀO TẠO LMS (Trỏ duy nhất về hoctructuyen.tinhocgenz.io.vn) */}
           <div className="relative group">
             <button
               type="button"
-              className={`h-9 px-3 rounded-xl text-[13px] font-bold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
-                pathname.startsWith("/portal") || pathname.startsWith("/admin")
-                  ? "text-blue-600 bg-blue-50 font-extrabold"
-                  : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
-              }`}
+              className="h-9 px-3 rounded-xl text-[13px] font-bold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap text-slate-700 hover:text-blue-600 hover:bg-slate-50"
             >
               <GraduationCap size={15} className="text-blue-600" />
-              <span>Cổng Đào Tạo</span>
+              <span>Hệ Thống LMS</span>
               <ChevronDown size={13} className="text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
             </button>
             
             <div className="absolute top-full right-0 hidden group-hover:block pt-1.5 z-50">
               <div className="w-64 bg-white rounded-2xl shadow-2xl border border-slate-200 p-2 space-y-1 animate-in fade-in slide-in-from-top-1 duration-150">
-                <Link
-                  href="/portal/student"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                <a
+                  href="https://hoctructuyen.tinhocgenz.io.vn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
                 >
                   <div className="w-7 h-7 rounded-lg bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0">
                     <GraduationCap size={15} />
                   </div>
                   <div>
                     <div className="text-slate-900 font-bold">Cổng Học Viên</div>
-                    <div className="text-[10px] text-slate-400 font-normal">Lộ trình & Nộp bài</div>
+                    <div className="text-[10px] text-slate-400 font-normal">Đăng nhập học tập LMS</div>
                   </div>
-                </Link>
+                </a>
 
-                <Link
-                  href="/portal/teacher"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                <a
+                  href="https://hoctructuyen.tinhocgenz.io.vn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
                 >
                   <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
                     <Users size={15} />
                   </div>
                   <div>
                     <div className="text-slate-900 font-bold">Cổng Giảng Viên</div>
-                    <div className="text-[10px] text-slate-400 font-normal">Điểm danh & Chấm bài</div>
+                    <div className="text-[10px] text-slate-400 font-normal">Hệ thống giảng dạy LMS</div>
                   </div>
-                </Link>
-
-                <Link
-                  href="/portal/academic"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-amber-50 hover:text-amber-600 transition-colors"
-                >
-                  <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-                    <BookOpen size={15} />
-                  </div>
-                  <div>
-                    <div className="text-slate-900 font-bold">Cổng Giáo Vụ</div>
-                    <div className="text-[10px] text-slate-400 font-normal">Xếp lớp & Duyệt bằng QR</div>
-                  </div>
-                </Link>
-
-                <Link
-                  href="/admin"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-bold text-slate-700 hover:bg-purple-50 hover:text-purple-600 transition-colors border-t border-slate-100 pt-2"
-                >
-                  <div className="w-7 h-7 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
-                    <ShieldCheck size={15} />
-                  </div>
-                  <div>
-                    <div className="text-purple-700 font-bold">Quản Trị Hệ Thống</div>
-                    <div className="text-[10px] text-slate-400 font-normal">Control Hub & CRM</div>
-                  </div>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -538,40 +512,28 @@ export default function Header() {
             </Link>
 
             <div className="pt-2 pb-1 border-t border-slate-100">
-              <span className="px-4 text-[10px] font-black uppercase text-purple-600 tracking-wider">Cổng Đào Tạo & Học Vụ</span>
+              <span className="px-4 text-[10px] font-black uppercase text-blue-600 tracking-wider">Hệ Thống Học Trực Tuyến LMS</span>
             </div>
-            <Link
-              href="/portal/student"
+            <a
+              href="https://hoctructuyen.tinhocgenz.io.vn/"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
             >
               <GraduationCap size={15} className="text-cyan-500" />
-              <span>Cổng Học Viên (Lộ trình & Nộp bài)</span>
-            </Link>
-            <Link
-              href="/portal/teacher"
+              <span>Cổng Học Viên (hoctructuyen.tinhocgenz.io.vn)</span>
+            </a>
+            <a
+              href="https://hoctructuyen.tinhocgenz.io.vn/"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
             >
               <Users size={15} className="text-emerald-500" />
-              <span>Cổng Giảng Viên (Điểm danh & Chấm bài)</span>
-            </Link>
-            <Link
-              href="/portal/academic"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
-            >
-              <BookOpen size={15} className="text-amber-500" />
-              <span>Cổng Giáo Vụ (Xếp lớp & Cảnh báo)</span>
-            </Link>
-            <Link
-              href="/admin"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-purple-600 hover:bg-purple-50"
-            >
-              <ShieldCheck size={15} className="text-purple-500" />
-              <span>Cổng Quản Trị Hệ Thống (Admin)</span>
-            </Link>
+              <span>Cổng Giảng Viên (hoctructuyen.tinhocgenz.io.vn)</span>
+            </a>
 
             <div className="pt-3 border-t border-slate-100">
               <Link

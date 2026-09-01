@@ -30,7 +30,7 @@ def test_footer_critical_links():
         "/blog",
         "/tin-cong-nghe",
         "/bang-gia",
-        "/portal/student",
+        "https://hoctructuyen.tinhocgenz.io.vn/",
     ]
     for res_link in critical_resources:
         assert f'href="{res_link}"' in content, f"Missing resource link: {res_link}"
@@ -49,3 +49,9 @@ def test_footer_critical_links():
     # Check tel and mailto formats
     assert "tel:" in content, "Missing tel: protocol"
     assert "mailto:" in content, "Missing mailto: protocol"
+
+    # Security check: Khóa chặt - Không bao giờ để lộ link /admin hoặc /portal/academic ở footer công khai
+    assert 'href="/admin"' not in content, "Lỗ hổng: Footer không được chứa liên kết /admin"
+    assert 'href="/portal/academic"' not in content, "Lỗ hổng: Footer không được chứa liên kết /portal/academic"
+    assert 'href="/portal/teacher"' not in content, "Lỗ hổng: Footer không được chứa liên kết /portal/teacher"
+    assert 'href="/portal/student"' not in content, "Lỗ hổng: Footer phải trỏ về duy nhất https://hoctructuyen.tinhocgenz.io.vn/"

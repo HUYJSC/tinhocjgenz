@@ -67,3 +67,7 @@ class JWTAuthentication(BaseAuthentication):
             raise AuthenticationFailed('Tài khoản đã bị tạm khóa.')
 
         return (user, token)
+
+    def authenticate_header(self, request):
+        return 'Bearer realm="api"'
+

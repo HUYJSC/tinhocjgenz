@@ -27,3 +27,11 @@ class ExamSubmissionSerializer(serializers.Serializer):
     )
     guest_name = serializers.CharField(required=False, allow_blank=True)
     guest_phone = serializers.CharField(required=False, allow_blank=True)
+
+class ExamAttemptSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExamAttempt
+        fields = ['id', 'user', 'exam', 'score', 'total_questions', 'correct_count', 'passed', 'started_at']
+        read_only_fields = ['id', 'user', 'exam', 'score', 'total_questions', 'correct_count', 'passed', 'started_at']
+
+

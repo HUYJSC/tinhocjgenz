@@ -1,7 +1,8 @@
 from rest_framework import views, generics, permissions, status
 from rest_framework.response import Response
 from .models import Exam, Question, ExamAttempt, ExamAnswer
-from .serializers import ExamDetailSerializer, ExamSubmissionSerializer
+from .serializers import ExamDetailSerializer, ExamSubmissionSerializer, ExamAttemptSerializer
+from apps.accounts.permissions import IsOwnerOrStaff
 
 class ExamListView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
@@ -121,3 +122,12 @@ class ExamSubmitView(views.APIView):
             'skill_analysis': skill_analysis,
             'review_items': review_items,
         }, status=status.HTTP_200_OK)
+
+class ExamAttemptDetailView(generics.RetrieveAPIView):
+    """
+    Object-level security: Chỉ thí sinh sở hữu bài thi hoặc nhân sự đào tạo (Academic/Admin)
+    mới có quyền xem kết quả bài thi này. Chặn triệt để lỗ hổng IDOR.
+    """
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrStaff]
+    queryset = ExamAttempt.objects.all()
+    serializer_class = ExamAttemptSerializer
