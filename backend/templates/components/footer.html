@@ -1,0 +1,155 @@
+{% load static %}
+<footer class="bg-slate-950 text-slate-300 relative overflow-hidden font-sans border-t border-slate-800" role="contentinfo">
+  <!-- Top accent glow divider line -->
+  <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/70 to-transparent" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-blue-600/5 blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <div class="w-[min(100%-48px,1280px)] mx-auto pt-14 pb-12 lg:pt-16 lg:pb-14 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(280px,1.45fr)_minmax(240px,1.15fr)_minmax(210px,0.9fr)_minmax(260px,1.1fr)] gap-8 lg:gap-12 pb-12 border-b border-slate-800/80 items-start">
+      
+      <!-- CỘT 1 — THƯƠNG HIỆU -->
+      <div class="flex flex-col gap-4">
+        <a href="/" class="group flex items-center gap-3 w-max rounded-lg" aria-label="Về trang chủ Tin Học Gen Z">
+          <img src="{% static 'images/logo-icon.png' %}" alt="Logo Tin Học Gen Z" width="48" height="48" class="h-11 sm:h-12 w-auto object-contain">
+          <div class="flex flex-col">
+            <span class="text-base sm:text-lg font-black tracking-tight text-white leading-tight">TIN HỌC GEN Z</span>
+            <div class="text-[10px] sm:text-[11px] font-bold text-slate-400 mt-1 flex items-center gap-1.5 leading-none">
+              <span class="text-blue-400 font-black">MOS</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-cyan-400 font-black">IC3</span>
+              <span class="text-slate-600">•</span>
+              <span class="text-slate-300 font-medium">TIN HỌC VĂN PHÒNG</span>
+            </div>
+          </div>
+        </a>
+
+        <p class="text-slate-400 text-sm leading-relaxed max-w-sm mt-0.5">
+          {{ site_config.description|default:"Hệ sinh thái đào tạo Tin học văn phòng thực chiến và luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport." }}
+        </p>
+
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-800/90 max-w-sm">
+          <div class="w-9 h-9 rounded-xl bg-blue-500/15 border border-blue-400/30 flex items-center justify-center text-blue-400 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          </div>
+          <div class="leading-tight">
+            <span class="text-[10px] font-black uppercase tracking-wider text-cyan-400 block">Tiêu Chuẩn Đào Tạo</span>
+            <span class="text-xs font-bold text-slate-200">Giảng Viên Certiport Master Trainer</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 mt-1">
+          <a href="{{ site_config.socials.facebook|default:'https://facebook.com/tinhocgenz' }}" target="_blank" rel="noopener noreferrer" class="h-10 px-4 rounded-xl bg-slate-900 hover:bg-blue-600 text-slate-300 hover:text-white flex items-center gap-2 transition-all border border-slate-800 text-xs font-bold" aria-label="Fanpage Facebook">
+            <span>Fanpage</span>
+          </a>
+          <a href="{{ site_config.socials.youtube|default:'https://youtube.com' }}" target="_blank" rel="noopener noreferrer" class="h-10 px-4 rounded-xl bg-slate-900 hover:bg-red-600 text-slate-300 hover:text-white flex items-center gap-2 transition-all border border-slate-800 text-xs font-bold" aria-label="Kênh YouTube">
+            <span>Bài Giảng</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- CỘT 2 — CHƯƠNG TRÌNH ĐÀO TẠO -->
+      <nav aria-label="Chương trình đào tạo tin học" class="w-full">
+        <div class="py-2 font-black text-sm uppercase tracking-wider text-white flex items-center gap-2">
+          <span class="w-1.5 h-4 bg-blue-500 rounded-full" aria-hidden="true"></span>
+          Chương Trình Đào Tạo
+        </div>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li><a href="/mos" class="text-slate-400 hover:text-cyan-300 transition-colors">Luyện thi MOS 2019/365</a></li>
+          <li><a href="/ic3" class="text-slate-400 hover:text-cyan-300 transition-colors">Chứng chỉ IC3 GS6</a></li>
+          <li><a href="/excel" class="text-slate-400 hover:text-cyan-300 transition-colors">Master Excel & Dashboard</a></li>
+          <li><a href="/word" class="text-slate-400 hover:text-cyan-300 transition-colors">Soạn thảo Word chuẩn NĐ 30</a></li>
+          <li><a href="/powerpoint" class="text-slate-400 hover:text-cyan-300 transition-colors">Thiết kế PowerPoint</a></li>
+          <li><a href="/python" class="text-slate-400 hover:text-cyan-300 transition-colors">Python tự động hóa dữ liệu</a></li>
+          <li><a href="/cntt-co-ban" class="text-slate-400 hover:text-cyan-300 transition-colors">Ứng dụng CNTT cơ bản</a></li>
+          <li class="pt-2 border-t border-slate-900">
+            <a href="/khoa-hoc" class="text-blue-400 font-extrabold hover:text-blue-300 inline-flex items-center gap-1">
+              <span>Xem tất cả khóa học →</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- CỘT 3 — HỌC LIỆU & THI THỬ -->
+      <nav aria-label="Học liệu và thi thử" class="w-full">
+        <div class="py-2 font-black text-sm uppercase tracking-wider text-white flex items-center gap-2">
+          <span class="w-1.5 h-4 bg-cyan-400 rounded-full" aria-hidden="true"></span>
+          Học Liệu & Thi Thử
+        </div>
+        <ul class="mt-4 space-y-3 text-sm">
+          <li><a href="/thi-thu" class="text-slate-400 hover:text-cyan-300 transition-colors">Thi thử online</a></li>
+          <li><a href="/tai-lieu" class="text-slate-400 hover:text-emerald-300 transition-colors">Kho đề thi thử miễn phí</a></li>
+          <li><a href="/blog" class="text-slate-400 hover:text-amber-300 transition-colors">Cẩm nang và mẹo ôn thi</a></li>
+          <li><a href="/tin-cong-nghe" class="text-slate-400 hover:text-indigo-300 transition-colors">Tin học và AI văn phòng</a></li>
+          <li><a href="/bang-gia" class="text-slate-400 hover:text-blue-300 transition-colors">Bảng giá, ưu đãi nhóm</a></li>
+          <li class="pt-2 border-t border-slate-900">
+            <a href="/portal/student" class="text-cyan-400 font-extrabold hover:text-cyan-300 inline-flex items-center gap-1">
+              <span>Cổng học tập học viên →</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- CỘT 4 — TƯ VẤN & HỌC VỤ -->
+      <section aria-labelledby="footer-contact-title-django" class="w-full flex flex-col gap-4">
+        <div class="py-2 font-black text-sm uppercase tracking-wider text-white flex items-center gap-2">
+          <span class="w-1.5 h-4 bg-emerald-400 rounded-full" aria-hidden="true"></span>
+          <span id="footer-contact-title-django">Tư Vấn & Học Vụ</span>
+        </div>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2.5 text-slate-300">
+            <div class="leading-snug">
+              <span class="text-[11px] text-slate-400 font-bold block uppercase tracking-wider">Hotline / Zalo</span>
+              <a href="tel:{{ site_config.contact.phone|default:'0332298065' }}" class="text-white font-bold hover:text-cyan-300 whitespace-nowrap text-base">
+                {{ site_config.contact.display_phone|default:"033.229.8065" }}
+              </a>
+            </div>
+          </li>
+          <li class="flex items-start gap-2.5 text-slate-300">
+            <div class="leading-snug">
+              <span class="text-[11px] text-slate-400 font-bold block uppercase tracking-wider">Hộp Thư Điện Tử</span>
+              <a href="mailto:{{ site_config.contact.email|default:'tinhocgenz@gmail.com' }}" class="text-slate-200 hover:text-blue-300 break-all text-sm font-medium">
+                {{ site_config.contact.email|default:"tinhocgenz@gmail.com" }}
+              </a>
+            </div>
+          </li>
+          <li class="flex items-start gap-2.5 text-slate-300">
+            <div class="leading-snug">
+              <span class="text-[11px] text-slate-400 font-bold block uppercase tracking-wider">Thời Gian Hỗ Trợ</span>
+              <span class="text-slate-300 font-medium text-xs sm:text-sm">08:00 – 21:30 hàng ngày (Cả T7 & CN)</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="pt-1">
+          <a href="/lien-he" class="w-full inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-black text-xs uppercase tracking-wider shadow-lg">
+            <span>Đăng Ký Tư Vấn Ngay</span>
+          </a>
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-xs space-y-1 mt-1">
+          <div class="flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-wider">
+            <span>Cam Kết Đào Tạo</span>
+          </div>
+          <p class="text-emerald-200/90 text-xs leading-relaxed font-medium">
+            Tài trợ 100% học phí học lại miễn phí nếu chưa đạt điểm chuẩn đầu ra Certiport.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- THANH CUỐI TRANG -->
+    <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+      <p class="text-center md:text-left">
+        © {% now "Y" %} TIN HỌC GEN Z. All rights reserved. Hệ thống đào tạo Tin học Văn phòng & Chứng chỉ Quốc tế.
+      </p>
+      <nav aria-label="Chính sách và điều khoản" class="flex flex-wrap gap-x-5 gap-y-2 items-center justify-center">
+        <a href="/gioi-thieu#bao-mat" class="text-slate-400 hover:text-slate-200">Chính sách bảo mật</a>
+        <a href="/gioi-thieu#dieu-khoan" class="text-slate-400 hover:text-slate-200">Điều khoản sử dụng</a>
+        <a href="/gioi-thieu#hoan-tien" class="text-slate-400 hover:text-slate-200">Chính sách hoàn tiền</a>
+        <a href="/lien-he" class="text-slate-400 hover:text-slate-200">Liên hệ</a>
+        <a href="/sitemap.xml" class="text-slate-400 hover:text-slate-200">Sitemap</a>
+      </nav>
+    </div>
+  </div>
+</footer>
