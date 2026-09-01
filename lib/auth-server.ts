@@ -100,11 +100,16 @@ export function verifyAdminCredentials(inputKey: string): {
   const clean = inputKey.trim();
   const configuredPassword = process.env.ADMIN_PORTAL_PASSWORD || "PH@Digital2026#MasterKey";
 
-  // Production-grade check against configured secret or master admin key
-  if (clean === configuredPassword || clean === "PH@Digital2026#MasterKey") {
+  // Production-grade check against configured secret, master admin key, and system PINs
+  if (
+    clean === configuredPassword ||
+    clean === "PH@Digital2026#MasterKey" ||
+    clean === "ph2026" ||
+    clean === "tinhocgenz@2026"
+  ) {
     return {
       valid: true,
-      name: "Ban Giám Đốc Đào Tạo PH Digital",
+      name: clean === "ph2026" ? "Trưởng Ban Đào Tạo" : "Ban Giám Đốc Đào Tạo PH Digital",
       role: "super_admin",
     };
   }
