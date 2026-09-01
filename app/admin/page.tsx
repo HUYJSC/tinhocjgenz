@@ -20,7 +20,9 @@ import {
   Plus,
   BarChart3,
   Phone,
-  Database
+  Database,
+  KeyRound,
+  ShieldAlert
 } from "lucide-react";
 import { coursesData, upcomingBatchesData } from "@/data/mockData";
 import { BLOG_POSTS } from "@/data/blogData";
@@ -93,8 +95,27 @@ export default function AdminDashboardOverviewPage() {
       icon: Sparkles,
       color: "from-violet-600 to-fuchsia-600",
       textColor: "text-violet-400"
+    },
+    {
+      title: "Quản Lý Người Dùng",
+      value: "RBAC 4 Cổng",
+      subtext: "Học viên, GV, Giáo vụ, Admin",
+      href: "/admin/users",
+      icon: KeyRound,
+      color: "from-cyan-600 to-blue-600",
+      textColor: "text-cyan-400"
+    },
+    {
+      title: "Nhật Ký Bảo Mật",
+      value: "Audit Log",
+      subtext: "Ghi vết sự kiện thời gian thực",
+      href: "/admin/audit",
+      icon: ShieldAlert,
+      color: "from-purple-600 to-indigo-600",
+      textColor: "text-purple-400"
     }
   ];
+
 
   return (
     <div className="space-y-8 animate-fade-in">
@@ -277,6 +298,71 @@ export default function AdminDashboardOverviewPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Security & Access Control Section (Phân Quyền & Giám Sát Bốn Cổng) */}
+      <div className="rounded-3xl bg-slate-900 border border-slate-800 p-6 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4 mb-5">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-purple-600/20 text-purple-400 border border-purple-500/30">
+              <ShieldAlert size={18} />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-white">An Ninh Hệ Thống & Kiểm Soát Truy Cập Bốn Cổng</h3>
+              <p className="text-xs text-slate-400">Kiểm soát phân quyền theo nguyên tắc Deny-By-Default và truy vết sự kiện</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/admin/users"
+              className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all flex items-center gap-1.5"
+            >
+              <KeyRound size={13} />
+              <span>Quản Lý Người Dùng</span>
+            </Link>
+            <Link
+              href="/admin/audit"
+              className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all flex items-center gap-1.5"
+            >
+              <ShieldAlert size={13} />
+              <span>Xem Toàn Bộ Audit Log</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cổng Học Viên</div>
+            <div className="text-xl font-black text-white mt-1">Học Tập & Nộp Bài</div>
+            <div className="text-[11px] text-blue-400 mt-1 flex items-center gap-1">
+              <CheckCircle2 size={12} /> Khóa dữ liệu người khác (Chống IDOR)
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cổng Giảng Viên</div>
+            <div className="text-xl font-black text-white mt-1">Điểm Danh & Chấm Bài</div>
+            <div className="text-[11px] text-emerald-400 mt-1 flex items-center gap-1">
+              <CheckCircle2 size={12} /> Chỉ truy cập lớp được phân công
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cổng Giáo Vụ</div>
+            <div className="text-xl font-black text-white mt-1">Xếp Lớp & Cấp Chứng Chỉ</div>
+            <div className="text-[11px] text-amber-400 mt-1 flex items-center gap-1">
+              <CheckCircle2 size={12} /> Giới hạn quyền can thiệp hệ thống
+            </div>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
+            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cổng Quản Trị</div>
+            <div className="text-xl font-black text-white mt-1">Control Hub & Audit</div>
+            <div className="text-[11px] text-rose-400 mt-1 flex items-center gap-1">
+              <ShieldCheck size={12} /> Super Admin & Cryptographic MFA
+            </div>
           </div>
         </div>
       </div>

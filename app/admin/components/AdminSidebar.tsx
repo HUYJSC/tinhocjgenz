@@ -15,9 +15,11 @@ import {
   ExternalLink,
   LogOut,
   ShieldCheck,
+  ShieldAlert,
   ChevronRight,
   Globe
 } from "lucide-react";
+
 import { useAdminAuth } from "../context/AdminAuthContext";
 
 export function AdminSidebar({ onCloseMobile }: { onCloseMobile?: () => void }) {
@@ -72,8 +74,21 @@ export function AdminSidebar({ onCloseMobile }: { onCloseMobile?: () => void }) 
       href: "/admin/certificates",
       icon: Award,
       badge: "Blockchain"
+    },
+    {
+      title: "Quản Lý Người Dùng",
+      href: "/admin/users",
+      icon: Users,
+      badge: "RBAC 4 Cổng"
+    },
+    {
+      title: "Nhật Ký Bảo Mật Audit",
+      href: "/admin/audit",
+      icon: ShieldAlert,
+      badge: "Audit Log"
     }
   ];
+
 
   return (
     <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col h-full shrink-0">
