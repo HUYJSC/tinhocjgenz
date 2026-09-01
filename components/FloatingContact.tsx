@@ -34,8 +34,8 @@ export default function FloatingContact() {
                 <Brain size={15} className="text-cyan-300 animate-pulse" />
               </div>
               <div className="text-left leading-none">
-                <span className="text-[9px] uppercase tracking-wider text-cyan-200 font-bold block">AI Phân Tích</span>
-                <span className="text-xs font-black text-white">Lộ Trình Đỗ 100%</span>
+                <span className="text-[9px] uppercase tracking-wider text-cyan-200 font-bold block">AI Khảo Thí</span>
+                <span className="text-xs font-black text-white">Lộ Trình Tối Ưu</span>
               </div>
             </button>
 
