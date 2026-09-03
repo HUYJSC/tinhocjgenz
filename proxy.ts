@@ -6,6 +6,18 @@ const LMS_LOGIN_URL = "https://hoctructuyen.tinhocgenz.io.vn/";
 
 export default async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+
+  // 0. Chuẩn hóa dứt khoát Trailing Slash: /admin/ -> /admin để triệt tiêu redirect loop
+  if (
+    pathname.length > 1 &&
+    pathname.endsWith("/") &&
+    (pathname.startsWith("/admin/") || pathname.startsWith("/portal/"))
+  ) {
+    const cleanUrl = req.nextUrl.clone();
+    cleanUrl.pathname = pathname.slice(0, -1);
+    return NextResponse.redirect(cleanUrl, 308);
+  }
+
   const token = req.cookies.get(SESSION_COOKIE_NAME)?.value;
   const session = await verifySessionToken(token);
 

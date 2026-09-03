@@ -70,10 +70,10 @@ export function AdminSidebar({ onCloseMobile }: { onCloseMobile?: () => void }) 
       badge: "Tự động"
     },
     {
-      title: "Chứng Chỉ Số Certiport",
+      title: "Kết Quả & Chứng Nhận",
       href: "/admin/certificates",
       icon: Award,
-      badge: "Blockchain"
+      badge: "Khảo thí"
     },
     {
       title: "Quản Lý Người Dùng",

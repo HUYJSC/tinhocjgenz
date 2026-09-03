@@ -1,75 +1,88 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
-  verifyAdminCredentials,
-  createSessionToken,
+  authenticateUser,
   SESSION_COOKIE_NAME,
   SESSION_EXPIRATION_SECONDS,
 } from "@/lib/auth-server";
 
-// In-memory rate limiting tracker (per IP)
-const ATTEMPTS_MAP = new Map<string, { count: number; lockedUntil: number }>();
+// IP Rate limiter (Max 10 requests per minute)
+const IP_TRACKER = new Map<string, { count: number; resetAt: number }>();
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || "127.0.0.1";
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
     const now = Date.now();
-    const tracker = ATTEMPTS_MAP.get(ip);
 
-    if (tracker && tracker.lockedUntil > now) {
-      const waitSeconds = Math.ceil((tracker.lockedUntil - now) / 1000);
-      return NextResponse.json(
-        {
-          success: false,
-          error: `Quá nhiều lần thử thất bại. Vui lòng chờ ${waitSeconds} giây trước khi thử lại.`,
-        },
-        { status: 429 }
-      );
+    // Rate limiting per IP
+    const tracker = IP_TRACKER.get(ip);
+    if (tracker) {
+      if (tracker.resetAt > now) {
+        if (tracker.count >= 10) {
+          const waitSecs = Math.ceil((tracker.resetAt - now) / 1000);
+          return NextResponse.json(
+            {
+              success: false,
+              error: `Quá nhiều lượt gửi yêu cầu đăng nhập. Vui lòng chờ ${waitSecs} giây trước khi thử lại.`,
+            },
+            { status: 429 }
+          );
+        }
+        tracker.count++;
+      } else {
+        IP_TRACKER.set(ip, { count: 1, resetAt: now + 60 * 1000 });
+      }
+    } else {
+      IP_TRACKER.set(ip, { count: 1, resetAt: now + 60 * 1000 });
     }
 
     const body = await req.json();
-    const key = body.key || body.password || "";
+    const credential = body.username || body.email || body.credential || "";
+    const password = body.password || "";
+    const mfaCode = body.mfaCode || body.otp || "";
 
-    if (!key) {
+    if (!credential || !password) {
       return NextResponse.json(
-        { success: false, error: "Vui lòng nhập mật mã quản trị." },
+        {
+          success: false,
+          error: "Vui lòng nhập đầy đủ tên đăng nhập/email và mật khẩu.",
+        },
         { status: 400 }
       );
     }
 
-    const result = verifyAdminCredentials(key);
+    const result = await authenticateUser({
+      credential,
+      password,
+      mfaCode: mfaCode ? String(mfaCode).trim() : undefined,
+      ipAddress: ip,
+    });
 
-    if (!result.valid) {
-      // Record failed attempt
-      const prevCount = (tracker?.lockedUntil || 0) > now ? tracker?.count || 0 : (tracker?.count || 0);
-      const newCount = prevCount + 1;
-      const lockedUntil = newCount >= 5 ? now + 15 * 60 * 1000 : 0; // Lock 15 mins after 5 failures
+    if (result.requireMfa) {
+      return NextResponse.json({
+        success: false,
+        requireMfa: true,
+        message: result.message || "Yêu cầu mã xác thực hai bước (MFA)",
+      });
+    }
 
-      ATTEMPTS_MAP.set(ip, { count: newCount, lockedUntil });
-
+    if (!result.success || !result.token) {
       return NextResponse.json(
         {
           success: false,
-          error: "Khóa bảo mật hoặc mật khẩu quản trị không chính xác!",
-          remainingAttempts: Math.max(0, 5 - newCount),
+          error: result.error || "Xác thực thất bại.",
+          remainingAttempts: result.remainingAttempts,
         },
         { status: 401 }
       );
     }
 
-    // Success: clear attempts
-    ATTEMPTS_MAP.delete(ip);
-
-    const token = await createSessionToken({
-      userId: `admin-${Date.now()}`,
-      name: result.name,
-      role: result.role,
-    });
-
     const response = NextResponse.json({
       success: true,
       user: {
-        name: result.name,
-        role: result.role,
+        userId: result.user?.userId,
+        username: result.user?.username,
+        name: result.user?.name,
+        role: result.user?.role,
         loggedInAt: new Date().toISOString(),
       },
     });
@@ -77,7 +90,7 @@ export async function POST(req: NextRequest) {
     // Set secure HttpOnly cookie
     response.cookies.set({
       name: SESSION_COOKIE_NAME,
-      value: token,
+      value: result.token,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -88,7 +101,7 @@ export async function POST(req: NextRequest) {
     return response;
   } catch (err: any) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi xử lý xác thực" },
+      { success: false, error: err?.message || "Lỗi xử lý xác thực hệ thống" },
       { status: 500 }
     );
   }

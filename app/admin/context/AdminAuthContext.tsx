@@ -2,17 +2,31 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-interface AdminUser {
-  userId?: string;
+export interface AdminUser {
+  userId: string;
+  username: string;
   name: string;
-  role: "super_admin" | "academic" | "teacher";
+  role: "super_admin" | "admin" | "academic" | "teacher" | "student";
   loggedInAt?: string;
+}
+
+export interface LoginParams {
+  username: string;
+  password: string;
+  mfaCode?: string;
+}
+
+export interface LoginResponse {
+  success: boolean;
+  requireMfa?: boolean;
+  message?: string;
+  remainingAttempts?: number;
 }
 
 interface AdminAuthContextType {
   isAuthenticated: boolean;
   user: AdminUser | null;
-  login: (pinOrKey: string) => Promise<{ success: boolean; message?: string }>;
+  login: (params: LoginParams) => Promise<LoginResponse>;
   logout: () => Promise<void>;
   isLoading: boolean;
 }
@@ -38,6 +52,7 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
             setIsAuthenticated(true);
             setUser({
               userId: data.user.userId,
+              username: data.user.username || "",
               name: data.user.name,
               role: data.user.role,
               loggedInAt: data.user.expiresAt,
@@ -58,17 +73,25 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
     checkSession();
   }, []);
 
-  const login = async (pinOrKey: string): Promise<{ success: boolean; message?: string }> => {
+  const login = async (params: LoginParams): Promise<LoginResponse> => {
     try {
       const res = await fetch("/api/admin/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key: pinOrKey }),
+        body: JSON.stringify(params),
       });
 
       const data = await res.json();
 
-      if (res.ok && data.success) {
+      if (data.requireMfa) {
+        return {
+          success: false,
+          requireMfa: true,
+          message: data.message || "Yêu cầu mã xác thực hai bước (MFA).",
+        };
+      }
+
+      if (res.ok && data.success && data.user) {
         setIsAuthenticated(true);
         setUser(data.user);
         return { success: true };
@@ -76,7 +99,8 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
 
       return {
         success: false,
-        message: data.error || "Mật khẩu quản trị không chính xác!",
+        message: data.error || "Tên đăng nhập hoặc mật khẩu không chính xác!",
+        remainingAttempts: data.remainingAttempts,
       };
     } catch (err: any) {
       return {

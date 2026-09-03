@@ -9,31 +9,27 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/admin/",
-          "/api/",
-          "/portal/",
-        ],
+        disallow: ["/admin", "/admin/", "/api", "/api/", "/portal", "/portal/"],
       },
       {
         userAgent: "Googlebot",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/portal/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/", "/portal", "/portal/"],
       },
       {
         userAgent: "Google-InspectionTool",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/portal/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/", "/portal", "/portal/"],
       },
       {
         userAgent: "Bingbot",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/portal/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/", "/portal", "/portal/"],
       },
       {
         userAgent: "Applebot",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/portal/"],
+        disallow: ["/admin", "/admin/", "/api", "/api/", "/portal", "/portal/"],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
