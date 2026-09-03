@@ -1,18 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AdminUsersStore, RoleType } from "@/lib/admin-users-store";
-import { verifySessionToken, SESSION_COOKIE_NAME } from "@/lib/auth-server";
+import { authorizeAdminRequest, canModifyRole, canLockAccount } from "@/lib/rbac";
 
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get(SESSION_COOKIE_NAME)?.value;
-    const session = await verifySessionToken(token);
-
-    // Chặn nếu không phải Quản trị viên
-    if (!session || (session.role !== "admin" && session.role !== "super_admin")) {
-      return NextResponse.json(
-        { success: false, error: "Từ chối truy cập: Quyền quản trị viên bắt buộc." },
-        { status: 403 }
-      );
+    const auth = await authorizeAdminRequest(req, "user.read");
+    if (!auth.authorized) {
+      return auth.response;
     }
 
     const { searchParams } = new URL(req.url);
@@ -33,20 +27,6 @@ export async function GET(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
-    const token = req.cookies.get(SESSION_COOKIE_NAME)?.value;
-    const session = await verifySessionToken(token);
-
-    // Chỉ duy nhất Super Admin mới được thay đổi quyền hoặc khóa/mở khóa
-    if (!session || session.role !== "super_admin") {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Từ chối truy cập: Chỉ Quản trị viên tối cao (Super Admin) mới được phép phân quyền và quản lý tài khoản.",
-        },
-        { status: 403 }
-      );
-    }
-
     const body = await req.json();
     const { id, action, newRole } = body;
 
@@ -54,16 +34,54 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ success: false, error: "Thiếu ID người dùng." }, { status: 400 });
     }
 
+    const targetUser = AdminUsersStore.getUserById(id);
+    if (!targetUser) {
+      return NextResponse.json({ success: false, error: "Không tìm thấy người dùng." }, { status: 404 });
+    }
+
     if (action === "TOGGLE_STATUS") {
-      const result = AdminUsersStore.toggleStatus(id, session.name || "Super Admin");
+      const auth = await authorizeAdminRequest(req, "user.lock");
+      if (!auth.authorized) return auth.response;
+
+      const check = canLockAccount(
+        auth.session.userId,
+        auth.session.role,
+        targetUser.id,
+        targetUser.role
+      );
+
+      if (!check.allowed) {
+        return NextResponse.json(
+          { success: false, error: check.reason || "Hành động bị từ chối." },
+          { status: 403 }
+        );
+      }
+
+      const result = AdminUsersStore.toggleStatus(id, auth.session.name || "Super Admin");
       return NextResponse.json(result);
     }
 
     if (action === "UPDATE_ROLE") {
+      const auth = await authorizeAdminRequest(req, "user.role.update");
+      if (!auth.authorized) return auth.response;
+
       if (!newRole) {
         return NextResponse.json({ success: false, error: "Thiếu vai trò mới." }, { status: 400 });
       }
-      const result = AdminUsersStore.updateRole(id, newRole as RoleType, session.name || "Super Admin");
+
+      const check = canModifyRole(auth.session.role, targetUser.role, newRole as RoleType);
+      if (!check.allowed) {
+        return NextResponse.json(
+          { success: false, error: check.reason || "Hành động bị từ chối." },
+          { status: 403 }
+        );
+      }
+
+      const result = AdminUsersStore.updateRole(
+        id,
+        newRole as RoleType,
+        auth.session.name || "Super Admin"
+      );
       return NextResponse.json(result);
     }
 

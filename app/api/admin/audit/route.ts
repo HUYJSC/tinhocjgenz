@@ -1,18 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AuditStore } from "@/lib/audit-store";
-import { verifySessionToken, SESSION_COOKIE_NAME } from "@/lib/auth-server";
+import { authorizeAdminRequest } from "@/lib/rbac";
 
 export async function GET(req: NextRequest) {
   try {
-    const token = req.cookies.get(SESSION_COOKIE_NAME)?.value;
-    const session = await verifySessionToken(token);
-
-    // Chặn nếu không phải Quản trị viên
-    if (!session || (session.role !== "admin" && session.role !== "super_admin")) {
-      return NextResponse.json(
-        { success: false, error: "Từ chối truy cập: Chỉ Quản trị viên mới được phép xem nhật ký Audit Log." },
-        { status: 403 }
-      );
+    const auth = await authorizeAdminRequest(req, "audit.read");
+    if (!auth.authorized) {
+      return auth.response;
     }
 
     const { searchParams } = new URL(req.url);

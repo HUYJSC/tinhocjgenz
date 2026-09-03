@@ -1,17 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LeadsStore } from "@/lib/leads-store";
+import { authorizeAdminRequest } from "@/lib/rbac";
 
-export async function GET() {
-  const leads = LeadsStore.getLeads();
-  return NextResponse.json({
-    success: true,
-    total: leads.length,
-    data: leads,
-  });
+export async function GET(req: NextRequest) {
+  try {
+    const auth = await authorizeAdminRequest(req, "lead.read");
+    if (!auth.authorized) {
+      return auth.response;
+    }
+
+    const leads = LeadsStore.getLeads();
+    return NextResponse.json({
+      success: true,
+      total: leads.length,
+      data: leads,
+    });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  }
 }
 
 export async function PUT(req: NextRequest) {
   try {
+    const auth = await authorizeAdminRequest(req, "lead.update");
+    if (!auth.authorized) {
+      return auth.response;
+    }
+
     const body = await req.json();
     const { id, status } = body;
     if (!id || !status) {
@@ -29,6 +44,11 @@ export async function PUT(req: NextRequest) {
 
 export async function DELETE(req: NextRequest) {
   try {
+    const auth = await authorizeAdminRequest(req, "lead.update");
+    if (!auth.authorized) {
+      return auth.response;
+    }
+
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     if (!id) {
