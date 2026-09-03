@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AdminUsersStore, RoleType } from "@/lib/admin-users-store";
 import { authorizeAdminRequest, canModifyRole, canLockAccount } from "@/lib/rbac";
+import { AuditService } from "@/lib/audit-service";
 
 export async function GET(req: NextRequest) {
   try {
@@ -29,6 +30,11 @@ export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json();
     const { id, action, newRole } = body;
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.headers.get("x-real-ip") ||
+      "127.0.0.1";
+    const userAgent = req.headers.get("user-agent") || "";
 
     if (!id) {
       return NextResponse.json({ success: false, error: "Thiếu ID người dùng." }, { status: 400 });
@@ -57,7 +63,25 @@ export async function PATCH(req: NextRequest) {
         );
       }
 
+      const willLock = targetUser.isActive;
       const result = AdminUsersStore.toggleStatus(id, auth.session.name || "Super Admin");
+
+      // Record in Audit Log
+      await AuditService.recordEvent({
+        actorId: auth.session.userId,
+        actorUsername: auth.session.username,
+        actorRole: auth.session.role,
+        action: willLock ? "ACCOUNT_LOCK" : "ACCOUNT_UNLOCK",
+        resourceType: "UserAccount",
+        resourceId: targetUser.id,
+        beforeState: { isActive: targetUser.isActive },
+        afterState: { isActive: !targetUser.isActive },
+        ipAddress: ip,
+        userAgent,
+        details: `${auth.session.name} (${auth.session.role}) đã ${willLock ? "khóa" : "mở khóa"} tài khoản ${targetUser.username} (${targetUser.email}).`,
+        severity: "CRITICAL",
+      });
+
       return NextResponse.json(result);
     }
 
@@ -77,11 +101,29 @@ export async function PATCH(req: NextRequest) {
         );
       }
 
+      const oldRole = targetUser.role;
       const result = AdminUsersStore.updateRole(
         id,
         newRole as RoleType,
         auth.session.name || "Super Admin"
       );
+
+      // Record in Audit Log
+      await AuditService.recordEvent({
+        actorId: auth.session.userId,
+        actorUsername: auth.session.username,
+        actorRole: auth.session.role,
+        action: "ROLE_CHANGE",
+        resourceType: "UserRole",
+        resourceId: targetUser.id,
+        beforeState: { role: oldRole },
+        afterState: { role: newRole },
+        ipAddress: ip,
+        userAgent,
+        details: `${auth.session.name} (${auth.session.role}) đã thay đổi vai trò của ${targetUser.username} từ ${oldRole} sang ${newRole}.`,
+        severity: "CRITICAL",
+      });
+
       return NextResponse.json(result);
     }
 

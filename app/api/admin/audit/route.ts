@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { AuditStore } from "@/lib/audit-store";
+import { AuditService } from "@/lib/audit-service";
 import { authorizeAdminRequest } from "@/lib/rbac";
 
 export async function GET(req: NextRequest) {
@@ -14,12 +14,28 @@ export async function GET(req: NextRequest) {
     const role = searchParams.get("role") || undefined;
     const search = searchParams.get("search") || undefined;
     const severity = searchParams.get("severity") || undefined;
+    const startDate = searchParams.get("startDate") || undefined;
+    const endDate = searchParams.get("endDate") || undefined;
+    const page = parseInt(searchParams.get("page") || "1", 10);
+    const limit = parseInt(searchParams.get("limit") || "25", 10);
 
-    const logs = AuditStore.getLogs({ action, role, search, severity });
+    const result = await AuditService.getLogs({
+      action,
+      role,
+      search,
+      severity,
+      startDate,
+      endDate,
+      page,
+      limit,
+    });
+
     return NextResponse.json({
       success: true,
-      total: logs.length,
-      data: logs,
+      total: result.total,
+      page: result.page,
+      totalPages: result.totalPages,
+      data: result.logs,
     });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });

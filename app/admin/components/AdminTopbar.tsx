@@ -26,8 +26,8 @@ export function AdminTopbar({ onOpenMobile }: { onOpenMobile: () => void }) {
     if (pathname.startsWith("/admin/leads")) return "CRM Tiếp Nhận & Tư Vấn Học Viên";
     if (pathname.startsWith("/admin/media")) return "Kho Đề Thi MOS/IC3 & Tài Liệu";
     if (pathname.startsWith("/admin/blog")) return "Quản Trị Bài Viết & Tin Tức";
-    if (pathname.startsWith("/admin/content-engine")) return "AI Content Engine (Tự Động)";
-    if (pathname.startsWith("/admin/certificates")) return "Chứng Chỉ Số Certiport & Blockchain";
+    if (pathname.startsWith("/admin/content-engine")) return "AI Content Engine";
+    if (pathname.startsWith("/admin/certificates")) return "Kết Quả & Chứng Nhận Học Viên";
     return "Cổng Quản Trị Admin";
   };
 
@@ -60,7 +60,7 @@ export function AdminTopbar({ onOpenMobile }: { onOpenMobile: () => void }) {
         {/* System Status Pill */}
         <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/70 text-[11px] font-bold text-slate-300">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Hệ thống: Hoạt động tốt</span>
+          <span>Hệ thống: Sẵn sàng</span>
         </div>
 
         {/* Link to LMS Portal */}
@@ -81,8 +81,8 @@ export function AdminTopbar({ onOpenMobile }: { onOpenMobile: () => void }) {
             <div className="text-xs font-bold text-white leading-tight">
               {user?.name || "Admin"}
             </div>
-            <div className="text-[10px] text-blue-400 font-semibold leading-tight">
-              Super Admin
+            <div className="text-[10px] text-blue-400 font-semibold leading-tight capitalize">
+              {user?.role ? user.role.replace("_", " ") : "Quản trị viên"}
             </div>
           </div>
           <button

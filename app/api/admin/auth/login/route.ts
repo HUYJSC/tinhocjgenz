@@ -4,13 +4,18 @@ import {
   SESSION_COOKIE_NAME,
   SESSION_EXPIRATION_SECONDS,
 } from "@/lib/auth-server";
+import { AuditService } from "@/lib/audit-service";
 
 // IP Rate limiter (Max 10 requests per minute)
 const IP_TRACKER = new Map<string, { count: number; resetAt: number }>();
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "127.0.0.1";
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.headers.get("x-real-ip") ||
+      "127.0.0.1";
+    const userAgent = req.headers.get("user-agent") || "";
     const now = Date.now();
 
     // Rate limiting per IP
@@ -19,6 +24,17 @@ export async function POST(req: NextRequest) {
       if (tracker.resetAt > now) {
         if (tracker.count >= 10) {
           const waitSecs = Math.ceil((tracker.resetAt - now) / 1000);
+          await AuditService.recordEvent({
+            actorUsername: "unknown",
+            actorRole: "anonymous",
+            action: "SECURITY_ALERT",
+            resourceType: "Auth",
+            ipAddress: ip,
+            userAgent,
+            details: `Phát hiện nỗ lực gửi yêu cầu đăng nhập vượt ngưỡng (Rate limit: 10 req/min). Chặn tạm thời ${waitSecs}s.`,
+            severity: "WARNING",
+          });
+
           return NextResponse.json(
             {
               success: false,
@@ -66,6 +82,17 @@ export async function POST(req: NextRequest) {
     }
 
     if (!result.success || !result.token) {
+      await AuditService.recordEvent({
+        actorUsername: credential,
+        actorRole: "anonymous",
+        action: "LOGIN_FAILED",
+        resourceType: "Auth",
+        ipAddress: ip,
+        userAgent,
+        details: `Đăng nhập thất bại: ${result.error || "Sai thông tin xác thực"}. Còn lại: ${result.remainingAttempts ?? "N/A"} lượt.`,
+        severity: result.remainingAttempts === 0 ? "CRITICAL" : "WARNING",
+      });
+
       return NextResponse.json(
         {
           success: false,
@@ -75,6 +102,20 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
+
+    // Record successful login in real Audit Log
+    await AuditService.recordEvent({
+      actorId: result.user?.userId,
+      actorUsername: result.user?.username || credential,
+      actorRole: result.user?.role || "admin",
+      action: "LOGIN_SUCCESS",
+      resourceType: "Auth",
+      resourceId: result.user?.userId,
+      ipAddress: ip,
+      userAgent,
+      details: `Đăng nhập thành công với vai trò ${result.user?.role?.toUpperCase()} qua xác thực mật khẩu chuẩn NIST và MFA.`,
+      severity: "INFO",
+    });
 
     const response = NextResponse.json({
       success: true,
