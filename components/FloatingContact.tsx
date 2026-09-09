@@ -47,11 +47,11 @@ export default function FloatingContact() {
                 setIsAiModalOpen(true);
                 setIsExpanded(false);
               }}
-              className="flex items-center gap-2.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white pl-2.5 pr-4 py-2 rounded-full shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-200 cursor-pointer border border-white/20 focus-visible:outline-2 focus-visible:outline-white"
+              className="min-h-12 flex items-center gap-2.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white pl-2.5 pr-4 py-2 rounded-full shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-105 transition-all duration-200 cursor-pointer border border-white/20 focus-visible:outline-2 focus-visible:outline-white"
               aria-label="Mở trợ lý AI tư vấn lộ trình học tin học"
             >
-              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-cyan-300 font-black text-xs shrink-0">
-                <Brain size={15} className="text-cyan-300 animate-pulse" aria-hidden="true" />
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-cyan-300 font-black text-xs shrink-0">
+                <Brain size={16} className="text-cyan-300 animate-pulse" aria-hidden="true" />
               </div>
               <div className="text-left leading-tight">
                 <span className="text-[9px] uppercase tracking-wider text-cyan-200 font-bold block">AI Khảo Thí</span>
@@ -66,10 +66,10 @@ export default function FloatingContact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 role="menuitem"
-                className="flex items-center gap-2.5 bg-[#0068ff] hover:bg-[#0052cc] text-white pl-2.5 pr-4 py-2 rounded-full shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-105 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
+                className="min-h-12 flex items-center gap-2.5 bg-[#0068ff] hover:bg-[#0052cc] text-white pl-2.5 pr-4 py-2 rounded-full shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-105 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
                 aria-label="Chat trực tuyến qua Zalo với giảng viên 24/7 (mở tab mới)"
               >
-                <div className="w-7 h-7 rounded-full bg-white text-[#0068ff] flex items-center justify-center font-black text-xs shrink-0 shadow-inner">
+                <div className="w-8 h-8 rounded-full bg-white text-[#0068ff] flex items-center justify-center font-black text-xs shrink-0 shadow-inner">
                   Z
                 </div>
                 <div className="text-left leading-tight">
@@ -83,11 +83,11 @@ export default function FloatingContact() {
             <a
               href={`tel:${CONTACT_INFO.phone}`}
               role="menuitem"
-              className="flex items-center gap-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white pl-2.5 pr-4 py-2 rounded-full shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
+              className="min-h-12 flex items-center gap-2.5 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white pl-2.5 pr-4 py-2 rounded-full shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-white"
               aria-label={`Gọi hotline tư vấn tuyển sinh: ${CONTACT_INFO.displayPhone}`}
             >
-              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0">
-                <Phone size={13} aria-hidden="true" />
+              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white shrink-0">
+                <Phone size={14} aria-hidden="true" />
               </div>
               <div className="text-left leading-tight">
                 <span className="text-[9px] uppercase tracking-wider text-cyan-100 font-bold block">Hotline Tuyển Sinh</span>
@@ -101,7 +101,7 @@ export default function FloatingContact() {
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
-          className={`h-11 min-w-[44px] px-3.5 sm:px-4 rounded-full flex items-center justify-center gap-2 shadow-xl backdrop-blur-md transition-all duration-200 cursor-pointer border focus-visible:outline-2 focus-visible:outline-cyan-400 ${
+          className={`min-h-12 min-w-12 h-12 px-4 rounded-full flex items-center justify-center gap-2 shadow-xl backdrop-blur-md transition-all duration-200 cursor-pointer border focus-visible:outline-2 focus-visible:outline-cyan-400 ${
             isExpanded 
               ? "bg-slate-900 text-white border-slate-700 hover:bg-slate-800" 
               : "bg-blue-600 hover:bg-blue-500 text-white border-blue-400/30 hover:scale-105 shadow-blue-500/25"

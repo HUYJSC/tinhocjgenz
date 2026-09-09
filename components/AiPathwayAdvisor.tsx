@@ -107,8 +107,11 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
   const rec = getCourseRecommendation();
 
   const content = (
-    <div className="relative w-full max-w-2xl bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-white overflow-hidden">
+    <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-slate-700/80 rounded-t-3xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl text-white">
       
+      {/* Mobile drag indicator */}
+      <div className="sm:hidden w-10 h-1 bg-slate-600 rounded-full mx-auto mb-3" aria-hidden="true" />
+
       {/* Background Tech Glow */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none" />
@@ -117,10 +120,10 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       {!isEmbedded && onClose && (
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer"
+          className="absolute top-4 right-4 min-h-10 min-w-10 p-2 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center justify-center"
           aria-label="Đóng"
         >
-          <X size={18} />
+          <X size={20} />
         </button>
       )}
 
@@ -361,10 +364,10 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
-      <div onClick={(e) => e.stopPropagation()}>
+      <div onClick={(e) => e.stopPropagation()} className="w-full sm:w-auto flex justify-center">
         {content}
       </div>
     </div>

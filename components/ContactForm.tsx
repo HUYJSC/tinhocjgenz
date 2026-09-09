@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { CheckCircle2, AlertCircle, ArrowRight, Loader2, Sparkles, PhoneCall } from "lucide-react";
+import { CheckCircle2, AlertCircle, ArrowRight, Loader2, PhoneCall } from "lucide-react";
 import { coursesData } from "@/data/mockData";
 import { SITE_CONFIG } from "@/data/siteConfig";
 import { AnalyticsEvents } from "@/lib/analytics";
@@ -31,10 +31,11 @@ export default function ContactForm(props: ContactFormProps) {
 function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps) {
   const searchParams = useSearchParams();
 
+  const preselectedCourse = coursesData.find((course) => course.id === searchParams?.get("select"))?.title;
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    selection: defaultCourse || "",
+    selection: preselectedCourse || defaultCourse || "",
     message: "",
   });
 
@@ -42,18 +43,6 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const preselect = searchParams?.get("select");
-    if (preselect) {
-      const match = coursesData.find((c) => c.id === preselect);
-      if (match) {
-        setFormData((prev) => ({ ...prev, selection: match.title }));
-      }
-    } else if (defaultCourse && !formData.selection) {
-      setFormData((prev) => ({ ...prev, selection: defaultCourse }));
-    }
-  }, [searchParams, defaultCourse]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -178,16 +167,19 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
               id="name"
               name="name"
               type="text"
+              autoComplete="name"
               placeholder="Nguyễn Văn A"
               value={formData.name}
               onChange={handleChange}
+              aria-invalid={Boolean(errors.name)}
+              aria-describedby={errors.name ? "name-error" : undefined}
               className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
                 errors.name
                   ? "border-red-400 focus:ring-red-200 bg-red-50/20"
                   : "border-slate-300 focus:border-blue-500 focus:ring-blue-100"
               }`}
             />
-            {errors.name && <p className="text-[11px] text-red-500 font-medium">{errors.name}</p>}
+            {errors.name && <p id="name-error" role="alert" className="text-xs text-red-600 font-medium">{errors.name}</p>}
           </div>
 
           <div className="space-y-1.5">
@@ -198,16 +190,20 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
               id="phone"
               name="phone"
               type="tel"
+              inputMode="tel"
+              autoComplete="tel"
               placeholder="0912 345 678"
               value={formData.phone}
               onChange={handleChange}
-              className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
+              aria-invalid={Boolean(errors.phone)}
+              aria-describedby={errors.phone ? "phone-error" : undefined}
+              className={`w-full px-4 py-3 rounded-xl border text-base sm:text-sm focus:outline-none focus:ring-2 transition-all ${
                 errors.phone
                   ? "border-red-400 focus:ring-red-200 bg-red-50/20"
                   : "border-slate-300 focus:border-blue-500 focus:ring-blue-100"
               }`}
             />
-            {errors.phone && <p className="text-[11px] text-red-500 font-medium">{errors.phone}</p>}
+            {errors.phone && <p id="phone-error" role="alert" className="text-xs text-red-600 font-medium">{errors.phone}</p>}
           </div>
         </div>
 
@@ -262,7 +258,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-3.5 px-6 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-md shadow-amber-400/20 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-70"
+          className="w-full min-h-12 py-3.5 px-6 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-md shadow-amber-400/20 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-70"
         >
           {isSubmitting ? (
             <>
