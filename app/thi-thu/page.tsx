@@ -14,7 +14,7 @@ export default function MockExamPage() {
     <div className="flex flex-col w-full bg-slate-50/40">
 
       {/* 1. Header Banner */}
-      <section className="bg-white pt-24 pb-16 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
+      <section className="bg-white pt-10 pb-10 sm:pt-24 sm:pb-16 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-blue-500/10 via-cyan-400/10 to-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
@@ -32,14 +32,14 @@ export default function MockExamPage() {
       </section>
 
       {/* 2. Interactive Mock Quiz Section */}
-      <section className="py-16 sm:py-20">
+      <section className="py-8 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <MockExamQuiz />
         </div>
       </section>
 
       {/* 3. Guidelines & Benefits */}
-      <section className="py-16 bg-white border-t border-slate-100">
+      <section className="py-10 sm:py-16 bg-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6 rounded-3xl bg-slate-50/70 border border-slate-200/80 space-y-3">

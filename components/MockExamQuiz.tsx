@@ -12,7 +12,6 @@ import {
   Send,
   Check,
   Loader2,
-  ShieldCheck,
   BarChart3
 } from "lucide-react";
 import { ExamQuestion, ExamGradingResult } from "@/lib/exam-engine";
@@ -90,6 +89,8 @@ export default function MockExamQuiz() {
   const [contactName, setContactName] = useState<string>("");
   const [contactPhone, setContactPhone] = useState<string>("");
   const [isSubmittedLead, setIsSubmittedLead] = useState<boolean>(false);
+  const [examError, setExamError] = useState<string | null>(null);
+  const [leadError, setLeadError] = useState<string | null>(null);
 
   // Fetch newest randomized question set from server API
   useEffect(() => {
@@ -117,9 +118,11 @@ export default function MockExamQuiz() {
   };
 
   const handleNext = async () => {
+    setExamError(null);
     if (currentStep < totalQuestions - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
+      if (!window.confirm("Bạn đã hoàn thành bài thi. Gửi đáp án để xem kết quả?")) return;
       // Final question reached: Submit answers to server for authentic grading
       setIsSubmitting(true);
       try {
@@ -132,10 +135,11 @@ export default function MockExamQuiz() {
         if (json.success && json.data) {
           setGradingResult(json.data);
         } else {
-          alert("Có lỗi khi chấm điểm từ máy chủ: " + (json.error || "Thử lại sau"));
+          setExamError("Không thể chấm điểm lúc này. Vui lòng thử lại.");
         }
-      } catch (err: any) {
-        alert("Không thể kết nối đến máy chủ khảo thí: " + err.message);
+      } catch (error: unknown) {
+        console.error("Exam submission failed", error);
+        setExamError("Không thể kết nối hệ thống khảo thí. Kiểm tra mạng và thử lại.");
       } finally {
         setIsSubmitting(false);
       }
@@ -147,6 +151,8 @@ export default function MockExamQuiz() {
     setCurrentStep(0);
     setGradingResult(null);
     setIsSubmittedLead(false);
+    setExamError(null);
+    setLeadError(null);
   };
 
   return (
@@ -207,7 +213,7 @@ export default function MockExamQuiz() {
                     key={idx}
                     type="button"
                     onClick={() => handleSelectOption(idx)}
-                    className={`w-full text-left p-4 rounded-2xl border text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center justify-between cursor-pointer ${
+                    className={`w-full min-h-14 text-left p-4 rounded-2xl border text-sm font-semibold transition-all duration-200 flex items-center justify-between cursor-pointer ${
                       isSelected
                         ? "bg-blue-50/80 border-blue-600 text-blue-900 shadow-sm"
                         : "bg-slate-50/60 border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50"
@@ -229,12 +235,19 @@ export default function MockExamQuiz() {
           </div>
 
           {/* Footer Controls */}
-          <div className="flex items-center justify-between pt-6 border-t border-slate-100">
+          {examError && (
+            <div role="alert" className="flex items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+              <span>{examError}</span>
+              <button type="button" onClick={() => void handleNext()} className="min-h-12 shrink-0 rounded-xl bg-red-600 px-4 font-bold text-white">Thử lại</button>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between gap-3 pt-6 border-t border-slate-100">
             <button
               type="button"
               onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
               disabled={currentStep === 0 || isSubmitting}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+              className="min-h-12 px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
             >
               Câu trước
             </button>
@@ -243,7 +256,7 @@ export default function MockExamQuiz() {
               type="button"
               onClick={handleNext}
               disabled={answers[currentQ.id] === undefined || isSubmitting}
-              className="px-6 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-black tracking-wide uppercase shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2 cursor-pointer"
+              className="min-h-12 px-5 sm:px-6 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-black tracking-wide uppercase shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
@@ -390,6 +403,8 @@ export default function MockExamQuiz() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <input
                   type="text"
+                  name="exam-contact-name"
+                  autoComplete="name"
                   placeholder="Họ và tên của bạn"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
@@ -397,9 +412,14 @@ export default function MockExamQuiz() {
                 />
                 <input
                   type="tel"
+                  name="exam-contact-phone"
+                  inputMode="tel"
+                  autoComplete="tel"
                   placeholder="Số điện thoại / Zalo *"
                   value={contactPhone}
-                  onChange={(e) => setContactPhone(e.target.value)}
+                  onChange={(e) => { setContactPhone(e.target.value); setLeadError(null); }}
+                  aria-invalid={Boolean(leadError)}
+                  aria-describedby={leadError ? "exam-lead-error" : undefined}
                   className="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
                 />
               </div>
@@ -410,7 +430,7 @@ export default function MockExamQuiz() {
                   if (contactPhone.trim().length >= 9) {
                     setIsSubmittedLead(true);
                   } else {
-                    alert("Vui lòng nhập số điện thoại hoặc Zalo hợp lệ!");
+                    setLeadError("Vui lòng nhập số điện thoại hoặc Zalo hợp lệ.");
                   }
                 }}
                 className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-black text-xs uppercase tracking-wide shadow-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
@@ -418,6 +438,7 @@ export default function MockExamQuiz() {
                 <Send size={14} />
                 <span>Gửi Đăng Ký Ôn Luyện & Cam Kết Đầu Ra</span>
               </button>
+              {leadError && <p id="exam-lead-error" role="alert" className="text-sm font-semibold text-red-300">{leadError}</p>}
             </div>
           ) : (
             <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-bold max-w-md mx-auto space-y-1">
@@ -435,7 +456,7 @@ export default function MockExamQuiz() {
             <button
               type="button"
               onClick={handleReset}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 underline cursor-pointer"
+              className="min-h-12 inline-flex items-center gap-1.5 text-sm font-bold text-slate-500 hover:text-blue-600 underline cursor-pointer"
             >
               <RefreshCw size={12} />
               Làm lại bài thi thử
