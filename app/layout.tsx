@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingContact from "@/components/FloatingContact";
+import MobileAppShell from "@/components/mobile/MobileAppShell";
+import ServiceWorkerRegistration from "@/components/pwa/ServiceWorkerRegistration";
 import { SITE_CONFIG } from "@/data/siteConfig";
 
 // Configure premium fonts with Vietnamese support
@@ -80,6 +82,13 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
   },
   manifest: "/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#ffffff",
 };
 
 // JSON-LD Structured Data for Google Rich Results
@@ -203,8 +212,11 @@ export default function RootLayout({
           </noscript>
         )}
 
-        {/* Navigation Header */}
-        <Header />
+        {/* Desktop navigation is frozen; mobile uses an app-like shell. */}
+        <div className="hidden lg:block">
+          <Header />
+        </div>
+        <MobileAppShell />
 
         {/* Main Content Area */}
         <main className="flex-grow flex flex-col relative">{children}</main>
@@ -214,6 +226,7 @@ export default function RootLayout({
 
         {/* Footer Area */}
         <Footer />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
