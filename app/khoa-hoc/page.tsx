@@ -3,8 +3,7 @@
 import { useState } from "react";
 import CourseCard from "@/components/CourseCard";
 import { coursesData } from "@/data/mockData";
-import { Sparkles, Star, Award, ShieldCheck, CheckCircle2, FileSpreadsheet, HelpCircle, School } from "lucide-react";
-import Link from "next/link";
+import { Star, Award, ShieldCheck, FileSpreadsheet } from "lucide-react";
 
 export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -17,7 +16,7 @@ export default function CoursesPage() {
     <div className="flex flex-col w-full bg-slate-50/30">
       
       {/* 1. Header Banner */}
-      <section className="bg-white pt-20 pb-14 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
+      <section className="bg-white pt-10 pb-10 sm:pt-14 sm:pb-12 lg:pt-20 lg:pb-14 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
         <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-blue-500/10 via-cyan-400/10 to-indigo-500/10 rounded-full blur-[110px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
@@ -33,10 +32,13 @@ export default function CoursesPage() {
           </p>
 
           {/* Filter Tabs */}
-          <div className="pt-6 flex flex-wrap justify-center gap-2.5">
+          <div className="pt-5 -mx-4 px-4 flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2.5 overflow-x-auto no-scrollbar snap-x" role="tablist" aria-label="Lọc khóa học theo nhóm">
             <button
+              type="button"
+              role="tab"
+              aria-selected={selectedCategory === "all"}
               onClick={() => setSelectedCategory("all")}
-              className={`px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 ${
+              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 whitespace-nowrap snap-start ${
                 selectedCategory === "all"
                   ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
@@ -45,31 +47,39 @@ export default function CoursesPage() {
               Tất Cả Khóa Học ({coursesData.length})
             </button>
             <button
+              type="button"
+              role="tab"
+              aria-selected={selectedCategory === "mos-ic3"}
               onClick={() => setSelectedCategory("mos-ic3")}
-              className={`px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 ${
+              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 whitespace-nowrap snap-start ${
                 selectedCategory === "mos-ic3"
                   ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              🏆 Chứng Chỉ Quốc Tế MOS & IC3 (Certiport)
+              <Award size={15} className="inline-block mr-1.5 align-[-3px]" aria-hidden="true" />
+              Chứng Chỉ Quốc Tế MOS & IC3 (Certiport)
             </button>
             <button
+              type="button"
+              role="tab"
+              aria-selected={selectedCategory === "practical-office"}
               onClick={() => setSelectedCategory("practical-office")}
-              className={`px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 ${
+              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 whitespace-nowrap snap-start ${
                 selectedCategory === "practical-office"
                   ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              💼 Tin Học Thực Chiến & AI Doanh Nghiệp
+              <FileSpreadsheet size={15} className="inline-block mr-1.5 align-[-3px]" aria-hidden="true" />
+              Tin Học Thực Chiến & AI Doanh Nghiệp
             </button>
           </div>
         </div>
       </section>
 
       {/* 2. Courses Grid Section */}
-      <section className="py-16 sm:py-20 bg-[#f8fafc]">
+      <section className="py-10 sm:py-14 lg:py-20 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
             {filteredCourses.map((course, index) => (
@@ -91,8 +101,57 @@ export default function CoursesPage() {
             </p>
           </div>
 
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 text-xs sm:text-sm">
+          {/* Mobile Comparison Cards (< md) */}
+          <div className="md:hidden space-y-3">
+            {[
+              {
+                title: "Đơn vị cấp bằng",
+                mos: "Microsoft Corporation (Hoa Kỳ)",
+                ic3: "Certiport (Hoa Kỳ)",
+              },
+              {
+                title: "Nội dung khảo thí",
+                mos: "Chuyên sâu từng môn Word, Excel, PowerPoint riêng biệt",
+                ic3: "Tổng quát 3 phần: Máy tính, Ứng dụng số, Kỷ nguyên số",
+              },
+              {
+                title: "Thời hạn giá trị",
+                mos: "Vô thời hạn (Vĩnh viễn)",
+                ic3: "Vô thời hạn (Vĩnh viễn)",
+              },
+              {
+                title: "Mục đích sử dụng",
+                mos: "Chuẩn quốc tế phổ biến nhất, ưu tiên tuyển dụng doanh nghiệp",
+                ic3: "Chuẩn kỹ năng số toàn diện về máy tính & công nghệ",
+              },
+              {
+                title: "Cam kết tại Tin Học Gen Z",
+                mos: "Bao đỗ 100% • Ôn 3 - 5 buổi cấp tốc",
+                ic3: "Bao đỗ 100% • Bộ đề chuẩn Certiport 2026",
+              },
+            ].map((row, idx) => (
+              <div key={idx} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+                <div className="text-xs font-black text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-1.5 flex items-center justify-between">
+                  <span>{row.title}</span>
+                  <span className="text-[10px] text-slate-400 font-bold">Tiêu chí {idx + 1}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="p-2.5 rounded-xl bg-blue-50/70 border border-blue-100 space-y-1">
+                    <span className="text-[10px] font-black text-blue-700 uppercase block">MOS</span>
+                    <p className="text-slate-800 font-semibold leading-relaxed">{row.mos}</p>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-cyan-50/70 border border-cyan-100 space-y-1">
+                    <span className="text-[10px] font-black text-cyan-700 uppercase block">IC3 GS6</span>
+                    <p className="text-slate-800 font-semibold leading-relaxed">{row.ic3}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop Table (>= md) */}
+          <div className="hidden md:block overflow-x-auto rounded-2xl border border-slate-200" tabIndex={0} role="region" aria-label="Bảng so sánh chứng chỉ MOS và IC3">
+            <table className="w-full min-w-[720px] text-left border-collapse bg-slate-50 overflow-hidden text-xs sm:text-sm">
               <thead>
                 <tr className="bg-slate-900 text-white">
                   <th className="p-4 font-black">Tiêu chí so sánh</th>

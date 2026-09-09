@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check, Clock, Sparkles, FileSpreadsheet, FileText, Award, Laptop } from "lucide-react";
+import { Clock, Sparkles, FileSpreadsheet, Award, Laptop } from "lucide-react";
 import { Course } from "@/data/mockData";
 
 interface CourseCardProps {
@@ -159,7 +159,7 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
 
   return (
     <div
-      className={`relative flex flex-col justify-between h-full bg-white rounded-[2.25rem] transition-all duration-500 animate-slide-up ${delayClass} ${
+      className={`relative flex flex-col justify-between h-full bg-white rounded-3xl sm:rounded-[2.25rem] transition-all duration-500 animate-slide-up ${delayClass} ${
         course.popular
           ? "border-2 border-transparent border-gradient-featured shadow-featured shadow-premium hover:shadow-featured-hover hover:scale-[1.04] md:scale-[1.03] pulse-glow-blue z-10"
           : "border border-slate-200/80 hover:border-blue-500/30 hover:scale-[1.02] shadow-premium hover:shadow-premium-hover"
@@ -197,7 +197,7 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
         </Link>
 
         {/* 3.5 Course Tagline: Soft Pastel Highlight - strictly aligned to 2 lines */}
-        <div className={`mt-2 px-3 py-2 rounded-xl text-[11px] font-black tracking-wide leading-relaxed border min-h-[3.25rem] flex items-center ${meta.taglineBg}`}>
+        <div className={`mt-2 px-3 py-2 rounded-xl text-xs font-black tracking-wide leading-relaxed border min-h-[3.25rem] flex items-center ${meta.taglineBg}`}>
           <span className="line-clamp-2">{course.tagline}</span>
         </div>
 
@@ -218,7 +218,7 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
         {/* 5. Feature Checklist - locked to 9rem max height to guarantee equal size */}
         <ul className="space-y-2 mb-2 min-h-[8.5rem] flex flex-col justify-start">
           {course.features.slice(0, 5).map((feature, idx) => (
-            <li key={idx} className="flex gap-2.5 text-slate-600 font-semibold text-[11px] sm:text-xs leading-normal">
+            <li key={idx} className="flex gap-2.5 text-slate-600 font-semibold text-xs leading-normal">
               {renderSvgCheck()}
               <span className="flex-1 line-clamp-2">{feature}</span>
             </li>
@@ -237,13 +237,13 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
           <div className="grid grid-cols-2 gap-2">
             <Link
               href={`/khoa-hoc/${course.id}`}
-              className="w-full py-2.5 rounded-full text-[11px] font-black tracking-wide uppercase transition-all duration-300 text-center bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200"
+              className="w-full min-h-12 py-2.5 rounded-full text-xs font-black tracking-wide uppercase transition-all duration-300 text-center bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 flex items-center justify-center"
             >
               Chi tiết
             </Link>
             <Link
               href={`/lien-he?select=${course.id}`}
-              className={`w-full py-2.5 rounded-full text-[11px] font-black tracking-wide uppercase transition-all duration-300 text-center shadow-md ${
+              className={`w-full min-h-12 py-2.5 rounded-full text-xs font-black tracking-wide uppercase transition-all duration-300 text-center shadow-md flex items-center justify-center ${
                 course.popular
                   ? "btn-premium-primary"
                   : "bg-blue-600 hover:bg-blue-700 text-white"

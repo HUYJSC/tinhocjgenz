@@ -134,7 +134,7 @@ export default async function CourseDetailPage(props: CoursePageProps) {
       </div>
 
       {/* 3. Header Banner & Course Overview */}
-      <section className="bg-gradient-to-b from-slate-900 via-slate-950 to-blue-950 text-white pt-20 pb-16 relative overflow-hidden border-b border-slate-800">
+      <section className="bg-gradient-to-b from-slate-900 via-slate-950 to-blue-950 text-white pt-10 pb-12 sm:pt-20 sm:pb-16 relative overflow-hidden border-b border-slate-800">
         <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -246,7 +246,7 @@ export default async function CourseDetailPage(props: CoursePageProps) {
 
                 <a
                   href="#dang-ky"
-                  className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-center"
+                  className="w-full min-h-12 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-center"
                 >
                   <span>Đăng Ký Nhận Ưu Đãi Ngay</span>
                   <ArrowRight size={15} />

@@ -54,8 +54,58 @@ export default function PricingTable() {
   return (
     <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-premium hover:shadow-premium-hover transition-all duration-500 overflow-hidden">
       
-      {/* Table Header Wrapper */}
-      <div className="overflow-x-auto">
+      {/* Mobile Card List (< sm) */}
+      <div className="sm:hidden divide-y divide-slate-100">
+        <div className="bg-blue-600/[0.06] py-3 px-4 font-black text-blue-700 text-xs tracking-wider uppercase border-l-[3px] border-l-blue-500 flex items-center gap-2">
+          <BookOpen size={14} className="text-blue-500" />
+          <span>Khóa Học Tin Học Văn Phòng Chuyên Nghiệp</span>
+        </div>
+        {coursesData.map((course) => (
+          <div key={course.id} className="p-4 space-y-3 bg-white">
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <h4 className="font-black text-slate-900 text-base leading-snug">
+                  {course.title}
+                </h4>
+                <p className="text-slate-500 text-xs mt-1 leading-relaxed">{course.description}</p>
+              </div>
+              {course.popular && (
+                <span className="shrink-0 inline-flex items-center gap-0.5 px-2.5 py-1 rounded-full text-[10px] font-black text-white bg-gradient-to-r from-blue-600 to-cyan-500 shadow-sm">
+                  <Sparkles size={10} /> HOT
+                </span>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between gap-3 pt-1 border-t border-slate-100/80">
+              <div>
+                <span className="text-[10px] font-bold text-slate-400 block">Học phí trọn gói</span>
+                {renderPriceCell(course.price, course.originalPrice)}
+              </div>
+              <div className="text-right">
+                <span className="text-[10px] font-bold text-slate-400 block">Thời lượng</span>
+                <span className="text-slate-700 font-bold text-xs bg-slate-100 px-2 py-1 rounded-md inline-block">
+                  {course.duration}
+                </span>
+              </div>
+            </div>
+
+            <Link
+              href={`/lien-he?select=${course.id}`}
+              className={`w-full min-h-12 py-3 px-4 rounded-xl text-xs font-black tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 shadow-sm ${
+                course.popular
+                  ? "btn-premium-primary"
+                  : "btn-premium-secondary"
+              }`}
+            >
+              <span>Đăng Ký Tư Vấn</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop / Tablet Table (>= sm) */}
+      <div className="hidden sm:block overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-slate-950 text-white text-[9px] sm:text-[11px] font-black uppercase tracking-wider border-b border-slate-800">
