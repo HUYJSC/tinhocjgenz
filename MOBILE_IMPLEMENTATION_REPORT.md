@@ -123,3 +123,4 @@
 | 16. Desktop Frozen | Giao diện desktop >= 1024px giữ nguyên 100% | **ĐẠT** |
 | 17. Build Check | `npm run build` thành công 74/74 routes | **ĐẠT** |
 | 18. Type Check | `npx tsc --noEmit` exit code 0 | **ĐẠT** |
+
