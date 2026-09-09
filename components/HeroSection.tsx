@@ -1,13 +1,13 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { ArrowRight, Laptop, CheckCircle2, Sparkles, BookOpen } from "lucide-react";
+import { ArrowRight, Laptop, CheckCircle2, Sparkles, BookOpen, FileText } from "lucide-react";
 
 export default function HeroSection() {
   return (
     <section
       aria-label="Tin Học Gen Z - Học Thực Chiến"
-      className="relative w-full bg-gradient-to-b from-blue-50/70 via-slate-50/40 to-white overflow-hidden pt-28 pb-14 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20"
+      className="relative w-full bg-gradient-to-b from-blue-50/70 via-slate-50/40 to-white overflow-hidden pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-36 lg:pb-20"
     >
       {/* Ambient background glows */}
       <div
@@ -50,16 +50,24 @@ export default function HeroSection() {
                 href="/khoa-hoc"
                 className="min-h-[48px] px-7 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
               >
-                <span>Khám phá khóa học</span>
+                <span className="lg:hidden">Xem khóa học</span>
+                <span className="hidden lg:inline">Khám phá khóa học</span>
                 <ArrowRight size={16} />
               </Link>
 
-              {/* Secondary CTA */}
+              {/* Mobile prioritizes the free exam; desktop keeps the existing LMS CTA. */}
+              <Link
+                href="/thi-thu"
+                className="lg:hidden min-h-[48px] px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
+              >
+                <FileText size={16} className="text-blue-600" />
+                <span>Thi thử miễn phí</span>
+              </Link>
               <a
                 href="https://hoctructuyen.tinhocgenz.io.vn/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="min-h-[48px] px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs hover:border-slate-400 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
+                className="hidden lg:flex min-h-[48px] px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-semibold text-sm sm:text-base items-center justify-center gap-2 shadow-xs hover:border-slate-400 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
               >
                 <Laptop size={16} className="text-blue-600" />
                 <span>Vào hệ thống học tập</span>
@@ -86,7 +94,7 @@ export default function HeroSection() {
           </div>
 
           {/* RIGHT COLUMN: ARTWORK PICTURE (AVIF/WEBP ART DIRECTION) */}
-          <div className="lg:col-span-5 flex items-center justify-center w-full">
+          <div className="hidden sm:flex lg:col-span-5 items-center justify-center w-full">
             <div className="relative w-full max-w-lg lg:max-w-none rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border border-slate-200/80 bg-blue-50 aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10]">
               <picture>
                 {/* Mobile: 1080x1350 portrait AVIF/WebP */}
@@ -120,7 +128,6 @@ export default function HeroSection() {
                   width={1920}
                   height={720}
                   loading="eager"
-                  // @ts-ignore
                   fetchPriority="high"
                   decoding="async"
                   className="w-full h-full object-cover object-center"

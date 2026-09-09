@@ -19,25 +19,25 @@ export default function StatsSection() {
   };
 
   return (
-    <section className="py-14 md:py-18 bg-white relative z-10 border-y border-slate-100/80">
+    <section className="py-10 md:py-18 bg-white relative z-10 border-y border-slate-100/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {statsData.map((item) => (
             <div
               key={item.id}
-              className="flex items-center gap-5 p-6 rounded-3xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-blue-500/30 transition-all duration-300 shadow-premium hover:shadow-premium-hover group"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-blue-500/30 transition-all duration-300 shadow-premium hover:shadow-premium-hover group"
             >
               <div className="p-3.5 bg-white border border-slate-100 rounded-2xl shadow-sm shrink-0 group-hover:bg-slate-50 group-hover:border-blue-100 smooth-transition">
                 {getIcon(item.id)}
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none mb-1.5 font-display">
+                <span className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none mb-1.5 font-display">
                   {item.value}
                 </span>
-                <span className="text-xs font-black text-slate-800 uppercase tracking-wider truncate">
+                <span className="text-xs font-black text-slate-800 uppercase tracking-wide sm:tracking-wider line-clamp-2 sm:truncate">
                   {item.label}
                 </span>
-                <span className="text-[11px] text-slate-500 font-medium mt-0.5 leading-snug">
+                <span className="hidden sm:block text-[11px] text-slate-500 font-medium mt-0.5 leading-snug">
                   {item.description}
                 </span>
               </div>

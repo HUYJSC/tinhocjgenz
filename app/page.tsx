@@ -22,7 +22,7 @@ export default function Home() {
       <HomeTabbedHub />
 
       {/* 4. Latest Educational Guides & SEO Hub */}
-      <section className="py-16 sm:py-20 bg-slate-50/60 border-t border-slate-100">
+      <section className="py-10 sm:py-14 lg:py-20 bg-slate-50/60 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -55,7 +55,13 @@ export default function Home() {
                   <Link href={`/blog/${guide.slug}`} className="block relative h-44 overflow-hidden">
                     <img
                       src={guide.coverImage}
+                      srcSet={`${guide.coverImage.replace("w=1000", "w=480")} 480w, ${guide.coverImage.replace("w=1000", "w=800")} 800w, ${guide.coverImage} 1000w`}
+                      sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 50vw, 33vw"
                       alt={guide.title}
+                      width="1000"
+                      height="560"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <span className="absolute top-3 left-3 px-2.5 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider bg-slate-900/80 backdrop-blur-md text-white">
@@ -99,7 +105,7 @@ export default function Home() {
       </section>
 
       {/* 4. Strategic Bottom CTA Floating Banner */}
-      <section className="py-16 sm:py-20 bg-slate-50/80">
+      <section className="py-10 sm:py-14 lg:py-20 bg-slate-50/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white p-8 sm:p-14 text-center shadow-2xl shadow-blue-900/20 border border-blue-500/20">
             {/* Ambient glows */}
@@ -123,7 +129,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
                 <Link
                   href="/lien-he"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-xs font-black tracking-wide uppercase bg-white text-blue-700 hover:bg-cyan-50 shadow-lg hover:shadow-xl transition-all duration-300 group hover:scale-[1.02]"
+                  className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-xs font-black tracking-wide uppercase bg-white text-blue-700 hover:bg-cyan-50 shadow-lg hover:shadow-xl transition-all duration-300 group hover:scale-[1.02]"
                 >
                   <span>Đăng Ký Tư Vấn & Xếp Lớp</span>
                   <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -133,7 +139,7 @@ export default function Home() {
                   href={SITE_CONFIG.contact.zaloUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-xs font-black tracking-wide uppercase text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-300 backdrop-blur-md"
+                  className="w-full sm:w-auto min-h-12 inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-2xl text-xs font-black tracking-wide uppercase text-white bg-white/10 hover:bg-white/20 border border-white/20 transition-all duration-300 backdrop-blur-md"
                 >
                   Chat Trực Tiếp Qua Zalo
                 </a>

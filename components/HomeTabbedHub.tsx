@@ -57,7 +57,8 @@ export default function HomeTabbedHub() {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id as "pathway" | "courses" | "halloffame" | "guarantee")}
-                  className={`py-2.5 px-3 rounded-xl sm:rounded-full text-center transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
+                  aria-pressed={isActive}
+                  className={`min-h-16 py-2.5 px-3 rounded-xl sm:rounded-full text-center transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
                     isActive
                       ? "bg-gradient-to-r from-blue-600 to-sky-500 text-white shadow-md scale-[1.02]"
                       : "text-slate-400 hover:text-white hover:bg-slate-800/60"
@@ -108,7 +109,7 @@ export default function HomeTabbedHub() {
               <div className="text-center pt-2">
                 <Link
                   href="/khoa-hoc"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-black text-xs uppercase tracking-wider shadow-md transition-all group"
+                  className="min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-black text-xs uppercase tracking-wider shadow-md transition-all group"
                 >
                   <span>Xem Toàn Bộ 6+ Khóa Học & Bảng Giá Chi Tiết</span>
                   <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
