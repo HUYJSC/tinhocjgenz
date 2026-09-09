@@ -15,7 +15,11 @@ import {
   ExternalLink,
   MessageSquare,
   AlertCircle,
-  Download
+  Download,
+  Users,
+  UserCheck,
+  Calendar,
+  BookOpen
 } from "lucide-react";
 
 export default function StudentPortalPage() {
@@ -24,6 +28,7 @@ export default function StudentPortalPage() {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submissionSuccess, setSubmissionSuccess] = useState<boolean>(false);
+  const [downloadNotice, setDownloadNotice] = useState<string | null>(null);
 
   const studentInfo = {
     name: "Nguyễn Hoàng Nam",
@@ -106,19 +111,60 @@ export default function StudentPortalPage() {
 
   return (
     <div className="space-y-6">
+      {/* Mobile Account Hub (lg:hidden) conforming to Section XVI */}
+      <div className="lg:hidden space-y-4">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[10px] font-black text-blue-400 uppercase tracking-wider">Hệ Thống Trực Tuyến</p>
+            <h1 className="text-xl font-black text-white font-display">TÀI KHOẢN HỌC TẬP</h1>
+          </div>
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+            Học viên trực tuyến
+          </span>
+        </div>
+
+        {/* Dual Portal Switchers */}
+        <div className="grid grid-cols-2 gap-2">
+          <a
+            href="https://hoctructuyen.tinhocgenz.io.vn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-h-12 p-3 rounded-2xl bg-blue-600/30 border border-blue-500/40 text-white flex items-center gap-2.5 shadow-sm active:scale-98 transition-transform"
+          >
+            <GraduationCap size={20} className="text-cyan-400 shrink-0" />
+            <div className="text-left leading-tight">
+              <span className="text-xs font-black block text-cyan-200">Cổng Học Viên</span>
+              <span className="text-[10px] text-slate-300">Vào lớp LMS</span>
+            </div>
+          </a>
+          <a
+            href="https://hoctructuyen.tinhocgenz.io.vn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-h-12 p-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white flex items-center gap-2.5 shadow-sm active:scale-98 transition-transform"
+          >
+            <Users size={20} className="text-amber-400 shrink-0" />
+            <div className="text-left leading-tight">
+              <span className="text-xs font-black block text-amber-200">Cổng Giảng Viên</span>
+              <span className="text-[10px] text-slate-300">Quản lý lớp</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
       {/* 1. Header Banner */}
-      <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+      <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-black uppercase bg-blue-500/20 text-blue-300 border border-blue-400/30">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-black uppercase bg-blue-500/20 text-blue-300 border border-blue-400/30">
               <GraduationCap size={13} />
               <span>CỔNG HỌC VIÊN PH DIGITAL • MÃ HỌC VIÊN: {studentInfo.studentId}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <h2 className="text-xl sm:text-3xl font-black text-white tracking-tight">
               Xin chào, {studentInfo.name}! 👋
-            </h1>
+            </h2>
             <p className="text-xs sm:text-sm text-slate-300">
               Khóa học: <span className="text-white font-bold">{studentInfo.course}</span>
             </p>
@@ -270,9 +316,9 @@ export default function StudentPortalPage() {
 
                   {/* Download Exercise Attachment */}
                   {cur.hasExercise && (
-                    <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-4">
+                    <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <FileText className="w-8 h-8 text-cyan-400" />
+                        <FileText className="w-8 h-8 text-cyan-400 shrink-0" />
                         <div>
                           <p className="text-xs font-bold text-white">{cur.exerciseName}</p>
                           <p className="text-[10px] text-slate-400">File thực hành chuẩn khảo thí Certiport</p>
@@ -280,12 +326,22 @@ export default function StudentPortalPage() {
                       </div>
                       <button
                         type="button"
-                        onClick={() => alert(`Đang tải file bài tập: ${cur.exerciseName}`)}
-                        className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-cyan-300 transition-colors flex items-center gap-1.5 cursor-pointer border border-slate-700"
+                        onClick={() => {
+                          setDownloadNotice(`Đang bắt đầu tải: ${cur.exerciseName}`);
+                          setTimeout(() => setDownloadNotice(null), 3000);
+                        }}
+                        className="min-h-12 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-cyan-300 transition-colors flex items-center justify-center gap-1.5 cursor-pointer border border-slate-700"
                       >
-                        <Download size={13} />
+                        <Download size={15} />
                         <span>Tải Về</span>
                       </button>
+                    </div>
+                  )}
+
+                  {downloadNotice && (
+                    <div role="status" aria-live="polite" className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                      <span>{downloadNotice}</span>
                     </div>
                   )}
                 </div>
