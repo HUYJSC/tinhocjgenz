@@ -410,8 +410,8 @@ function CertificateVisual({
         backgroundRepeat: "no-repeat"
       }}
     >
-      {/* LAYER 1: Họ và tên học viên - Phông chữ Tahoma chuẩn mực */}
-      <div className="absolute top-[46.2%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
+      {/* LAYER 1: Họ và tên học viên - Phông chữ Tahoma chuẩn mực, căn chính xác giữa dòng dẫn và đường kẻ cam */}
+      <div className="absolute top-[50.8%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
         <h2
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
           className={`font-black text-[#0c2340] tracking-tight uppercase text-center transition-all ${
@@ -419,15 +419,15 @@ function CertificateVisual({
               ? "text-3xl sm:text-4xl"
               : isSm
               ? "text-[11px] sm:text-xs leading-none"
-              : "text-base sm:text-2xl lg:text-[26px] leading-tight"
+              : "text-base sm:text-2xl lg:text-[28px] leading-tight"
           }`}
         >
           {data.studentName || "NGUYỄN HOÀNG NAM"}
         </h2>
       </div>
 
-      {/* LAYER 2: Tên khóa học - Phông chữ Tahoma chuẩn mực */}
-      <div className="absolute top-[61.4%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
+      {/* LAYER 2: Tên khóa học - Phông chữ Tahoma chuẩn mực, căn chính xác giữa dòng dẫn và ngày tháng */}
+      <div className="absolute top-[64.9%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
         <div
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
           className={`font-bold text-[#0066cc] uppercase tracking-wide text-center transition-all ${
@@ -442,11 +442,12 @@ function CertificateVisual({
         </div>
       </div>
 
-      {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận - Phông chữ Tahoma chuẩn mực */}
-      <div className="absolute top-[70.8%] inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
+      {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận - Tách 2 cánh đối xứng chuẩn poster, phông Tahoma */}
+      {/* 3A. Cánh trái: Thời gian hoàn thành */}
+      <div className="absolute top-[71.0%] h-[20px] left-[14.5%] w-[34.0%] flex items-center justify-center pointer-events-none z-10">
         <div
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`text-slate-600 font-medium flex items-center justify-center gap-2 sm:gap-4 transition-all ${
+          className={`text-slate-600 font-medium transition-all ${
             isPrint
               ? "text-sm"
               : isSm
@@ -454,96 +455,120 @@ function CertificateVisual({
               : "text-[8px] sm:text-[11px]"
           }`}
         >
-          <span>
-            Thời gian hoàn thành:{" "}
-            <strong className="text-slate-900 font-bold">{data.issueDate || "20/08/2026"}</strong>
-          </span>
-          <span className="text-slate-300 font-light">|</span>
-          <span>
-            Mã chứng nhận:{" "}
-            <strong className="text-slate-900 font-bold tracking-tight">
-              {data.certCode || "CERT-THGZ-2026-9842"}
-            </strong>
-          </span>
+          <span>Thời gian hoàn thành: </span>
+          <strong className="text-slate-900 font-bold">{data.issueDate || "20/08/2026"}</strong>
         </div>
       </div>
 
-      {/* LAYER 4: Chữ ký, Chức danh & Ghi chú Giảng viên (Trái) - Căn chỉnh đối xứng cân bằng hoàn hảo, phông Tahoma */}
-      <div className="absolute top-[75.5%] left-[13.5%] w-[23.5%] flex flex-col items-center justify-start pointer-events-none z-10 text-center leading-tight">
-        {/* Tên Giảng viên (trên dòng kẻ) */}
-        <div className="h-[20px] sm:h-[24px] flex items-end justify-center">
-          {data.instructor && (
-            <span
-              style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-              className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
-                isPrint ? "text-sm sm:text-base" : isSm ? "text-[8px] sm:text-[9px]" : "text-[9.5px] sm:text-xs"
-              }`}
-            >
-              {data.instructor}
-            </span>
-          )}
-        </div>
+      {/* 3B. Vạch phân cách giữa hai cánh */}
+      <div className="absolute top-[71.0%] h-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-10 text-slate-300 font-light text-xs sm:text-sm">
+        |
+      </div>
 
-        {/* Chức danh / Vai trò (dưới dòng kẻ) */}
+      {/* 3C. Cánh phải: Mã chứng nhận */}
+      <div className="absolute top-[71.0%] h-[20px] left-[51.5%] w-[34.0%] flex items-center justify-center pointer-events-none z-10">
+        <div
+          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+          className={`text-slate-600 font-medium transition-all ${
+            isPrint
+              ? "text-sm"
+              : isSm
+              ? "text-[6px] sm:text-[7.5px]"
+              : "text-[8px] sm:text-[11px]"
+          }`}
+        >
+          <span>Mã chứng nhận: </span>
+          <strong className="text-slate-900 font-bold tracking-tight">
+            {data.certCode || "CERT-THGZ-2026-9842"}
+          </strong>
+        </div>
+      </div>
+
+      {/* LAYER 4: Giảng viên (Cột Trái, X: 14.16% -> 36.43%, Đường kẻ ngang tại Y=598 / 82.6%) */}
+      {/* 4A. Tên Giảng viên (nằm ngay sát trên đường kẻ ngang) */}
+      <div className="absolute top-[75.2%] h-[6.8%] left-[14.16%] w-[22.27%] flex items-end justify-center pointer-events-none z-10 text-center pb-0.5">
+        {data.instructor && (
+          <span
+            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+            className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
+              isPrint ? "text-base sm:text-lg" : isSm ? "text-[8px] sm:text-[9px]" : "text-[10px] sm:text-xs lg:text-[13px]"
+            }`}
+          >
+            {data.instructor}
+          </span>
+        )}
+      </div>
+
+      {/* 4B. Chức danh Giảng viên (nằm dưới đường kẻ ngang, Y=609..628 / 84.1%..86.7%) */}
+      <div className="absolute top-[84.1%] h-[3.0%] left-[14.16%] w-[22.27%] flex items-center justify-center pointer-events-none z-10 text-center">
         <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all mt-1 sm:mt-1.5 ${
+          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all ${
             isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6.5px] sm:text-[7.5px]" : "text-[8px] sm:text-[10px]"
           }`}
         >
           {data.instructorTitle ?? "GIẢNG VIÊN"}
         </span>
+      </div>
 
-        {/* Dòng ghi chú dưới chức danh */}
-        {data.instructorNote !== "" && (
+      {/* 4C. Ghi chú Giảng viên (nằm dưới chức danh, Y=635..654 / 87.7%..90.3%) */}
+      {data.instructorNote !== "" && (
+        <div className="absolute top-[87.8%] h-[2.8%] left-[14.16%] w-[22.27%] flex items-center justify-center pointer-events-none z-10 text-center">
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`text-slate-500 italic font-medium transition-all mt-0.5 ${
+            className={`text-slate-500 italic font-medium transition-all ${
               isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5.5px] sm:text-[6.5px]" : "text-[6.5px] sm:text-[8px]"
             }`}
           >
             {data.instructorNote ?? "(Ký và ghi rõ họ tên)"}
           </span>
+        </div>
+      )}
+
+      {/* LAYER 5: Đại diện đơn vị (Cột Phải, X: 51.76% -> 74.51%, Đường kẻ ngang tại Y=598 / 82.6%) */}
+      {/* 5A. Tên Người đại diện (nằm ngay sát trên đường kẻ ngang) */}
+      <div className="absolute top-[75.2%] h-[6.8%] left-[51.76%] w-[22.75%] flex items-end justify-center pointer-events-none z-10 text-center pb-0.5">
+        {data.director && (
+          <span
+            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+            className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
+              isPrint ? "text-base sm:text-lg" : isSm ? "text-[8px] sm:text-[9px]" : "text-[10px] sm:text-xs lg:text-[13px]"
+            }`}
+          >
+            {data.director}
+          </span>
         )}
       </div>
 
-      {/* LAYER 5: Chữ ký, Chức danh & Ghi chú Đại diện đơn vị (Phải) - Căn chỉnh đối xứng cân bằng cùng độ cao, KHÔNG CÓ CON DẤU ĐỎ, phông Tahoma */}
-      <div className="absolute top-[75.5%] left-[51.8%] w-[23.5%] flex flex-col items-center justify-start pointer-events-none z-10 text-center leading-tight">
-        {/* Tên Người đại diện (trên dòng kẻ) */}
-        <div className="h-[20px] sm:h-[24px] flex items-end justify-center">
-          {data.director && (
-            <span
-              style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-              className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
-                isPrint ? "text-sm sm:text-base" : isSm ? "text-[8px] sm:text-[9px]" : "text-[9.5px] sm:text-xs"
-              }`}
-            >
-              {data.director}
-            </span>
-          )}
-        </div>
-
-        {/* Chức danh / Vai trò (dưới dòng kẻ) */}
+      {/* 5B. Chức danh Người đại diện (nằm dưới đường kẻ ngang, Y=609..628 / 84.1%..86.7%) */}
+      <div className="absolute top-[84.1%] h-[3.0%] left-[51.76%] w-[22.75%] flex items-center justify-center pointer-events-none z-10 text-center">
         <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all mt-1 sm:mt-1.5 ${
+          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all ${
             isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6.5px] sm:text-[7.5px]" : "text-[8px] sm:text-[10px]"
           }`}
         >
           {data.directorTitle ?? "ĐẠI DIỆN ĐƠN VỊ"}
         </span>
+      </div>
 
-        {/* Dòng ghi chú dưới chức danh */}
-        {data.directorNote !== "" && (
+      {/* 5C. Ghi chú Người đại diện (nằm dưới chức danh, Y=635..654 / 87.7%..90.3%) */}
+      {data.directorNote !== "" && (
+        <div className="absolute top-[87.8%] h-[2.8%] left-[51.76%] w-[22.75%] flex items-center justify-center pointer-events-none z-10 text-center">
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`text-slate-500 italic font-medium transition-all mt-0.5 ${
-              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5.5px] sm:text-[6.5px]" : "text-[7px] sm:text-[8px]"
+            className={`text-slate-500 italic font-medium transition-all ${
+              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5.5px] sm:text-[6.5px]" : "text-[6.5px] sm:text-[8px]"
             }`}
           >
             {data.directorNote ?? "(Ký và ghi rõ họ tên)"}
           </span>
-        )}
+        </div>
+      )}
+
+      {/* LAYER 6: Khung Quét Mã QR Xác Thực (Góc dưới bên phải, tâm X: 78.6%, tâm Y: 85.9%) */}
+      <div className="absolute top-[85.9%] left-[78.6%] -translate-x-1/2 -translate-y-1/2 w-[8.2%] aspect-square flex items-center justify-center z-10 pointer-events-none">
+        <QrCode className="w-full h-full text-[#0c2340]/90" />
       </div>
     </div>
   );
@@ -612,9 +637,22 @@ export default function AdminCertificatesPage() {
     try {
       const savedTpls = localStorage.getItem(LOCAL_STORAGE_TEMPLATES_KEY);
       if (savedTpls) {
-        const parsed = JSON.parse(savedTpls);
+        let parsed = JSON.parse(savedTpls);
         if (Array.isArray(parsed) && parsed.length > 0) {
+          // Auto-migrate any template pointing to the old template path or official template to clean version
+          parsed = parsed.map((t: CertificateTemplateItem) => {
+            if (t.id === "tinhocgenz-official" || t.imageUrl?.includes("tinhocgenz-template.jpg")) {
+              return {
+                ...t,
+                imageUrl: "/images/certificates/tinhocgenz-clean-template.png"
+              };
+            }
+            return t;
+          });
           setTemplates(parsed);
+          try {
+            localStorage.setItem(LOCAL_STORAGE_TEMPLATES_KEY, JSON.stringify(parsed));
+          } catch {}
           return;
         }
       }
@@ -717,8 +755,14 @@ export default function AdminCertificatesPage() {
     try {
       const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved);
+        let parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
+          parsed = parsed.map((c: CertificateRecord) => {
+            if (c.imageUrl?.includes("tinhocgenz-template.jpg")) {
+              return { ...c, imageUrl: "/images/certificates/tinhocgenz-clean-template.png" };
+            }
+            return c;
+          });
           setCerts(parsed);
           return;
         }
