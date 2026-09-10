@@ -37,8 +37,20 @@ import {
   Table as TableIcon,
   Filter,
   BadgeCheck,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Star
 } from "lucide-react";
+
+export interface CertificateTemplateItem {
+  id: string;
+  name: string;
+  imageUrl: string;
+  isSystem?: boolean;
+  isDefault?: boolean;
+  createdAt: string;
+  description?: string;
+  displayMode?: "overlay-template" | "custom-image";
+}
 
 export interface CertificateRecord {
   id: string;
@@ -51,15 +63,41 @@ export interface CertificateRecord {
   issuer: string;
   instructor: string;
   instructorTitle?: string;
+  instructorNote?: string;
   director?: string;
   directorTitle?: string;
+  directorNote?: string;
   showSeal?: boolean;
   status: "Hợp lệ" | "Chờ xác thực" | "Đã thu hồi";
-  templateType: "tinhocgenz-official" | "certiport-gold" | "custom-image";
+  templateType: string;
+  templateId?: string;
   imageUrl?: string;
   displayMode?: "custom-image" | "overlay-template" | "default";
   note?: string;
 }
+
+export const DEFAULT_SYSTEM_TEMPLATES: CertificateTemplateItem[] = [
+  {
+    id: "tinhocgenz-official",
+    name: "Phôi Tin Học Gen Z Chuẩn",
+    imageUrl: "/images/certificates/tinhocgenz-clean-template.png",
+    isSystem: true,
+    isDefault: true,
+    createdAt: "2026-08-01",
+    description: "Mẫu phôi chuẩn độc quyền Tin Học Gen Z, nền sạch, tự động căn chỉnh đối xứng chữ ký & chức danh",
+    displayMode: "overlay-template"
+  },
+  {
+    id: "certiport-gold",
+    name: "Phôi Certiport Vàng Kim",
+    imageUrl: "",
+    isSystem: true,
+    isDefault: false,
+    createdAt: "2026-08-01",
+    description: "Mẫu cổ điển Certiport viền vàng hoàng gia sang trọng",
+    displayMode: "overlay-template"
+  }
+];
 
 const INITIAL_CERTIFICATES: CertificateRecord[] = [
   {
@@ -72,13 +110,15 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "20/08/2026",
     issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
     instructor: "Thầy Nguyễn Đình Huy",
-    instructorTitle: "MOS Master Trainer",
+    instructorTitle: "GIẢNG VIÊN",
+    instructorNote: "(Ký và ghi rõ họ tên)",
     director: "Nguyễn Đình Huy",
-    directorTitle: "Giám Đốc Đào Tạo",
-    showSeal: true,
+    directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
+    directorNote: "(Ký và ghi rõ họ tên)",
+    showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
-    displayMode: "default"
+    displayMode: "overlay-template"
   },
   {
     id: "cert-2",
@@ -90,13 +130,15 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "18/08/2026",
     issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
     instructor: "Thầy Lê Văn Minh",
-    instructorTitle: "IC3 Authorized Trainer",
+    instructorTitle: "GIẢNG VIÊN HƯỚNG DẪN",
+    instructorNote: "(Ký và ghi rõ họ tên)",
     director: "Nguyễn Đình Huy",
-    directorTitle: "Giám Đốc Đào Tạo",
-    showSeal: true,
+    directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
+    directorNote: "(Ký và ghi rõ họ tên)",
+    showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
-    displayMode: "default"
+    displayMode: "overlay-template"
   },
   {
     id: "cert-3",
@@ -108,13 +150,15 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "15/08/2026",
     issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
     instructor: "Thầy Nguyễn Đình Huy",
-    instructorTitle: "MOS Master Trainer",
+    instructorTitle: "GIẢNG VIÊN",
+    instructorNote: "(Ký và ghi rõ họ tên)",
     director: "Nguyễn Đình Huy",
-    directorTitle: "Giám Đốc Đào Tạo",
-    showSeal: true,
+    directorTitle: "GIÁM ĐỐC ĐÀO TẠO",
+    directorNote: "(Ký và ghi rõ họ tên)",
+    showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
-    displayMode: "default"
+    displayMode: "overlay-template"
   },
   {
     id: "cert-4",
@@ -126,13 +170,15 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "10/08/2026",
     issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
     instructor: "Cô Hoàng Mai",
-    instructorTitle: "MOS Specialist",
+    instructorTitle: "GIẢNG VIÊN",
+    instructorNote: "(Ký và ghi rõ họ tên)",
     director: "Nguyễn Đình Huy",
-    directorTitle: "Giám Đốc Đào Tạo",
-    showSeal: true,
+    directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
+    directorNote: "(Ký và ghi rõ họ tên)",
+    showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
-    displayMode: "default"
+    displayMode: "overlay-template"
   },
   {
     id: "cert-5",
@@ -144,13 +190,15 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "05/08/2026",
     issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
     instructor: "Thầy Nguyễn Đình Huy",
-    instructorTitle: "MOS Master Trainer",
+    instructorTitle: "MOS MASTER TRAINER",
+    instructorNote: "(Ký và ghi rõ họ tên)",
     director: "Nguyễn Đình Huy",
-    directorTitle: "Giám Đốc Đào Tạo",
-    showSeal: true,
+    directorTitle: "ĐẠI DIỆN CÔNG TY",
+    directorNote: "(Ký và ghi rõ họ tên)",
+    showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
-    displayMode: "default"
+    displayMode: "overlay-template"
   },
   {
     id: "cert-6",
@@ -162,70 +210,20 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "01/08/2026",
     issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
     instructor: "Thầy Nguyễn Đình Huy",
-    instructorTitle: "MOS Master Trainer",
+    instructorTitle: "CHỦ NHIỆM LỚP",
+    instructorNote: "(Ký và ghi rõ họ tên)",
     director: "Nguyễn Đình Huy",
-    directorTitle: "Giám Đốc Đào Tạo",
-    showSeal: true,
+    directorTitle: "GIÁM ĐỐC TRUNG TÂM",
+    directorNote: "(Ký và ghi rõ họ tên)",
+    showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
-    displayMode: "default"
+    displayMode: "overlay-template"
   }
 ];
 
 const LOCAL_STORAGE_KEY = "tinhocgenz_admin_certificates_v3";
-
-/**
- * Con Dấu Tròn Đỏ Pháp Nhân (SVG Red Seal of Cong Ty TNHH PH - Tin Hoc Gen Z)
- */
-function OfficialRedSeal({ size = "md", className = "" }: { size?: "sm" | "md" | "lg"; className?: string }) {
-  const dim = size === "sm" ? "w-8 h-8 sm:w-10 sm:h-10" : size === "lg" ? "w-20 h-20 sm:w-24 sm:h-24" : "w-12 h-12 sm:w-16 sm:h-16";
-  return (
-    <div className={`relative select-none pointer-events-none ${dim} ${className} rotate-[-8deg]`}>
-      <svg viewBox="0 0 200 200" className="w-full h-full text-red-600 drop-shadow-sm opacity-90">
-        <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" strokeWidth="4" strokeDasharray="6 2" />
-        <circle cx="100" cy="100" r="90" fill="none" stroke="currentColor" strokeWidth="2.5" />
-        <circle cx="100" cy="100" r="62" fill="none" stroke="currentColor" strokeWidth="2" />
-        
-        <path id="seal-text-path-top" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" />
-        <text className="text-[12.5px] font-black uppercase tracking-[0.14em]" fill="currentColor">
-          <textPath href="#seal-text-path-top" startOffset="50%" textAnchor="middle">
-            ★ CÔNG TY TNHH PH ★
-          </textPath>
-        </text>
-
-        <path id="seal-text-path-bottom" d="M 180 100 A 80 80 0 0 1 20 100" fill="none" />
-        <text className="text-[12px] font-black uppercase tracking-[0.18em]" fill="currentColor">
-          <textPath href="#seal-text-path-bottom" startOffset="50%" textAnchor="middle">
-            TIN HỌC GEN Z
-          </textPath>
-        </text>
-
-        <polygon
-          points="100,68 104,80 117,80 107,88 110,100 100,92 90,100 93,88 83,80 96,80"
-          fill="currentColor"
-        />
-        <text
-          x="100"
-          y="122"
-          textAnchor="middle"
-          fill="currentColor"
-          className="text-[13px] font-black uppercase tracking-wider"
-        >
-          GIÁM ĐỐC
-        </text>
-        <text
-          x="100"
-          y="138"
-          textAnchor="middle"
-          fill="currentColor"
-          className="text-[9px] font-bold uppercase tracking-widest"
-        >
-          ĐÃ KÝ & DUYỆT
-        </text>
-      </svg>
-    </div>
-  );
-}
+const LOCAL_STORAGE_TEMPLATES_KEY = "tinhocgenz_certificate_templates_v2";
 
 /**
  * Visual Certificate Component
@@ -233,17 +231,19 @@ function OfficialRedSeal({ size = "md", className = "" }: { size?: "sm" | "md" |
 function CertificateVisual({
   data,
   size = "md",
-  className = ""
+  className = "",
+  templates = []
 }: {
   data: Partial<CertificateRecord>;
   size?: "sm" | "md" | "lg" | "print";
   className?: string;
+  templates?: CertificateTemplateItem[];
 }) {
   const isPrint = size === "print";
   const isSm = size === "sm";
 
-  // CASE 1: Custom Uploaded Image Mode
-  if (data.templateType === "custom-image" && data.imageUrl && data.displayMode !== "overlay-template") {
+  // CASE 1: Raw Custom Image (Direct scan / standalone certificate with text already baked in)
+  if (data.templateType === "custom-image" && data.imageUrl && data.displayMode === "custom-image") {
     return (
       <div
         className={`relative select-none overflow-hidden rounded-xl border-4 border-[#0b2545] bg-slate-950 text-white shadow-xl font-sans flex items-center justify-center transition-all ${
@@ -272,192 +272,278 @@ function CertificateVisual({
     );
   }
 
-  // CASE 2: Official TIN HỌC GEN Z Certificate Template (Mẫu phôi độc quyền mới)
-  const isOfficialTemplate = data.templateType === "tinhocgenz-official" || !data.templateType;
+  // CASE 2: Built-in Classic Certiport Gold Template
+  if (data.templateType === "certiport-gold") {
+    const bgStyle =
+      data.imageUrl && data.displayMode === "overlay-template"
+        ? {
+            backgroundImage: `url(${data.imageUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center"
+          }
+        : {
+            backgroundImage: "radial-gradient(#e8dfcf 1px, transparent 1px)",
+            backgroundSize: isSm ? "12px 12px" : "18px 18px"
+          };
 
-  if (isOfficialTemplate) {
     return (
       <div
-        className={`relative select-none overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-900 shadow-2xl font-sans transition-all w-full aspect-[1024/724] ${className}`}
-        style={{
-          backgroundImage: "url('/images/certificates/tinhocgenz-clean-template.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
-        }}
+        className={`relative select-none overflow-hidden rounded-xl border-4 border-[#c5a059] bg-[#fcfbfa] text-slate-900 shadow-xl font-sans transition-all aspect-[1.414/1] ${
+          isPrint ? "w-full p-10" : isSm ? "w-full p-3 text-[10px]" : "w-full p-6 sm:p-8 text-xs"
+        } ${className}`}
+        style={bgStyle}
       >
-        {/* LAYER 1: Họ và tên học viên {{TEN_HOC_VIEN}} - Phông chữ Tahoma chuẩn mực */}
-        <div className="absolute top-[46.2%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
-          <h2
-            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`font-black text-[#0c2340] tracking-tight uppercase text-center transition-all ${
-              isPrint
-                ? "text-3xl sm:text-4xl"
-                : isSm
-                ? "text-[11px] sm:text-xs leading-none"
-                : "text-base sm:text-2xl lg:text-[26px] leading-tight"
-            }`}
-          >
-            {data.studentName || "NGUYỄN HOÀNG NAM"}
-          </h2>
+        <div className="absolute inset-1.5 sm:inset-2.5 border-2 border-[#d8b878] pointer-events-none rounded-lg" />
+        <div className="absolute inset-2.5 sm:inset-4 border border-[#e4cca0]/60 pointer-events-none rounded-md" />
+
+        <div className="absolute top-0 right-7 bg-gradient-to-b from-[#d4af37] via-[#c5a059] to-[#99772c] text-white font-black px-3 py-1 shadow-md rounded-b-md text-[9px] sm:text-[11px] uppercase tracking-wider flex items-center gap-1">
+          <Medal size={12} className="text-yellow-200" />
+          <span>{data.score || 1000}/1000 ĐIỂM</span>
         </div>
 
-        {/* LAYER 2: Tên khóa học {{TEN_KHOA_HOC}} - Phông chữ Tahoma chuẩn mực */}
-        <div className="absolute top-[61.4%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
-          <div
-            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`font-bold text-[#0066cc] uppercase tracking-wide text-center transition-all ${
-              isPrint
-                ? "text-xl sm:text-2xl"
-                : isSm
-                ? "text-[8.5px] sm:text-[9.5px] leading-none"
-                : "text-xs sm:text-base lg:text-lg leading-tight"
-            }`}
-          >
-            {data.exam || "MOS EXCEL 2019 ASSOCIATE"}
+        <div className="h-full flex flex-col justify-between relative z-10 text-center">
+          <div>
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#c5a059]" />
+              <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.25em] text-[#8c6b2d]">
+                TIN HỌC GEN Z • ĐÀO TẠO & KHẢO THÍ QUỐC TẾ
+              </span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#c5a059]" />
+            </div>
+
+            <h2 className="font-serif text-sm sm:text-2xl font-black text-[#1a2e40] tracking-tight uppercase mt-0.5">
+              GIẤY CHỨNG NHẬN ĐẠT CHUẨN
+            </h2>
+            <p className="text-[8px] sm:text-[11px] text-[#6b7280] italic font-serif">
+              Certificate of International Achievement
+            </p>
           </div>
-        </div>
 
-        {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận - Phông chữ Tahoma chuẩn mực */}
-        <div className="absolute top-[70.8%] inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
-          <div
-            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`text-slate-600 font-medium flex items-center justify-center gap-2 sm:gap-4 transition-all ${
-              isPrint
-                ? "text-sm"
-                : isSm
-                ? "text-[6px] sm:text-[7.5px]"
-                : "text-[8px] sm:text-[11px]"
-            }`}
-          >
-            <span>
-              Thời gian hoàn thành:{" "}
-              <strong className="text-slate-900 font-bold">{data.issueDate || "20/08/2026"}</strong>
-            </span>
-            <span className="text-slate-300 font-light">|</span>
-            <span>
-              Mã chứng nhận:{" "}
-              <strong className="text-slate-900 font-bold tracking-tight">
-                {data.certCode || "CERT-THGZ-2026-9842"}
-              </strong>
-            </span>
-          </div>
-        </div>
-
-        {/* LAYER 4: Chữ ký Giảng viên (Trái) - Căn chỉnh đối xứng, nằm phía trên đường kẻ Y=618 */}
-        {data.instructor && (
-          <div className="absolute top-[78.5%] left-[13%] w-[23%] flex items-center justify-center pointer-events-none z-10">
-            <span
+          <div className="my-1 sm:my-2">
+            <p className="text-[8px] sm:text-[11px] text-[#4b5563] uppercase tracking-wider font-semibold">
+              Chứng nhận thành tích xuất sắc trao tặng cho
+            </p>
+            <div
               style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-              className="font-bold text-[#0c2340] text-[9px] sm:text-xs tracking-tight text-center truncate"
+              className="text-base sm:text-2xl lg:text-3xl font-black text-[#0f2438] tracking-tight mt-0.5 sm:mt-1 border-b-2 border-[#c5a059]/50 inline-block px-4 pb-0.5"
             >
-              {data.instructor}
-            </span>
-          </div>
-        )}
-
-        {/* LAYER 5: Chữ ký Đại diện đơn vị (Phải) - Căn chỉnh đối xứng cân bằng cùng độ cao với bên trái, ĐÃ LOẠI BỎ CON DẤU ĐỎ */}
-        {data.director && (
-          <div className="absolute top-[78.5%] left-[51%] w-[24%] flex items-center justify-center pointer-events-none z-10">
-            <span
+              {data.studentName || "Họ Và Tên Học Viên"}
+            </div>
+            <p className="text-[8px] sm:text-[11px] text-[#4b5563] mt-1 sm:mt-1.5 font-medium">
+              Đã hoàn thành kỳ khảo thí năng lực tin học và đạt chuẩn quốc tế:
+            </p>
+            <div
               style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-              className="font-bold text-[#0c2340] text-[9px] sm:text-xs tracking-tight text-center truncate"
+              className="text-[10px] sm:text-base font-black text-[#0284c7] uppercase tracking-wide mt-0.5"
             >
-              {data.director}
-            </span>
+              {data.exam || "MOS Excel 2019 Associate"}
+            </div>
           </div>
-        )}
+
+          <div className="flex items-end justify-between border-t border-[#e5d5b5] pt-2 px-2 sm:px-4 text-left">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 sm:w-11 sm:h-11 bg-white border border-[#c5a059] p-0.5 rounded shadow-sm flex items-center justify-center">
+                <QrCode className="w-full h-full text-slate-800" />
+              </div>
+              <div>
+                <div className="text-[7px] sm:text-[9px] uppercase font-bold text-[#6b7280]">Mã xác thực:</div>
+                <div className="font-mono text-[8px] sm:text-[10px] font-bold text-[#8c6b2d]">
+                  {data.certCode || "CERT-THGZ-2026-XXXX"}
+                </div>
+                <div className="text-[7px] sm:text-[9px] text-slate-500">Ngày: {data.issueDate || "20/08/2026"}</div>
+              </div>
+            </div>
+
+            {/* Giảng viên bên trái */}
+            <div className="text-center">
+              <div
+                style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+                className="text-xs sm:text-sm text-[#0f2438] font-bold"
+              >
+                {data.instructor || "Thầy Nguyễn Đình Huy"}
+              </div>
+              <div
+                style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+                className="text-[8px] sm:text-[10px] text-[#8c6b2d] font-bold uppercase"
+              >
+                {data.instructorTitle || "GIẢNG VIÊN"}
+              </div>
+            </div>
+
+            {/* Đại diện đơn vị bên phải */}
+            <div className="text-right">
+              <div
+                style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+                className="text-xs sm:text-sm text-[#0f2438] font-bold"
+              >
+                {data.director || "Nguyễn Đình Huy"}
+              </div>
+              <div
+                style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+                className="text-[8px] sm:text-[10px] text-[#8c6b2d] font-bold uppercase"
+              >
+                {data.directorTitle || "ĐẠI DIỆN ĐƠN VỊ"}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 
-  // CASE 3: Built-in Classic Certiport Gold Template
-  const bgStyle =
-    data.imageUrl && data.displayMode === "overlay-template"
-      ? {
-          backgroundImage: `url(${data.imageUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }
-      : {
-          backgroundImage: "radial-gradient(#e8dfcf 1px, transparent 1px)",
-          backgroundSize: isSm ? "12px 12px" : "18px 18px",
-        };
+  // CASE 3: Overlay Frame (Official Tin Học Gen Z Clean Template OR Custom Uploaded Frame)
+  const activeTemplate = templates.find((t) => t.id === data.templateType);
+  const bgImageSrc =
+    data.imageUrl && (data.displayMode === "overlay-template" || data.templateType === "custom-image")
+      ? data.imageUrl
+      : activeTemplate?.imageUrl
+      ? activeTemplate.imageUrl
+      : "/images/certificates/tinhocgenz-clean-template.png";
 
   return (
     <div
-      className={`relative select-none overflow-hidden rounded-xl border-4 border-[#c5a059] bg-[#fcfbfa] text-slate-900 shadow-xl font-sans transition-all aspect-[1.414/1] ${
-        isPrint ? "w-full p-10" : isSm ? "w-full p-3 text-[10px]" : "w-full p-6 sm:p-8 text-xs"
-      } ${className}`}
-      style={bgStyle}
+      className={`relative select-none overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-900 shadow-2xl transition-all w-full aspect-[1024/724] ${className}`}
+      style={{
+        backgroundImage: `url('${bgImageSrc}')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat"
+      }}
     >
-      <div className="absolute inset-1.5 sm:inset-2.5 border-2 border-[#d8b878] pointer-events-none rounded-lg" />
-      <div className="absolute inset-2.5 sm:inset-4 border border-[#e4cca0]/60 pointer-events-none rounded-md" />
-
-      <div className="absolute top-0 right-7 bg-gradient-to-b from-[#d4af37] via-[#c5a059] to-[#99772c] text-white font-black px-3 py-1 shadow-md rounded-b-md text-[9px] sm:text-[11px] uppercase tracking-wider flex items-center gap-1">
-        <Medal size={12} className="text-yellow-200" />
-        <span>{data.score || 1000}/1000 ĐIỂM</span>
+      {/* LAYER 1: Họ và tên học viên - Phông chữ Tahoma chuẩn mực */}
+      <div className="absolute top-[46.2%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
+        <h2
+          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+          className={`font-black text-[#0c2340] tracking-tight uppercase text-center transition-all ${
+            isPrint
+              ? "text-3xl sm:text-4xl"
+              : isSm
+              ? "text-[11px] sm:text-xs leading-none"
+              : "text-base sm:text-2xl lg:text-[26px] leading-tight"
+          }`}
+        >
+          {data.studentName || "NGUYỄN HOÀNG NAM"}
+        </h2>
       </div>
 
-      <div className="h-full flex flex-col justify-between relative z-10 text-center">
-        <div>
-          <div className="flex items-center justify-center gap-2 mb-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#c5a059]" />
-            <span className="text-[9px] sm:text-[11px] font-black uppercase tracking-[0.25em] text-[#8c6b2d]">
-              TIN HỌC GEN Z • ĐÀO TẠO & KHẢO THÍ QUỐC TẾ
+      {/* LAYER 2: Tên khóa học - Phông chữ Tahoma chuẩn mực */}
+      <div className="absolute top-[61.4%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
+        <div
+          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+          className={`font-bold text-[#0066cc] uppercase tracking-wide text-center transition-all ${
+            isPrint
+              ? "text-xl sm:text-2xl"
+              : isSm
+              ? "text-[8.5px] sm:text-[9.5px] leading-none"
+              : "text-xs sm:text-base lg:text-lg leading-tight"
+          }`}
+        >
+          {data.exam || "MOS EXCEL 2019 ASSOCIATE"}
+        </div>
+      </div>
+
+      {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận - Phông chữ Tahoma chuẩn mực */}
+      <div className="absolute top-[70.8%] inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
+        <div
+          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+          className={`text-slate-600 font-medium flex items-center justify-center gap-2 sm:gap-4 transition-all ${
+            isPrint
+              ? "text-sm"
+              : isSm
+              ? "text-[6px] sm:text-[7.5px]"
+              : "text-[8px] sm:text-[11px]"
+          }`}
+        >
+          <span>
+            Thời gian hoàn thành:{" "}
+            <strong className="text-slate-900 font-bold">{data.issueDate || "20/08/2026"}</strong>
+          </span>
+          <span className="text-slate-300 font-light">|</span>
+          <span>
+            Mã chứng nhận:{" "}
+            <strong className="text-slate-900 font-bold tracking-tight">
+              {data.certCode || "CERT-THGZ-2026-9842"}
+            </strong>
+          </span>
+        </div>
+      </div>
+
+      {/* LAYER 4: Chữ ký, Chức danh & Ghi chú Giảng viên (Trái) - Căn chỉnh đối xứng cân bằng hoàn hảo, phông Tahoma */}
+      <div className="absolute top-[75.5%] left-[13.5%] w-[23.5%] flex flex-col items-center justify-start pointer-events-none z-10 text-center leading-tight">
+        {/* Tên Giảng viên (trên dòng kẻ) */}
+        <div className="h-[20px] sm:h-[24px] flex items-end justify-center">
+          {data.instructor && (
+            <span
+              style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+              className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
+                isPrint ? "text-sm sm:text-base" : isSm ? "text-[8px] sm:text-[9px]" : "text-[9.5px] sm:text-xs"
+              }`}
+            >
+              {data.instructor}
             </span>
-            <span className="w-2.5 h-2.5 rounded-full bg-[#c5a059]" />
-          </div>
-
-          <h2 className="font-serif text-sm sm:text-2xl font-black text-[#1a2e40] tracking-tight uppercase mt-0.5">
-            GIẤY CHỨNG NHẬN ĐẠT CHUẨN
-          </h2>
-          <p className="text-[8px] sm:text-[11px] text-[#6b7280] italic font-serif">
-            Certificate of International Achievement
-          </p>
+          )}
         </div>
 
-        <div className="my-1 sm:my-2">
-          <p className="text-[8px] sm:text-[11px] text-[#4b5563] uppercase tracking-wider font-semibold">
-            Chứng nhận thành tích xuất sắc trao tặng cho
-          </p>
-          <div className="font-serif text-base sm:text-2xl lg:text-3xl font-black text-[#0f2438] tracking-tight mt-0.5 sm:mt-1 border-b-2 border-[#c5a059]/50 inline-block px-4 pb-0.5">
-            {data.studentName || "Họ Và Tên Học Viên"}
-          </div>
-          <p className="text-[8px] sm:text-[11px] text-[#4b5563] mt-1 sm:mt-1.5 font-medium">
-            Đã hoàn thành kỳ khảo thí năng lực tin học và đạt chuẩn quốc tế:
-          </p>
-          <div className="text-[10px] sm:text-base font-black text-[#0284c7] uppercase tracking-wide mt-0.5">
-            {data.exam || "MOS Excel 2019 Associate"}
-          </div>
+        {/* Chức danh / Vai trò (dưới dòng kẻ) */}
+        <span
+          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all mt-1 sm:mt-1.5 ${
+            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6.5px] sm:text-[7.5px]" : "text-[8px] sm:text-[10px]"
+          }`}
+        >
+          {data.instructorTitle ?? "GIẢNG VIÊN"}
+        </span>
+
+        {/* Dòng ghi chú dưới chức danh */}
+        {data.instructorNote !== "" && (
+          <span
+            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+            className={`text-slate-500 italic font-medium transition-all mt-0.5 ${
+              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5.5px] sm:text-[6.5px]" : "text-[6.5px] sm:text-[8px]"
+            }`}
+          >
+            {data.instructorNote ?? "(Ký và ghi rõ họ tên)"}
+          </span>
+        )}
+      </div>
+
+      {/* LAYER 5: Chữ ký, Chức danh & Ghi chú Đại diện đơn vị (Phải) - Căn chỉnh đối xứng cân bằng cùng độ cao, KHÔNG CÓ CON DẤU ĐỎ, phông Tahoma */}
+      <div className="absolute top-[75.5%] left-[51.8%] w-[23.5%] flex flex-col items-center justify-start pointer-events-none z-10 text-center leading-tight">
+        {/* Tên Người đại diện (trên dòng kẻ) */}
+        <div className="h-[20px] sm:h-[24px] flex items-end justify-center">
+          {data.director && (
+            <span
+              style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+              className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
+                isPrint ? "text-sm sm:text-base" : isSm ? "text-[8px] sm:text-[9px]" : "text-[9.5px] sm:text-xs"
+              }`}
+            >
+              {data.director}
+            </span>
+          )}
         </div>
 
-        <div className="flex items-end justify-between border-t border-[#e5d5b5] pt-2 px-2 sm:px-4 text-left">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 sm:w-11 sm:h-11 bg-white border border-[#c5a059] p-0.5 rounded shadow-sm flex items-center justify-center">
-              <QrCode className="w-full h-full text-slate-800" />
-            </div>
-            <div>
-              <div className="text-[7px] sm:text-[9px] uppercase font-bold text-[#6b7280]">Mã xác thực:</div>
-              <div className="font-mono text-[8px] sm:text-[10px] font-bold text-[#8c6b2d]">
-                {data.certCode || "CERT-THGZ-2026-XXXX"}
-              </div>
-              <div className="text-[7px] sm:text-[9px] text-slate-500">Ngày: {data.issueDate || "20/08/2026"}</div>
-            </div>
-          </div>
+        {/* Chức danh / Vai trò (dưới dòng kẻ) */}
+        <span
+          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all mt-1 sm:mt-1.5 ${
+            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6.5px] sm:text-[7.5px]" : "text-[8px] sm:text-[10px]"
+          }`}
+        >
+          {data.directorTitle ?? "ĐẠI DIỆN ĐƠN VỊ"}
+        </span>
 
-          <div className="hidden sm:flex flex-col items-center">
-            <OfficialRedSeal size="sm" />
-          </div>
-
-          <div className="text-right">
-            <div className="text-[7px] sm:text-[9px] uppercase font-bold text-[#6b7280]">Ban Đào Tạo & Khảo Thí</div>
-            <div className="font-serif italic text-xs sm:text-sm text-[#0f2438] font-bold mt-1">
-              {data.instructor || "Thầy Nguyễn Đình Huy"}
-            </div>
-            <div className="text-[7px] sm:text-[9px] text-[#8c6b2d] font-semibold">MOS Master Trainer</div>
-          </div>
-        </div>
+        {/* Dòng ghi chú dưới chức danh */}
+        {data.directorNote !== "" && (
+          <span
+            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+            className={`text-slate-500 italic font-medium transition-all mt-0.5 ${
+              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5.5px] sm:text-[6.5px]" : "text-[7px] sm:text-[8px]"
+            }`}
+          >
+            {data.directorNote ?? "(Ký và ghi rõ họ tên)"}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -477,11 +563,26 @@ export default function AdminCertificatesPage() {
   const [editingCert, setEditingCert] = useState<CertificateRecord | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
-  // File Upload Ref
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [showUrlInput, setShowUrlInput] = useState(false);
-  const [customUrl, setCustomUrl] = useState("");
+  // Template Manager States
+  const [templates, setTemplates] = useState<CertificateTemplateItem[]>([]);
+  const [isTemplateManagerOpen, setIsTemplateManagerOpen] = useState(false);
+  const [isUploadTemplateModalOpen, setIsUploadTemplateModalOpen] = useState(false);
+  const [deleteConfirmTemplateId, setDeleteConfirmTemplateId] = useState<string | null>(null);
+
+  const [uploadTemplateData, setUploadTemplateData] = useState<{
+    name: string;
+    imageUrl: string;
+    description: string;
+    displayMode: "overlay-template" | "custom-image";
+    isDefault: boolean;
+  }>({
+    name: "",
+    imageUrl: "",
+    description: "",
+    displayMode: "overlay-template",
+    isDefault: false
+  });
+  const templateFileInputRef = useRef<HTMLInputElement>(null);
 
   // Form State for Issuer / Editor (WYSIWYG)
   const [formData, setFormData] = useState<Partial<CertificateRecord>>({
@@ -493,16 +594,111 @@ export default function AdminCertificatesPage() {
     issueDate: new Date().toLocaleDateString("vi-VN"),
     issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
     instructor: "Thầy Nguyễn Đình Huy",
-    instructorTitle: "MOS Master Trainer",
+    instructorTitle: "GIẢNG VIÊN",
+    instructorNote: "(Ký và ghi rõ họ tên)",
     director: "Nguyễn Đình Huy",
-    directorTitle: "Giám Đốc Đào Tạo",
-    showSeal: true,
+    directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
+    directorNote: "(Ký và ghi rõ họ tên)",
+    showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
     imageUrl: "",
-    displayMode: "default",
+    displayMode: "overlay-template",
     note: ""
   });
+
+  // Load Templates from localStorage
+  useEffect(() => {
+    try {
+      const savedTpls = localStorage.getItem(LOCAL_STORAGE_TEMPLATES_KEY);
+      if (savedTpls) {
+        const parsed = JSON.parse(savedTpls);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setTemplates(parsed);
+          return;
+        }
+      }
+    } catch {}
+    setTemplates(DEFAULT_SYSTEM_TEMPLATES);
+  }, []);
+
+  const saveTemplates = (newTemplates: CertificateTemplateItem[]) => {
+    setTemplates(newTemplates);
+    try {
+      localStorage.setItem(LOCAL_STORAGE_TEMPLATES_KEY, JSON.stringify(newTemplates));
+    } catch {}
+  };
+
+  const handleSetDefaultTemplate = (templateId: string) => {
+    const updated = templates.map((t) => ({
+      ...t,
+      isDefault: t.id === templateId
+    }));
+    saveTemplates(updated);
+  };
+
+  const handleDeleteTemplate = (templateId: string) => {
+    const tpl = templates.find((t) => t.id === templateId);
+    if (tpl?.isSystem) {
+      alert("Không thể xóa phôi hệ thống chuẩn của Tin Học Gen Z.");
+      return;
+    }
+    const updated = templates.filter((t) => t.id !== templateId);
+    if (tpl?.isDefault && updated.length > 0) {
+      updated[0].isDefault = true;
+    }
+    saveTemplates(updated);
+    setDeleteConfirmTemplateId(null);
+  };
+
+  const handleSaveNewTemplate = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!uploadTemplateData.imageUrl) {
+      alert("Vui lòng tải lên tệp ảnh phôi chứng nhận.");
+      return;
+    }
+    if (!uploadTemplateData.name.trim()) {
+      alert("Vui lòng đặt tên cho mẫu phôi chứng nhận.");
+      return;
+    }
+
+    const newTemplateId = `tpl-${Date.now()}`;
+    const newTpl: CertificateTemplateItem = {
+      id: newTemplateId,
+      name: uploadTemplateData.name.trim(),
+      imageUrl: uploadTemplateData.imageUrl,
+      description: uploadTemplateData.description.trim() || "Khung phôi chứng nhận tự tải lên",
+      displayMode: uploadTemplateData.displayMode,
+      isDefault: uploadTemplateData.isDefault,
+      isSystem: false,
+      createdAt: new Date().toLocaleDateString("vi-VN")
+    };
+
+    let updatedTemplates = [...templates];
+    if (uploadTemplateData.isDefault) {
+      updatedTemplates = updatedTemplates.map((t) => ({ ...t, isDefault: false }));
+    }
+    updatedTemplates.push(newTpl);
+    saveTemplates(updatedTemplates);
+
+    setUploadTemplateData({
+      name: "",
+      imageUrl: "",
+      description: "",
+      displayMode: "overlay-template",
+      isDefault: false
+    });
+    setIsUploadTemplateModalOpen(false);
+
+    if (isIssuerOpen) {
+      setFormData((prev) => ({
+        ...prev,
+        templateType: newTemplateId,
+        imageUrl: newTpl.imageUrl,
+        displayMode: newTpl.displayMode
+      }));
+    }
+  };
 
   // Load from localStorage or initial dataset
   useEffect(() => {
@@ -536,8 +732,8 @@ export default function AdminCertificatesPage() {
   // Open Issuer Modal for creating new cert
   const handleOpenNewIssuer = () => {
     setEditingCert(null);
-    setShowUrlInput(false);
-    setCustomUrl("");
+    const defaultTpl = templates.find((t) => t.isDefault) || templates[0];
+    const defaultType = defaultTpl?.id || "tinhocgenz-official";
     setFormData({
       studentName: "",
       exam: "MOS Excel 2019 Associate",
@@ -547,14 +743,16 @@ export default function AdminCertificatesPage() {
       issueDate: new Date().toLocaleDateString("vi-VN"),
       issuer: "CÔNG TY TNHH PH – TIN HỌC GEN Z",
       instructor: "Thầy Nguyễn Đình Huy",
-      instructorTitle: "MOS Master Trainer",
+      instructorTitle: "GIẢNG VIÊN",
+      instructorNote: "(Ký và ghi rõ họ tên)",
       director: "Nguyễn Đình Huy",
-      directorTitle: "Giám Đốc Đào Tạo",
-      showSeal: true,
+      directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
+      directorNote: "(Ký và ghi rõ họ tên)",
+      showSeal: false,
       status: "Hợp lệ",
-      templateType: "tinhocgenz-official",
-      imageUrl: "",
-      displayMode: "default",
+      templateType: defaultType,
+      imageUrl: defaultTpl?.imageUrl || "",
+      displayMode: defaultTpl?.displayMode || "overlay-template",
       note: ""
     });
     setIsIssuerOpen(true);
@@ -563,45 +761,19 @@ export default function AdminCertificatesPage() {
   // Open Issuer Modal for editing existing cert
   const handleOpenEdit = (cert: CertificateRecord) => {
     setEditingCert(cert);
-    setShowUrlInput(false);
-    setCustomUrl(cert.imageUrl || "");
     setFormData({
       ...cert,
+      instructor: cert.instructor || "Thầy Nguyễn Đình Huy",
+      instructorTitle: cert.instructorTitle ?? "GIẢNG VIÊN",
+      instructorNote: cert.instructorNote ?? "(Ký và ghi rõ họ tên)",
+      director: cert.director || "Nguyễn Đình Huy",
+      directorTitle: cert.directorTitle ?? "ĐẠI DIỆN ĐƠN VỊ",
+      directorNote: cert.directorNote ?? "(Ký và ghi rõ họ tên)",
       templateType: cert.templateType || (cert.imageUrl ? "custom-image" : "tinhocgenz-official"),
-      displayMode: cert.displayMode || (cert.imageUrl ? "custom-image" : "default"),
-      showSeal: cert.showSeal !== false
+      displayMode: cert.displayMode || (cert.imageUrl ? "custom-image" : "overlay-template"),
+      showSeal: false
     });
     setIsIssuerOpen(true);
-  };
-
-  // Handle File Upload from Device
-  const handleFileChange = (file: File) => {
-    if (!file) return;
-
-    if (file.size > 8 * 1024 * 1024) {
-      alert("Vui lòng chọn tệp ảnh có dung lượng dưới 8MB để hệ thống lưu trữ tối ưu.");
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const dataUrl = e.target?.result as string;
-      setFormData((prev) => ({
-        ...prev,
-        imageUrl: dataUrl,
-        templateType: "custom-image",
-        displayMode: prev.displayMode || "custom-image"
-      }));
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFileChange(e.dataTransfer.files[0]);
-    }
   };
 
   // Save (Create or Update)
@@ -614,7 +786,7 @@ export default function AdminCertificatesPage() {
 
     if (editingCert) {
       const updated = certs.map((c) =>
-        c.id === editingCert.id ? ({ ...c, ...formData } as CertificateRecord) : c
+        c.id === editingCert.id ? ({ ...c, ...formData, showSeal: false } as CertificateRecord) : c
       );
       saveCerts(updated);
     } else {
@@ -627,15 +799,17 @@ export default function AdminCertificatesPage() {
         certCode: formData.certCode || `CERT-THGZ-2026-${Math.floor(1000 + Math.random() * 9000)}`,
         issueDate: formData.issueDate || new Date().toLocaleDateString("vi-VN"),
         issuer: formData.issuer || "CÔNG TY TNHH PH – TIN HỌC GEN Z",
-        instructor: formData.instructor || "Thầy Nguyễn Đình Huy",
-        instructorTitle: formData.instructorTitle || "MOS Master Trainer",
-        director: formData.director || "Nguyễn Đình Huy",
-        directorTitle: formData.directorTitle || "Giám Đốc Đào Tạo",
-        showSeal: formData.showSeal !== false,
+        instructor: formData.instructor?.trim() || "Thầy Nguyễn Đình Huy",
+        instructorTitle: formData.instructorTitle?.trim() || "GIẢNG VIÊN",
+        instructorNote: formData.instructorNote !== undefined ? formData.instructorNote.trim() : "(Ký và ghi rõ họ tên)",
+        director: formData.director?.trim() || "Nguyễn Đình Huy",
+        directorTitle: formData.directorTitle?.trim() || "ĐẠI DIỆN ĐƠN VỊ",
+        directorNote: formData.directorNote !== undefined ? formData.directorNote.trim() : "(Ký và ghi rõ họ tên)",
+        showSeal: false,
         status: (formData.status as any) || "Hợp lệ",
         templateType: formData.templateType || "tinhocgenz-official",
         imageUrl: formData.imageUrl || undefined,
-        displayMode: formData.imageUrl ? (formData.displayMode || "custom-image") : "default",
+        displayMode: formData.displayMode || "overlay-template",
         note: formData.note || ""
       };
       saveCerts([newCert, ...certs]);
@@ -651,26 +825,9 @@ export default function AdminCertificatesPage() {
     setDeleteConfirmId(null);
   };
 
-  // Print Action
-  const handlePrint = () => {
-    window.print();
-  };
-
-  // Download Action
-  const handleDownloadImage = (cert: CertificateRecord) => {
-    if (cert.imageUrl) {
-      const link = document.createElement("a");
-      link.href = cert.imageUrl;
-      link.download = `Chung_Chi_${cert.studentName.replace(/\s+/g, "_")}_${cert.certCode}.png`;
-      link.click();
-    } else {
-      window.print();
-    }
-  };
-
   // Export CSV Action
   const handleExportCSV = () => {
-    const headers = ["Mã Chứng Chỉ", "Học Viên", "Khóa Học", "Điểm Số", "Ngày Cấp", "Giảng Viên", "Trạng Thái"];
+    const headers = ["Mã Chứng Chỉ", "Học Viên", "Khóa Học", "Điểm Số", "Ngày Cấp", "Giảng Viên", "Đại Diện", "Trạng Thái"];
     const rows = certs.map((c) => [
       c.certCode,
       `"${c.studentName}"`,
@@ -678,6 +835,7 @@ export default function AdminCertificatesPage() {
       c.score,
       c.issueDate,
       `"${c.instructor}"`,
+      `"${c.director || ''}"`,
       c.status
     ]);
     const csvContent = "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
@@ -704,9 +862,13 @@ export default function AdminCertificatesPage() {
       return false;
     }
 
-    if (filterTemplate === "OFFICIAL" && c.templateType !== "tinhocgenz-official") return false;
-    if (filterTemplate === "GOLD" && c.templateType !== "certiport-gold") return false;
-    if (filterTemplate === "CUSTOM" && c.templateType !== "custom-image") return false;
+    if (filterTemplate !== "ALL") {
+      if (filterTemplate === "CUSTOM") {
+        if (c.templateType !== "custom-image") return false;
+      } else {
+        if (c.templateType !== filterTemplate) return false;
+      }
+    }
 
     return true;
   });
@@ -732,11 +894,20 @@ export default function AdminCertificatesPage() {
             Hệ Thống Cấp & Quản Lý Giấy Chứng Nhận
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
-            Phân hệ cấp phát chứng chỉ số độc quyền Tin Học Gen Z, hỗ trợ phôi chuẩn mới của công ty, xem trước định hình trực quan, in ấn khổ A4 ngang và tra cứu bảo mật.
+            Phân hệ cấp phát chứng chỉ độc quyền Tin Học Gen Z, tự do tùy biến chữ chân bằng (giảng viên, đại diện cty), quản lý kho phôi tải lên và xóa phôi linh hoạt mà không cần lập trình viên.
           </p>
         </div>
 
         <div className="relative z-10 flex flex-wrap items-center gap-3 shrink-0">
+          <button
+            type="button"
+            onClick={() => setIsTemplateManagerOpen(true)}
+            className="px-4 py-3 rounded-2xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md"
+          >
+            <Layers size={16} className="text-amber-400" />
+            <span>Kho Phôi Chứng Nhận ({templates.length})</span>
+          </button>
+
           <button
             type="button"
             onClick={handleExportCSV}
@@ -768,7 +939,8 @@ export default function AdminCertificatesPage() {
           </div>
           <div className="text-2xl sm:text-3xl font-black text-white mt-2 font-display">{totalCerts}</div>
           <div className="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1">
-            <CheckCircle2 size={12} /> 100% Hồ sơ hợp lệ
+            <CheckCircle2 size={13} />
+            <span>100% Lưu trữ bảo mật</span>
           </div>
         </div>
 
@@ -780,20 +952,18 @@ export default function AdminCertificatesPage() {
             </div>
           </div>
           <div className="text-2xl sm:text-3xl font-black text-amber-300 mt-2 font-display">{perfectScoreCount}</div>
-          <div className="text-[11px] text-slate-400 font-medium mt-1">
-            Chiếm <strong className="text-amber-400">{perfectRate}%</strong> tổng học viên
-          </div>
+          <div className="text-[11px] text-amber-400/90 font-medium mt-1">Học viên xuất sắc</div>
         </div>
 
         <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-md">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Phôi Tin Học Gen Z</span>
-            <div className="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center">
-              <BadgeCheck size={16} />
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Kho Khung / Phôi</span>
+            <div className="w-8 h-8 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center">
+              <Layers size={16} />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-indigo-300 mt-2 font-display">{officialTemplateCount}</div>
-          <div className="text-[11px] text-slate-400 font-medium mt-1">Phôi chuẩn nhận diện mới</div>
+          <div className="text-2xl sm:text-3xl font-black text-purple-400 mt-2 font-display">{templates.length}</div>
+          <div className="text-[11px] text-slate-400 font-medium mt-1">Mẫu phôi sẵn sàng</div>
         </div>
 
         <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-md">
@@ -868,7 +1038,7 @@ export default function AdminCertificatesPage() {
               { label: "MOS Word", value: "mos-word" },
               { label: "MOS PPT", value: "mos-ppt" },
               { label: "IC3 GS6", value: "ic3" },
-              { label: "📷 Có ảnh riêng", value: "HAS_IMAGE" },
+              { label: "📷 Có ảnh riêng", value: "HAS_IMAGE" }
             ].map((tab) => (
               <button
                 key={tab.value}
@@ -893,9 +1063,12 @@ export default function AdminCertificatesPage() {
               className="bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-blue-500 font-medium"
             >
               <option value="ALL">Tất cả mẫu phôi</option>
-              <option value="OFFICIAL">Phôi Tin Học Gen Z (Mới)</option>
-              <option value="GOLD">Phôi Certiport Vàng Kim</option>
-              <option value="CUSTOM">Ảnh Tải Lên Riêng</option>
+              {templates.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name}
+                </option>
+              ))}
+              <option value="CUSTOM">Ảnh Riêng</option>
             </select>
           </div>
         </div>
@@ -912,7 +1085,7 @@ export default function AdminCertificatesPage() {
           <button
             type="button"
             onClick={handleOpenNewIssuer}
-            className="mt-4 px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-500 transition-colors"
+            className="mt-4 px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-500 transition-colors cursor-pointer"
           >
             Cấp Chứng Nhận Ngay
           </button>
@@ -920,119 +1093,115 @@ export default function AdminCertificatesPage() {
       ) : viewMode === "gallery" ? (
         /* GALLERY VIEW */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCerts.map((cert) => (
-            <div
-              key={cert.id}
-              className="rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/40 overflow-hidden shadow-xl flex flex-col justify-between transition-all group hover:-translate-y-1 hover:shadow-2xl"
-            >
+          {filteredCerts.map((cert) => {
+            const matchedTpl = templates.find((t) => t.id === cert.templateType);
+            return (
               <div
-                onClick={() => setPreviewCert(cert)}
-                className="p-3 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800 cursor-pointer relative group/preview"
-                title="Bấm để phóng to xem đầy đủ giấy chứng nhận"
+                key={cert.id}
+                className="rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/40 overflow-hidden shadow-xl flex flex-col justify-between transition-all group hover:-translate-y-1 hover:shadow-2xl"
               >
-                <div className="relative transform group-hover/preview:scale-[1.01] transition-transform">
-                  <CertificateVisual data={cert} size="sm" />
+                <div
+                  onClick={() => setPreviewCert(cert)}
+                  className="p-3 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800 cursor-pointer relative group/preview"
+                  title="Bấm để phóng to xem đầy đủ giấy chứng nhận"
+                >
+                  <div className="relative transform group-hover/preview:scale-[1.01] transition-transform">
+                    <CertificateVisual data={cert} size="sm" templates={templates} />
 
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs backdrop-blur-[1px]">
-                    <ZoomIn size={16} />
-                    <span>Xem Phóng To Bằng</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-bold text-blue-400 flex items-center gap-1 truncate">
-                      <ShieldCheck size={13} className="shrink-0" />
-                      <span className="truncate">{cert.issuer}</span>
-                    </span>
-
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {cert.templateType === "tinhocgenz-official" && (
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                          Phôi THGZ
-                        </span>
-                      )}
-                      {cert.imageUrl && (
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-                          <ImageIcon size={10} /> Ảnh riêng
-                        </span>
-                      )}
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                          cert.status === "Hợp lệ"
-                            ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
-                            : "bg-amber-500/15 text-amber-300 border-amber-500/30"
-                        }`}
-                      >
-                        {cert.status}
-                      </span>
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs backdrop-blur-[1px]">
+                      <ZoomIn size={16} />
+                      <span>Xem Phóng To Bằng</span>
                     </div>
                   </div>
+                </div>
 
-                  <h3 className="text-lg font-black text-white tracking-tight font-display">
-                    {cert.studentName}
-                  </h3>
-                  <p className="text-xs text-blue-400 font-bold mt-0.5">{cert.exam}</p>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <span className="text-[10px] font-bold text-blue-400 flex items-center gap-1 truncate">
+                        <ShieldCheck size={13} className="shrink-0" />
+                        <span className="truncate">{cert.issuer}</span>
+                      </span>
 
-                  <div className="mt-3 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-2">
-                    <div className="truncate">
-                      <div className="text-[9px] text-slate-500 font-bold uppercase">Mã Tra Cứu Số</div>
-                      <div className="font-mono text-xs font-bold text-amber-300 truncate">
-                        {cert.certCode}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                          {matchedTpl?.name ? matchedTpl.name.split(" ")[0] + "..." : "Phôi Chuẩn"}
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                            cert.status === "Hợp lệ"
+                              ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
+                              : "bg-amber-500/15 text-amber-300 border-amber-500/30"
+                          }`}
+                        >
+                          {cert.status}
+                        </span>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => handleCopy(cert.certCode)}
-                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
-                      title="Sao chép mã chứng chỉ"
-                    >
-                      {copiedCode === cert.certCode ? (
-                        <CheckCheck size={14} className="text-emerald-400" />
-                      ) : (
-                        <Copy size={14} />
-                      )}
-                    </button>
+
+                    <h3 className="text-lg font-black text-white tracking-tight font-display">
+                      {cert.studentName}
+                    </h3>
+                    <p className="text-xs text-blue-400 font-bold mt-0.5">{cert.exam}</p>
+
+                    <div className="mt-3 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-2">
+                      <div className="truncate">
+                        <div className="text-[9px] text-slate-500 font-bold uppercase">Mã Tra Cứu Số</div>
+                        <div className="font-mono text-xs font-bold text-amber-300 truncate">
+                          {cert.certCode}
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleCopy(cert.certCode)}
+                        className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                        title="Sao chép mã chứng chỉ"
+                      >
+                        {copiedCode === cert.certCode ? (
+                          <CheckCheck size={14} className="text-emerald-400" />
+                        ) : (
+                          <Copy size={14} />
+                        )}
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                  <span className="text-slate-400 text-[11px]">Ngày: {cert.issueDate}</span>
+                  <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                    <span className="text-slate-400 text-[11px]">Ngày: {cert.issueDate}</span>
 
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={() => setPreviewCert(cert)}
-                      className="p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                      title="Xem phóng to bằng"
-                    >
-                      <Eye size={14} />
-                    </button>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => setPreviewCert(cert)}
+                        className="p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                        title="Xem phóng to bằng"
+                      >
+                        <Eye size={14} />
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => handleOpenEdit(cert)}
-                      className="p-2 rounded-xl bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                      title="Sửa thông tin hoặc đổi phôi bằng"
-                    >
-                      <Edit3 size={14} />
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenEdit(cert)}
+                        className="p-2 rounded-xl bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                        title="Sửa thông tin hoặc đổi phôi bằng"
+                      >
+                        <Edit3 size={14} />
+                      </button>
 
-                    <button
-                      type="button"
-                      onClick={() => setDeleteConfirmId(cert.id)}
-                      className="p-2 rounded-xl bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                      title="Xóa chứng chỉ"
-                    >
-                      <Trash2 size={14} />
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => setDeleteConfirmId(cert.id)}
+                        className="p-2 rounded-xl bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                        title="Xóa chứng chỉ"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         /* TABLE VIEW */
@@ -1052,91 +1221,90 @@ export default function AdminCertificatesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 font-medium">
-                {filteredCerts.map((cert) => (
-                  <tr key={cert.id} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="px-4 py-3">
-                      <div className="font-bold text-white text-sm">{cert.studentName}</div>
-                      <div className="text-[10px] text-slate-500">{cert.instructor}</div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="text-blue-400 font-semibold">{cert.exam}</div>
-                    </td>
-                    <td className="px-4 py-3 text-center">
-                      <span
-                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-bold font-mono text-xs ${
-                          cert.score === 1000
-                            ? "bg-amber-500/15 text-amber-300 border border-amber-500/30"
-                            : "bg-blue-500/15 text-blue-300 border border-blue-500/30"
-                        }`}
-                      >
-                        {cert.score === 1000 && <Medal size={11} className="text-amber-400" />}
-                        {cert.score}/1000
-                      </span>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="font-mono text-xs text-amber-300 flex items-center gap-1.5">
-                        <span>{cert.certCode}</span>
-                        <button
-                          type="button"
-                          onClick={() => handleCopy(cert.certCode)}
-                          className="text-slate-500 hover:text-white p-0.5"
-                          title="Sao chép"
+                {filteredCerts.map((cert) => {
+                  const matchedTpl = templates.find((t) => t.id === cert.templateType);
+                  return (
+                    <tr key={cert.id} className="hover:bg-slate-800/40 transition-colors">
+                      <td className="px-4 py-3">
+                        <div className="font-bold text-white text-sm">{cert.studentName}</div>
+                        <div className="text-[10px] text-slate-500">{cert.instructor}</div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="text-blue-400 font-semibold">{cert.exam}</div>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        <span
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full font-bold font-mono text-xs ${
+                            cert.score === 1000
+                              ? "bg-amber-500/15 text-amber-300 border border-amber-500/30"
+                              : "bg-blue-500/15 text-blue-300 border border-blue-500/30"
+                          }`}
                         >
-                          {copiedCode === cert.certCode ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
-                        </button>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3">
-                      <span className="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">
-                        {cert.templateType === "tinhocgenz-official"
-                          ? "Phôi THGZ"
-                          : cert.imageUrl
-                          ? "Ảnh riêng"
-                          : "Certiport Gold"}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-slate-400 text-[11px]">{cert.issueDate}</td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                          cert.status === "Hợp lệ"
-                            ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
-                            : "bg-amber-500/15 text-amber-300 border-amber-500/30"
-                        }`}
-                      >
-                        {cert.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <button
-                          type="button"
-                          onClick={() => setPreviewCert(cert)}
-                          className="p-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition-colors"
-                          title="Xem phóng to"
+                          {cert.score === 1000 && <Medal size={11} className="text-amber-400" />}
+                          {cert.score}/1000
+                        </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="font-mono text-xs text-amber-300 flex items-center gap-1.5">
+                          <span>{cert.certCode}</span>
+                          <button
+                            type="button"
+                            onClick={() => handleCopy(cert.certCode)}
+                            className="text-slate-500 hover:text-white p-0.5 cursor-pointer"
+                            title="Sao chép"
+                          >
+                            {copiedCode === cert.certCode ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
+                          </button>
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-semibold">
+                          {matchedTpl?.name || (cert.templateType === "tinhocgenz-official" ? "Phôi THGZ" : "Certiport")}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-slate-400 text-[11px]">{cert.issueDate}</td>
+                      <td className="px-4 py-3">
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                            cert.status === "Hợp lệ"
+                              ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
+                              : "bg-amber-500/15 text-amber-300 border-amber-500/30"
+                          }`}
                         >
-                          <Eye size={13} />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleOpenEdit(cert)}
-                          className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white transition-colors"
-                          title="Sửa thông tin"
-                        >
-                          <Edit3 size={13} />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setDeleteConfirmId(cert.id)}
-                          className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors"
-                          title="Xóa"
-                        >
-                          <Trash2 size={13} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                          {cert.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <button
+                            type="button"
+                            onClick={() => setPreviewCert(cert)}
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                            title="Xem phóng to"
+                          >
+                            <Eye size={13} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleOpenEdit(cert)}
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                            title="Sửa thông tin"
+                          >
+                            <Edit3 size={13} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setDeleteConfirmId(cert.id)}
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                            title="Xóa"
+                          >
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -1148,42 +1316,26 @@ export default function AdminCertificatesPage() {
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full p-5 sm:p-8 shadow-2xl relative my-auto">
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-2xl bg-blue-500/15 text-blue-400 flex items-center justify-center">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
                   <Award size={20} />
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-lg font-black text-white">Giấy Chứng Nhận Hoàn Thành Khóa Học</h3>
+                  <h3 className="text-base sm:text-lg font-black text-white">Xem Trước & In Giấy Chứng Nhận</h3>
                   <p className="text-xs text-slate-400">
-                    {previewCert.templateType === "tinhocgenz-official"
-                      ? "Phôi chính thức CÔNG TY TNHH PH – TIN HỌC GEN Z"
-                      : previewCert.imageUrl
-                      ? "Ảnh bằng chứng nhận riêng đã tải lên"
-                      : "Chứng chỉ quốc tế chuẩn Certiport"}
+                    Mẫu chứng chỉ chính thức của Tin Học Gen Z, sẵn sàng in khổ A4 ngang hoặc tải về
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                {previewCert.imageUrl && (
-                  <button
-                    type="button"
-                    onClick={() => handleDownloadImage(previewCert)}
-                    className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-                    title="Tải ảnh về máy"
-                  >
-                    <Download size={14} />
-                    <span className="hidden sm:inline">Tải Ảnh Về</span>
-                  </button>
-                )}
-
                 <button
                   type="button"
-                  onClick={handlePrint}
-                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-md shadow-blue-600/20"
+                  onClick={() => window.print()}
+                  className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer"
                 >
-                  <Printer size={14} />
-                  <span>In Bằng (A4 Ngang)</span>
+                  <Printer size={15} />
+                  <span>In Bằng Khổ A4</span>
                 </button>
 
                 <button
@@ -1198,7 +1350,7 @@ export default function AdminCertificatesPage() {
 
             {/* Certificate Canvas Frame */}
             <div id="printable-certificate" className="my-2 shadow-2xl rounded-2xl overflow-hidden flex items-center justify-center bg-black/40 p-2 sm:p-4">
-              <CertificateVisual data={previewCert} size="lg" />
+              <CertificateVisual data={previewCert} size="lg" templates={templates} />
             </div>
 
             <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
@@ -1214,7 +1366,7 @@ export default function AdminCertificatesPage() {
                     setPreviewCert(null);
                     handleOpenEdit(certToEdit);
                   }}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Edit3 size={14} />
                   <span>Sửa thông tin / Đổi phôi</span>
@@ -1222,7 +1374,7 @@ export default function AdminCertificatesPage() {
                 <button
                   type="button"
                   onClick={() => setPreviewCert(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition-colors"
+                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold transition-colors cursor-pointer"
                 >
                   Đóng
                 </button>
@@ -1243,10 +1395,10 @@ export default function AdminCertificatesPage() {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-black text-white font-display">
-                    {editingCert ? "Chỉnh Sửa Chứng Chỉ & Cập Nhật Mẫu Phôi" : "Cấp Giấy Chứng Nhận Khóa Học Mới"}
+                    {editingCert ? "Chỉnh Sửa Chứng Chỉ & Tùy Biến Chân Bằng" : "Cấp Giấy Chứng Nhận Khóa Học Mới"}
                   </h3>
                   <p className="text-xs text-slate-400">
-                    Phôi chính thức Tin Học Gen Z, tự động định hình văn bản theo thời gian thực (WYSIWYG)
+                    Phôi Tin Học Gen Z chuẩn mực, tự do đổi mọi chữ chân bằng (giảng viên, đại diện cty) theo thời gian thực (WYSIWYG)
                   </p>
                 </div>
               </div>
@@ -1260,96 +1412,88 @@ export default function AdminCertificatesPage() {
               </button>
             </div>
 
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                if (e.target.files && e.target.files[0]) {
-                  handleFileChange(e.target.files[0]);
-                }
-              }}
-            />
-
             <div className="p-5 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* LEFT COLUMN: Form (5 Cols) */}
               <form id="cert-form" onSubmit={handleSaveCertificate} className="lg:col-span-5 space-y-4">
                 {/* 1. CHỌN MẪU PHÔI */}
                 <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2.5">
-                  <label className="block text-[11px] font-black uppercase text-blue-400 tracking-wider">
-                    1. Lựa Chọn Mẫu Phôi Chứng Nhận *
-                  </label>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-[11px] font-black uppercase text-blue-400 tracking-wider">
+                      1. Lựa Chọn Mẫu Khung / Phôi Chứng Nhận *
+                    </label>
                     <button
                       type="button"
-                      onClick={() => setFormData({ ...formData, templateType: "tinhocgenz-official" })}
-                      className={`p-2.5 rounded-xl border text-center transition-all flex flex-col items-center gap-1 ${
-                        formData.templateType === "tinhocgenz-official" || !formData.templateType
-                          ? "bg-blue-600/20 border-blue-500 text-white font-bold shadow-md"
-                          : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
-                      }`}
+                      onClick={() => setIsTemplateManagerOpen(true)}
+                      className="text-[10px] text-blue-400 hover:text-blue-300 font-bold flex items-center gap-1 cursor-pointer"
                     >
-                      <BadgeCheck size={16} className="text-blue-400" />
-                      <span className="text-[10px] leading-tight font-black">Phôi THGZ Mới</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setFormData({ ...formData, templateType: "certiport-gold" })}
-                      className={`p-2.5 rounded-xl border text-center transition-all flex flex-col items-center gap-1 ${
-                        formData.templateType === "certiport-gold"
-                          ? "bg-amber-500/20 border-amber-500 text-white font-bold shadow-md"
-                          : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
-                      }`}
-                    >
-                      <Award size={16} className="text-amber-400" />
-                      <span className="text-[10px] leading-tight font-black">Certiport Vàng Kim</span>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFormData({ ...formData, templateType: "custom-image" });
-                        fileInputRef.current?.click();
-                      }}
-                      className={`p-2.5 rounded-xl border text-center transition-all flex flex-col items-center gap-1 ${
-                        formData.templateType === "custom-image"
-                          ? "bg-emerald-600/20 border-emerald-500 text-white font-bold shadow-md"
-                          : "bg-slate-900 border-slate-800 text-slate-400 hover:text-white"
-                      }`}
-                    >
-                      <Upload size={16} className="text-emerald-400" />
-                      <span className="text-[10px] leading-tight font-black">Tải Ảnh Mẫu Riêng</span>
+                      <Layers size={12} />
+                      <span>Kho phôi ({templates.length})</span>
                     </button>
                   </div>
 
-                  {formData.templateType === "custom-image" && (
-                    <div
-                      onDragOver={(e) => {
-                        e.preventDefault();
-                        setIsDragging(true);
-                      }}
-                      onDragLeave={() => setIsDragging(false)}
-                      onDrop={handleDrop}
-                      onClick={() => fileInputRef.current?.click()}
-                      className={`p-3 rounded-xl border-2 border-dashed transition-all text-center cursor-pointer flex flex-col items-center justify-center gap-1.5 ${
-                        formData.imageUrl
-                          ? "border-emerald-500/40 bg-emerald-950/20"
-                          : "border-slate-700 bg-slate-900/60"
-                      }`}
+                  {/* Template Selector Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {templates.map((tpl) => {
+                      const isSelected = formData.templateType === tpl.id;
+                      return (
+                        <button
+                          key={tpl.id}
+                          type="button"
+                          onClick={() => {
+                            setFormData({
+                              ...formData,
+                              templateType: tpl.id,
+                              imageUrl: tpl.imageUrl,
+                              displayMode: tpl.displayMode || "overlay-template"
+                            });
+                          }}
+                          className={`p-2 rounded-xl border text-left transition-all flex flex-col gap-1.5 relative group cursor-pointer ${
+                            isSelected
+                              ? "bg-blue-600/20 border-blue-500 text-white font-bold shadow-md ring-1 ring-blue-500"
+                              : "bg-slate-900/90 border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
+                          }`}
+                        >
+                          <div className="w-full aspect-[1.414/1] rounded-lg bg-slate-950 overflow-hidden border border-slate-800 flex items-center justify-center relative">
+                            {tpl.imageUrl ? (
+                              <img
+                                src={tpl.imageUrl}
+                                alt={tpl.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                              />
+                            ) : (
+                              <div className="flex flex-col items-center justify-center text-amber-400 p-2 text-center">
+                                <Award size={18} />
+                                <span className="text-[8px] font-bold mt-1">Gold SVG</span>
+                              </div>
+                            )}
+                            {tpl.isDefault && (
+                              <span className="absolute top-1 right-1 bg-amber-500 text-slate-950 text-[8px] font-black px-1.5 py-0.5 rounded shadow">
+                                Mặc định
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="truncate w-full">
+                            <div className="text-[10px] font-bold text-white truncate">{tpl.name}</div>
+                            <div className="text-[8.5px] text-slate-400 truncate">
+                              {tpl.isSystem ? "Phôi hệ thống" : "Khung tự tải"}
+                            </div>
+                          </div>
+                        </button>
+                      );
+                    })}
+
+                    {/* Quick upload new template button */}
+                    <button
+                      type="button"
+                      onClick={() => setIsUploadTemplateModalOpen(true)}
+                      className="p-2 rounded-xl border border-dashed border-slate-700 bg-slate-900/40 hover:bg-slate-800/60 text-slate-400 hover:text-blue-400 transition-all flex flex-col items-center justify-center gap-1 cursor-pointer min-h-[90px]"
                     >
-                      {formData.imageUrl ? (
-                        <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
-                          <CheckCircle2 size={14} /> Đã nhận ảnh riêng. Nhấp để chọn ảnh khác.
-                        </div>
-                      ) : (
-                        <div className="text-xs text-slate-300 font-bold flex items-center gap-1.5">
-                          <Upload size={14} /> Kéo thả hoặc bấm để tải ảnh từ máy tính
-                        </div>
-                      )}
-                    </div>
-                  )}
+                      <Plus size={18} className="text-blue-400" />
+                      <span className="text-[10px] font-bold text-center leading-tight">Tải Khung Mới</span>
+                      <span className="text-[8px] text-slate-500 text-center">Lưu vào kho phôi</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* 2. THÔNG TIN HỌC VIÊN */}
@@ -1432,7 +1576,7 @@ export default function AdminCertificatesPage() {
                             certCode: `CERT-THGZ-2026-${Math.floor(1000 + Math.random() * 9000)}`
                           })
                         }
-                        className="text-[10px] text-amber-400 hover:text-amber-300 font-bold"
+                        className="text-[10px] text-amber-400 hover:text-amber-300 font-bold cursor-pointer"
                       >
                         Tạo ngẫu nhiên
                       </button>
@@ -1460,43 +1604,122 @@ export default function AdminCertificatesPage() {
                   </div>
                 </div>
 
-                {/* 4. KÝ DUYỆT & ĐÓNG DẤU */}
-                <div className="space-y-3 pt-2">
-                  <div className="text-[11px] font-black uppercase text-blue-400 tracking-wider">
-                    3. Giảng viên & Ban Giám đốc Ký Duyệt
+                {/* 4. KÝ DUYỆT CHÂN BẰNG - TỰ DO SỬA MỌI CHỮ */}
+                <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="text-[11px] font-black uppercase text-blue-400 tracking-wider flex items-center gap-1.5">
+                      <Edit3 size={13} className="text-blue-400" />
+                      <span>3. Giảng viên & Người Đại Diện Duyệt Chân Bằng</span>
+                    </div>
+                    <span className="text-[9.5px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                      Tự do sửa mọi chữ
+                    </span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1">
-                        Giảng viên ký tên
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.instructor || ""}
-                        onChange={(e) => setFormData({ ...formData, instructor: e.target.value })}
-                        placeholder="Thầy Nguyễn Đình Huy"
-                        className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs"
-                      />
+                  <p className="text-[10px] text-slate-400 leading-relaxed">
+                    💡 Bạn có thể đổi tên giảng viên, chức danh (GIẢNG VIÊN / CHỦ NHIỆM LỚP / MOS MASTER TRAINER...), tên người đại diện và chức danh (ĐẠI DIỆN ĐƠN VỊ / GIÁM ĐỐC TRUNG TÂM / TỔNG GIÁM ĐỐC...) theo nhu cầu thực tế.
+                  </p>
+
+                  {/* TWO COLUMNS: Giảng viên (Trái) & Đại diện (Phải) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    {/* CỘT TRÁI: GIẢNG VIÊN */}
+                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                      <div className="text-[10px] font-bold uppercase text-amber-400 tracking-wide border-b border-slate-800 pb-1 flex items-center justify-between">
+                        <span>Chân Bằng Bên Trái</span>
+                        <span className="text-[9px] text-slate-500 font-normal">Giảng viên / Lớp</span>
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
+                          Họ tên người ký
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.instructor || ""}
+                          onChange={(e) => setFormData({ ...formData, instructor: e.target.value })}
+                          placeholder="VD: Thầy Nguyễn Đình Huy"
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
+                          Chức danh / Nhãn chân bằng
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.instructorTitle || ""}
+                          onChange={(e) => setFormData({ ...formData, instructorTitle: e.target.value })}
+                          placeholder="GIẢNG VIÊN (hoặc CHỦ NHIỆM LỚP...)"
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-amber-300 text-xs font-bold focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 mb-1">
+                          Dòng ghi chú dưới chức danh
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.instructorNote ?? "(Ký và ghi rõ họ tên)"}
+                          onChange={(e) => setFormData({ ...formData, instructorNote: e.target.value })}
+                          placeholder="(Ký và ghi rõ họ tên)"
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[11px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        />
+                      </div>
                     </div>
 
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-300 uppercase mb-1">
-                        Đại diện đơn vị ký
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.director || ""}
-                        onChange={(e) => setFormData({ ...formData, director: e.target.value })}
-                        placeholder="Nguyễn Đình Huy"
-                        className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs"
-                      />
+                    {/* CỘT PHẢI: ĐẠI DIỆN ĐƠN VỊ / CÔNG TY */}
+                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                      <div className="text-[10px] font-bold uppercase text-blue-400 tracking-wide border-b border-slate-800 pb-1 flex items-center justify-between">
+                        <span>Chân Bằng Bên Phải</span>
+                        <span className="text-[9px] text-slate-500 font-normal">Đại diện pháp nhân</span>
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
+                          Họ tên người đại diện
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.director || ""}
+                          onChange={(e) => setFormData({ ...formData, director: e.target.value })}
+                          placeholder="VD: Nguyễn Đình Huy"
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
+                          Chức danh / Nhãn chân bằng
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.directorTitle || ""}
+                          onChange={(e) => setFormData({ ...formData, directorTitle: e.target.value })}
+                          placeholder="ĐẠI DIỆN ĐƠN VỊ (hoặc GIÁM ĐỐC CÔNG TY...)"
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-blue-300 text-xs font-bold focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-slate-400 mb-1">
+                          Dòng ghi chú dưới chức danh
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.directorNote ?? "(Ký và ghi rõ họ tên)"}
+                          onChange={(e) => setFormData({ ...formData, directorNote: e.target.value })}
+                          placeholder="(Ký và ghi rõ họ tên)"
+                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[11px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 pt-1 text-xs text-emerald-400">
-                    <CheckCircle2 size={14} className="shrink-0 text-emerald-400" />
-                    <span>Phông chữ Tahoma chuẩn hóa, căn chỉnh đối xứng cân bằng trang nhã (không sử dụng con dấu đỏ).</span>
+                  <div className="flex items-center gap-2 pt-1 text-[11px] text-emerald-400">
+                    <CheckCircle2 size={13} className="shrink-0 text-emerald-400" />
+                    <span>Phông chữ Tahoma chuẩn hóa, đối xứng cân bằng hoàn hảo, không có con dấu đỏ.</span>
                   </div>
                 </div>
               </form>
@@ -1510,15 +1733,15 @@ export default function AdminCertificatesPage() {
                       <span>Định hình trực quan thời gian thực (WYSIWYG Live Preview):</span>
                     </span>
                     <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-semibold">
-                      {formData.templateType === "tinhocgenz-official" ? "Phôi Tin Học Gen Z mới" : "Phôi tùy chọn"}
+                      Phông Tahoma • Không con dấu
                     </span>
                   </div>
 
                   <div className="p-3 sm:p-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner flex items-center justify-center min-h-[300px]">
-                    <CertificateVisual data={formData} size="md" />
+                    <CertificateVisual data={formData} size="md" templates={templates} />
                   </div>
                   <p className="text-[11px] text-slate-500 text-center mt-2">
-                    💡 Bạn vừa gõ họ tên, điểm số, giảng viên đến đâu - phôi bằng bên cạnh sẽ lập tức cập nhật đến đó theo thời gian thực!
+                    💡 Bạn gõ họ tên, điểm số, giảng viên, chức danh đến đâu - phôi bằng bên cạnh sẽ lập tức cập nhật đến đó theo thời gian thực!
                   </p>
                 </div>
               </div>
@@ -1546,7 +1769,7 @@ export default function AdminCertificatesPage() {
         </div>
       )}
 
-      {/* 7. MODAL: DELETE CONFIRMATION */}
+      {/* 7. MODAL: DELETE CONFIRMATION FOR CERTIFICATE */}
       {deleteConfirmId && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-center">
@@ -1579,6 +1802,358 @@ export default function AdminCertificatesPage() {
           </div>
         </div>
       )}
+
+      {/* 8. MODAL: QUẢN LÝ KHO KHUNG / PHÔI CHỨNG NHẬN (TEMPLATE MANAGER) */}
+      {isTemplateManagerOpen && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col shadow-2xl relative overflow-hidden">
+            {/* Header */}
+            <div className="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between shrink-0 bg-slate-950/70">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-500 flex items-center justify-center text-slate-950 font-black shadow-md">
+                  <Layers size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-black text-white font-display flex items-center gap-2">
+                    <span>Kho Khung & Phôi Chứng Nhận</span>
+                    <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                      {templates.length} Mẫu Khung
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Tự do thêm khung phôi mới, xóa khung cũ, đặt khung mặc định - Không phụ thuộc team lập trình viên
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsUploadTemplateModalOpen(true)}
+                  className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md cursor-pointer"
+                >
+                  <Plus size={15} />
+                  <span>Tải Khung Mới Lên</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setIsTemplateManagerOpen(false)}
+                  className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            </div>
+
+            {/* Content List */}
+            <div className="p-5 sm:p-6 overflow-y-auto flex-1 space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {templates.map((tpl) => (
+                  <div
+                    key={tpl.id}
+                    className={`rounded-2xl border bg-slate-950 overflow-hidden flex flex-col justify-between transition-all ${
+                      tpl.isDefault
+                        ? "border-amber-500/60 shadow-lg shadow-amber-500/10 ring-1 ring-amber-500/40"
+                        : "border-slate-800 hover:border-slate-700"
+                    }`}
+                  >
+                    {/* Thumbnail */}
+                    <div className="w-full aspect-[1.414/1] bg-slate-900 relative overflow-hidden flex items-center justify-center group">
+                      {tpl.imageUrl ? (
+                        <img
+                          src={tpl.imageUrl}
+                          alt={tpl.name}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                        />
+                      ) : (
+                        <div className="flex flex-col items-center justify-center text-amber-400 p-4 text-center">
+                          <Award size={32} />
+                          <span className="text-xs font-bold mt-2">Certiport Gold Layout</span>
+                        </div>
+                      )}
+
+                      {/* Default Badge */}
+                      {tpl.isDefault && (
+                        <div className="absolute top-2 left-2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full shadow-md flex items-center gap-1">
+                          <CheckCircle2 size={11} />
+                          <span>Mặc định</span>
+                        </div>
+                      )}
+
+                      {/* System or Custom Badge */}
+                      <div className="absolute top-2 right-2">
+                        {tpl.isSystem ? (
+                          <span className="bg-blue-500/20 text-blue-300 border border-blue-500/30 text-[9px] font-bold px-1.5 py-0.5 rounded">
+                            Hệ thống
+                          </span>
+                        ) : (
+                          <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[9px] font-bold px-1.5 py-0.5 rounded">
+                            Tự tải lên
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Info & Actions */}
+                    <div className="p-3.5 flex-1 flex flex-col justify-between space-y-3">
+                      <div>
+                        <h4 className="font-bold text-white text-sm truncate">{tpl.name}</h4>
+                        <p className="text-[11px] text-slate-400 line-clamp-2 mt-1">
+                          {tpl.description || "Phôi chứng chỉ"}
+                        </p>
+                      </div>
+
+                      <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between gap-1.5">
+                        {!tpl.isDefault ? (
+                          <button
+                            type="button"
+                            onClick={() => handleSetDefaultTemplate(tpl.id)}
+                            className="text-[10px] font-bold text-amber-400 hover:text-amber-300 hover:underline cursor-pointer"
+                          >
+                            ⭐ Đặt làm mặc định
+                          </button>
+                        ) : (
+                          <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1">
+                            ✓ Đang là mặc định
+                          </span>
+                        )}
+
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setIsTemplateManagerOpen(false);
+                              handleOpenNewIssuer();
+                              setFormData((prev) => ({
+                                ...prev,
+                                templateType: tpl.id,
+                                imageUrl: tpl.imageUrl,
+                                displayMode: tpl.displayMode || "overlay-template"
+                              }));
+                            }}
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                            title="Cấp bằng với phôi này"
+                          >
+                            <Plus size={13} />
+                          </button>
+
+                          {!tpl.isSystem && (
+                            <button
+                              type="button"
+                              onClick={() => setDeleteConfirmTemplateId(tpl.id)}
+                              className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                              title="Xóa phôi này khỏi kho"
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-4 sm:p-5 border-t border-slate-800 bg-slate-950 flex items-center justify-between text-xs text-slate-400 shrink-0">
+              <span>Mọi phôi tải lên được lưu trữ trực tiếp trên thiết bị của bạn.</span>
+              <button
+                type="button"
+                onClick={() => setIsTemplateManagerOpen(false)}
+                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition-colors cursor-pointer"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 9. MODAL: UPLOAD NEW TEMPLATE (TẢI KHUNG MỚI LÊN) */}
+      {isUploadTemplateModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-5 sm:p-6 shadow-2xl relative my-auto space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
+                  <Upload size={18} />
+                </div>
+                <div>
+                  <h3 className="text-base font-black text-white">Tải Khung / Phôi Chứng Nhận Mới</h3>
+                  <p className="text-[11px] text-slate-400">Chọn ảnh phôi từ máy tính để thêm vào kho</p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsUploadTemplateModalOpen(false)}
+                className="p-1.5 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveNewTemplate} className="space-y-3.5">
+              {/* Image Picker / Drop Zone */}
+              <div>
+                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  Tệp ảnh khung phôi * (PNG, JPG, WEBP)
+                </label>
+                <div
+                  onClick={() => templateFileInputRef.current?.click()}
+                  className={`p-4 rounded-2xl border-2 border-dashed transition-all text-center cursor-pointer flex flex-col items-center justify-center gap-2 ${
+                    uploadTemplateData.imageUrl
+                      ? "border-emerald-500/50 bg-emerald-950/20"
+                      : "border-slate-700 bg-slate-950/60 hover:border-blue-500"
+                  }`}
+                >
+                  <input
+                    ref={templateFileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        const file = e.target.files[0];
+                        if (file.size > 8 * 1024 * 1024) {
+                          alert("Vui lòng chọn tệp ảnh có dung lượng dưới 8MB.");
+                          return;
+                        }
+                        const reader = new FileReader();
+                        reader.onload = (ev) => {
+                          const dataUrl = ev.target?.result as string;
+                          setUploadTemplateData((prev) => ({ ...prev, imageUrl: dataUrl }));
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
+
+                  {uploadTemplateData.imageUrl ? (
+                    <div className="w-full space-y-2">
+                      <div className="w-full aspect-[1.414/1] max-h-44 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
+                        <img
+                          src={uploadTemplateData.imageUrl}
+                          alt="Khung xem trước"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <div className="text-xs font-bold text-emerald-400 flex items-center justify-center gap-1.5">
+                        <CheckCircle2 size={14} />
+                        <span>Đã chọn ảnh phôi. Bấm để chọn ảnh khác.</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="py-4 flex flex-col items-center gap-2">
+                      <Upload size={28} className="text-blue-400" />
+                      <div className="text-xs font-bold text-slate-200">
+                        Nhấp để chọn ảnh từ máy tính hoặc kéo thả vào đây
+                      </div>
+                      <div className="text-[10px] text-slate-500">
+                        Khuyến nghị ảnh ngang tỉ lệ 1024x724 hoặc khổ A4 ngang
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Template Name */}
+              <div>
+                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  Tên mẫu khung phôi *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={uploadTemplateData.name}
+                  onChange={(e) => setUploadTemplateData((prev) => ({ ...prev, name: e.target.value }))}
+                  placeholder="VD: Phôi MOS Xanh Dương 2026, Phôi Tin Học Thực Chiến..."
+                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Template Description */}
+              <div>
+                <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">
+                  Mô tả ngắn (tùy chọn)
+                </label>
+                <input
+                  type="text"
+                  value={uploadTemplateData.description}
+                  onChange={(e) => setUploadTemplateData((prev) => ({ ...prev, description: e.target.value }))}
+                  placeholder="VD: Dành cho học viên tốt nghiệp các lớp văn phòng nâng cao..."
+                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Checkbox Default */}
+              <label className="flex items-center gap-2 text-xs text-slate-300 cursor-pointer pt-1">
+                <input
+                  type="checkbox"
+                  checked={uploadTemplateData.isDefault}
+                  onChange={(e) => setUploadTemplateData((prev) => ({ ...prev, isDefault: e.target.checked }))}
+                  className="w-4 h-4 rounded border-slate-700 text-blue-600 focus:ring-blue-500 bg-slate-950"
+                />
+                <span>⭐ Đặt làm khung phôi mặc định cho các chứng chỉ cấp sau này</span>
+              </label>
+
+              <div className="pt-3 border-t border-slate-800 flex items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setIsUploadTemplateModalOpen(false)}
+                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-black shadow-lg shadow-blue-600/30 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+                >
+                  <Check size={14} />
+                  <span>Lưu Vào Kho Phôi</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 10. MODAL: DELETE CONFIRMATION FOR TEMPLATE */}
+      {deleteConfirmTemplateId && (
+        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-center">
+            <div className="w-12 h-12 rounded-2xl bg-rose-500/15 text-rose-400 flex items-center justify-center mx-auto mb-4">
+              <Trash2 size={24} />
+            </div>
+
+            <h3 className="text-lg font-black text-white">Xác Nhận Xóa Khung Phôi Này?</h3>
+            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+              Bạn có chắc chắn muốn xóa mẫu khung phôi này khỏi kho lưu trữ không? Thao tác này sẽ gỡ mẫu khung khỏi danh sách lựa chọn.
+            </p>
+
+            <div className="mt-6 flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirmTemplateId(null)}
+                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+              >
+                Hủy bỏ
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handleDeleteTemplate(deleteConfirmTemplateId)}
+                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-colors cursor-pointer shadow-lg shadow-rose-600/25"
+              >
+                Xác Nhận Xóa Khung
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Print stylesheet for standard A4 landscape certificate printing */}
       <style dangerouslySetInnerHTML={{ __html: `
         @media print {
