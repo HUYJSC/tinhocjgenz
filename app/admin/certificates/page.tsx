@@ -26,7 +26,12 @@ import {
   Share2,
   RotateCcw,
   Upload,
-  CheckCheck
+  CheckCheck,
+  Image as ImageIcon,
+  Camera,
+  Link2,
+  FileCheck,
+  ZoomIn
 } from "lucide-react";
 
 export interface CertificateRecord {
@@ -41,6 +46,7 @@ export interface CertificateRecord {
   instructor: string;
   status: "Hợp lệ" | "Chờ xác thực" | "Đã thu hồi";
   imageUrl?: string;
+  displayMode?: "custom-image" | "overlay-template" | "default";
   note?: string;
 }
 
@@ -55,7 +61,8 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "20/08/2026",
     issuer: "Certiport Official / IIG Vietnam",
     instructor: "Thầy Nguyễn Đình Huy (MOS Master)",
-    status: "Hợp lệ"
+    status: "Hợp lệ",
+    displayMode: "default"
   },
   {
     id: "cert-2",
@@ -67,7 +74,8 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "18/08/2026",
     issuer: "Certiport Official / IIG Vietnam",
     instructor: "Thầy Lê Văn Minh (IC3 Trainer)",
-    status: "Hợp lệ"
+    status: "Hợp lệ",
+    displayMode: "default"
   },
   {
     id: "cert-3",
@@ -79,7 +87,8 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "15/08/2026",
     issuer: "Certiport Official / IIG Vietnam",
     instructor: "Thầy Nguyễn Đình Huy (MOS Master)",
-    status: "Hợp lệ"
+    status: "Hợp lệ",
+    displayMode: "default"
   },
   {
     id: "cert-4",
@@ -91,7 +100,8 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "10/08/2026",
     issuer: "Certiport Official / IIG Vietnam",
     instructor: "Cô Hoàng Mai (MOS Specialist)",
-    status: "Hợp lệ"
+    status: "Hợp lệ",
+    displayMode: "default"
   },
   {
     id: "cert-5",
@@ -103,7 +113,8 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "05/08/2026",
     issuer: "Certiport Official / IIG Vietnam",
     instructor: "Thầy Nguyễn Đình Huy (MOS Master)",
-    status: "Hợp lệ"
+    status: "Hợp lệ",
+    displayMode: "default"
   },
   {
     id: "cert-6",
@@ -115,13 +126,16 @@ const INITIAL_CERTIFICATES: CertificateRecord[] = [
     issueDate: "01/08/2026",
     issuer: "Certiport Official / IIG Vietnam",
     instructor: "Thầy Nguyễn Đình Huy (MOS Master)",
-    status: "Hợp lệ"
+    status: "Hợp lệ",
+    displayMode: "default"
   }
 ];
 
-const LOCAL_STORAGE_KEY = "tinhocgenz_admin_certificates_v1";
+const LOCAL_STORAGE_KEY = "tinhocgenz_admin_certificates_v2";
 
-// Visual Certificate Template Component (Khung phôi Giấy Chứng Nhận)
+/**
+ * Visual Certificate Component (Hiển thị phôi chuẩn HOẶC ảnh riêng đã tải lên)
+ */
 function CertificateVisual({
   data,
   size = "md",
@@ -134,15 +148,58 @@ function CertificateVisual({
   const isPrint = size === "print";
   const isSm = size === "sm";
 
+  // CASE 1: Custom Uploaded Image Mode (Hiển thị ảnh riêng do người dùng tải lên)
+  if (data.imageUrl && data.displayMode !== "overlay-template") {
+    return (
+      <div
+        className={`relative select-none overflow-hidden rounded-xl border-4 border-[#c5a059] bg-slate-950 text-white shadow-xl font-sans flex items-center justify-center transition-all ${
+          isPrint
+            ? "w-full aspect-[1.414/1] p-4 bg-white"
+            : isSm
+            ? "w-full aspect-[1.45/1] p-1.5"
+            : "w-full aspect-[1.45/1] p-3 sm:p-4"
+        } ${className}`}
+      >
+        {/* Actual Uploaded Certificate Image */}
+        <img
+          src={data.imageUrl}
+          alt={`Giấy chứng nhận của ${data.studentName || "học viên"}`}
+          className="w-full h-full object-contain rounded-lg shadow-md"
+        />
+
+        {/* Floating Verified & Score Badges */}
+        <div className="absolute top-2.5 right-2.5 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black px-2.5 py-0.5 shadow-lg rounded-full text-[9px] sm:text-[11px] uppercase tracking-wider flex items-center gap-1">
+          <Medal size={11} className="text-slate-950" />
+          <span>{data.score || 1000}/1000 ĐIỂM</span>
+        </div>
+
+        <div className="absolute bottom-2.5 left-2.5 bg-black/70 backdrop-blur-md border border-white/20 text-white font-mono font-bold px-2 py-0.5 rounded text-[8px] sm:text-[10px]">
+          {data.certCode || "CERT-MOS-2026"}
+        </div>
+      </div>
+    );
+  }
+
+  // CASE 2: Overlay Mode (Dùng ảnh tải lên làm hình nền phôi, in thông tin đè lên)
+  const bgStyle =
+    data.imageUrl && data.displayMode === "overlay-template"
+      ? {
+          backgroundImage: `url(${data.imageUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }
+      : {
+          backgroundImage: "radial-gradient(#e8dfcf 1px, transparent 1px)",
+          backgroundSize: isSm ? "12px 12px" : "18px 18px",
+        };
+
+  // CASE 3: Built-in Official Gold / Navy Template
   return (
     <div
       className={`relative select-none overflow-hidden rounded-xl border-4 border-[#c5a059] bg-[#fcfbfa] text-slate-900 shadow-xl font-sans transition-all ${
         isPrint ? "w-full aspect-[1.414/1] p-10" : isSm ? "w-full aspect-[1.45/1] p-3 text-[10px]" : "w-full aspect-[1.45/1] p-6 sm:p-8 text-xs"
       } ${className}`}
-      style={{
-        backgroundImage: "radial-gradient(#e8dfcf 1px, transparent 1px)",
-        backgroundSize: isSm ? "12px 12px" : "18px 18px"
-      }}
+      style={bgStyle}
     >
       {/* Decorative Gold Inner Border */}
       <div className="absolute inset-1.5 sm:inset-2.5 border-2 border-[#d8b878] pointer-events-none rounded-lg" />
@@ -248,9 +305,15 @@ export default function AdminCertificatesPage() {
   const [editingCert, setEditingCert] = useState<CertificateRecord | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
+  // File Upload Ref
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [showUrlInput, setShowUrlInput] = useState(false);
+  const [customUrl, setCustomUrl] = useState("");
+
   // Form State for Issuer / Editor (WYSIWYG)
   const [formData, setFormData] = useState<Partial<CertificateRecord>>({
-    studentName: "Nguyễn Văn A",
+    studentName: "",
     exam: "MOS Excel 2019 Associate",
     examType: "mos-excel",
     score: 1000,
@@ -259,6 +322,8 @@ export default function AdminCertificatesPage() {
     issuer: "Certiport Official / IIG Vietnam",
     instructor: "Thầy Nguyễn Đình Huy (MOS Master)",
     status: "Hợp lệ",
+    imageUrl: "",
+    displayMode: "custom-image",
     note: ""
   });
 
@@ -294,6 +359,8 @@ export default function AdminCertificatesPage() {
   // Open Issuer Modal for creating new cert
   const handleOpenNewIssuer = () => {
     setEditingCert(null);
+    setShowUrlInput(false);
+    setCustomUrl("");
     setFormData({
       studentName: "",
       exam: "MOS Excel 2019 Associate",
@@ -304,6 +371,8 @@ export default function AdminCertificatesPage() {
       issuer: "Certiport Official / IIG Vietnam",
       instructor: "Thầy Nguyễn Đình Huy (MOS Master)",
       status: "Hợp lệ",
+      imageUrl: "",
+      displayMode: "custom-image",
       note: ""
     });
     setIsIssuerOpen(true);
@@ -312,8 +381,43 @@ export default function AdminCertificatesPage() {
   // Open Issuer Modal for editing existing cert
   const handleOpenEdit = (cert: CertificateRecord) => {
     setEditingCert(cert);
-    setFormData({ ...cert });
+    setShowUrlInput(false);
+    setCustomUrl(cert.imageUrl || "");
+    setFormData({
+      ...cert,
+      displayMode: cert.displayMode || (cert.imageUrl ? "custom-image" : "default")
+    });
     setIsIssuerOpen(true);
+  };
+
+  // Handle File Upload from Device
+  const handleFileChange = (file: File) => {
+    if (!file) return;
+
+    // Check size <= 8MB
+    if (file.size > 8 * 1024 * 1024) {
+      alert("Vui lòng chọn tệp ảnh có dung lượng dưới 8MB để hệ thống lưu trữ tối ưu.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target?.result as string;
+      setFormData((prev) => ({
+        ...prev,
+        imageUrl: dataUrl,
+        displayMode: prev.displayMode || "custom-image"
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileChange(e.dataTransfer.files[0]);
+    }
   };
 
   // Save (Create or Update)
@@ -343,6 +447,8 @@ export default function AdminCertificatesPage() {
         issuer: formData.issuer || "Certiport Official / IIG Vietnam",
         instructor: formData.instructor || "Thầy Nguyễn Đình Huy (MOS Master)",
         status: (formData.status as any) || "Hợp lệ",
+        imageUrl: formData.imageUrl || undefined,
+        displayMode: formData.imageUrl ? (formData.displayMode || "custom-image") : "default",
         note: formData.note || ""
       };
       saveCerts([newCert, ...certs]);
@@ -363,6 +469,18 @@ export default function AdminCertificatesPage() {
     window.print();
   };
 
+  // Download Image Action
+  const handleDownloadImage = (cert: CertificateRecord) => {
+    if (cert.imageUrl) {
+      const link = document.createElement("a");
+      link.href = cert.imageUrl;
+      link.download = `Chung_Chi_${cert.studentName.replace(/\s+/g, "_")}_${cert.certCode}.png`;
+      link.click();
+    } else {
+      window.print();
+    }
+  };
+
   const filteredCerts = certs.filter((c) => {
     const matchSearch =
       c.studentName.toLowerCase().includes(search.toLowerCase()) ||
@@ -372,6 +490,7 @@ export default function AdminCertificatesPage() {
     if (!matchSearch) return false;
     if (filterType === "ALL") return true;
     if (filterType === "PERFECT") return c.score === 1000;
+    if (filterType === "HAS_IMAGE") return Boolean(c.imageUrl);
     return c.examType === filterType;
   });
 
@@ -388,11 +507,11 @@ export default function AdminCertificatesPage() {
             Chứng Chỉ Số Certiport & Xác Thực Điểm 1000
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
-            Hệ thống quản lý, cấp mới và xuất bản văn bằng quốc tế MOS/IC3 cho học viên Tin Học Gen Z đạt chuẩn đầu ra và điểm số tuyệt đối.
+            Hệ thống quản lý, tải mẫu ảnh bằng chứng chỉ riêng, cấp mới và xuất bản văn bằng quốc tế MOS/IC3 cho học viên Tin Học Gen Z.
           </p>
         </div>
 
-        {/* Big Friendly Action: Issue Certificate Button */}
+        {/* Big Action: Issue Certificate Button */}
         <div className="shrink-0 flex items-center gap-3">
           <button
             type="button"
@@ -433,6 +552,7 @@ export default function AdminCertificatesPage() {
           {[
             { label: "Tất cả", value: "ALL" },
             { label: "🌟 Điểm 1000", value: "PERFECT" },
+            { label: "📷 Có ảnh riêng", value: "HAS_IMAGE" },
             { label: "MOS Excel", value: "mos-excel" },
             { label: "MOS Word", value: "mos-word" },
             { label: "MOS PPT", value: "mos-ppt" },
@@ -477,7 +597,7 @@ export default function AdminCertificatesPage() {
               key={cert.id}
               className="rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 overflow-hidden shadow-xl flex flex-col justify-between transition-all group hover:-translate-y-1 hover:shadow-2xl"
             >
-              {/* TOP: Interactive Miniature Certificate Visual Preview */}
+              {/* TOP: Miniature Certificate Visual Preview (Supports custom uploaded image or template) */}
               <div
                 onClick={() => setPreviewCert(cert)}
                 className="p-3 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800 cursor-pointer relative group/preview"
@@ -488,7 +608,7 @@ export default function AdminCertificatesPage() {
 
                   {/* Hover overlay hint */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs backdrop-blur-[1px]">
-                    <Eye size={16} />
+                    <ZoomIn size={16} />
                     <span>Xem Phóng To Bằng</span>
                   </div>
                 </div>
@@ -501,15 +621,23 @@ export default function AdminCertificatesPage() {
                     <span className="text-[10px] font-bold text-emerald-400 flex items-center gap-1">
                       <ShieldCheck size={13} /> {cert.issuer}
                     </span>
-                    <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
-                        cert.status === "Hợp lệ"
-                          ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
-                          : "bg-amber-500/15 text-amber-300 border-amber-500/30"
-                      }`}
-                    >
-                      {cert.status}
-                    </span>
+
+                    <div className="flex items-center gap-1.5">
+                      {cert.imageUrl && (
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30 flex items-center gap-1">
+                          <ImageIcon size={10} /> Ảnh riêng
+                        </span>
+                      )}
+                      <span
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                          cert.status === "Hợp lệ"
+                            ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
+                            : "bg-amber-500/15 text-amber-300 border-amber-500/30"
+                        }`}
+                      >
+                        {cert.status}
+                      </span>
+                    </div>
                   </div>
 
                   <h3 className="text-lg font-black text-white tracking-tight font-display">
@@ -542,7 +670,7 @@ export default function AdminCertificatesPage() {
 
                 {/* BOTTOM: Action Buttons Bar */}
                 <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                  <span className="text-slate-400 text-[11px]">Ngày cấp: {cert.issueDate}</span>
+                  <span className="text-slate-400 text-[11px]">Ngày: {cert.issueDate}</span>
 
                   <div className="flex items-center gap-1">
                     {/* View Certificate */}
@@ -560,7 +688,7 @@ export default function AdminCertificatesPage() {
                       type="button"
                       onClick={() => handleOpenEdit(cert)}
                       className="p-2 rounded-xl bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                      title="Sửa thông tin chứng chỉ"
+                      title="Sửa thông tin hoặc đổi ảnh bằng"
                     >
                       <Edit3 size={14} />
                     </button>
@@ -586,7 +714,7 @@ export default function AdminCertificatesPage() {
       {/* 4. MODAL: FULL PREVIEW & PRINT CERTIFICATE                                 */}
       {/* ========================================================================= */}
       {previewCert && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-fade-in">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 overflow-y-auto animate-fade-in">
           <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl relative my-auto">
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
@@ -595,19 +723,33 @@ export default function AdminCertificatesPage() {
                   <Award size={18} />
                 </div>
                 <div>
-                  <h3 className="text-base font-black text-white">Bản Xem Trước Giấy Chứng Nhận</h3>
-                  <p className="text-xs text-slate-400">Chứng chỉ quốc tế chuẩn Certiport / Tin Học Gen Z</p>
+                  <h3 className="text-base font-black text-white">Giấy Chứng Nhận Của Học Viên</h3>
+                  <p className="text-xs text-slate-400">
+                    {previewCert.imageUrl ? "Ảnh bằng chứng nhận riêng đã tải lên" : "Chứng chỉ quốc tế chuẩn Certiport"}
+                  </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
+                {previewCert.imageUrl && (
+                  <button
+                    type="button"
+                    onClick={() => handleDownloadImage(previewCert)}
+                    className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                    title="Tải ảnh về máy"
+                  >
+                    <Download size={14} />
+                    <span className="hidden sm:inline">Tải Ảnh Về</span>
+                  </button>
+                )}
+
                 <button
                   type="button"
                   onClick={handlePrint}
                   className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Printer size={14} />
-                  <span>In Giấy Chứng Nhận</span>
+                  <span>In Bằng</span>
                 </button>
 
                 <button
@@ -621,14 +763,14 @@ export default function AdminCertificatesPage() {
             </div>
 
             {/* Certificate Canvas Frame */}
-            <div id="printable-certificate" className="my-2 shadow-2xl rounded-2xl overflow-hidden">
+            <div id="printable-certificate" className="my-2 shadow-2xl rounded-2xl overflow-hidden flex items-center justify-center bg-black/40 p-2">
               <CertificateVisual data={previewCert} size="md" />
             </div>
 
             {/* Modal Footer Controls */}
             <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
               <div className="text-slate-400">
-                Mã văn bằng: <strong className="text-amber-300 font-mono">{previewCert.certCode}</strong> • Điểm: <strong className="text-emerald-400">{previewCert.score}/1000</strong>
+                Học viên: <strong className="text-white">{previewCert.studentName}</strong> • Mã: <strong className="text-amber-300 font-mono">{previewCert.certCode}</strong> • Điểm: <strong className="text-emerald-400">{previewCert.score}/1000</strong>
               </div>
 
               <div className="flex items-center gap-2">
@@ -642,7 +784,7 @@ export default function AdminCertificatesPage() {
                   className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold flex items-center gap-1.5 transition-colors"
                 >
                   <Edit3 size={14} />
-                  <span>Chỉnh sửa thông tin</span>
+                  <span>Sửa thông tin / Đổi ảnh</span>
                 </button>
                 <button
                   type="button"
@@ -658,12 +800,12 @@ export default function AdminCertificatesPage() {
       )}
 
       {/* ========================================================================= */}
-      {/* 5. MODAL: LIVE WYSIWYG CERTIFICATE ISSUER / EDITOR                         */}
-      {/* (Người dùng tự nhìn vào đó định hình lại chỗ cấp giấy chứng nhận)         */}
+      {/* 5. MODAL: LIVE WYSIWYG CERTIFICATE ISSUER / EDITOR & IMAGE UPLOADER        */}
+      {/* (Tải ảnh giấy chứng nhận riêng & Tự nhìn vào đó định hình lại)             */}
       {/* ========================================================================= */}
       {isIssuerOpen && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-6xl w-full max-h-[92vh] flex flex-col shadow-2xl relative overflow-hidden">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-6xl w-full max-h-[94vh] flex flex-col shadow-2xl relative overflow-hidden">
             {/* Header */}
             <div className="p-5 sm:p-6 border-b border-slate-800 flex items-center justify-between shrink-0 bg-slate-950/60">
               <div className="flex items-center gap-3">
@@ -672,10 +814,10 @@ export default function AdminCertificatesPage() {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-black text-white font-display">
-                    {editingCert ? "Chỉnh Sửa Giấy Chứng Nhận" : "Bộ Cấp Giấy Chứng Nhận Trực Quan (Live Preview)"}
+                    {editingCert ? "Chỉnh Sửa Chứng Chỉ & Cập Nhật Mẫu Ảnh" : "Cấp Giấy Chứng Nhận & Tải Mẫu Ảnh Riêng"}
                   </h3>
                   <p className="text-xs text-slate-400">
-                    Vừa nhập liệu vừa xem trước phôi bằng thực tế được định hình theo thời gian thực
+                    Tải ảnh scan/ảnh bằng riêng từ máy tính hoặc dùng phôi chuẩn, xem trước định hình thời gian thực
                   </p>
                 </div>
               </div>
@@ -689,12 +831,163 @@ export default function AdminCertificatesPage() {
               </button>
             </div>
 
+            {/* Hidden Real File Input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                  handleFileChange(e.target.files[0]);
+                }
+              }}
+            />
+
             {/* Two-Column Body: Left Form vs Right Live Certificate Preview */}
             <div className="p-5 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6">
-              {/* LEFT COLUMN: Input Form (5 Cols) */}
+              {/* LEFT COLUMN: Input Form & Upload Zone (5 Cols) */}
               <form id="cert-form" onSubmit={handleSaveCertificate} className="lg:col-span-5 space-y-4">
-                <div className="text-[11px] font-black uppercase text-blue-400 tracking-wider">
-                  1. Thông tin học viên & Môn thi
+                {/* SECTION 1: TẢI ẢNH GIẤY CHỨNG NHẬN RIÊNG */}
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-black uppercase text-amber-400 tracking-wider flex items-center gap-1.5">
+                      <ImageIcon size={14} />
+                      <span>Tải Ảnh Bằng Chứng Nhận Riêng</span>
+                    </span>
+                    {formData.imageUrl && (
+                      <button
+                        type="button"
+                        onClick={() => setFormData({ ...formData, imageUrl: "", displayMode: "default" })}
+                        className="text-[11px] text-rose-400 hover:text-rose-300 font-semibold flex items-center gap-1"
+                      >
+                        <Trash2 size={12} /> Xóa ảnh riêng
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Drag & Drop Upload Box */}
+                  <div
+                    onDragOver={(e) => {
+                      e.preventDefault();
+                      setIsDragging(true);
+                    }}
+                    onDragLeave={() => setIsDragging(false)}
+                    onDrop={handleDrop}
+                    onClick={() => fileInputRef.current?.click()}
+                    className={`p-4 rounded-xl border-2 border-dashed transition-all text-center cursor-pointer flex flex-col items-center justify-center gap-2 ${
+                      isDragging
+                        ? "border-amber-400 bg-amber-500/10"
+                        : formData.imageUrl
+                        ? "border-emerald-500/40 bg-emerald-950/20"
+                        : "border-slate-700 hover:border-blue-500 bg-slate-900/60 hover:bg-slate-900"
+                    }`}
+                  >
+                    {formData.imageUrl ? (
+                      <div className="flex items-center gap-3 w-full">
+                        <div className="w-14 h-11 rounded-lg overflow-hidden border border-slate-700 bg-black shrink-0">
+                          <img
+                            src={formData.imageUrl}
+                            alt="Preview thumbnail"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="text-left flex-1 min-w-0">
+                          <div className="text-xs font-bold text-emerald-400 flex items-center gap-1">
+                            <CheckCircle2 size={13} /> Đã nhận ảnh chứng nhận riêng
+                          </div>
+                          <div className="text-[10px] text-slate-400 mt-0.5">
+                            Bấm vào đây để chọn tệp ảnh khác thay thế
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+                          <Upload size={20} />
+                        </div>
+                        <div className="text-xs font-bold text-slate-200">
+                          Chọn ảnh chứng chỉ từ máy tính hoặc điện thoại
+                        </div>
+                        <div className="text-[10px] text-slate-500">
+                          Kéo thả tệp hoặc nhấp để tải lên (Hỗ trợ JPG, PNG, WEBP tối đa 8MB)
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Mode Selector when image is present */}
+                  {formData.imageUrl && (
+                    <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
+                      <div className="text-[10px] text-slate-400 font-bold uppercase">Cách hiển thị ảnh:</div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, displayMode: "custom-image" })}
+                          className={`p-2 rounded-xl text-[11px] font-bold border transition-all text-left flex items-center gap-1.5 ${
+                            formData.displayMode === "custom-image"
+                              ? "bg-blue-600 text-white border-blue-500 shadow-md"
+                              : "bg-slate-900 text-slate-400 border-slate-800 hover:text-white"
+                          }`}
+                        >
+                          <ImageIcon size={13} />
+                          <span>Hiển thị ảnh gốc</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, displayMode: "overlay-template" })}
+                          className={`p-2 rounded-xl text-[11px] font-bold border transition-all text-left flex items-center gap-1.5 ${
+                            formData.displayMode === "overlay-template"
+                              ? "bg-blue-600 text-white border-blue-500 shadow-md"
+                              : "bg-slate-900 text-slate-400 border-slate-800 hover:text-white"
+                          }`}
+                        >
+                          <FileText size={13} />
+                          <span>In chữ đè lên phôi</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Option to enter URL */}
+                  <div className="pt-1 flex items-center justify-between text-[11px]">
+                    <button
+                      type="button"
+                      onClick={() => setShowUrlInput(!showUrlInput)}
+                      className="text-slate-400 hover:text-blue-400 font-semibold flex items-center gap-1"
+                    >
+                      <Link2 size={12} /> {showUrlInput ? "Ẩn nhập link ảnh" : "Hoặc dán đường link ảnh (URL)"}
+                    </button>
+                  </div>
+
+                  {showUrlInput && (
+                    <div className="flex gap-2">
+                      <input
+                        type="url"
+                        value={customUrl}
+                        onChange={(e) => setCustomUrl(e.target.value)}
+                        placeholder="https://example.com/chung-chi.jpg"
+                        className="flex-1 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs text-white"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (customUrl) {
+                            setFormData({ ...formData, imageUrl: customUrl, displayMode: "custom-image" });
+                          }
+                        }}
+                        className="px-3 py-1.5 bg-blue-600 text-white text-xs font-bold rounded-lg hover:bg-blue-500"
+                      >
+                        Áp dụng
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* SECTION 2: THÔNG TIN HỌC VIÊN & ĐIỂM SỐ */}
+                <div className="text-[11px] font-black uppercase text-blue-400 tracking-wider pt-2">
+                  2. Thông tin học viên & Kết quả
                 </div>
 
                 {/* Student Name */}
@@ -708,11 +1001,11 @@ export default function AdminCertificatesPage() {
                     value={formData.studentName || ""}
                     onChange={(e) => setFormData({ ...formData, studentName: e.target.value })}
                     placeholder="VD: Nguyễn Hoàng Nam..."
-                    className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium"
                   />
                 </div>
 
-                {/* Exam Course */}
+                {/* Exam Course & Score */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
@@ -740,7 +1033,6 @@ export default function AdminCertificatesPage() {
                     </select>
                   </div>
 
-                  {/* Score */}
                   <div>
                     <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
                       Điểm thi (Thang 1000)
@@ -757,79 +1049,59 @@ export default function AdminCertificatesPage() {
                   </div>
                 </div>
 
-                <div className="text-[11px] font-black uppercase text-amber-400 tracking-wider pt-2">
-                  2. Định danh & Cấp chứng nhận
-                </div>
-
-                {/* Certificate Code & Auto Generate */}
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
-                      Mã chứng chỉ (Cert Code)
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setFormData({
-                          ...formData,
-                          certCode: `CERT-MOS-2026-${Math.floor(1000 + Math.random() * 9000)}`
-                        })
-                      }
-                      className="text-[10px] text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 cursor-pointer"
-                    >
-                      <Sparkles size={11} /> Tạo mã ngẫu nhiên
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    required
-                    value={formData.certCode || ""}
-                    onChange={(e) => setFormData({ ...formData, certCode: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-amber-300 font-mono text-xs font-bold focus:outline-none focus:ring-2 focus:ring-amber-500"
-                  />
-                </div>
-
-                {/* Issue Date & Status */}
+                {/* SECTION 3: MÃ CHỨNG CHỈ & NGÀY CẤP */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                      Ngày cấp chứng nhận
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                        Mã chứng chỉ
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setFormData({
+                            ...formData,
+                            certCode: `CERT-MOS-2026-${Math.floor(1000 + Math.random() * 9000)}`
+                          })
+                        }
+                        className="text-[10px] text-amber-400 hover:text-amber-300 font-bold"
+                      >
+                        Tạo ngẫu nhiên
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      required
+                      value={formData.certCode || ""}
+                      onChange={(e) => setFormData({ ...formData, certCode: e.target.value })}
+                      className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-amber-300 font-mono text-xs font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1">
+                      Ngày cấp
                     </label>
                     <input
                       type="text"
                       value={formData.issueDate || ""}
                       onChange={(e) => setFormData({ ...formData, issueDate: e.target.value })}
                       placeholder="DD/MM/YYYY"
-                      className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs"
                     />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                      Trạng thái xác thực
-                    </label>
-                    <select
-                      value={formData.status || "Hợp lệ"}
-                      onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                      className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                      <option value="Hợp lệ">Hợp lệ (Đã cấp)</option>
-                      <option value="Chờ xác thực">Chờ xác thực</option>
-                      <option value="Đã thu hồi">Đã thu hồi</option>
-                    </select>
                   </div>
                 </div>
 
                 {/* Signer */}
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Cán bộ / Giảng viên ký duyệt
+                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+                    Cán bộ ký duyệt
                   </label>
                   <input
                     type="text"
                     value={formData.instructor || ""}
                     onChange={(e) => setFormData({ ...formData, instructor: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs"
                   />
                 </div>
               </form>
@@ -839,19 +1111,19 @@ export default function AdminCertificatesPage() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[11px] font-black uppercase text-slate-400 tracking-wider flex items-center gap-1.5">
                     <Eye size={13} className="text-emerald-400" />
-                    <span>Định hình giấy chứng nhận thực tế (Cập nhật tức thời):</span>
+                    <span>Định hình giấy chứng nhận thực tế (Live WYSIWYG):</span>
                   </span>
                   <span className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20 font-semibold">
-                    Live Preview
+                    {formData.imageUrl ? "Xem trước ảnh riêng" : "Xem trước phôi chuẩn"}
                   </span>
                 </div>
 
                 {/* Live Preview Screen */}
-                <div className="p-3 sm:p-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner flex items-center justify-center flex-1">
+                <div className="p-3 sm:p-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner flex items-center justify-center flex-1 min-h-[300px]">
                   <CertificateVisual data={formData} size="md" />
                 </div>
                 <p className="text-[11px] text-slate-500 text-center mt-2">
-                  💡 Bạn có thể nhìn trực tiếp vào phôi chứng nhận trên để căn chỉnh họ tên, điểm số và thông tin trước khi hoàn tất cấp bằng.
+                  💡 Bạn có thể vừa tải ảnh lên vừa quan sát trực tiếp tấm bằng được định hình bên phải trước khi lưu lại.
                 </p>
               </div>
             </div>
@@ -869,7 +1141,7 @@ export default function AdminCertificatesPage() {
               <button
                 type="submit"
                 form="cert-form"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-black tracking-wide shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-black tracking-wide shadow-lg shadow-blue-600/30 transition-all flex items-center gap-2 cursor-pointer active:scale-95"
               >
                 <Check size={16} />
                 <span>{editingCert ? "Lưu Thay Đổi Chứng Chỉ" : "Xác Nhận Cấp Chứng Nhận"}</span>
