@@ -639,8 +639,8 @@ export default function AdminCertificatesPage() {
 
   const handleDeleteTemplate = (templateId: string) => {
     const tpl = templates.find((t) => t.id === templateId);
-    if (tpl?.isSystem) {
-      alert("Không thể xóa phôi hệ thống chuẩn của Tin Học Gen Z.");
+    if (tpl?.id === "tinhocgenz-official") {
+      alert("Không thể xóa phôi chuẩn độc quyền mặc định của Tin Học Gen Z.");
       return;
     }
     const updated = templates.filter((t) => t.id !== templateId);
@@ -648,6 +648,18 @@ export default function AdminCertificatesPage() {
       updated[0].isDefault = true;
     }
     saveTemplates(updated);
+
+    // If the currently selected template in formData is deleted, revert to official template immediately
+    if (formData.templateType === templateId) {
+      const fallback = updated[0] || DEFAULT_SYSTEM_TEMPLATES[0];
+      setFormData((prev) => ({
+        ...prev,
+        templateType: fallback ? fallback.id : "tinhocgenz-official",
+        imageUrl: fallback?.imageUrl || "/images/certificates/tinhocgenz-clean-template.png",
+        displayMode: fallback?.displayMode || "overlay-template"
+      }));
+    }
+
     setDeleteConfirmTemplateId(null);
   };
 
@@ -1435,10 +1447,13 @@ export default function AdminCertificatesPage() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                     {templates.map((tpl) => {
                       const isSelected = formData.templateType === tpl.id;
+                      const canDelete = tpl.id !== "tinhocgenz-official";
+
                       return (
-                        <button
+                        <div
                           key={tpl.id}
-                          type="button"
+                          role="button"
+                          tabIndex={0}
                           onClick={() => {
                             setFormData({
                               ...formData,
@@ -1466,20 +1481,67 @@ export default function AdminCertificatesPage() {
                                 <span className="text-[8px] font-bold mt-1">Gold SVG</span>
                               </div>
                             )}
+
+                            {/* Default Badge */}
                             {tpl.isDefault && (
-                              <span className="absolute top-1 right-1 bg-amber-500 text-slate-950 text-[8px] font-black px-1.5 py-0.5 rounded shadow">
+                              <span className="absolute top-1 right-1 bg-amber-500 text-slate-950 text-[8px] font-black px-1.5 py-0.5 rounded shadow z-10">
                                 Mặc định
                               </span>
                             )}
+
+                            {/* Direct Delete Button on Top Left of Thumbnail */}
+                            {canDelete && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setDeleteConfirmTemplateId(tpl.id);
+                                }}
+                                className="absolute top-1 left-1 px-1.5 py-0.5 bg-rose-600/90 hover:bg-rose-500 active:scale-95 text-white rounded text-[9px] font-bold shadow-lg transition-all flex items-center gap-0.5 z-20 cursor-pointer border border-rose-400/40"
+                                title={`Xóa phôi ${tpl.name}`}
+                              >
+                                <Trash2 size={10} className="stroke-[2.5]" />
+                                <span>Xóa</span>
+                              </button>
+                            )}
                           </div>
 
-                          <div className="truncate w-full">
-                            <div className="text-[10px] font-bold text-white truncate">{tpl.name}</div>
-                            <div className="text-[8.5px] text-slate-400 truncate">
-                              {tpl.isSystem ? "Phôi hệ thống" : "Khung tự tải"}
+                          <div className="w-full">
+                            <div className="text-[10px] font-bold text-white truncate flex items-center justify-between gap-1">
+                              <span className="truncate">{tpl.name}</span>
+                              {canDelete && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setDeleteConfirmTemplateId(tpl.id);
+                                  }}
+                                  className="text-[9px] text-rose-400 hover:text-rose-300 font-bold hover:underline shrink-0 cursor-pointer flex items-center gap-0.5"
+                                  title={`Xóa phôi ${tpl.name}`}
+                                >
+                                  <Trash2 size={10} />
+                                  <span>Xóa</span>
+                                </button>
+                              )}
+                            </div>
+                            <div className="flex items-center justify-between text-[8.5px] text-slate-400 mt-0.5">
+                              <span>{tpl.isSystem ? "Phôi hệ thống" : "Khung tự tải"}</span>
+                              {!tpl.isDefault && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleSetDefaultTemplate(tpl.id);
+                                  }}
+                                  className="text-amber-400 hover:text-amber-300 font-semibold hover:underline cursor-pointer"
+                                  title="Đặt làm phôi mặc định"
+                                >
+                                  ⭐ Mặc định
+                                </button>
+                              )}
                             </div>
                           </div>
-                        </button>
+                        </div>
                       );
                     })}
 
@@ -2121,38 +2183,51 @@ export default function AdminCertificatesPage() {
       )}
 
       {/* 10. MODAL: DELETE CONFIRMATION FOR TEMPLATE */}
-      {deleteConfirmTemplateId && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-center">
-            <div className="w-12 h-12 rounded-2xl bg-rose-500/15 text-rose-400 flex items-center justify-center mx-auto mb-4">
-              <Trash2 size={24} />
-            </div>
+      {deleteConfirmTemplateId && (() => {
+        const tplToDelete = templates.find((t) => t.id === deleteConfirmTemplateId);
+        return (
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in">
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-center">
+              <div className="w-12 h-12 rounded-2xl bg-rose-500/15 text-rose-400 flex items-center justify-center mx-auto mb-4">
+                <Trash2 size={24} />
+              </div>
 
-            <h3 className="text-lg font-black text-white">Xác Nhận Xóa Khung Phôi Này?</h3>
-            <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-              Bạn có chắc chắn muốn xóa mẫu khung phôi này khỏi kho lưu trữ không? Thao tác này sẽ gỡ mẫu khung khỏi danh sách lựa chọn.
-            </p>
+              <h3 className="text-lg font-black text-white">Xác Nhận Xóa Khung Phôi?</h3>
+              <p className="text-xs text-slate-300 mt-2 font-semibold">
+                Bạn có chắc chắn muốn xóa phôi: <strong className="text-rose-400 font-bold">{tplToDelete?.name || "này"}</strong>?
+              </p>
+              <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                Mẫu khung phôi này sẽ được gỡ bỏ hoàn toàn khỏi hệ thống và bộ nhớ trình duyệt.
+              </p>
 
-            <div className="mt-6 flex items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => setDeleteConfirmTemplateId(null)}
-                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
-              >
-                Hủy bỏ
-              </button>
+              {tplToDelete?.imageUrl && (
+                <div className="mt-3 mx-auto w-36 aspect-[1.414/1] rounded-lg overflow-hidden border border-slate-700 bg-slate-950 p-1">
+                  <img src={tplToDelete.imageUrl} alt={tplToDelete.name} className="w-full h-full object-contain" />
+                </div>
+              )}
 
-              <button
-                type="button"
-                onClick={() => handleDeleteTemplate(deleteConfirmTemplateId)}
-                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-colors cursor-pointer shadow-lg shadow-rose-600/25"
-              >
-                Xác Nhận Xóa Khung
-              </button>
+              <div className="mt-6 flex items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setDeleteConfirmTemplateId(null)}
+                  className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  Hủy bỏ
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleDeleteTemplate(deleteConfirmTemplateId)}
+                  className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition-colors cursor-pointer shadow-lg shadow-rose-600/25 flex items-center gap-1.5"
+                >
+                  <Trash2 size={14} />
+                  <span>Xác Nhận Xóa Khung</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Print stylesheet for standard A4 landscape certificate printing */}
       <style dangerouslySetInnerHTML={{ __html: `
