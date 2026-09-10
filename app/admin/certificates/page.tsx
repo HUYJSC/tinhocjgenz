@@ -286,28 +286,27 @@ function CertificateVisual({
           backgroundRepeat: "no-repeat"
         }}
       >
-        {/* LAYER 1: Họ và tên học viên {{TEN_HOC_VIEN}} */}
-        {/* Căn chuẩn Y: 46.5% đến 54.0%, nằm ngay phía trên đường kẻ cam vát kim cương */}
+        {/* LAYER 1: Họ và tên học viên {{TEN_HOC_VIEN}} - Phông chữ Tahoma chuẩn mực */}
         <div className="absolute top-[46.2%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
           <h2
-            style={{ fontFamily: '"Times New Roman", Times, "Playfair Display", Georgia, serif' }}
+            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
             className={`font-black text-[#0c2340] tracking-tight uppercase text-center transition-all ${
               isPrint
                 ? "text-3xl sm:text-4xl"
                 : isSm
                 ? "text-[11px] sm:text-xs leading-none"
-                : "text-base sm:text-2xl lg:text-[27px] leading-tight"
+                : "text-base sm:text-2xl lg:text-[26px] leading-tight"
             }`}
           >
             {data.studentName || "NGUYỄN HOÀNG NAM"}
           </h2>
         </div>
 
-        {/* LAYER 2: Tên khóa học {{TEN_KHOA_HOC}} */}
-        {/* Căn chuẩn Y: 61.2% đến 67.0%, dưới dòng 'đã hoàn thành chương trình đào tạo' */}
-        <div className="absolute top-[61.2%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
+        {/* LAYER 2: Tên khóa học {{TEN_KHOA_HOC}} - Phông chữ Tahoma chuẩn mực */}
+        <div className="absolute top-[61.4%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
           <div
-            className={`font-sans font-black text-[#0066cc] uppercase tracking-wide text-center transition-all ${
+            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+            className={`font-bold text-[#0066cc] uppercase tracking-wide text-center transition-all ${
               isPrint
                 ? "text-xl sm:text-2xl"
                 : isSm
@@ -319,11 +318,11 @@ function CertificateVisual({
           </div>
         </div>
 
-        {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận */}
-        {/* Căn chuẩn Y: 70.8%, nằm giữa Khóa học và 3 ngôi sao xanh */}
+        {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận - Phông chữ Tahoma chuẩn mực */}
         <div className="absolute top-[70.8%] inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
           <div
-            className={`text-slate-600 font-sans font-medium flex items-center justify-center gap-2 sm:gap-4 transition-all ${
+            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+            className={`text-slate-600 font-medium flex items-center justify-center gap-2 sm:gap-4 transition-all ${
               isPrint
                 ? "text-sm"
                 : isSm
@@ -338,43 +337,36 @@ function CertificateVisual({
             <span className="text-slate-300 font-light">|</span>
             <span>
               Mã chứng nhận:{" "}
-              <strong className="text-slate-900 font-mono font-bold tracking-tight">
+              <strong className="text-slate-900 font-bold tracking-tight">
                 {data.certCode || "CERT-THGZ-2026-9842"}
               </strong>
             </span>
           </div>
         </div>
 
-        {/* LAYER 4: Chữ ký số hóa Giảng viên (Chỉ hiển thị PHÍA TRÊN đường kẻ Y=618, KHÔNG đè lên chữ 'GIẢNG VIÊN') */}
+        {/* LAYER 4: Chữ ký Giảng viên (Trái) - Căn chỉnh đối xứng, nằm phía trên đường kẻ Y=618 */}
         {data.instructor && (
-          <div className="absolute top-[79.0%] left-[12%] w-[24%] flex items-center justify-center pointer-events-none z-10">
+          <div className="absolute top-[78.5%] left-[13%] w-[23%] flex items-center justify-center pointer-events-none z-10">
             <span
-              style={{ fontFamily: '"Brush Script MT", "Dancing Script", "Segoe Script", cursive, serif' }}
-              className="italic text-[#0c2340] font-bold text-[10px] sm:text-sm tracking-tight"
+              style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+              className="font-bold text-[#0c2340] text-[9px] sm:text-xs tracking-tight text-center truncate"
             >
               {data.instructor}
             </span>
           </div>
         )}
 
-        {/* LAYER 5: Chữ ký Đại diện đơn vị & Con Dấu Đỏ Pháp Nhân */}
-        {/* Con dấu đỏ được đóng đúng quy chuẩn: trùm lên chữ ký và đường kẻ, TUYỆT ĐỐI KHÔNG chạm vào dòng Mã chứng chỉ ở trên */}
-        <div className="absolute top-[75.5%] left-[51%] w-[26%] flex items-center justify-center pointer-events-none z-10">
-          {data.showSeal !== false && (
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-              <OfficialRedSeal size={isSm ? "sm" : isPrint ? "lg" : "md"} />
-            </div>
-          )}
-
-          {data.director && (
+        {/* LAYER 5: Chữ ký Đại diện đơn vị (Phải) - Căn chỉnh đối xứng cân bằng cùng độ cao với bên trái, ĐÃ LOẠI BỎ CON DẤU ĐỎ */}
+        {data.director && (
+          <div className="absolute top-[78.5%] left-[51%] w-[24%] flex items-center justify-center pointer-events-none z-10">
             <span
-              style={{ fontFamily: '"Brush Script MT", "Dancing Script", "Segoe Script", cursive, serif' }}
-              className="italic text-[#0c2340] font-bold text-[10px] sm:text-sm tracking-tight z-10"
+              style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
+              className="font-bold text-[#0c2340] text-[9px] sm:text-xs tracking-tight text-center truncate"
             >
               {data.director}
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -1502,15 +1494,10 @@ export default function AdminCertificatesPage() {
                     </div>
                   </div>
 
-                  <label className="flex items-center gap-2 cursor-pointer pt-1 text-xs text-slate-300">
-                    <input
-                      type="checkbox"
-                      checked={formData.showSeal !== false}
-                      onChange={(e) => setFormData({ ...formData, showSeal: e.target.checked })}
-                      className="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 bg-slate-900 border-slate-700"
-                    />
-                    <span>Đóng con dấu đỏ pháp nhân của <strong>CÔNG TY TNHH PH – TIN HỌC GEN Z</strong></span>
-                  </label>
+                  <div className="flex items-center gap-2 pt-1 text-xs text-emerald-400">
+                    <CheckCircle2 size={14} className="shrink-0 text-emerald-400" />
+                    <span>Phông chữ Tahoma chuẩn hóa, căn chỉnh đối xứng cân bằng trang nhã (không sử dụng con dấu đỏ).</span>
+                  </div>
                 </div>
               </form>
 
