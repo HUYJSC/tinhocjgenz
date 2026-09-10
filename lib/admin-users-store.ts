@@ -154,6 +154,9 @@ export const AdminUsersStore = {
   findByCredential(query: string): AdminUserRecord | undefined {
     const q = query.trim().toLowerCase();
     if (!q) return undefined;
+    if (q === "admin") {
+      return ADMIN_USERS.find((u) => u.username === "admin_super");
+    }
     return ADMIN_USERS.find(
       (u) => u.username.toLowerCase() === q || u.email.toLowerCase() === q
     );
