@@ -178,7 +178,7 @@ const LOCAL_STORAGE_KEY = "tinhocgenz_admin_certificates_v3";
  * Con Dấu Tròn Đỏ Pháp Nhân (SVG Red Seal of Cong Ty TNHH PH - Tin Hoc Gen Z)
  */
 function OfficialRedSeal({ size = "md", className = "" }: { size?: "sm" | "md" | "lg"; className?: string }) {
-  const dim = size === "sm" ? "w-10 h-10" : size === "lg" ? "w-24 h-24" : "w-16 h-16 sm:w-20 sm:h-20";
+  const dim = size === "sm" ? "w-8 h-8 sm:w-10 sm:h-10" : size === "lg" ? "w-20 h-20 sm:w-24 sm:h-24" : "w-12 h-12 sm:w-16 sm:h-16";
   return (
     <div className={`relative select-none pointer-events-none ${dim} ${className} rotate-[-8deg]`}>
       <svg viewBox="0 0 200 200" className="w-full h-full text-red-600 drop-shadow-sm opacity-90">
@@ -272,13 +272,13 @@ function CertificateVisual({
     );
   }
 
-  // CASE 2: Official TIN HỌC GEN Z Certificate Template
+  // CASE 2: Official TIN HỌC GEN Z Certificate Template (Mẫu phôi độc quyền mới)
   const isOfficialTemplate = data.templateType === "tinhocgenz-official" || !data.templateType;
 
   if (isOfficialTemplate) {
     return (
       <div
-        className={`relative select-none overflow-hidden rounded-xl border-2 border-slate-300 bg-white text-slate-900 shadow-2xl font-sans transition-all w-full aspect-[1024/724] ${className}`}
+        className={`relative select-none overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-900 shadow-2xl font-sans transition-all w-full aspect-[1024/724] ${className}`}
         style={{
           backgroundImage: "url('/images/certificates/tinhocgenz-clean-template.png')",
           backgroundSize: "cover",
@@ -286,50 +286,48 @@ function CertificateVisual({
           backgroundRepeat: "no-repeat"
         }}
       >
-        {/* Floating Score Honor Tag */}
-        <div className="absolute top-0 right-8 bg-gradient-to-b from-[#0b2545] via-[#0056b3] to-[#003366] text-white font-black px-3 py-1 shadow-md rounded-b-md text-[8px] sm:text-[10px] uppercase tracking-wider flex items-center gap-1 z-20">
-          <Medal size={11} className="text-amber-300" />
-          <span>{data.score || 1000}/1000 ĐIỂM</span>
-        </div>
-
-        {/* LAYER 1: Student Name {{TEN_HOC_VIEN}} */}
-        <div className="absolute top-[45.2%] inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
+        {/* LAYER 1: Họ và tên học viên {{TEN_HOC_VIEN}} */}
+        {/* Căn chuẩn Y: 46.5% đến 54.0%, nằm ngay phía trên đường kẻ cam vát kim cương */}
+        <div className="absolute top-[46.2%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
           <h2
-            className={`font-serif font-black text-[#0c2340] tracking-tight uppercase text-center drop-shadow-sm transition-all ${
+            style={{ fontFamily: '"Times New Roman", Times, "Playfair Display", Georgia, serif' }}
+            className={`font-black text-[#0c2340] tracking-tight uppercase text-center transition-all ${
               isPrint
                 ? "text-3xl sm:text-4xl"
                 : isSm
-                ? "text-[11px] sm:text-xs"
-                : "text-sm sm:text-2xl lg:text-[28px]"
+                ? "text-[11px] sm:text-xs leading-none"
+                : "text-base sm:text-2xl lg:text-[27px] leading-tight"
             }`}
           >
             {data.studentName || "NGUYỄN HOÀNG NAM"}
           </h2>
         </div>
 
-        {/* LAYER 2: Course Name {{TEN_KHOA_HOC}} */}
-        <div className="absolute top-[60.6%] inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
+        {/* LAYER 2: Tên khóa học {{TEN_KHOA_HOC}} */}
+        {/* Căn chuẩn Y: 61.2% đến 67.0%, dưới dòng 'đã hoàn thành chương trình đào tạo' */}
+        <div className="absolute top-[61.2%] inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
           <div
-            className={`font-sans font-black text-[#0056b3] uppercase tracking-wide text-center transition-all ${
+            className={`font-sans font-black text-[#0066cc] uppercase tracking-wide text-center transition-all ${
               isPrint
                 ? "text-xl sm:text-2xl"
                 : isSm
-                ? "text-[9px] sm:text-[10px]"
-                : "text-[11px] sm:text-base lg:text-lg"
+                ? "text-[8.5px] sm:text-[9.5px] leading-none"
+                : "text-xs sm:text-base lg:text-lg leading-tight"
             }`}
           >
             {data.exam || "MOS EXCEL 2019 ASSOCIATE"}
           </div>
         </div>
 
-        {/* LAYER 3: Completion Date & Certificate Code */}
-        <div className="absolute top-[70.2%] inset-x-0 flex items-center justify-center pointer-events-none px-4 z-10">
+        {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận */}
+        {/* Căn chuẩn Y: 70.8%, nằm giữa Khóa học và 3 ngôi sao xanh */}
+        <div className="absolute top-[70.8%] inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
           <div
-            className={`text-slate-700 font-sans font-medium flex items-center justify-center gap-2 sm:gap-4 transition-all ${
+            className={`text-slate-600 font-sans font-medium flex items-center justify-center gap-2 sm:gap-4 transition-all ${
               isPrint
                 ? "text-sm"
                 : isSm
-                ? "text-[6.5px] sm:text-[7.5px]"
+                ? "text-[6px] sm:text-[7.5px]"
                 : "text-[8px] sm:text-[11px]"
             }`}
           >
@@ -337,7 +335,7 @@ function CertificateVisual({
               Thời gian hoàn thành:{" "}
               <strong className="text-slate-900 font-bold">{data.issueDate || "20/08/2026"}</strong>
             </span>
-            <span className="text-slate-400 font-light">|</span>
+            <span className="text-slate-300 font-light">|</span>
             <span>
               Mã chứng nhận:{" "}
               <strong className="text-slate-900 font-mono font-bold tracking-tight">
@@ -347,38 +345,35 @@ function CertificateVisual({
           </div>
         </div>
 
-        {/* LAYER 4: Signatures & Official Red Seal */}
-        <div className="absolute top-[78.5%] left-[13%] w-[21%] flex flex-col items-center justify-center pointer-events-none z-10">
-          <span className="font-serif italic text-[#0b2545] font-bold text-[8px] sm:text-xs tracking-tight">
-            {data.instructor || "Thầy Nguyễn Đình Huy"}
-          </span>
-          <span className="text-[6px] sm:text-[8px] text-slate-500 uppercase tracking-wider font-semibold">
-            {data.instructorTitle || "MOS Master Trainer"}
-          </span>
-        </div>
+        {/* LAYER 4: Chữ ký số hóa Giảng viên (Chỉ hiển thị PHÍA TRÊN đường kẻ Y=618, KHÔNG đè lên chữ 'GIẢNG VIÊN') */}
+        {data.instructor && (
+          <div className="absolute top-[79.0%] left-[12%] w-[24%] flex items-center justify-center pointer-events-none z-10">
+            <span
+              style={{ fontFamily: '"Brush Script MT", "Dancing Script", "Segoe Script", cursive, serif' }}
+              className="italic text-[#0c2340] font-bold text-[10px] sm:text-sm tracking-tight"
+            >
+              {data.instructor}
+            </span>
+          </div>
+        )}
 
-        <div className="absolute top-[74%] left-[53%] w-[23%] flex flex-col items-center justify-center pointer-events-none z-10">
+        {/* LAYER 5: Chữ ký Đại diện đơn vị & Con Dấu Đỏ Pháp Nhân */}
+        {/* Con dấu đỏ được đóng đúng quy chuẩn: trùm lên chữ ký và đường kẻ, TUYỆT ĐỐI KHÔNG chạm vào dòng Mã chứng chỉ ở trên */}
+        <div className="absolute top-[75.5%] left-[51%] w-[26%] flex items-center justify-center pointer-events-none z-10">
           {data.showSeal !== false && (
-            <div className="absolute -top-4 -left-2 z-20">
+            <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
               <OfficialRedSeal size={isSm ? "sm" : isPrint ? "lg" : "md"} />
             </div>
           )}
 
-          <div className="pt-4 flex flex-col items-center">
-            <span className="font-serif italic text-[#0b2545] font-bold text-[8px] sm:text-xs tracking-tight">
-              {data.director || "Nguyễn Đình Huy"}
+          {data.director && (
+            <span
+              style={{ fontFamily: '"Brush Script MT", "Dancing Script", "Segoe Script", cursive, serif' }}
+              className="italic text-[#0c2340] font-bold text-[10px] sm:text-sm tracking-tight z-10"
+            >
+              {data.director}
             </span>
-            <span className="text-[6px] sm:text-[8px] text-slate-500 uppercase tracking-wider font-semibold">
-              {data.directorTitle || "Giám Đốc Đào Tạo"}
-            </span>
-          </div>
-        </div>
-
-        {/* LAYER 5: Dynamic QR Code */}
-        <div className="absolute top-[77.4%] left-[79.3%] w-[10.5%] aspect-square flex items-center justify-center p-0.5 pointer-events-none z-10">
-          <div className="w-full h-full bg-white rounded flex items-center justify-center p-0.5 shadow-sm border border-slate-200">
-            <QrCode className="w-full h-full text-slate-900" />
-          </div>
+          )}
         </div>
       </div>
     );
