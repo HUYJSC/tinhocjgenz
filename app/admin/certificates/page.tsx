@@ -938,154 +938,182 @@ export default function AdminCertificatesPage() {
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in pb-16">
       {/* 1. Header Banner & Big Actions */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 bg-gradient-to-r from-slate-900 via-slate-900 to-blue-950 p-6 sm:p-8 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-80 h-40 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900/95 to-blue-950/40 border border-slate-800/80 p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-300 text-xs font-bold mb-2.5">
-            <Award size={14} className="text-blue-400" />
-            <span>CÔNG TY TNHH PH – TIN HỌC GEN Z</span>
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-300 text-xs font-semibold">
+              <Sparkles size={13} className="text-amber-400 animate-pulse" />
+              <span>CÔNG TY TNHH PH – TIN HỌC GEN Z</span>
+              <span className="w-1 h-1 rounded-full bg-blue-400" />
+              <span className="text-slate-400">PH DIGITAL LMS</span>
+            </div>
+
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight font-display">
+              Hệ Thống Cấp & Quản Lý Giấy Chứng Nhận
+            </h1>
+
+            <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
+              Số hóa quy trình cấp phát, tùy biến linh hoạt chữ ký &amp; chân bằng điện tử, quản lý kho phôi mẫu chuẩn quốc tế với mã QR xác thực tức thời 24/7.
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight font-display">
-            Hệ Thống Cấp & Quản Lý Giấy Chứng Nhận
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1.5 max-w-2xl leading-relaxed">
-            Phân hệ cấp phát chứng chỉ độc quyền Tin Học Gen Z, tự do tùy biến chữ chân bằng (giảng viên, đại diện cty), quản lý kho phôi tải lên và xóa phôi linh hoạt mà không cần lập trình viên.
-          </p>
-        </div>
 
-        <div className="relative z-10 flex flex-wrap items-center gap-3 shrink-0">
-          <button
-            type="button"
-            onClick={() => setIsTemplateManagerOpen(true)}
-            className="px-4 py-3 rounded-2xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md"
-          >
-            <Layers size={16} className="text-amber-400" />
-            <span>Kho Phôi Chứng Nhận ({templates.length})</span>
-          </button>
+          <div className="relative z-10 flex flex-wrap items-center gap-3 shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsTemplateManagerOpen(true)}
+              className="px-4 py-2.5 sm:py-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700/70 text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer shadow-sm hover:shadow-md hover:border-slate-600 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <Layers size={16} className="text-amber-400" />
+              <span>Kho Phôi ({templates.length})</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={handleExportCSV}
-            className="px-4 py-3 rounded-2xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md"
-          >
-            <FileSpreadsheet size={16} className="text-emerald-400" />
-            <span>Xuất Danh Sách Excel</span>
-          </button>
+            <button
+              type="button"
+              onClick={handleExportCSV}
+              className="px-4 py-2.5 sm:py-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700/70 text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer shadow-sm hover:shadow-md hover:border-slate-600 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <FileSpreadsheet size={16} className="text-emerald-400" />
+              <span>Xuất Excel</span>
+            </button>
 
-          <button
-            type="button"
-            onClick={handleOpenNewIssuer}
-            className="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 transition-all flex items-center gap-2 cursor-pointer active:scale-95"
-          >
-            <Plus size={18} className="stroke-[3]" />
-            <span>➕ Cấp Giấy Chứng Nhận Mới</span>
-          </button>
+            <button
+              type="button"
+              onClick={handleOpenNewIssuer}
+              className="px-5 py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 text-white font-black text-xs sm:text-sm tracking-wide shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <Plus size={18} className="stroke-[3]" />
+              <span>Cấp Chứng Nhận Mới</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* 2. KPI Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-        <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-md">
+      {/* 2. KPI Bento Grid Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+        <div className="relative overflow-hidden p-5 rounded-2xl sm:rounded-3xl bg-slate-900/70 border border-slate-800/80 shadow-lg hover:border-blue-500/30 transition-all duration-300 group">
+          <div className="absolute top-0 right-0 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-blue-500/20 transition-colors" />
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Tổng Đã Cấp</span>
-            <div className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center">
-              <Award size={16} />
+            <div className="w-10 h-10 rounded-2xl bg-blue-500/15 border border-blue-500/20 text-blue-400 flex items-center justify-center shadow-inner">
+              <Award size={18} />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-white mt-2 font-display">{totalCerts}</div>
-          <div className="text-[11px] text-emerald-400 font-semibold mt-1 flex items-center gap-1">
-            <CheckCircle2 size={13} />
-            <span>100% Lưu trữ bảo mật</span>
+          <div className="text-3xl sm:text-4xl font-black text-white mt-3 font-display tracking-tight">
+            {totalCerts}
+          </div>
+          <div className="text-xs text-emerald-400 font-semibold mt-2 flex items-center gap-1.5">
+            <CheckCircle2 size={13} className="shrink-0" />
+            <span>100% Hồ sơ hợp lệ</span>
           </div>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-md">
+        <div className="relative overflow-hidden p-5 rounded-2xl sm:rounded-3xl bg-slate-900/70 border border-slate-800/80 shadow-lg hover:border-amber-500/30 transition-all duration-300 group">
+          <div className="absolute top-0 right-0 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-amber-500/20 transition-colors" />
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Điểm 1000/1000</span>
-            <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center">
-              <Medal size={16} />
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/15 border border-amber-500/20 text-amber-400 flex items-center justify-center shadow-inner">
+              <Medal size={18} />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-amber-300 mt-2 font-display">{perfectScoreCount}</div>
-          <div className="text-[11px] text-amber-400/90 font-medium mt-1">Học viên xuất sắc</div>
+          <div className="text-3xl sm:text-4xl font-black text-amber-300 mt-3 font-display tracking-tight">
+            {perfectScoreCount}
+          </div>
+          <div className="text-xs text-amber-400/90 font-semibold mt-2 flex items-center gap-1.5">
+            <Star size={13} className="shrink-0 fill-amber-400/20" />
+            <span>{perfectRate}% Đạt điểm tuyệt đối</span>
+          </div>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-md">
+        <div className="relative overflow-hidden p-5 rounded-2xl sm:rounded-3xl bg-slate-900/70 border border-slate-800/80 shadow-lg hover:border-purple-500/30 transition-all duration-300 group">
+          <div className="absolute top-0 right-0 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-purple-500/20 transition-colors" />
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Kho Khung / Phôi</span>
-            <div className="w-8 h-8 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center">
-              <Layers size={16} />
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Kho Khung Phôi</span>
+            <div className="w-10 h-10 rounded-2xl bg-purple-500/15 border border-purple-500/20 text-purple-400 flex items-center justify-center shadow-inner">
+              <Layers size={18} />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-purple-400 mt-2 font-display">{templates.length}</div>
-          <div className="text-[11px] text-slate-400 font-medium mt-1">Mẫu phôi sẵn sàng</div>
+          <div className="text-3xl sm:text-4xl font-black text-purple-300 mt-3 font-display tracking-tight">
+            {templates.length}
+          </div>
+          <div className="text-xs text-slate-400 font-semibold mt-2 flex items-center gap-1.5">
+            <BadgeCheck size={13} className="shrink-0 text-purple-400" />
+            <span>Mẫu phôi chuẩn sẵn sàng</span>
+          </div>
         </div>
 
-        <div className="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-md">
+        <div className="relative overflow-hidden p-5 rounded-2xl sm:rounded-3xl bg-slate-900/70 border border-slate-800/80 shadow-lg hover:border-emerald-500/30 transition-all duration-300 group">
+          <div className="absolute top-0 right-0 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none group-hover:bg-emerald-500/20 transition-colors" />
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Xác Thực Mã QR</span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
-              <QrCode size={16} />
+            <div className="w-10 h-10 rounded-2xl bg-emerald-500/15 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shadow-inner">
+              <QrCode size={18} />
             </div>
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-emerald-400 mt-2 font-display">Tức Thời</div>
-          <div className="text-[11px] text-slate-400 font-medium mt-1">Quét mã di động 24/7</div>
+          <div className="text-3xl sm:text-4xl font-black text-emerald-400 mt-3 font-display tracking-tight">
+            Tức Thời
+          </div>
+          <div className="text-xs text-slate-400 font-semibold mt-2 flex items-center gap-1.5">
+            <ShieldCheck size={13} className="shrink-0 text-emerald-400" />
+            <span>Tra cứu trực tuyến 24/7</span>
+          </div>
         </div>
       </div>
 
       {/* 3. Controls: Search, Filter Tabs & View Mode Switcher */}
-      <div className="space-y-3">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-slate-900/70 border border-slate-800/80 shadow-xl backdrop-blur-md space-y-4">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div className="relative flex-1">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Tra cứu theo họ tên học viên, mã chứng chỉ (CERT-THGZ...), môn thi..."
-              className="w-full pl-11 pr-4 py-3 bg-slate-900 border border-slate-800 rounded-2xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all shadow-sm"
+              className="w-full pl-11 pr-10 py-3 bg-slate-950/80 border border-slate-800 rounded-2xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all shadow-inner"
             />
             {search && (
               <button
                 type="button"
                 onClick={() => setSearch("")}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
               >
-                <X size={14} />
+                <X size={15} />
               </button>
             )}
           </div>
 
-          <div className="flex items-center bg-slate-900 p-1 rounded-2xl border border-slate-800 shrink-0">
+          <div className="flex items-center bg-slate-950/80 p-1.5 rounded-2xl border border-slate-800/80 shrink-0">
             <button
               type="button"
               onClick={() => setViewMode("gallery")}
-              className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
                 viewMode === "gallery"
-                  ? "bg-blue-600 text-white shadow-md font-black"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black"
+                  : "text-slate-400 hover:text-white hover:bg-slate-900"
               }`}
             >
-              <LayoutGrid size={14} />
+              <LayoutGrid size={15} />
               <span>Lưới Bằng</span>
             </button>
             <button
               type="button"
               onClick={() => setViewMode("table")}
-              className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
                 viewMode === "table"
-                  ? "bg-blue-600 text-white shadow-md font-black"
-                  : "text-slate-400 hover:text-white"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black"
+                  : "text-slate-400 hover:text-white hover:bg-slate-900"
               }`}
             >
-              <TableIcon size={14} />
+              <TableIcon size={15} />
               <span>Bảng Dữ Liệu</span>
             </button>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800/60">
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 custom-scrollbar">
             {[
               { label: "Tất cả môn", value: "ALL" },
@@ -1100,10 +1128,10 @@ export default function AdminCertificatesPage() {
                 key={tab.value}
                 type="button"
                 onClick={() => setFilterType(tab.value)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                   filterType === tab.value
                     ? "bg-blue-600 text-white shadow-md shadow-blue-600/30 font-black"
-                    : "bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800"
+                    : "bg-slate-950/60 text-slate-400 hover:text-white hover:bg-slate-800/80 border border-slate-800/80"
                 }`}
               >
                 {tab.label}
@@ -1111,12 +1139,12 @@ export default function AdminCertificatesPage() {
             ))}
           </div>
 
-          <div className="flex items-center gap-1.5 text-xs text-slate-400">
+          <div className="flex items-center gap-2 text-xs text-slate-400">
             <span className="text-[11px] font-semibold hidden md:inline">Mẫu phôi:</span>
             <select
               value={filterTemplate}
               onChange={(e) => setFilterTemplate(e.target.value)}
-              className="bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:ring-1 focus:ring-blue-500 font-medium"
+              className="bg-slate-950/80 border border-slate-800/80 rounded-xl px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50 font-medium"
             >
               <option value="ALL">Tất cả mẫu phôi</option>
               {templates.map((t) => (
@@ -1126,6 +1154,9 @@ export default function AdminCertificatesPage() {
               ))}
               <option value="CUSTOM">Ảnh Riêng</option>
             </select>
+            <span className="text-[11px] text-slate-500 font-mono">
+              ({filteredCerts.length} bằng)
+            </span>
           </div>
         </div>
       </div>
@@ -1141,7 +1172,7 @@ export default function AdminCertificatesPage() {
           <button
             type="button"
             onClick={handleOpenNewIssuer}
-            className="mt-4 px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold hover:bg-blue-500 transition-colors cursor-pointer"
+            className="mt-4 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold transition-all shadow-md cursor-pointer"
           >
             Cấp Chứng Nhận Ngay
           </button>
@@ -1154,17 +1185,17 @@ export default function AdminCertificatesPage() {
             return (
               <div
                 key={cert.id}
-                className="rounded-3xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/40 overflow-hidden shadow-xl flex flex-col justify-between transition-all group hover:-translate-y-1 hover:shadow-2xl"
+                className="group rounded-3xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-slate-800/80 hover:border-blue-500/40 overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-blue-500/10 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1"
               >
                 <div
                   onClick={() => setPreviewCert(cert)}
-                  className="p-3 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800 cursor-pointer relative group/preview"
+                  className="p-3 bg-gradient-to-b from-slate-950 to-slate-900 border-b border-slate-800/80 cursor-pointer relative group/preview"
                   title="Bấm để phóng to xem đầy đủ giấy chứng nhận"
                 >
                   <div className="relative transform group-hover/preview:scale-[1.01] transition-transform">
                     <CertificateVisual data={cert} size="sm" templates={templates} />
 
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/preview:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs backdrop-blur-[1px]">
+                    <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover/preview:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs backdrop-blur-[2px]">
                       <ZoomIn size={16} />
                       <span>Xem Phóng To Bằng</span>
                     </div>
@@ -1174,13 +1205,13 @@ export default function AdminCertificatesPage() {
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="text-[10px] font-bold text-blue-400 flex items-center gap-1 truncate">
-                        <ShieldCheck size={13} className="shrink-0" />
+                      <span className="text-[10px] font-bold text-blue-400 flex items-center gap-1.5 truncate">
+                        <ShieldCheck size={13} className="shrink-0 text-blue-400" />
                         <span className="truncate">{cert.issuer}</span>
                       </span>
 
                       <div className="flex items-center gap-1.5 shrink-0">
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/25">
                           {matchedTpl?.name ? matchedTpl.name.split(" ")[0] + "..." : "Phôi Chuẩn"}
                         </span>
                         <span
@@ -1195,14 +1226,14 @@ export default function AdminCertificatesPage() {
                       </div>
                     </div>
 
-                    <h3 className="text-lg font-black text-white tracking-tight font-display">
+                    <h3 className="text-lg font-black text-white tracking-tight font-display group-hover:text-blue-400 transition-colors">
                       {cert.studentName}
                     </h3>
                     <p className="text-xs text-blue-400 font-bold mt-0.5">{cert.exam}</p>
 
-                    <div className="mt-3 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 flex items-center justify-between gap-2">
+                    <div className="mt-3 p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center justify-between gap-2">
                       <div className="truncate">
-                        <div className="text-[9px] text-slate-500 font-bold uppercase">Mã Tra Cứu Số</div>
+                        <div className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Mã Tra Cứu Số</div>
                         <div className="font-mono text-xs font-bold text-amber-300 truncate">
                           {cert.certCode}
                         </div>
@@ -1210,7 +1241,7 @@ export default function AdminCertificatesPage() {
                       <button
                         type="button"
                         onClick={() => handleCopy(cert.certCode)}
-                        className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                        className="p-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
                         title="Sao chép mã chứng chỉ"
                       >
                         {copiedCode === cert.certCode ? (
@@ -1223,14 +1254,17 @@ export default function AdminCertificatesPage() {
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                    <span className="text-slate-400 text-[11px]">Ngày: {cert.issueDate}</span>
+                    <span className="text-slate-400 text-[11px] flex items-center gap-1.5">
+                      <Calendar size={12} className="text-slate-500" />
+                      <span>{cert.issueDate}</span>
+                    </span>
 
-                    <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1.5">
                       <button
                         type="button"
                         onClick={() => setPreviewCert(cert)}
-                        className="p-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                        title="Xem phóng to bằng"
+                        className="p-2 rounded-xl bg-slate-800/80 hover:bg-blue-600 text-slate-300 hover:text-white transition-all cursor-pointer shadow-sm hover:scale-105"
+                        title="Xem phóng to &amp; in bằng"
                       >
                         <Eye size={14} />
                       </button>
@@ -1238,7 +1272,7 @@ export default function AdminCertificatesPage() {
                       <button
                         type="button"
                         onClick={() => handleOpenEdit(cert)}
-                        className="p-2 rounded-xl bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                        className="p-2 rounded-xl bg-slate-800/80 hover:bg-amber-600 text-slate-300 hover:text-white transition-all cursor-pointer shadow-sm hover:scale-105"
                         title="Sửa thông tin hoặc đổi phôi bằng"
                       >
                         <Edit3 size={14} />
@@ -1247,7 +1281,7 @@ export default function AdminCertificatesPage() {
                       <button
                         type="button"
                         onClick={() => setDeleteConfirmId(cert.id)}
-                        className="p-2 rounded-xl bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                        className="p-2 rounded-xl bg-slate-800/80 hover:bg-rose-600 text-slate-300 hover:text-white transition-all cursor-pointer shadow-sm hover:scale-105"
                         title="Xóa chứng chỉ"
                       >
                         <Trash2 size={14} />
@@ -1261,7 +1295,7 @@ export default function AdminCertificatesPage() {
         </div>
       ) : (
         /* TABLE VIEW */
-        <div className="rounded-3xl bg-slate-900 border border-slate-800 overflow-hidden shadow-xl">
+        <div className="rounded-3xl bg-slate-900/80 border border-slate-800/80 overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-300">
               <thead className="bg-slate-950 text-[11px] font-black uppercase text-slate-400 tracking-wider border-b border-slate-800">
@@ -1331,19 +1365,19 @@ export default function AdminCertificatesPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <div className="flex items-center justify-end gap-1">
+                        <div className="flex items-center justify-end gap-1.5">
                           <button
                             type="button"
                             onClick={() => setPreviewCert(cert)}
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                            title="Xem phóng to"
+                            className="p-2 rounded-xl bg-slate-800/80 hover:bg-blue-600 text-slate-300 hover:text-white transition-all cursor-pointer shadow-sm hover:scale-105"
+                            title="Xem phóng to &amp; in bằng"
                           >
                             <Eye size={13} />
                           </button>
                           <button
                             type="button"
                             onClick={() => handleOpenEdit(cert)}
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-slate-800/80 hover:bg-amber-600 text-slate-300 hover:text-white transition-all cursor-pointer shadow-sm hover:scale-105"
                             title="Sửa thông tin"
                           >
                             <Edit3 size={13} />
@@ -1351,7 +1385,7 @@ export default function AdminCertificatesPage() {
                           <button
                             type="button"
                             onClick={() => setDeleteConfirmId(cert.id)}
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                            className="p-2 rounded-xl bg-slate-800/80 hover:bg-rose-600 text-slate-300 hover:text-white transition-all cursor-pointer shadow-sm hover:scale-105"
                             title="Xóa"
                           >
                             <Trash2 size={13} />
