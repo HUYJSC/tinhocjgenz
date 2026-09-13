@@ -402,23 +402,23 @@ function CertificateVisual({
 
   return (
     <div
-      className={`relative select-none overflow-hidden rounded-xl border border-slate-300 bg-white text-slate-900 shadow-2xl transition-all w-full aspect-[1024/724] ${className}`}
+      className={`relative select-none overflow-hidden rounded-xl bg-white text-slate-900 shadow-2xl transition-all w-full aspect-[1024/724] ${className}`}
       style={{
         backgroundImage: `url('${bgImageSrc}')`,
-        backgroundSize: "cover",
+        backgroundSize: "100% 100%",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat"
       }}
     >
-      {/* LAYER 1: Họ và tên học viên - Phông chữ Tahoma chuẩn mực, căn chính xác giữa dòng dẫn và đường kẻ cam */}
-      <div className="absolute top-[50.8%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
+      {/* LAYER 1: Họ và tên học viên - Căn chính xác giữa dòng dẫn và đường kẻ cam, phông chữ quyền lực, không bị co giật */}
+      <div className="absolute top-[50.4%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
         <h2
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-black text-[#0c2340] tracking-tight uppercase text-center transition-all ${
+          className={`font-black text-[#0a2540] tracking-wider uppercase text-center transition-all drop-shadow-sm ${
             isPrint
               ? "text-3xl sm:text-4xl"
               : isSm
-              ? "text-[11px] sm:text-xs leading-none"
+              ? "text-xs sm:text-[13px] leading-tight"
               : "text-base sm:text-2xl lg:text-[28px] leading-tight"
           }`}
         >
@@ -426,15 +426,15 @@ function CertificateVisual({
         </h2>
       </div>
 
-      {/* LAYER 2: Tên khóa học - Phông chữ Tahoma chuẩn mực, căn chính xác giữa dòng dẫn và ngày tháng */}
-      <div className="absolute top-[64.9%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
+      {/* LAYER 2: Tên khóa học - Căn hoàn hảo giữa dòng dẫn và hàng ngày tháng/mã */}
+      <div className="absolute top-[67.2%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
         <div
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-bold text-[#0066cc] uppercase tracking-wide text-center transition-all ${
+          className={`font-bold text-[#0062b8] uppercase tracking-wide text-center transition-all ${
             isPrint
               ? "text-xl sm:text-2xl"
               : isSm
-              ? "text-[8.5px] sm:text-[9.5px] leading-none"
+              ? "text-[8.5px] sm:text-[10px] leading-none"
               : "text-xs sm:text-base lg:text-lg leading-tight"
           }`}
         >
@@ -442,12 +442,12 @@ function CertificateVisual({
         </div>
       </div>
 
-      {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận - Tách 2 cánh đối xứng chuẩn poster, phông Tahoma */}
+      {/* LAYER 3: Thời gian hoàn thành (Cột Trái, Tâm X: 25.4%) & Mã chứng nhận (Cột Phải, Tâm X: 63.2%) */}
       {/* 3A. Cánh trái: Thời gian hoàn thành */}
-      <div className="absolute top-[71.0%] h-[20px] left-[14.5%] w-[34.0%] flex items-center justify-center pointer-events-none z-10">
+      <div className="absolute top-[75.2%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         <div
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`text-slate-600 font-medium transition-all ${
+          className={`text-slate-600 font-medium whitespace-nowrap transition-all ${
             isPrint
               ? "text-sm"
               : isSm
@@ -460,16 +460,11 @@ function CertificateVisual({
         </div>
       </div>
 
-      {/* 3B. Vạch phân cách giữa hai cánh */}
-      <div className="absolute top-[71.0%] h-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-none z-10 text-slate-300 font-light text-xs sm:text-sm">
-        |
-      </div>
-
-      {/* 3C. Cánh phải: Mã chứng nhận */}
-      <div className="absolute top-[71.0%] h-[20px] left-[51.5%] w-[34.0%] flex items-center justify-center pointer-events-none z-10">
+      {/* 3B. Cánh phải: Mã chứng nhận (Không bao giờ rớt dòng) */}
+      <div className="absolute top-[75.2%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         <div
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`text-slate-600 font-medium transition-all ${
+          className={`text-slate-600 font-medium whitespace-nowrap transition-all ${
             isPrint
               ? "text-sm"
               : isSm
@@ -478,20 +473,20 @@ function CertificateVisual({
           }`}
         >
           <span>Mã chứng nhận: </span>
-          <strong className="text-slate-900 font-bold tracking-tight">
+          <strong className="text-slate-900 font-mono font-bold tracking-tight">
             {data.certCode || "CERT-THGZ-2026-9842"}
           </strong>
         </div>
       </div>
 
-      {/* LAYER 4: Giảng viên (Cột Trái, X: 14.16% -> 36.43%, Đường kẻ ngang tại Y=598 / 82.6%) */}
-      {/* 4A. Tên Giảng viên (nằm ngay sát trên đường kẻ ngang) */}
-      <div className="absolute top-[75.2%] h-[6.8%] left-[14.16%] w-[22.27%] flex items-end justify-center pointer-events-none z-10 text-center pb-0.5">
+      {/* LAYER 4: Giảng viên (Cột Trái, Tâm X: 25.4%, Đường kẻ ngang chuẩn tại Y=599 / 82.7%) */}
+      {/* 4A. Tên Giảng viên (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
+      <div className="absolute top-[79.8%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         {data.instructor && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
-              isPrint ? "text-base sm:text-lg" : isSm ? "text-[8px] sm:text-[9px]" : "text-[10px] sm:text-xs lg:text-[13px]"
+            className={`font-bold text-[#0c2340] tracking-tight whitespace-nowrap transition-all ${
+              isPrint ? "text-base sm:text-lg" : isSm ? "text-[7.5px] sm:text-[8.5px]" : "text-[10px] sm:text-xs lg:text-[13px]"
             }`}
           >
             {data.instructor}
@@ -499,25 +494,25 @@ function CertificateVisual({
         )}
       </div>
 
-      {/* 4B. Chức danh Giảng viên (nằm dưới đường kẻ ngang, Y=609..628 / 84.1%..86.7%) */}
-      <div className="absolute top-[84.1%] h-[3.0%] left-[14.16%] w-[22.27%] flex items-center justify-center pointer-events-none z-10 text-center">
+      {/* 4B. Chức danh Giảng viên (nằm dưới đường kẻ ngang) */}
+      <div className="absolute top-[85.2%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all ${
-            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6.5px] sm:text-[7.5px]" : "text-[8px] sm:text-[10px]"
+          className={`font-bold text-[#0c2340] uppercase tracking-wider whitespace-nowrap transition-all ${
+            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6px] sm:text-[7px]" : "text-[8px] sm:text-[9.5px] lg:text-[11px]"
           }`}
         >
           {data.instructorTitle ?? "GIẢNG VIÊN"}
         </span>
       </div>
 
-      {/* 4C. Ghi chú Giảng viên (nằm dưới chức danh, Y=635..654 / 87.7%..90.3%) */}
+      {/* 4C. Ghi chú Giảng viên (nằm dưới chức danh) */}
       {data.instructorNote !== "" && (
-        <div className="absolute top-[87.8%] h-[2.8%] left-[14.16%] w-[22.27%] flex items-center justify-center pointer-events-none z-10 text-center">
+        <div className="absolute top-[89.0%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`text-slate-500 italic font-medium transition-all ${
-              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5.5px] sm:text-[6.5px]" : "text-[6.5px] sm:text-[8px]"
+            className={`text-slate-500 italic font-medium whitespace-nowrap transition-all ${
+              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5px] sm:text-[6px]" : "text-[6.5px] sm:text-[8px] lg:text-[9.5px]"
             }`}
           >
             {data.instructorNote ?? "(Ký và ghi rõ họ tên)"}
@@ -525,14 +520,14 @@ function CertificateVisual({
         </div>
       )}
 
-      {/* LAYER 5: Đại diện đơn vị (Cột Phải, X: 51.76% -> 74.51%, Đường kẻ ngang tại Y=598 / 82.6%) */}
-      {/* 5A. Tên Người đại diện (nằm ngay sát trên đường kẻ ngang) */}
-      <div className="absolute top-[75.2%] h-[6.8%] left-[51.76%] w-[22.75%] flex items-end justify-center pointer-events-none z-10 text-center pb-0.5">
+      {/* LAYER 5: Đại diện đơn vị (Cột Phải, Tâm X: 63.2%, Đường kẻ ngang chuẩn tại Y=599 / 82.7%) */}
+      {/* 5A. Tên Người đại diện (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
+      <div className="absolute top-[79.8%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         {data.director && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`font-bold text-[#0c2340] tracking-tight transition-all truncate ${
-              isPrint ? "text-base sm:text-lg" : isSm ? "text-[8px] sm:text-[9px]" : "text-[10px] sm:text-xs lg:text-[13px]"
+            className={`font-bold text-[#0c2340] tracking-tight whitespace-nowrap transition-all ${
+              isPrint ? "text-base sm:text-lg" : isSm ? "text-[7.5px] sm:text-[8.5px]" : "text-[10px] sm:text-xs lg:text-[13px]"
             }`}
           >
             {data.director}
@@ -540,36 +535,31 @@ function CertificateVisual({
         )}
       </div>
 
-      {/* 5B. Chức danh Người đại diện (nằm dưới đường kẻ ngang, Y=609..628 / 84.1%..86.7%) */}
-      <div className="absolute top-[84.1%] h-[3.0%] left-[51.76%] w-[22.75%] flex items-center justify-center pointer-events-none z-10 text-center">
+      {/* 5B. Chức danh Người đại diện (nằm dưới đường kẻ ngang) */}
+      <div className="absolute top-[85.2%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-bold text-[#0c2340] uppercase tracking-wider transition-all ${
-            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6.5px] sm:text-[7.5px]" : "text-[8px] sm:text-[10px]"
+          className={`font-bold text-[#0c2340] uppercase tracking-wider whitespace-nowrap transition-all ${
+            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6px] sm:text-[7px]" : "text-[8px] sm:text-[9.5px] lg:text-[11px]"
           }`}
         >
           {data.directorTitle ?? "ĐẠI DIỆN ĐƠN VỊ"}
         </span>
       </div>
 
-      {/* 5C. Ghi chú Người đại diện (nằm dưới chức danh, Y=635..654 / 87.7%..90.3%) */}
+      {/* 5C. Ghi chú Người đại diện (nằm dưới chức danh) */}
       {data.directorNote !== "" && (
-        <div className="absolute top-[87.8%] h-[2.8%] left-[51.76%] w-[22.75%] flex items-center justify-center pointer-events-none z-10 text-center">
+        <div className="absolute top-[89.0%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`text-slate-500 italic font-medium transition-all ${
-              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5.5px] sm:text-[6.5px]" : "text-[6.5px] sm:text-[8px]"
+            className={`text-slate-500 italic font-medium whitespace-nowrap transition-all ${
+              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5px] sm:text-[6px]" : "text-[6.5px] sm:text-[8px] lg:text-[9.5px]"
             }`}
           >
             {data.directorNote ?? "(Ký và ghi rõ họ tên)"}
           </span>
         </div>
       )}
-
-      {/* LAYER 6: Khung Quét Mã QR Xác Thực (Góc dưới bên phải, tâm X: 78.6%, tâm Y: 85.9%) */}
-      <div className="absolute top-[85.9%] left-[78.6%] -translate-x-1/2 -translate-y-1/2 w-[8.2%] aspect-square flex items-center justify-center z-10 pointer-events-none">
-        <QrCode className="w-full h-full text-[#0c2340]/90" />
-      </div>
     </div>
   );
 }
@@ -1439,8 +1429,10 @@ export default function AdminCertificatesPage() {
             </div>
 
             {/* Certificate Canvas Frame */}
-            <div id="printable-certificate" className="my-2 shadow-2xl rounded-2xl overflow-hidden flex items-center justify-center bg-black/40 p-2 sm:p-4">
-              <CertificateVisual data={previewCert} size="lg" templates={templates} />
+            <div id="printable-certificate" className="my-2 shadow-2xl rounded-2xl overflow-hidden flex items-center justify-center bg-slate-950 p-2 sm:p-4">
+              <div className="w-full max-w-3xl aspect-[1024/724] relative shadow-2xl rounded-xl overflow-hidden flex items-center justify-center">
+                <CertificateVisual data={previewCert} size="lg" templates={templates} />
+              </div>
             </div>
 
             <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
@@ -1877,8 +1869,10 @@ export default function AdminCertificatesPage() {
                     </span>
                   </div>
 
-                  <div className="p-3 sm:p-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner flex items-center justify-center min-h-[300px]">
-                    <CertificateVisual data={formData} size="md" templates={templates} />
+                  <div className="p-3 sm:p-4 bg-slate-950 rounded-2xl border border-slate-800 shadow-inner flex items-center justify-center">
+                    <div className="w-full max-w-2xl aspect-[1024/724] relative shadow-2xl rounded-xl overflow-hidden flex items-center justify-center">
+                      <CertificateVisual data={formData} size="md" templates={templates} />
+                    </div>
                   </div>
                   <p className="text-[11px] text-slate-500 text-center mt-2">
                     💡 Bạn gõ họ tên, điểm số, giảng viên, chức danh đến đâu - phôi bằng bên cạnh sẽ lập tức cập nhật đến đó theo thời gian thực!
