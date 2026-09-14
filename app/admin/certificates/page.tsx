@@ -412,11 +412,11 @@ function CertificateVisual({
         backgroundRepeat: "no-repeat"
       }}
     >
-      {/* LAYER 1: Họ và tên học viên - Căn chính xác giữa dòng dẫn và đường kẻ cam, phông chữ quyền lực, không bị co giật */}
-      <div className="absolute top-[50.4%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
+      {/* LAYER 1: Họ và tên học viên - Căn chính xác giữa dòng 'Trân trọng chứng nhận...' và 'đã hoàn thành...' */}
+      <div className="absolute top-[51.1%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
         <h2
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-black text-[#0a2540] tracking-wider uppercase text-center transition-all drop-shadow-sm ${
+          className={`font-black text-[#0c2340] tracking-wider uppercase text-center transition-all drop-shadow-sm ${
             isPrint
               ? "text-3xl sm:text-4xl"
               : isSm
@@ -428,8 +428,8 @@ function CertificateVisual({
         </h2>
       </div>
 
-      {/* LAYER 2: Tên khóa học - Căn hoàn hảo giữa dòng dẫn và hàng ngày tháng/mã */}
-      <div className="absolute top-[67.2%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-6 z-10">
+      {/* LAYER 2: Tên khóa học / Môn thi - Căn chính xác giữa dòng 'đã hoàn thành...' và hàng Ngày/Mã */}
+      <div className="absolute top-[65.2%] -translate-y-1/2 inset-x-0 flex items-center justify-center pointer-events-none px-8 z-10">
         <div
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
           className={`font-bold text-[#0062b8] uppercase tracking-wide text-center transition-all ${
@@ -444,47 +444,43 @@ function CertificateVisual({
         </div>
       </div>
 
-      {/* LAYER 3: Thời gian hoàn thành (Cột Trái, Tâm X: 25.4%) & Mã chứng nhận (Cột Phải, Tâm X: 63.2%) */}
-      {/* 3A. Cánh trái: Thời gian hoàn thành */}
-      <div className="absolute top-[75.2%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
-        <div
+      {/* LAYER 3: Thời gian hoàn thành & Mã chứng nhận (Chỉ điền giá trị lên vạch kẻ, KHÔNG lặp lại nhãn để tránh đè chữ) */}
+      {/* 3A. Ngày hoàn thành: Đặt ngay trên vạch kẻ sau chữ 'Thời gian hoàn thành:' (tâm X: 41.8%, vạch kẻ Y: 527 / 72.8%) */}
+      <div className="absolute top-[71.5%] -translate-y-1/2 left-[41.8%] -translate-x-1/2 w-[22%] flex items-center justify-center pointer-events-none z-10 text-center">
+        <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`text-slate-600 font-medium whitespace-nowrap transition-all ${
+          className={`text-slate-900 font-bold whitespace-nowrap transition-all ${
             isPrint
-              ? "text-sm"
+              ? "text-sm sm:text-base"
               : isSm
-              ? "text-[6px] sm:text-[7.5px]"
-              : "text-[8px] sm:text-[11px]"
+              ? "text-[6.5px] sm:text-[7.5px]"
+              : "text-[9px] sm:text-[11px] lg:text-[12.5px]"
           }`}
         >
-          <span>Thời gian hoàn thành: </span>
-          <strong className="text-slate-900 font-bold">{data.issueDate || "20/08/2026"}</strong>
-        </div>
+          {data.issueDate || "20/08/2026"}
+        </span>
       </div>
 
-      {/* 3B. Cánh phải: Mã chứng nhận (Không bao giờ rớt dòng) */}
-      <div className="absolute top-[75.2%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
-        <div
+      {/* 3B. Mã chứng nhận: Đặt ngay trên vạch kẻ sau chữ 'Mã chứng nhận:' (tâm X: 76.7%, vạch kẻ Y: 527 / 72.8%) */}
+      <div className="absolute top-[71.5%] -translate-y-1/2 left-[76.7%] -translate-x-1/2 w-[24%] flex items-center justify-center pointer-events-none z-10 text-center">
+        <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`text-slate-600 font-medium whitespace-nowrap transition-all ${
+          className={`text-slate-900 font-mono font-bold tracking-tight whitespace-nowrap transition-all ${
             isPrint
-              ? "text-sm"
+              ? "text-sm sm:text-base"
               : isSm
-              ? "text-[6px] sm:text-[7.5px]"
-              : "text-[8px] sm:text-[11px]"
+              ? "text-[6.5px] sm:text-[7.5px]"
+              : "text-[9px] sm:text-[11px] lg:text-[12.5px]"
           }`}
         >
-          <span>Mã chứng nhận: </span>
-          <strong className="text-slate-900 font-mono font-bold tracking-tight">
-            {data.certCode || "CERT-THGZ-2026-9842"}
-          </strong>
-        </div>
+          {data.certCode || "CERT-THGZ-2026-9842"}
+        </span>
       </div>
 
-      {/* LAYER 4: Giảng viên (Cột Trái, Tâm X: 25.4%, Đường kẻ ngang chuẩn tại Y=599 / 82.7%) */}
-      {/* 4A. Mẫu chữ ký điện tử Giảng viên (nếu có ảnh tải lên) */}
+      {/* LAYER 4: Giảng viên (Cột Trái, Tâm X: 25.3%, Đường kẻ ngang chuẩn tại Y=598 / 82.6%) */}
+      {/* 4A. Mẫu chữ ký điện tử Giảng viên (nằm ngay trên đường kẻ ký tên) */}
       {data.instructorSignature && (
-        <div className="absolute top-[77.8%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[24%] h-[9%] flex items-center justify-center pointer-events-none z-10">
+        <div className="absolute top-[74.0%] -translate-y-1/2 left-[25.3%] -translate-x-1/2 w-[22%] h-[8.5%] flex items-center justify-center pointer-events-none z-10">
           <img
             src={data.instructorSignature}
             alt="Chữ ký giảng viên"
@@ -493,12 +489,8 @@ function CertificateVisual({
         </div>
       )}
 
-      {/* 4B. Tên Giảng viên (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
-      <div
-        className={`absolute ${
-          data.instructorSignature ? "top-[81.2%]" : "top-[79.8%]"
-        } -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center`}
-      >
+      {/* 4B. Tên Giảng viên (nằm ngay trên đường kẻ, KHÔNG in đè chức danh vì phôi đã có sẵn GIẢNG VIÊN) */}
+      <div className="absolute top-[80.4%] -translate-y-1/2 left-[25.3%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         {data.instructor && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -511,36 +503,10 @@ function CertificateVisual({
         )}
       </div>
 
-      {/* 4C. Chức danh Giảng viên (nằm dưới đường kẻ ngang) */}
-      <div className="absolute top-[85.2%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
-        <span
-          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-bold text-[#0c2340] uppercase tracking-wider whitespace-nowrap transition-all ${
-            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6px] sm:text-[7px]" : "text-[8px] sm:text-[9.5px] lg:text-[11px]"
-          }`}
-        >
-          {data.instructorTitle ?? "GIẢNG VIÊN"}
-        </span>
-      </div>
-
-      {/* 4D. Ghi chú Giảng viên (nằm dưới chức danh) */}
-      {data.instructorNote !== "" && !data.instructorSignature && (
-        <div className="absolute top-[89.0%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
-          <span
-            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`text-slate-500 italic font-medium whitespace-nowrap transition-all ${
-              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5px] sm:text-[6px]" : "text-[6.5px] sm:text-[8px] lg:text-[9.5px]"
-            }`}
-          >
-            {data.instructorNote ?? "(Ký và ghi rõ họ tên)"}
-          </span>
-        </div>
-      )}
-
-      {/* LAYER 5: Đại diện đơn vị (Cột Phải, Tâm X: 63.2%, Đường kẻ ngang chuẩn tại Y=599 / 82.7%) */}
-      {/* 5A. Mẫu chữ ký điện tử Người đại diện (nếu có ảnh tải lên) */}
+      {/* LAYER 5: Đại diện đơn vị (Cột Phải, Tâm X: 63.1%, Đường kẻ ngang chuẩn tại Y=598 / 82.6%) */}
+      {/* 5A. Mẫu chữ ký điện tử Người đại diện (nằm ngay trên đường kẻ ký tên) */}
       {data.directorSignature && (
-        <div className="absolute top-[77.8%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[24%] h-[9%] flex items-center justify-center pointer-events-none z-10">
+        <div className="absolute top-[74.0%] -translate-y-1/2 left-[63.1%] -translate-x-1/2 w-[22%] h-[8.5%] flex items-center justify-center pointer-events-none z-10">
           <img
             src={data.directorSignature}
             alt="Chữ ký người đại diện"
@@ -549,12 +515,8 @@ function CertificateVisual({
         </div>
       )}
 
-      {/* 5B. Tên Người đại diện (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
-      <div
-        className={`absolute ${
-          data.directorSignature ? "top-[81.2%]" : "top-[79.8%]"
-        } -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center`}
-      >
+      {/* 5B. Tên Người đại diện (nằm ngay trên đường kẻ, KHÔNG in đè chức danh vì phôi đã có sẵn ĐẠI DIỆN ĐƠN VỊ) */}
+      <div className="absolute top-[80.4%] -translate-y-1/2 left-[63.1%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         {data.director && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -567,31 +529,17 @@ function CertificateVisual({
         )}
       </div>
 
-      {/* 5C. Chức danh Người đại diện (nằm dưới đường kẻ ngang) */}
-      <div className="absolute top-[85.2%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
-        <span
-          style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-          className={`font-bold text-[#0c2340] uppercase tracking-wider whitespace-nowrap transition-all ${
-            isPrint ? "text-xs sm:text-sm" : isSm ? "text-[6px] sm:text-[7px]" : "text-[8px] sm:text-[9.5px] lg:text-[11px]"
-          }`}
-        >
-          {data.directorTitle ?? "ĐẠI DIỆN ĐƠN VỊ"}
-        </span>
+      {/* LAYER 6: Mã QR xác thực (Lọt lòng vừa khít bên trong 4 góc ngoặc QUÉT MÃ XÁC THỰC đã có sẵn trên phôi) */}
+      <div className="absolute top-[82.9%] -translate-y-1/2 left-[84.6%] -translate-x-1/2 w-[7.2%] aspect-square flex items-center justify-center pointer-events-none z-10 p-0.5">
+        <img
+          src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
+            `https://tinhocgenz.io.vn/verify?code=${data.certCode || "CERT-THGZ-2026-9842"}`
+          )}&color=0c2340`}
+          alt="Mã xác thực chứng chỉ"
+          className="w-full h-full object-contain mix-blend-multiply"
+          loading="lazy"
+        />
       </div>
-
-      {/* 5D. Ghi chú Người đại diện (nằm dưới chức danh) */}
-      {data.directorNote !== "" && !data.directorSignature && (
-        <div className="absolute top-[89.0%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
-          <span
-            style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
-            className={`text-slate-500 italic font-medium whitespace-nowrap transition-all ${
-              isPrint ? "text-[9px] sm:text-xs" : isSm ? "text-[5px] sm:text-[6px]" : "text-[6.5px] sm:text-[8px] lg:text-[9.5px]"
-            }`}
-          >
-            {data.directorNote ?? "(Ký và ghi rõ họ tên)"}
-          </span>
-        </div>
-      )}
     </div>
   );
 }
@@ -1837,27 +1785,14 @@ export default function AdminCertificatesPage() {
 
                       <div>
                         <label className="block text-[10px] font-bold text-slate-300 mb-1">
-                          Họ tên người ký *
+                          Họ tên người ký (Giảng viên) *
                         </label>
                         <input
                           type="text"
                           value={formData.instructor || ""}
                           onChange={(e) => setFormData({ ...formData, instructor: e.target.value })}
-                          placeholder="VD: Thầy Lê Văn Minh"
+                          placeholder="VD: Thầy Nguyễn Đình Huy"
                           className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
-                          Chức danh / Nhãn chân bằng
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.instructorTitle || ""}
-                          onChange={(e) => setFormData({ ...formData, instructorTitle: e.target.value })}
-                          placeholder="GIẢNG VIÊN (hoặc GIÁO VIÊN...)"
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-amber-300 text-xs font-bold focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
 
@@ -1908,17 +1843,8 @@ export default function AdminCertificatesPage() {
                         )}
                       </div>
 
-                      <div>
-                        <label className="block text-[9.5px] font-medium text-slate-400 mb-1">
-                          Ghi chú dưới chức danh (tùy chọn)
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.instructorNote ?? "(Ký và ghi rõ họ tên)"}
-                          onChange={(e) => setFormData({ ...formData, instructorNote: e.target.value })}
-                          placeholder="(Ký và ghi rõ họ tên)"
-                          className="w-full px-2.5 py-1 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[10px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        />
+                      <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800/60 text-[9.5px] text-slate-400 leading-relaxed">
+                        ✓ Định dạng trang: Chức danh <strong className="text-slate-300 font-semibold">GIẢNG VIÊN</strong> và dòng <em className="text-slate-400">Ký và ghi rõ họ tên</em> đã được in sẵn cố định trên phôi.
                       </div>
                     </div>
 
@@ -1939,19 +1865,6 @@ export default function AdminCertificatesPage() {
                           onChange={(e) => setFormData({ ...formData, director: e.target.value })}
                           placeholder="VD: Nguyễn Đình Huy"
                           className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
-                          Chức danh / Nhãn chân bằng
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.directorTitle || ""}
-                          onChange={(e) => setFormData({ ...formData, directorTitle: e.target.value })}
-                          placeholder="ĐẠI DIỆN ĐƠN VỊ (hoặc GIÁM ĐỐC...)"
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-blue-300 text-xs font-bold focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
 
@@ -2002,17 +1915,8 @@ export default function AdminCertificatesPage() {
                         )}
                       </div>
 
-                      <div>
-                        <label className="block text-[9.5px] font-medium text-slate-400 mb-1">
-                          Ghi chú dưới chức danh (tùy chọn)
-                        </label>
-                        <input
-                          type="text"
-                          value={formData.directorNote ?? "(Ký và ghi rõ họ tên)"}
-                          onChange={(e) => setFormData({ ...formData, directorNote: e.target.value })}
-                          placeholder="(Ký và ghi rõ họ tên)"
-                          className="w-full px-2.5 py-1 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[10px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        />
+                      <div className="p-2 rounded-lg bg-slate-950/50 border border-slate-800/60 text-[9.5px] text-slate-400 leading-relaxed">
+                        ✓ Định dạng trang: Chức danh <strong className="text-slate-300 font-semibold">ĐẠI DIỆN ĐƠN VỊ</strong> và dòng <em className="text-slate-400">Ký, đóng dấu...</em> đã được in sẵn cố định trên phôi.
                       </div>
                     </div>
                   </div>
