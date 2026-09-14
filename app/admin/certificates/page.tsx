@@ -64,9 +64,11 @@ export interface CertificateRecord {
   instructor: string;
   instructorTitle?: string;
   instructorNote?: string;
+  instructorSignature?: string;
   director?: string;
   directorTitle?: string;
   directorNote?: string;
+  directorSignature?: string;
   showSeal?: boolean;
   status: "Hợp lệ" | "Chờ xác thực" | "Đã thu hồi";
   templateType: string;
@@ -480,8 +482,23 @@ function CertificateVisual({
       </div>
 
       {/* LAYER 4: Giảng viên (Cột Trái, Tâm X: 25.4%, Đường kẻ ngang chuẩn tại Y=599 / 82.7%) */}
-      {/* 4A. Tên Giảng viên (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
-      <div className="absolute top-[79.8%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
+      {/* 4A. Mẫu chữ ký điện tử Giảng viên (nếu có ảnh tải lên) */}
+      {data.instructorSignature && (
+        <div className="absolute top-[77.8%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[24%] h-[9%] flex items-center justify-center pointer-events-none z-10">
+          <img
+            src={data.instructorSignature}
+            alt="Chữ ký giảng viên"
+            className="max-h-full max-w-full object-contain filter drop-shadow-sm"
+          />
+        </div>
+      )}
+
+      {/* 4B. Tên Giảng viên (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
+      <div
+        className={`absolute ${
+          data.instructorSignature ? "top-[81.2%]" : "top-[79.8%]"
+        } -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center`}
+      >
         {data.instructor && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -494,7 +511,7 @@ function CertificateVisual({
         )}
       </div>
 
-      {/* 4B. Chức danh Giảng viên (nằm dưới đường kẻ ngang) */}
+      {/* 4C. Chức danh Giảng viên (nằm dưới đường kẻ ngang) */}
       <div className="absolute top-[85.2%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -506,8 +523,8 @@ function CertificateVisual({
         </span>
       </div>
 
-      {/* 4C. Ghi chú Giảng viên (nằm dưới chức danh) */}
-      {data.instructorNote !== "" && (
+      {/* 4D. Ghi chú Giảng viên (nằm dưới chức danh) */}
+      {data.instructorNote !== "" && !data.instructorSignature && (
         <div className="absolute top-[89.0%] -translate-y-1/2 left-[25.4%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -521,8 +538,23 @@ function CertificateVisual({
       )}
 
       {/* LAYER 5: Đại diện đơn vị (Cột Phải, Tâm X: 63.2%, Đường kẻ ngang chuẩn tại Y=599 / 82.7%) */}
-      {/* 5A. Tên Người đại diện (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
-      <div className="absolute top-[79.8%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
+      {/* 5A. Mẫu chữ ký điện tử Người đại diện (nếu có ảnh tải lên) */}
+      {data.directorSignature && (
+        <div className="absolute top-[77.8%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[24%] h-[9%] flex items-center justify-center pointer-events-none z-10">
+          <img
+            src={data.directorSignature}
+            alt="Chữ ký người đại diện"
+            className="max-h-full max-w-full object-contain filter drop-shadow-sm"
+          />
+        </div>
+      )}
+
+      {/* 5B. Tên Người đại diện (nằm ngay trên đường kẻ, KHÔNG cắt xén bằng dấu ...) */}
+      <div
+        className={`absolute ${
+          data.directorSignature ? "top-[81.2%]" : "top-[79.8%]"
+        } -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center`}
+      >
         {data.director && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -535,7 +567,7 @@ function CertificateVisual({
         )}
       </div>
 
-      {/* 5B. Chức danh Người đại diện (nằm dưới đường kẻ ngang) */}
+      {/* 5C. Chức danh Người đại diện (nằm dưới đường kẻ ngang) */}
       <div className="absolute top-[85.2%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
         <span
           style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -547,8 +579,8 @@ function CertificateVisual({
         </span>
       </div>
 
-      {/* 5C. Ghi chú Người đại diện (nằm dưới chức danh) */}
-      {data.directorNote !== "" && (
+      {/* 5D. Ghi chú Người đại diện (nằm dưới chức danh) */}
+      {data.directorNote !== "" && !data.directorSignature && (
         <div className="absolute top-[89.0%] -translate-y-1/2 left-[63.2%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -598,6 +630,8 @@ export default function AdminCertificatesPage() {
     isDefault: false
   });
   const templateFileInputRef = useRef<HTMLInputElement>(null);
+  const instructorSigInputRef = useRef<HTMLInputElement>(null);
+  const directorSigInputRef = useRef<HTMLInputElement>(null);
 
   // Form State for Issuer / Editor (WYSIWYG)
   const [formData, setFormData] = useState<Partial<CertificateRecord>>({
@@ -611,9 +645,11 @@ export default function AdminCertificatesPage() {
     instructor: "Thầy Nguyễn Đình Huy",
     instructorTitle: "GIẢNG VIÊN",
     instructorNote: "(Ký và ghi rõ họ tên)",
+    instructorSignature: "",
     director: "Nguyễn Đình Huy",
     directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
     directorNote: "(Ký và ghi rõ họ tên)",
+    directorSignature: "",
     showSeal: false,
     status: "Hợp lệ",
     templateType: "tinhocgenz-official",
@@ -775,6 +811,26 @@ export default function AdminCertificatesPage() {
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
+  const handleUploadSignature = (e: React.ChangeEvent<HTMLInputElement>, target: "instructor" | "director") => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Vui lòng chọn ảnh chữ ký dưới 5MB.");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const dataUrl = ev.target?.result as string;
+        if (target === "instructor") {
+          setFormData((prev) => ({ ...prev, instructorSignature: dataUrl }));
+        } else {
+          setFormData((prev) => ({ ...prev, directorSignature: dataUrl }));
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   // Open Issuer Modal for creating new cert
   const handleOpenNewIssuer = () => {
     setEditingCert(null);
@@ -791,9 +847,11 @@ export default function AdminCertificatesPage() {
       instructor: "Thầy Nguyễn Đình Huy",
       instructorTitle: "GIẢNG VIÊN",
       instructorNote: "(Ký và ghi rõ họ tên)",
+      instructorSignature: "",
       director: "Nguyễn Đình Huy",
       directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
       directorNote: "(Ký và ghi rõ họ tên)",
+      directorSignature: "",
       showSeal: false,
       status: "Hợp lệ",
       templateType: defaultType,
@@ -812,9 +870,11 @@ export default function AdminCertificatesPage() {
       instructor: cert.instructor || "Thầy Nguyễn Đình Huy",
       instructorTitle: cert.instructorTitle ?? "GIẢNG VIÊN",
       instructorNote: cert.instructorNote ?? "(Ký và ghi rõ họ tên)",
+      instructorSignature: cert.instructorSignature || "",
       director: cert.director || "Nguyễn Đình Huy",
       directorTitle: cert.directorTitle ?? "ĐẠI DIỆN ĐƠN VỊ",
       directorNote: cert.directorNote ?? "(Ký và ghi rõ họ tên)",
+      directorSignature: cert.directorSignature || "",
       templateType: cert.templateType || (cert.imageUrl ? "custom-image" : "tinhocgenz-official"),
       displayMode: cert.displayMode || (cert.imageUrl ? "custom-image" : "overlay-template"),
       showSeal: false
@@ -848,9 +908,11 @@ export default function AdminCertificatesPage() {
         instructor: formData.instructor?.trim() || "Thầy Nguyễn Đình Huy",
         instructorTitle: formData.instructorTitle?.trim() || "GIẢNG VIÊN",
         instructorNote: formData.instructorNote !== undefined ? formData.instructorNote.trim() : "(Ký và ghi rõ họ tên)",
+        instructorSignature: formData.instructorSignature || undefined,
         director: formData.director?.trim() || "Nguyễn Đình Huy",
         directorTitle: formData.directorTitle?.trim() || "ĐẠI DIỆN ĐƠN VỊ",
         directorNote: formData.directorNote !== undefined ? formData.directorNote.trim() : "(Ký và ghi rõ họ tên)",
+        directorSignature: formData.directorSignature || undefined,
         showSeal: false,
         status: (formData.status as any) || "Hợp lệ",
         templateType: formData.templateType || "tinhocgenz-official",
@@ -1736,40 +1798,52 @@ export default function AdminCertificatesPage() {
                   </div>
                 </div>
 
-                {/* 4. KÝ DUYỆT CHÂN BẰNG - TỰ DO SỬA MỌI CHỮ */}
+                {/* 3. KÝ DUYỆT CHÂN BẰNG & MẪU CHỮ KÝ */}
                 <div className="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="text-[11px] font-black uppercase text-blue-400 tracking-wider flex items-center gap-1.5">
                       <Edit3 size={13} className="text-blue-400" />
-                      <span>3. Giảng viên & Người Đại Diện Duyệt Chân Bằng</span>
+                      <span>3. Người Ký &amp; Mẫu Chữ Ký Điện Tử</span>
                     </div>
                     <span className="text-[9.5px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                      Tự do sửa mọi chữ
+                      Tự do tùy biến &amp; Tải chữ ký
                     </span>
                   </div>
 
-                  <p className="text-[10px] text-slate-400 leading-relaxed">
-                    💡 Bạn có thể đổi tên giảng viên, chức danh (GIẢNG VIÊN / CHỦ NHIỆM LỚP / MOS MASTER TRAINER...), tên người đại diện và chức danh (ĐẠI DIỆN ĐƠN VỊ / GIÁM ĐỐC TRUNG TÂM / TỔNG GIÁM ĐỐC...) theo nhu cầu thực tế.
-                  </p>
+                  {/* Hidden inputs for uploading signatures */}
+                  <input
+                    ref={instructorSigInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => handleUploadSignature(e, "instructor")}
+                  />
+                  <input
+                    ref={directorSigInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => handleUploadSignature(e, "director")}
+                  />
 
                   {/* TWO COLUMNS: Giảng viên (Trái) & Đại diện (Phải) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                     {/* CỘT TRÁI: GIẢNG VIÊN */}
-                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                      <div className="text-[10px] font-bold uppercase text-amber-400 tracking-wide border-b border-slate-800 pb-1 flex items-center justify-between">
+                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2.5">
+                      <div className="text-[10px] font-bold uppercase text-amber-400 tracking-wide border-b border-slate-800 pb-1.5 flex items-center justify-between">
                         <span>Chân Bằng Bên Trái</span>
-                        <span className="text-[9px] text-slate-500 font-normal">Giảng viên / Lớp</span>
+                        <span className="text-[9px] text-slate-400 font-normal">Giảng viên / Lớp</span>
                       </div>
 
                       <div>
                         <label className="block text-[10px] font-bold text-slate-300 mb-1">
-                          Họ tên người ký
+                          Họ tên người ký *
                         </label>
                         <input
                           type="text"
                           value={formData.instructor || ""}
                           onChange={(e) => setFormData({ ...formData, instructor: e.target.value })}
-                          placeholder="VD: Thầy Nguyễn Đình Huy"
+                          placeholder="VD: Thầy Lê Văn Minh"
                           className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-white text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
@@ -1782,35 +1856,82 @@ export default function AdminCertificatesPage() {
                           type="text"
                           value={formData.instructorTitle || ""}
                           onChange={(e) => setFormData({ ...formData, instructorTitle: e.target.value })}
-                          placeholder="GIẢNG VIÊN (hoặc CHỦ NHIỆM LỚP...)"
+                          placeholder="GIẢNG VIÊN (hoặc GIÁO VIÊN...)"
                           className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-amber-300 text-xs font-bold focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
 
+                      {/* DÒNG TẢI MẪU CHỮ KÝ GIẢNG VIÊN */}
                       <div>
-                        <label className="block text-[10px] font-bold text-slate-400 mb-1">
-                          Dòng ghi chú dưới chức danh
+                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
+                          Mẫu chữ ký điện tử
+                        </label>
+                        {formData.instructorSignature ? (
+                          <div className="p-2 rounded-lg bg-slate-950 border border-emerald-500/40 flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 truncate">
+                              <div className="w-12 h-7 bg-white/90 rounded border border-slate-700 p-0.5 flex items-center justify-center shrink-0">
+                                <img
+                                  src={formData.instructorSignature}
+                                  alt="Chữ ký"
+                                  className="max-h-full max-w-full object-contain"
+                                />
+                              </div>
+                              <span className="text-[10px] font-bold text-emerald-400 truncate">✓ Đã tải chữ ký</span>
+                            </div>
+                            <div className="flex items-center gap-1 shrink-0">
+                              <button
+                                type="button"
+                                onClick={() => instructorSigInputRef.current?.click()}
+                                className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-semibold transition-colors cursor-pointer"
+                              >
+                                Đổi
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setFormData({ ...formData, instructorSignature: "" })}
+                                className="p-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 transition-colors cursor-pointer"
+                                title="Xóa chữ ký"
+                              >
+                                <Trash2 size={12} />
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => instructorSigInputRef.current?.click()}
+                            className="w-full py-2 px-2.5 rounded-lg border border-dashed border-slate-700 bg-slate-950/60 hover:bg-slate-800/60 hover:border-amber-400/60 text-slate-400 hover:text-amber-300 text-[10.5px] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                          >
+                            <Upload size={13} className="text-amber-400" />
+                            <span>Tải Mẫu Chữ Ký (PNG / JPG)</span>
+                          </button>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-[9.5px] font-medium text-slate-400 mb-1">
+                          Ghi chú dưới chức danh (tùy chọn)
                         </label>
                         <input
                           type="text"
                           value={formData.instructorNote ?? "(Ký và ghi rõ họ tên)"}
                           onChange={(e) => setFormData({ ...formData, instructorNote: e.target.value })}
                           placeholder="(Ký và ghi rõ họ tên)"
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[11px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          className="w-full px-2.5 py-1 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[10px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
                     </div>
 
                     {/* CỘT PHẢI: ĐẠI DIỆN ĐƠN VỊ / CÔNG TY */}
-                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                      <div className="text-[10px] font-bold uppercase text-blue-400 tracking-wide border-b border-slate-800 pb-1 flex items-center justify-between">
+                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2.5">
+                      <div className="text-[10px] font-bold uppercase text-blue-400 tracking-wide border-b border-slate-800 pb-1.5 flex items-center justify-between">
                         <span>Chân Bằng Bên Phải</span>
-                        <span className="text-[9px] text-slate-500 font-normal">Đại diện pháp nhân</span>
+                        <span className="text-[9px] text-slate-400 font-normal">Đại diện pháp nhân</span>
                       </div>
 
                       <div>
                         <label className="block text-[10px] font-bold text-slate-300 mb-1">
-                          Họ tên người đại diện
+                          Họ tên người đại diện *
                         </label>
                         <input
                           type="text"
@@ -1829,29 +1950,71 @@ export default function AdminCertificatesPage() {
                           type="text"
                           value={formData.directorTitle || ""}
                           onChange={(e) => setFormData({ ...formData, directorTitle: e.target.value })}
-                          placeholder="ĐẠI DIỆN ĐƠN VỊ (hoặc GIÁM ĐỐC CÔNG TY...)"
+                          placeholder="ĐẠI DIỆN ĐƠN VỊ (hoặc GIÁM ĐỐC...)"
                           className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-blue-300 text-xs font-bold focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
 
+                      {/* DÒNG TẢI MẪU CHỮ KÝ NGƯỜI ĐẠI DIỆN */}
                       <div>
-                        <label className="block text-[10px] font-bold text-slate-400 mb-1">
-                          Dòng ghi chú dưới chức danh
+                        <label className="block text-[10px] font-bold text-slate-300 mb-1">
+                          Mẫu chữ ký điện tử
+                        </label>
+                        {formData.directorSignature ? (
+                          <div className="p-2 rounded-lg bg-slate-950 border border-emerald-500/40 flex items-center justify-between gap-2">
+                            <div className="flex items-center gap-2 truncate">
+                              <div className="w-12 h-7 bg-white/90 rounded border border-slate-700 p-0.5 flex items-center justify-center shrink-0">
+                                <img
+                                  src={formData.directorSignature}
+                                  alt="Chữ ký"
+                                  className="max-h-full max-w-full object-contain"
+                                />
+                              </div>
+                              <span className="text-[10px] font-bold text-emerald-400 truncate">✓ Đã tải chữ ký</span>
+                            </div>
+                            <div className="flex items-center gap-1 shrink-0">
+                              <button
+                                type="button"
+                                onClick={() => directorSigInputRef.current?.click()}
+                                className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-semibold transition-colors cursor-pointer"
+                              >
+                                Đổi
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setFormData({ ...formData, directorSignature: "" })}
+                                className="p-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 transition-colors cursor-pointer"
+                                title="Xóa chữ ký"
+                              >
+                                <Trash2 size={12} />
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => directorSigInputRef.current?.click()}
+                            className="w-full py-2 px-2.5 rounded-lg border border-dashed border-slate-700 bg-slate-950/60 hover:bg-slate-800/60 hover:border-blue-400/60 text-slate-400 hover:text-blue-300 text-[10.5px] font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                          >
+                            <Upload size={13} className="text-blue-400" />
+                            <span>Tải Mẫu Chữ Ký (PNG / JPG)</span>
+                          </button>
+                        )}
+                      </div>
+
+                      <div>
+                        <label className="block text-[9.5px] font-medium text-slate-400 mb-1">
+                          Ghi chú dưới chức danh (tùy chọn)
                         </label>
                         <input
                           type="text"
                           value={formData.directorNote ?? "(Ký và ghi rõ họ tên)"}
                           onChange={(e) => setFormData({ ...formData, directorNote: e.target.value })}
                           placeholder="(Ký và ghi rõ họ tên)"
-                          className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[11px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          className="w-full px-2.5 py-1 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[10px] italic focus:outline-none focus:ring-1 focus:ring-blue-500"
                         />
                       </div>
                     </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-1 text-[11px] text-emerald-400">
-                    <CheckCircle2 size={13} className="shrink-0 text-emerald-400" />
-                    <span>Phông chữ Tahoma chuẩn hóa, đối xứng cân bằng hoàn hảo, không có con dấu đỏ.</span>
                   </div>
                 </div>
               </form>
