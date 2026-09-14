@@ -65,10 +65,12 @@ export interface CertificateRecord {
   instructorTitle?: string;
   instructorNote?: string;
   instructorSignature?: string;
+  instructorSigScale?: number;
   director?: string;
   directorTitle?: string;
   directorNote?: string;
   directorSignature?: string;
+  directorSigScale?: number;
   showSeal?: boolean;
   status: "Hợp lệ" | "Chờ xác thực" | "Đã thu hồi";
   templateType: string;
@@ -478,19 +480,26 @@ function CertificateVisual({
       </div>
 
       {/* LAYER 4: Giảng viên (Cột Trái, Tâm X: 25.3%, Đường kẻ ngang chuẩn tại Y=598 / 82.6%) */}
-      {/* 4A. Mẫu chữ ký điện tử Giảng viên (nằm ngay trên đường kẻ ký tên) */}
+      {/* 4A. Mẫu chữ ký điện tử Giảng viên (nổi bật, vừa vặn, mực sắc nét trên nền giấy) */}
       {data.instructorSignature && (
-        <div className="absolute top-[74.0%] -translate-y-1/2 left-[25.3%] -translate-x-1/2 w-[22%] h-[8.5%] flex items-center justify-center pointer-events-none z-10">
+        <div 
+          style={{ transform: `translate(-50%, -50%) scale(${data.instructorSigScale ?? 1.15})` }}
+          className="absolute top-[76.2%] left-[25.3%] w-[24%] h-[9.2%] flex items-end justify-center pointer-events-none z-10 pb-0.5"
+        >
           <img
             src={data.instructorSignature}
             alt="Chữ ký giảng viên"
-            className="max-h-full max-w-full object-contain filter drop-shadow-sm"
+            className="max-h-full max-w-full object-contain filter drop-shadow-[0_1px_2px_rgba(12,35,64,0.3)] contrast-125 brightness-95 mix-blend-multiply transition-transform"
           />
         </div>
       )}
 
       {/* 4B. Tên Giảng viên (nằm ngay trên đường kẻ, KHÔNG in đè chức danh vì phôi đã có sẵn GIẢNG VIÊN) */}
-      <div className="absolute top-[80.4%] -translate-y-1/2 left-[25.3%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
+      <div 
+        className={`absolute ${
+          data.instructorSignature ? "top-[81.0%]" : "top-[80.4%]"
+        } -translate-y-1/2 left-[25.3%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center`}
+      >
         {data.instructor && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -504,19 +513,26 @@ function CertificateVisual({
       </div>
 
       {/* LAYER 5: Đại diện đơn vị (Cột Phải, Tâm X: 63.1%, Đường kẻ ngang chuẩn tại Y=598 / 82.6%) */}
-      {/* 5A. Mẫu chữ ký điện tử Người đại diện (nằm ngay trên đường kẻ ký tên) */}
+      {/* 5A. Mẫu chữ ký điện tử Người đại diện (nổi bật, vừa vặn, mực sắc nét trên nền giấy) */}
       {data.directorSignature && (
-        <div className="absolute top-[74.0%] -translate-y-1/2 left-[63.1%] -translate-x-1/2 w-[22%] h-[8.5%] flex items-center justify-center pointer-events-none z-10">
+        <div 
+          style={{ transform: `translate(-50%, -50%) scale(${data.directorSigScale ?? 1.15})` }}
+          className="absolute top-[76.2%] left-[63.1%] w-[24%] h-[9.2%] flex items-end justify-center pointer-events-none z-10 pb-0.5"
+        >
           <img
             src={data.directorSignature}
             alt="Chữ ký người đại diện"
-            className="max-h-full max-w-full object-contain filter drop-shadow-sm"
+            className="max-h-full max-w-full object-contain filter drop-shadow-[0_1px_2px_rgba(12,35,64,0.3)] contrast-125 brightness-95 mix-blend-multiply transition-transform"
           />
         </div>
       )}
 
       {/* 5B. Tên Người đại diện (nằm ngay trên đường kẻ, KHÔNG in đè chức danh vì phôi đã có sẵn ĐẠI DIỆN ĐƠN VỊ) */}
-      <div className="absolute top-[80.4%] -translate-y-1/2 left-[63.1%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center">
+      <div 
+        className={`absolute ${
+          data.directorSignature ? "top-[81.0%]" : "top-[80.4%]"
+        } -translate-y-1/2 left-[63.1%] -translate-x-1/2 w-[34%] flex items-center justify-center pointer-events-none z-10 text-center`}
+      >
         {data.director && (
           <span
             style={{ fontFamily: 'Tahoma, Verdana, "Segoe UI", sans-serif' }}
@@ -796,10 +812,12 @@ export default function AdminCertificatesPage() {
       instructorTitle: "GIẢNG VIÊN",
       instructorNote: "(Ký và ghi rõ họ tên)",
       instructorSignature: "",
+      instructorSigScale: 1.15,
       director: "Nguyễn Đình Huy",
       directorTitle: "ĐẠI DIỆN ĐƠN VỊ",
       directorNote: "(Ký và ghi rõ họ tên)",
       directorSignature: "",
+      directorSigScale: 1.15,
       showSeal: false,
       status: "Hợp lệ",
       templateType: defaultType,
@@ -819,10 +837,12 @@ export default function AdminCertificatesPage() {
       instructorTitle: cert.instructorTitle ?? "GIẢNG VIÊN",
       instructorNote: cert.instructorNote ?? "(Ký và ghi rõ họ tên)",
       instructorSignature: cert.instructorSignature || "",
+      instructorSigScale: cert.instructorSigScale ?? 1.15,
       director: cert.director || "Nguyễn Đình Huy",
       directorTitle: cert.directorTitle ?? "ĐẠI DIỆN ĐƠN VỊ",
       directorNote: cert.directorNote ?? "(Ký và ghi rõ họ tên)",
       directorSignature: cert.directorSignature || "",
+      directorSigScale: cert.directorSigScale ?? 1.15,
       templateType: cert.templateType || (cert.imageUrl ? "custom-image" : "tinhocgenz-official"),
       displayMode: cert.displayMode || (cert.imageUrl ? "custom-image" : "overlay-template"),
       showSeal: false
@@ -857,10 +877,12 @@ export default function AdminCertificatesPage() {
         instructorTitle: formData.instructorTitle?.trim() || "GIẢNG VIÊN",
         instructorNote: formData.instructorNote !== undefined ? formData.instructorNote.trim() : "(Ký và ghi rõ họ tên)",
         instructorSignature: formData.instructorSignature || undefined,
+        instructorSigScale: formData.instructorSigScale ?? 1.15,
         director: formData.director?.trim() || "Nguyễn Đình Huy",
         directorTitle: formData.directorTitle?.trim() || "ĐẠI DIỆN ĐƠN VỊ",
         directorNote: formData.directorNote !== undefined ? formData.directorNote.trim() : "(Ký và ghi rõ họ tên)",
         directorSignature: formData.directorSignature || undefined,
+        directorSigScale: formData.directorSigScale ?? 1.15,
         showSeal: false,
         status: (formData.status as any) || "Hợp lệ",
         templateType: formData.templateType || "tinhocgenz-official",
@@ -1802,33 +1824,59 @@ export default function AdminCertificatesPage() {
                           Mẫu chữ ký điện tử
                         </label>
                         {formData.instructorSignature ? (
-                          <div className="p-2 rounded-lg bg-slate-950 border border-emerald-500/40 flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2 truncate">
-                              <div className="w-12 h-7 bg-white/90 rounded border border-slate-700 p-0.5 flex items-center justify-center shrink-0">
-                                <img
-                                  src={formData.instructorSignature}
-                                  alt="Chữ ký"
-                                  className="max-h-full max-w-full object-contain"
-                                />
+                          <div className="space-y-1.5">
+                            <div className="p-2 rounded-lg bg-slate-950 border border-emerald-500/40 flex items-center justify-between gap-2">
+                              <div className="flex items-center gap-2 truncate">
+                                <div className="w-12 h-7 bg-white/90 rounded border border-slate-700 p-0.5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src={formData.instructorSignature}
+                                    alt="Chữ ký"
+                                    className="max-h-full max-w-full object-contain"
+                                  />
+                                </div>
+                                <span className="text-[10px] font-bold text-emerald-400 truncate">✓ Đã tải chữ ký</span>
                               </div>
-                              <span className="text-[10px] font-bold text-emerald-400 truncate">✓ Đã tải chữ ký</span>
+                              <div className="flex items-center gap-1 shrink-0">
+                                <button
+                                  type="button"
+                                  onClick={() => instructorSigInputRef.current?.click()}
+                                  className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-semibold transition-colors cursor-pointer"
+                                >
+                                  Đổi
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setFormData({ ...formData, instructorSignature: "" })}
+                                  className="p-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 transition-colors cursor-pointer"
+                                  title="Xóa chữ ký"
+                                >
+                                  <Trash2 size={12} />
+                                </button>
+                              </div>
                             </div>
-                            <div className="flex items-center gap-1 shrink-0">
-                              <button
-                                type="button"
-                                onClick={() => instructorSigInputRef.current?.click()}
-                                className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-semibold transition-colors cursor-pointer"
-                              >
-                                Đổi
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => setFormData({ ...formData, instructorSignature: "" })}
-                                className="p-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 transition-colors cursor-pointer"
-                                title="Xóa chữ ký"
-                              >
-                                <Trash2 size={12} />
-                              </button>
+                            {/* Scale Selector */}
+                            <div className="flex items-center justify-between px-1 text-[9px] text-slate-400">
+                              <span>Tỉ lệ hiển thị:</span>
+                              <div className="flex items-center gap-1">
+                                {[
+                                  { label: "Vừa vặn", val: 1.0 },
+                                  { label: "Nổi bật (Chuẩn)", val: 1.15 },
+                                  { label: "Lớn (+30%)", val: 1.3 }
+                                ].map((s) => (
+                                  <button
+                                    key={s.val}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, instructorSigScale: s.val })}
+                                    className={`px-1.5 py-0.5 rounded cursor-pointer font-semibold transition-all ${
+                                      (formData.instructorSigScale ?? 1.15) === s.val
+                                        ? "bg-amber-500/25 text-amber-300 border border-amber-500/50"
+                                        : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                                    }`}
+                                  >
+                                    {s.label}
+                                  </button>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         ) : (
@@ -1874,33 +1922,59 @@ export default function AdminCertificatesPage() {
                           Mẫu chữ ký điện tử
                         </label>
                         {formData.directorSignature ? (
-                          <div className="p-2 rounded-lg bg-slate-950 border border-emerald-500/40 flex items-center justify-between gap-2">
-                            <div className="flex items-center gap-2 truncate">
-                              <div className="w-12 h-7 bg-white/90 rounded border border-slate-700 p-0.5 flex items-center justify-center shrink-0">
-                                <img
-                                  src={formData.directorSignature}
-                                  alt="Chữ ký"
-                                  className="max-h-full max-w-full object-contain"
-                                />
+                          <div className="space-y-1.5">
+                            <div className="p-2 rounded-lg bg-slate-950 border border-emerald-500/40 flex items-center justify-between gap-2">
+                              <div className="flex items-center gap-2 truncate">
+                                <div className="w-12 h-7 bg-white/90 rounded border border-slate-700 p-0.5 flex items-center justify-center shrink-0">
+                                  <img
+                                    src={formData.directorSignature}
+                                    alt="Chữ ký"
+                                    className="max-h-full max-w-full object-contain"
+                                  />
+                                </div>
+                                <span className="text-[10px] font-bold text-emerald-400 truncate">✓ Đã tải chữ ký</span>
                               </div>
-                              <span className="text-[10px] font-bold text-emerald-400 truncate">✓ Đã tải chữ ký</span>
+                              <div className="flex items-center gap-1 shrink-0">
+                                <button
+                                  type="button"
+                                  onClick={() => directorSigInputRef.current?.click()}
+                                  className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-semibold transition-colors cursor-pointer"
+                                >
+                                  Đổi
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setFormData({ ...formData, directorSignature: "" })}
+                                  className="p-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 transition-colors cursor-pointer"
+                                  title="Xóa chữ ký"
+                                >
+                                  <Trash2 size={12} />
+                                </button>
+                              </div>
                             </div>
-                            <div className="flex items-center gap-1 shrink-0">
-                              <button
-                                type="button"
-                                onClick={() => directorSigInputRef.current?.click()}
-                                className="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-semibold transition-colors cursor-pointer"
-                              >
-                                Đổi
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => setFormData({ ...formData, directorSignature: "" })}
-                                className="p-1 rounded bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 transition-colors cursor-pointer"
-                                title="Xóa chữ ký"
-                              >
-                                <Trash2 size={12} />
-                              </button>
+                            {/* Scale Selector */}
+                            <div className="flex items-center justify-between px-1 text-[9px] text-slate-400">
+                              <span>Tỉ lệ hiển thị:</span>
+                              <div className="flex items-center gap-1">
+                                {[
+                                  { label: "Vừa vặn", val: 1.0 },
+                                  { label: "Nổi bật (Chuẩn)", val: 1.15 },
+                                  { label: "Lớn (+30%)", val: 1.3 }
+                                ].map((s) => (
+                                  <button
+                                    key={s.val}
+                                    type="button"
+                                    onClick={() => setFormData({ ...formData, directorSigScale: s.val })}
+                                    className={`px-1.5 py-0.5 rounded cursor-pointer font-semibold transition-all ${
+                                      (formData.directorSigScale ?? 1.15) === s.val
+                                        ? "bg-blue-500/25 text-blue-300 border border-blue-500/50"
+                                        : "bg-slate-950 text-slate-400 hover:text-slate-200 border border-slate-800"
+                                    }`}
+                                  >
+                                    {s.label}
+                                  </button>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         ) : (
