@@ -114,3 +114,4 @@ flowchart TD
    - Quay lại trang chủ -> Xuất hiện khối "Tiếp tục học" trỏ đúng bài học vừa làm.
 4. **An toàn bảo mật**: Route `/admin`, `/portal/*`, `/api/admin/*` không bị ảnh hưởng, giữ nguyên mã phản hồi 307/403.
 5. **Độ ổn định**: Chạy toàn bộ test suites hiện có và test mới đạt 100% PASS, build Next.js thành công không có lỗi TypeScript hay Linting.
+

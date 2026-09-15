@@ -7,39 +7,29 @@ export default function HeroSection() {
   return (
     <section
       aria-label="Tin Học Gen Z - Học Thực Chiến"
-      className="relative w-full bg-gradient-to-b from-blue-50/70 via-slate-50/40 to-white overflow-hidden pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-36 lg:pb-20"
+      className="relative w-full bg-[#F4F8FD] border-b border-[#D8E4F2] overflow-hidden pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-28 lg:pb-20 tech-grid-pattern"
     >
-      {/* Ambient background glows */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-1/4 w-96 h-96 sm:w-[500px] sm:h-[500px] rounded-full bg-blue-200/40 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-20 right-10 w-80 h-80 rounded-full bg-indigo-100/50 blur-2xl"
-      />
-
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
           {/* LEFT COLUMN: BRAND LABEL, H1, DESCRIPTION, CTAS, PROOF LINE */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             {/* Small Brand Chip */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs sm:text-xs font-extrabold uppercase tracking-wider mb-5 shadow-xs">
-              <Sparkles size={14} className="text-blue-600 shrink-0" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F1FC] border border-[#D8E4F2] text-[#0057B8] text-xs font-bold uppercase tracking-wider mb-5">
+              <Sparkles size={14} className="text-[#0057B8] shrink-0" />
               <span>TIN HỌC GEN Z • HỌC THỰC CHIẾN</span>
             </div>
 
             {/* Single Semantic H1 */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-slate-900 leading-[1.12] tracking-tight mb-5">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-[#0B2545] leading-[1.15] tracking-tight mb-5">
               Nâng kỹ năng số –{" "}
-              <span className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 bg-clip-text text-transparent inline-block">
+              <span className="text-[#0057B8] inline-block">
                 Mở lối tương lai
               </span>
             </h1>
 
             {/* Description */}
-            <p className="text-base sm:text-lg text-slate-600 leading-relaxed mb-8 max-w-2xl font-normal">
+            <p className="text-base sm:text-lg text-[#526581] leading-relaxed mb-8 max-w-2xl font-normal">
               Học Tin học văn phòng, thiết kế và AI theo lộ trình rõ ràng, ứng dụng ngay vào học tập và công việc.
             </p>
 
@@ -48,7 +38,7 @@ export default function HeroSection() {
               {/* Primary CTA: Bắt đầu học thử */}
               <Link
                 href="/khoa-hoc/mos-master-combo/bai-hoc/word-lesson-1"
-                className="min-h-[48px] px-7 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
+                className="min-h-[48px] px-7 py-3 rounded-xl bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs transition-colors focus-visible:outline-3 focus-visible:outline-[#0057B8] focus-visible:outline-offset-2"
               >
                 <span>Học thử bài đầu tiên</span>
                 <ArrowRight size={16} />
@@ -57,36 +47,36 @@ export default function HeroSection() {
               {/* Secondary CTA: Khám phá danh mục khóa học */}
               <Link
                 href="/khoa-hoc"
-                className="min-h-[48px] px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs hover:border-slate-400 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
+                className="min-h-[48px] px-6 py-3 rounded-xl bg-white hover:bg-[#E8F1FC] border-1.5 border-[#0057B8] text-[#0057B8] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors focus-visible:outline-3 focus-visible:outline-[#0057B8] focus-visible:outline-offset-2"
               >
-                <BookOpen size={16} className="text-blue-600" />
+                <BookOpen size={16} className="text-[#0057B8]" />
                 <span>Khám phá khóa học</span>
               </Link>
 
               {/* Thi thử miễn phí */}
               <Link
                 href="/thi-thu"
-                className="hidden xl:flex min-h-[48px] px-5 py-3.5 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-sm items-center justify-center gap-2 border border-slate-200 transition-all"
+                className="hidden xl:flex min-h-[48px] px-5 py-3 rounded-xl bg-white hover:bg-[#E8F1FC] text-[#172B4D] font-semibold text-sm items-center justify-center gap-2 border border-[#D8E4F2] transition-colors"
               >
-                <FileText size={15} className="text-amber-500" />
+                <FileText size={15} className="text-[#0057B8]" />
                 <span>Thi thử MOS/IC3</span>
               </Link>
             </div>
 
             {/* Benefit Proof Line */}
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs sm:text-sm font-semibold text-slate-600">
+            <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs sm:text-sm font-semibold text-[#526581]">
               <div className="inline-flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                <CheckCircle2 size={15} className="text-[#107C41] shrink-0" />
                 <span>Lộ trình rõ ràng</span>
               </div>
-              <span className="text-slate-300">•</span>
+              <span className="text-[#D8E4F2]">•</span>
               <div className="inline-flex items-center gap-1.5">
-                <BookOpen size={15} className="text-blue-600 shrink-0" />
+                <BookOpen size={15} className="text-[#0057B8] shrink-0" />
                 <span>Bài tập thực hành</span>
               </div>
-              <span className="text-slate-300">•</span>
+              <span className="text-[#D8E4F2]">•</span>
               <div className="inline-flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-amber-600 shrink-0" />
+                <CheckCircle2 size={15} className="text-[#107C41] shrink-0" />
                 <span>Hỗ trợ tận tâm</span>
               </div>
             </div>

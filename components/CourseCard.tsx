@@ -19,66 +19,14 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
       .replace("₫", "đ");
   };
 
-  // Map icons, tagline backgrounds, and category tags dynamically based on course ID
+  // Standardized metadata mapping with oceanic brand system
   const getCourseMeta = (id: string) => {
-    switch (id) {
-      case "mos-master-combo":
-        return {
-          icon: <Award size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Chuẩn Đầu Ra ĐH • Bao Đỗ",
-          badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
-          taglineBg: "bg-blue-50/70 text-blue-900 border border-blue-100/70 shadow-xs",
-          accentColor: "blue"
-        };
-      case "mos-2019":
-        return {
-          icon: <Award size={20} className="text-indigo-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Chứng Chỉ Quốc Tế MOS",
-          badgeColor: "bg-indigo-50 text-indigo-700 border-indigo-100/50",
-          taglineBg: "bg-indigo-50/70 text-indigo-800 border border-indigo-100/50 shadow-xs shadow-indigo-100/10",
-          accentColor: "indigo"
-        };
-      case "ic3-gs6":
-        return {
-          icon: <Sparkles size={20} className="text-cyan-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Kỹ Năng Số Quốc Tế IC3",
-          badgeColor: "bg-cyan-50 text-cyan-700 border-cyan-100/50",
-          taglineBg: "bg-cyan-50/70 text-cyan-800 border border-cyan-100/50 shadow-xs",
-          accentColor: "teal"
-        };
-      case "combo-survival-office":
-        return {
-          icon: <Laptop size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Thực Chiến Công Sở",
-          badgeColor: "bg-blue-50 text-blue-700 border-blue-100/50",
-          taglineBg: "bg-blue-50/70 text-blue-800 border border-blue-100/50 shadow-xs shadow-blue-100/10",
-          accentColor: "blue"
-        };
-      case "ai-office-breakthrough":
-        return {
-          icon: <Sparkles size={20} className="text-rose-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Kỹ Năng AI Tương Lai",
-          badgeColor: "bg-rose-50 text-rose-700 border-rose-100/50",
-          taglineBg: "bg-rose-50/70 text-rose-800 border border-rose-100/50 shadow-xs shadow-rose-100/10",
-          accentColor: "rose"
-        };
-      case "excel-custom-accounting":
-        return {
-          icon: <FileSpreadsheet size={20} className="text-emerald-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Doanh Nghiệp & Kế Toán",
-          badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-100/50",
-          taglineBg: "bg-emerald-50/70 text-emerald-800 border border-emerald-100/50 shadow-xs shadow-emerald-100/10",
-          accentColor: "emerald"
-        };
-      default:
-        return {
-          icon: <Laptop size={20} className="text-blue-600 group-hover:text-white transition-colors duration-300" />,
-          category: "Khóa Học Tin Học",
-          badgeColor: "bg-blue-50 text-blue-700 border-blue-100/50",
-          taglineBg: "bg-blue-50/70 text-blue-800 border border-blue-100/50",
-          accentColor: "blue"
-        };
-    }
+    return {
+      icon: <Award size={20} className="text-[#0057B8]" />,
+      category: id.includes("mos") ? "Chứng Chỉ MOS Quốc Tế" : id.includes("ic3") ? "Kỹ Năng Số IC3 GS6" : "Tin Học Thực Chiến",
+      badgeColor: "bg-[#E8F1FC] text-[#0057B8] border border-[#D8E4F2]",
+      taglineBg: "bg-[#F4F8FD] text-[#172B4D] border border-[#D8E4F2]",
+    };
   };
 
   const meta = getCourseMeta(course.id);
@@ -86,21 +34,10 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
   // Map index to stagger delay class
   const delayClass = index === 0 ? "delay-0" : index === 1 ? "delay-100" : index === 2 ? "delay-200" : "delay-300";
 
-  // Dynamic SVG Checkmark rendering based on theme accent color
+  // Standardized SVG Checkmark
   const renderSvgCheck = () => {
-    const accentMap: Record<string, string> = {
-      indigo: "bg-indigo-50 text-indigo-600 border border-indigo-100/60 group-hover:bg-indigo-100 group-hover:text-indigo-700",
-      blue: "bg-blue-50 text-blue-600 border border-blue-100/60 group-hover:bg-blue-100 group-hover:text-blue-700",
-      rose: "bg-rose-50 text-rose-600 border border-rose-100/60 group-hover:bg-rose-100 group-hover:text-rose-700",
-      emerald: "bg-emerald-50 text-emerald-600 border border-emerald-100/60 group-hover:bg-emerald-100 group-hover:text-emerald-700",
-      amber: "bg-amber-50 text-amber-600 border border-amber-100/60 group-hover:bg-amber-100 group-hover:text-amber-700",
-      teal: "bg-teal-50 text-teal-600 border border-teal-100/60 group-hover:bg-teal-100 group-hover:text-teal-700",
-    };
-
-    const styleClass = accentMap[meta.accentColor] || accentMap.blue;
-
     return (
-      <div className={`w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 ease-out group-hover:scale-110 ${styleClass}`}>
+      <div className="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0 mt-0.5 bg-[#E8F1FC] text-[#0057B8] border border-[#D8E4F2]">
         <svg className="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="4">
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
@@ -108,7 +45,7 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
     );
   };
 
-  // Helper to render pricing elegantly (handling splits for different configurations)
+  // Helper to render pricing
   const renderPricing = () => {
     const priceStr = String(course.price);
     
@@ -120,16 +57,16 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
             {priceParts.map((part, idx) => {
               const [label, val] = part.split(":");
               return (
-                <div key={idx} className="flex justify-between items-center bg-white border border-slate-100/80 px-2.5 py-1.5 rounded-xl transition-all duration-300">
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-wider">{label.trim()}</span>
-                  <span className="text-xs font-black text-slate-900 bg-slate-50 border border-slate-100 px-2 py-0.5 rounded-lg">{val?.trim() || part.trim()}</span>
+                <div key={idx} className="flex justify-between items-center bg-[#F4F8FD] border border-[#D8E4F2] px-2.5 py-1.5 rounded-lg transition-colors">
+                  <span className="text-[10px] font-bold text-[#526581] uppercase tracking-wider">{label.trim()}</span>
+                  <span className="text-xs font-bold text-[#0B2545] bg-white border border-[#D8E4F2] px-2 py-0.5 rounded-md">{val?.trim() || part.trim()}</span>
                 </div>
               );
             })}
           </div>
           {course.priceNote && (
-            <span className="text-[9px] font-black text-blue-600 bg-blue-50/70 border border-blue-100/60 px-2 py-0.5 rounded-md w-max tracking-wide">
-              🔥 {course.priceNote}
+            <span className="text-[9px] font-bold text-[#0057B8] bg-[#E8F1FC] border border-[#D8E4F2] px-2 py-0.5 rounded-md w-max tracking-wide">
+              {course.priceNote}
             </span>
           )}
         </div>
@@ -139,18 +76,18 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
     return (
       <div className="flex flex-col justify-end min-h-[5.25rem] gap-1 pt-3">
         <div className="flex items-baseline gap-1.5">
-          <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-none">
+          <span className="text-base sm:text-lg font-black text-[#0B2545] tracking-tight leading-none">
             {formatPrice(course.price)}
           </span>
           {course.originalPrice && (
-            <span className="text-[10px] font-bold text-slate-400 line-through">
+            <span className="text-[10px] font-bold text-[#526581] line-through">
               {formatPrice(course.originalPrice)}
             </span>
           )}
         </div>
         {course.priceNote && (
-          <span className="text-[9px] font-black text-blue-600 bg-blue-50/70 border border-blue-100/60 px-2 py-0.5 rounded-md w-max tracking-wide">
-            🔥 {course.priceNote}
+          <span className="text-[9px] font-bold text-[#0057B8] bg-[#E8F1FC] border border-[#D8E4F2] px-2 py-0.5 rounded-md w-max tracking-wide">
+            {course.priceNote}
           </span>
         )}
       </div>
@@ -159,20 +96,17 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
 
   return (
     <div
-      className={`relative flex flex-col justify-between h-full bg-white rounded-3xl sm:rounded-[2.25rem] transition-all duration-500 animate-slide-up ${delayClass} ${
+      className={`relative flex flex-col justify-between h-full bg-white rounded-2xl border ${
         course.popular
-          ? "border-2 border-transparent border-gradient-featured shadow-featured shadow-premium hover:shadow-featured-hover hover:scale-[1.04] md:scale-[1.03] pulse-glow-blue z-10"
-          : "border border-slate-200/80 hover:border-blue-500/30 hover:scale-[1.02] shadow-premium hover:shadow-premium-hover"
-      } overflow-hidden group`}
+          ? "border-[#0057B8] shadow-card ring-1 ring-[#0057B8]/20"
+          : "border-[#D8E4F2] hover:border-[#0057B8]/60 shadow-xs hover:shadow-card"
+      } transition-all duration-200 overflow-hidden group`}
     >
-      {/* Dynamic Background Hover Glow Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/0 via-cyan-500/0 to-cyan-500/[0.02] pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-500" />
-
-      {/* Popular badge flag with soft subtle pulsing glow */}
+      {/* Popular badge */}
       {course.popular && (
-        <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-[9px] font-black px-4 py-2 rounded-bl-3xl flex items-center gap-1 z-10 shadow-md">
-          <Sparkles size={10} className="animate-pulse text-cyan-300" />
-          HOT COURSE
+        <div className="absolute top-0 right-0 bg-[#0057B8] text-white text-[9px] font-bold px-3 py-1.5 rounded-bl-xl flex items-center gap-1 z-10 shadow-xs">
+          <Sparkles size={10} className="text-white" />
+          NỔI BẬT
         </div>
       )}
 
@@ -181,44 +115,44 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
         
         {/* 1 & 2. Icon + Category Tag Row */}
         <div className="flex items-center justify-between gap-3 mb-3">
-          <span className={`inline-flex items-center border px-2.5 py-0.5 rounded-lg text-[9px] font-black tracking-wider uppercase ${meta.badgeColor}`}>
+          <span className={`inline-flex items-center border px-2.5 py-0.5 rounded-lg text-[9px] font-bold tracking-wider uppercase ${meta.badgeColor}`}>
             {meta.category}
           </span>
-          <div className={`p-2 bg-slate-50 border border-slate-100 rounded-xl group-hover:bg-${meta.accentColor}-600 group-hover:text-white transition-all duration-500 shrink-0`}>
+          <div className="p-2 bg-[#F4F8FD] border border-[#D8E4F2] rounded-xl shrink-0">
             {meta.icon}
           </div>
         </div>
 
         {/* 3. Bold Title - clickable to detail page */}
         <Link href={`/khoa-hoc/${course.id}`} className="group/title block">
-          <h3 className="text-base sm:text-[17px] font-black text-slate-900 group-hover/title:text-blue-600 transition-colors duration-300 tracking-tight leading-snug min-h-[2.5rem] flex items-center">
+          <h3 className="text-base sm:text-[17px] font-black text-[#0B2545] group-hover/title:text-[#0057B8] transition-colors duration-200 tracking-tight leading-snug min-h-[2.5rem] flex items-center">
             <span className="line-clamp-2">{course.title}</span>
           </h3>
         </Link>
 
-        {/* 3.5 Course Tagline: Soft Pastel Highlight - strictly aligned to 2 lines */}
-        <div className={`mt-2 px-3 py-2 rounded-xl text-xs font-black tracking-wide leading-relaxed border min-h-[3.25rem] flex items-center ${meta.taglineBg}`}>
+        {/* 3.5 Course Tagline: Soft Highlight */}
+        <div className={`mt-2 px-3 py-2 rounded-xl text-xs font-semibold tracking-wide leading-relaxed border min-h-[3.25rem] flex items-center ${meta.taglineBg}`}>
           <span className="line-clamp-2">{course.tagline}</span>
         </div>
 
-        {/* Duration badge: subtle scale on card hover */}
-        <div className="inline-flex items-center gap-1 mt-2 w-max px-2 py-1 rounded-lg bg-slate-50 border border-slate-100 text-slate-500 text-[9px] font-bold">
-          <Clock size={10} className="text-blue-500" />
+        {/* Duration badge */}
+        <div className="inline-flex items-center gap-1 mt-2 w-max px-2 py-1 rounded-lg bg-[#F4F8FD] border border-[#D8E4F2] text-[#526581] text-[9px] font-semibold">
+          <Clock size={10} className="text-[#0057B8]" />
           {course.duration}
         </div>
 
-        {/* 4. Short Description - strictly aligned to 3 lines */}
-        <p className="text-slate-500 text-xs leading-relaxed mt-2.5 min-h-[3.75rem] flex items-start font-semibold">
+        {/* 4. Short Description */}
+        <p className="text-[#526581] text-xs leading-relaxed mt-2.5 min-h-[3.75rem] flex items-start font-normal">
           <span className="line-clamp-3">{course.description}</span>
         </p>
 
         {/* Divider */}
-        <div className="my-3.5 border-t border-slate-100" />
+        <div className="my-3.5 border-t border-[#D8E4F2]" />
 
-        {/* 5. Feature Checklist - locked to 9rem max height to guarantee equal size */}
+        {/* 5. Feature Checklist */}
         <ul className="space-y-2 mb-2 min-h-[8.5rem] flex flex-col justify-start">
           {course.features.slice(0, 5).map((feature, idx) => (
-            <li key={idx} className="flex gap-2.5 text-slate-600 font-semibold text-xs leading-normal">
+            <li key={idx} className="flex gap-2.5 text-[#172B4D] font-medium text-xs leading-normal">
               {renderSvgCheck()}
               <span className="flex-1 line-clamp-2">{feature}</span>
             </li>
@@ -227,7 +161,7 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
       </div>
 
       {/* 6 & 7. Card Footer (Price + 2 Action Buttons) */}
-      <div className="p-5 sm:p-6 pt-0 bg-slate-50/50 border-t border-slate-100/60 rounded-b-[2.25rem] relative z-10">
+      <div className="p-5 sm:p-6 pt-0 bg-white border-t border-[#D8E4F2] rounded-b-2xl relative z-10">
         <div className="flex flex-col gap-3">
           
           {/* Price display helper */}
@@ -237,17 +171,13 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
           <div className="grid grid-cols-2 gap-2">
             <Link
               href={`/khoa-hoc/${course.id}`}
-              className="w-full min-h-12 py-2.5 rounded-full text-xs font-black tracking-wide uppercase transition-all duration-300 text-center bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 flex items-center justify-center"
+              className="w-full min-h-11 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-colors text-center bg-white hover:bg-[#E8F1FC] text-[#0057B8] border border-[#D8E4F2] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#0057B8]"
             >
               Chi tiết
             </Link>
             <Link
               href={`/lien-he?select=${course.id}`}
-              className={`w-full min-h-12 py-2.5 rounded-full text-xs font-black tracking-wide uppercase transition-all duration-300 text-center shadow-md flex items-center justify-center ${
-                course.popular
-                  ? "btn-premium-primary"
-                  : "bg-blue-600 hover:bg-blue-700 text-white"
-              }`}
+              className="w-full min-h-11 py-2.5 rounded-xl text-xs font-bold tracking-wide uppercase transition-colors text-center bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] text-white shadow-xs flex items-center justify-center focus-visible:outline-2 focus-visible:outline-[#0057B8]"
             >
               Đăng ký
             </Link>

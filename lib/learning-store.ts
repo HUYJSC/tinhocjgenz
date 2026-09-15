@@ -92,3 +92,4 @@ export function getUserRecentActivityServer(userId: string): LessonProgressRecor
   userRecords.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
   return userRecords[0];
 }
+

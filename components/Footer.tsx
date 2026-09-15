@@ -35,18 +35,12 @@ export default function Footer() {
 
   return (
     <footer 
-      className="bg-slate-950 text-slate-300 relative overflow-hidden font-sans border-t border-slate-800"
+      className="bg-[#0B2545] text-[#D8E4F2] relative overflow-hidden font-sans border-t border-[#16365C]"
       role="contentinfo"
     >
-      {/* Top accent glow divider line */}
+      {/* Top subtle accent border */}
       <div 
-        className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/70 to-transparent" 
-        aria-hidden="true"
-      />
-      
-      {/* Ambient background light */}
-      <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-blue-600/5 blur-3xl pointer-events-none" 
+        className="absolute top-0 left-0 right-0 h-[1px] bg-[#1D4A7D]" 
         aria-hidden="true"
       />
 
@@ -58,13 +52,13 @@ export default function Footer() {
             - Tablet (768px - 1199px): 2 balanced columns with 32px gap
             - Mobile (< 768px): 1 column with clean accordions
         */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(280px,1.45fr)_minmax(240px,1.15fr)_minmax(210px,0.9fr)_minmax(260px,1.1fr)] gap-8 lg:gap-12 pb-12 border-b border-slate-800/80 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(280px,1.45fr)_minmax(240px,1.15fr)_minmax(210px,0.9fr)_minmax(260px,1.1fr)] gap-8 lg:gap-12 pb-12 border-b border-[#16365C] items-start">
           
           {/* CỘT 1 — THƯƠNG HIỆU (BRAND & ACCREDITATION) */}
           <div className="flex flex-col gap-4">
             <Link 
               href="/" 
-              className="group flex items-center gap-3 w-max focus-visible:outline-2 focus-visible:outline-blue-500 rounded-lg"
+              className="group flex items-center gap-3 w-max focus-visible:outline-2 focus-visible:outline-white rounded-lg"
               aria-label="Về trang chủ Tin Học Gen Z"
             >
               <img
@@ -78,30 +72,30 @@ export default function Footer() {
                 <span className="text-base sm:text-lg font-black tracking-tight text-white leading-tight font-display">
                   TIN HỌC GEN Z
                 </span>
-                <div className="text-[10px] sm:text-[11px] font-bold text-slate-400 mt-1 flex items-center gap-1.5 leading-none">
-                  <span className="text-blue-400 font-black">MOS</span>
-                  <span className="text-slate-600">•</span>
-                  <span className="text-cyan-400 font-black">IC3</span>
-                  <span className="text-slate-600">•</span>
-                  <span className="text-slate-300 font-medium">TIN HỌC VĂN PHÒNG</span>
+                <div className="text-[10px] sm:text-[11px] font-bold text-[#D8E4F2] mt-1 flex items-center gap-1.5 leading-none">
+                  <span className="text-white font-black">MOS</span>
+                  <span className="text-[#526581]">•</span>
+                  <span className="text-white font-black">IC3</span>
+                  <span className="text-[#526581]">•</span>
+                  <span className="text-[#D8E4F2] font-medium">TIN HỌC VĂN PHÒNG</span>
                 </div>
               </div>
             </Link>
 
-            <p className="text-slate-400 text-sm leading-relaxed max-w-sm mt-0.5">
+            <p className="text-[#D8E4F2] text-sm leading-relaxed max-w-sm mt-0.5">
               Hệ sinh thái đào tạo Tin học văn phòng thực chiến và luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport. Đồng hành cùng sinh viên và người đi làm làm chủ kỹ năng số trong kỷ nguyên AI.
             </p>
 
             {/* Accreditation Badge */}
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-800/90 max-w-sm">
-              <div className="w-9 h-9 rounded-xl bg-blue-500/15 border border-blue-400/30 flex items-center justify-center text-blue-400 shrink-0">
+            <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#07192F] border border-[#16365C] max-w-sm">
+              <div className="w-9 h-9 rounded-xl bg-[#0057B8]/30 border border-[#0057B8]/50 flex items-center justify-center text-white shrink-0">
                 <Award size={18} aria-hidden="true" />
               </div>
               <div className="leading-tight">
-                <span className="text-[10px] font-black uppercase tracking-wider text-cyan-400 block">
+                <span className="text-[10px] font-black uppercase tracking-wider text-[#D8E4F2] block">
                   Tiêu Chuẩn Đào Tạo
                 </span>
-                <span className="text-xs font-bold text-slate-200">
+                <span className="text-xs font-bold text-white">
                   Giảng Viên Certiport Master Trainer
                 </span>
               </div>
@@ -170,7 +164,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/mos" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Luyện thi MOS 2019/365</span>
                 </Link>
@@ -178,7 +172,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/ic3" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Chứng chỉ IC3 GS6</span>
                 </Link>
@@ -186,7 +180,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/excel" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Master Excel & Dashboard</span>
                 </Link>
@@ -194,7 +188,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/word" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Soạn thảo Word chuẩn NĐ 30</span>
                 </Link>
@@ -202,7 +196,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/powerpoint" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Thiết kế PowerPoint</span>
                 </Link>
@@ -210,7 +204,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/python" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Python tự động hóa dữ liệu</span>
                 </Link>
@@ -218,7 +212,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/cntt-co-ban" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Ứng dụng CNTT cơ bản</span>
                 </Link>
@@ -246,12 +240,12 @@ export default function Footer() {
               aria-controls="footer-resources-list"
             >
               <span className="flex items-center gap-2">
-                <span className="w-1.5 h-4 bg-cyan-400 rounded-full" aria-hidden="true" />
+                <span className="w-1.5 h-4 bg-[#0057B8] rounded-full" aria-hidden="true" />
                 Học Liệu & Thi Thử
               </span>
               <ChevronDown 
                 size={16} 
-                className={`md:hidden text-slate-400 transition-transform duration-200 ${openSections.resources ? "rotate-180" : ""}`}
+                className={`md:hidden text-[#D8E4F2] transition-transform duration-200 ${openSections.resources ? "rotate-180" : ""}`}
                 aria-hidden="true"
               />
             </button>
@@ -266,10 +260,10 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/thi-thu" 
-                  className="text-slate-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Thi thử online</span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-[#0057B8]/30 text-white border border-[#0057B8]/50">
                     HOT
                   </span>
                 </Link>
@@ -277,10 +271,10 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/tai-lieu" 
-                  className="text-slate-400 hover:text-emerald-300 transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-emerald-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Kho đề thi thử miễn phí</span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-[#107C41]/30 text-white border border-[#107C41]/50">
                     Free
                   </span>
                 </Link>
@@ -288,7 +282,7 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/blog" 
-                  className="text-slate-400 hover:text-amber-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-amber-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Cẩm nang và mẹo ôn thi</span>
                 </Link>
@@ -296,10 +290,10 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/tin-cong-nghe" 
-                  className="text-slate-400 hover:text-indigo-300 transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-indigo-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Tin học và AI văn phòng</span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 flex items-center gap-0.5">
+                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-[#0057B8]/30 text-white border border-[#0057B8]/50 flex items-center gap-0.5">
                     <Sparkles size={8} aria-hidden="true" />
                     AI
                   </span>
@@ -308,17 +302,17 @@ export default function Footer() {
               <li>
                 <Link 
                   href="/bang-gia" 
-                  className="text-slate-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-blue-400 rounded py-0.5"
+                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Bảng giá, ưu đãi nhóm</span>
                 </Link>
               </li>
-              <li className="pt-2 border-t border-slate-900">
+              <li className="pt-2 border-t border-[#16365C]">
                 <a 
                   href="https://hoctructuyen.tinhocgenz.io.vn/" 
-                  target="_blank"
+                  target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-cyan-400 font-extrabold hover:text-cyan-300 transition-colors inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-0.5"
+                  className="text-white font-extrabold hover:underline transition-colors inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
                 >
                   <span>Cổng học tập trực tuyến (LMS)</span>
                   <ArrowRight size={13} aria-hidden="true" />
@@ -332,64 +326,48 @@ export default function Footer() {
             {/* Section heading */}
             <div className="flex items-center justify-between py-2 text-left font-black text-sm uppercase tracking-wider text-white">
               <span id="footer-contact-title" className="flex items-center gap-2">
-                <span className="w-1.5 h-4 bg-emerald-400 rounded-full" aria-hidden="true" />
+                <span className="w-1.5 h-4 bg-[#0057B8] rounded-full" aria-hidden="true" />
                 Tư Vấn & Học Vụ
               </span>
             </div>
 
-            {/* Contact Details with Full Readability */}
+            {/* Contact Details List */}
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2.5 text-slate-300">
-                <Phone size={16} className="text-emerald-400 shrink-0 mt-1" aria-hidden="true" />
-                <div className="leading-snug">
-                  <span className="text-[11px] text-slate-400 font-bold block uppercase tracking-wider">
-                    Hotline / Zalo
+              <li className="flex items-start gap-2.5 text-[#D8E4F2]">
+                <Phone size={16} className="text-white shrink-0 mt-1" aria-hidden="true" />
+                <div>
+                  <span className="text-[11px] text-[#D8E4F2] font-bold block uppercase tracking-wider">
+                    Hotline & Zalo Tuyển Sinh
                   </span>
                   <a 
-                    href={`tel:${SITE_CONFIG.contact.phone}`} 
-                    className="text-white font-bold hover:text-cyan-300 transition-colors whitespace-nowrap text-base"
-                    aria-label={`Gọi hotline tư vấn: ${SITE_CONFIG.contact.displayPhone}`}
+                    href={`tel:${SITE_CONFIG.contact.phone.replace(/\./g, '')}`}
+                    className="text-white font-bold hover:underline transition-colors text-sm sm:text-base focus-visible:outline-2 focus-visible:outline-white rounded"
                   >
                     {SITE_CONFIG.contact.displayPhone}
                   </a>
                 </div>
               </li>
-
-              <li className="flex items-start gap-2.5 text-slate-300">
-                <Mail size={16} className="text-blue-400 shrink-0 mt-1" aria-hidden="true" />
-                <div className="leading-snug">
-                  <span className="text-[11px] text-slate-400 font-bold block uppercase tracking-wider">
-                    Hộp Thư Điện Tử
+              <li className="flex items-start gap-2.5 text-[#D8E4F2]">
+                <Mail size={16} className="text-white shrink-0 mt-1" aria-hidden="true" />
+                <div>
+                  <span className="text-[11px] text-[#D8E4F2] font-bold block uppercase tracking-wider">
+                    Email Học Vụ
                   </span>
                   <a 
-                    href={`mailto:${SITE_CONFIG.contact.email}`} 
-                    className="text-slate-200 hover:text-blue-300 transition-colors break-all text-sm font-medium"
-                    aria-label={`Gửi email đến ${SITE_CONFIG.contact.email}`}
+                    href={`mailto:${SITE_CONFIG.contact.email}`}
+                    className="text-white font-semibold hover:underline transition-colors text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-white rounded"
                   >
                     {SITE_CONFIG.contact.email}
                   </a>
                 </div>
               </li>
-
-              <li className="flex items-start gap-2.5 text-slate-300">
-                <Clock size={16} className="text-amber-400 shrink-0 mt-1" aria-hidden="true" />
+              <li className="flex items-start gap-2.5 text-[#D8E4F2]">
+                <MapPin size={16} className="text-white shrink-0 mt-1" aria-hidden="true" />
                 <div className="leading-snug">
-                  <span className="text-[11px] text-slate-400 font-bold block uppercase tracking-wider">
-                    Thời Gian Hỗ Trợ
-                  </span>
-                  <span className="text-slate-300 font-medium text-xs sm:text-sm">
-                    08:00 – 21:30 hàng ngày (Cả T7 & CN)
-                  </span>
-                </div>
-              </li>
-
-              <li className="flex items-start gap-2.5 text-slate-300">
-                <MapPin size={16} className="text-cyan-400 shrink-0 mt-1" aria-hidden="true" />
-                <div className="leading-snug">
-                  <span className="text-[11px] text-slate-400 font-bold block uppercase tracking-wider">
+                  <span className="text-[11px] text-[#D8E4F2] font-bold block uppercase tracking-wider">
                     Hình Thức Đào Tạo
                   </span>
-                  <span className="text-slate-300 font-medium text-xs sm:text-sm">
+                  <span className="text-[#D8E4F2] font-medium text-xs sm:text-sm">
                     Online tương tác toàn quốc & Phòng thi liên kết
                   </span>
                 </div>
@@ -400,15 +378,15 @@ export default function Footer() {
             <div className="pt-1">
               <Link
                 href="/lien-he"
-                className="w-full inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 hover:scale-[1.02] transition-all duration-200 focus-visible:outline-2 focus-visible:outline-cyan-400"
+                className="w-full inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white font-bold text-xs uppercase tracking-wider shadow-xs transition-colors focus-visible:outline-2 focus-visible:outline-white"
               >
                 <span>Đăng Ký Tư Vấn Ngay</span>
                 <ArrowRight size={14} aria-hidden="true" />
               </Link>
             </div>
 
-            {/* Horizontal Guarantee Box (Đủ chiều rộng, không bị kéo hẹp) */}
-            <div className="p-3.5 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-xs space-y-1 mt-1">
+            {/* Horizontal Guarantee Box */}
+            <div className="p-3.5 rounded-2xl bg-[#107C41]/15 border border-[#107C41]/40 text-xs space-y-1 mt-1">
               <div className="flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-wider">
                 <ShieldCheck size={16} aria-hidden="true" />
                 <span>Cam Kết Đào Tạo</span>
@@ -465,7 +443,7 @@ export default function Footer() {
               href="https://hoctructuyen.tinhocgenz.io.vn/" 
               target="_blank"
               rel="noopener noreferrer"
-              className="text-cyan-400 hover:text-cyan-300 transition-colors font-bold inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-cyan-400 rounded py-1 pl-1"
+              className="text-white hover:underline transition-colors font-bold inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-white rounded py-1 pl-1"
             >
               <ShieldCheck size={13} aria-hidden="true" />
               <span>Đăng Nhập LMS</span>

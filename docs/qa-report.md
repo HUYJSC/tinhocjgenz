@@ -56,3 +56,4 @@
 
 1. **Python Sandbox Execution (P2)**: Hệ thống hiện tại tập trung vào các câu hỏi trắc nghiệm và tình huống thực hành thao tác tin học văn phòng (Word, Excel, PowerPoint, IC3). Tính năng biên dịch và thực thi mã nguồn Python trực tiếp trên trình duyệt sẽ cần triển khai môi trường WebAssembly/Pyodide tách biệt trong Sprint tiếp theo.
 2. **Apex Domain 308 Loop**: Phụ thuộc vào việc quản trị viên cập nhật bản ghi DNS `@` trên trang quản lý tên miền bên thứ 3 (`hoalu.vclouddns.com`) trỏ về IP Vercel `76.76.21.21`. Tên miền chính `www.tinhocgenz.io.vn` hoạt động ổn định 100%.
+

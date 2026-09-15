@@ -164,17 +164,17 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
   );
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 font-sans text-slate-900">
+    <div className="flex flex-col min-h-screen bg-[#F4F8FD] font-sans text-[#172B4D]">
       
       {/* 1. Header Toolbar */}
-      <header className="sticky top-0 z-30 bg-slate-900 text-white border-b border-slate-800 shadow-md">
+      <header className="sticky top-0 z-30 bg-white text-[#172B4D] border-b border-[#D8E4F2] shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           
           {/* Left: Back Link & Course Name */}
           <div className="flex items-center gap-3 min-w-0">
             <Link
               href={`/khoa-hoc/${courseId}`}
-              className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors shrink-0"
+              className="p-2 rounded-xl bg-[#F4F8FD] border border-[#D8E4F2] text-[#0057B8] hover:text-[#003F88] hover:bg-[#E8F1FC] transition-colors shrink-0"
               title="Về trang giới thiệu khóa học"
             >
               <ArrowLeft size={18} />
@@ -182,15 +182,15 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
 
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black uppercase text-cyan-400 font-mono tracking-wider truncate">
+                <span className="text-[10px] font-bold uppercase text-[#0057B8] font-mono tracking-wider truncate">
                   {course.title}
                 </span>
-                <span className="hidden sm:inline text-slate-600">•</span>
-                <span className="hidden sm:inline text-[11px] text-slate-400 font-semibold truncate">
+                <span className="hidden sm:inline text-[#7186A3]">•</span>
+                <span className="hidden sm:inline text-[11px] text-[#526581] font-semibold truncate">
                   {chapter.title}
                 </span>
               </div>
-              <h1 className="text-xs sm:text-sm font-black text-white truncate">
+              <h1 className="text-xs sm:text-sm font-black text-[#0B2545] truncate">
                 {lesson.title}
               </h1>
             </div>
@@ -199,17 +199,17 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
           {/* Right: Progress & Mobile Menu Button */}
           <div className="flex items-center gap-3 shrink-0">
             {/* Progress indicator */}
-            <div className="hidden md:flex items-center gap-2.5 bg-slate-800/80 border border-slate-700/60 px-3.5 py-1.5 rounded-full">
-              <span className="text-xs font-bold text-slate-300">
+            <div className="hidden md:flex items-center gap-2.5 bg-[#F4F8FD] border border-[#D8E4F2] px-3.5 py-1.5 rounded-full">
+              <span className="text-xs font-bold text-[#526581]">
                 {completedLessons.length}/{allLessons.length} bài
               </span>
-              <div className="w-20 h-2 bg-slate-700 rounded-full overflow-hidden">
+              <div className="w-20 h-2 bg-[#E8F1FC] rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-500"
+                  className="h-full bg-[#0057B8] transition-all duration-500"
                   style={{ width: `${completionPercent}%` }}
                 />
               </div>
-              <span className="text-[10px] font-black text-cyan-400 font-mono">
+              <span className="text-[10px] font-black text-[#0057B8] font-mono">
                 {completionPercent}%
               </span>
             </div>
@@ -218,7 +218,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
             <button
               type="button"
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="lg:hidden p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors flex items-center gap-1 text-xs font-bold"
+              className="lg:hidden p-2 rounded-xl bg-[#F4F8FD] border border-[#D8E4F2] text-[#172B4D] hover:bg-[#E8F1FC] transition-colors flex items-center gap-1 text-xs font-bold"
             >
               <Menu size={18} />
               <span className="sr-only sm:not-sr-only">Mục lục</span>
@@ -233,37 +233,37 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
         
         {/* SIDEBAR: Table of Contents (Desktop sticky, Mobile drawer) */}
         <aside
-          className={`fixed inset-y-0 left-0 z-40 w-80 bg-slate-900 text-white p-6 shadow-2xl transition-transform duration-300 lg:static lg:block lg:w-auto lg:col-span-4 lg:bg-white lg:text-slate-900 lg:p-6 lg:rounded-3xl lg:border lg:border-slate-200 lg:shadow-sm ${
+          className={`fixed inset-y-0 left-0 z-40 w-80 bg-white text-[#172B4D] p-6 shadow-2xl transition-transform duration-300 border-r border-[#D8E4F2] lg:static lg:block lg:w-auto lg:col-span-4 lg:bg-white lg:p-6 lg:rounded-2xl lg:border lg:border-[#D8E4F2] lg:shadow-xs ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           }`}
         >
           {/* Mobile Drawer Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-slate-800 lg:hidden mb-4">
-            <span className="font-black text-sm uppercase text-cyan-400">
+          <div className="flex items-center justify-between pb-4 border-b border-[#D8E4F2] lg:hidden mb-4">
+            <span className="font-black text-sm uppercase text-[#0057B8]">
               Nội dung khóa học
             </span>
             <button
               type="button"
               onClick={() => setIsSidebarOpen(false)}
-              className="p-1 text-slate-400 hover:text-white"
+              className="p-1 text-[#526581] hover:text-[#0B2545]"
             >
               <X size={20} />
             </button>
           </div>
 
-          <div className="hidden lg:block pb-4 mb-4 border-b border-slate-100">
+          <div className="hidden lg:block pb-4 mb-4 border-b border-[#D8E4F2]">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-black uppercase text-blue-600 tracking-wider">
+              <span className="text-xs font-black uppercase text-[#0057B8] tracking-wider">
                 Mục lục khóa học
               </span>
-              <span className="text-[11px] font-bold text-slate-400">
+              <span className="text-[11px] font-bold text-[#526581]">
                 {completedLessons.length}/{allLessons.length} hoàn thành
               </span>
             </div>
             {/* Progress bar */}
-            <div className="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+            <div className="w-full h-1.5 bg-[#E8F1FC] rounded-full mt-2 overflow-hidden">
               <div
-                className="h-full bg-blue-600 transition-all duration-500"
+                className="h-full bg-[#0057B8] transition-all duration-500"
                 style={{ width: `${completionPercent}%` }}
               />
             </div>
@@ -273,7 +273,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
           <div className="space-y-6 overflow-y-auto max-h-[calc(100vh-140px)] lg:max-h-[calc(100vh-220px)] pr-1">
             {curriculum.chapters.map((ch) => (
               <div key={ch.id} className="space-y-2">
-                <span className="text-[11px] font-black uppercase tracking-wider text-slate-400 lg:text-slate-400 block px-2">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#526581] block px-2">
                   Chương {ch.order}: {ch.title.replace(/^Chương \d+:\s*/, "")}
                 </span>
 
@@ -287,24 +287,24 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                         key={l.id}
                         href={`/khoa-hoc/${courseId}/bai-hoc/${l.id}`}
                         onClick={() => setIsSidebarOpen(false)}
-                        className={`flex items-start gap-2.5 p-3 rounded-2xl text-xs transition-all ${
+                        className={`flex items-start gap-2.5 p-3 rounded-xl text-xs transition-all ${
                           isActive
-                            ? "bg-blue-600 text-white font-black shadow-md shadow-blue-500/20"
+                            ? "bg-[#E8F1FC] text-[#0057B8] border border-[#0057B8]/30 font-bold shadow-xs"
                             : isDone
-                            ? "bg-emerald-50 text-emerald-900 hover:bg-emerald-100/70 font-semibold"
-                            : "hover:bg-slate-100 text-slate-700 font-medium"
+                            ? "bg-emerald-50 text-emerald-900 border border-emerald-200/60 hover:bg-emerald-100/70 font-semibold"
+                            : "hover:bg-[#F4F8FD] text-[#172B4D] font-medium"
                         }`}
                       >
                         <div className="mt-0.5 shrink-0">
                           {isDone ? (
                             <CheckCircle2
                               size={15}
-                              className={isActive ? "text-white" : "text-emerald-600"}
+                              className={isActive ? "text-[#0057B8]" : "text-emerald-600"}
                             />
                           ) : (
                             <div
                               className={`w-3.5 h-3.5 rounded-full border-2 ${
-                                isActive ? "border-white" : "border-slate-300"
+                                isActive ? "border-[#0057B8]" : "border-[#7186A3]/60"
                               }`}
                             />
                           )}
@@ -315,7 +315,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                           </span>
                           <span
                             className={`text-[10px] block mt-0.5 ${
-                              isActive ? "text-blue-100" : "text-slate-400"
+                              isActive ? "text-[#0057B8]/80 font-bold" : "text-[#526581]"
                             }`}
                           >
                             {l.duration}
@@ -334,7 +334,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
         {isSidebarOpen && (
           <div
             onClick={() => setIsSidebarOpen(false)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-30 lg:hidden"
+            className="fixed inset-0 bg-[#0B2545]/50 backdrop-blur-xs z-30 lg:hidden"
           />
         )}
 
@@ -342,12 +342,12 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
         <main className="lg:col-span-8 space-y-8">
           
           {/* A. Lesson Overview Header Card */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-4">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#D8E4F2] shadow-card space-y-4">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-black font-mono">
+              <span className="px-3 py-1 rounded-full bg-[#E8F1FC] text-[#0057B8] text-xs font-bold font-mono">
                 {chapter.title}
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold flex items-center gap-1">
+              <span className="px-3 py-1 rounded-full bg-[#F4F8FD] border border-[#D8E4F2] text-[#526581] text-xs font-bold flex items-center gap-1">
                 <Clock size={12} />
                 {lesson.duration}
               </span>
@@ -359,23 +359,23 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
               )}
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight font-display">
+            <h2 className="text-2xl sm:text-3xl font-black text-[#0B2545] tracking-tight font-display">
               {lesson.title}
             </h2>
 
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+            <p className="text-[#526581] text-sm sm:text-base leading-relaxed">
               {lesson.summary}
             </p>
 
             {/* Objectives */}
-            <div className="pt-4 border-t border-slate-100 space-y-2.5">
-              <span className="text-xs font-black uppercase tracking-wider text-slate-400 block">
+            <div className="pt-4 border-t border-[#D8E4F2] space-y-2.5">
+              <span className="text-xs font-black uppercase tracking-wider text-[#526581] block">
                 Mục tiêu cần đạt được:
               </span>
               <ul className="space-y-1.5">
                 {lesson.content.objectives.map((obj, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 font-medium">
-                    <Check size={15} className="text-blue-600 shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-2 text-xs sm:text-sm text-[#172B4D] font-medium">
+                    <Check size={15} className="text-[#0057B8] shrink-0 mt-0.5" />
                     <span>{obj}</span>
                   </li>
                 ))}
@@ -384,14 +384,14 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
           </div>
 
           {/* B. Theory & Detailed Step-by-Step Instructions */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
-            <h3 className="text-lg font-black text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
-              <BookOpen size={18} className="text-blue-600" />
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#D8E4F2] shadow-card space-y-6">
+            <h3 className="text-lg font-black text-[#0B2545] flex items-center gap-2 border-b border-[#D8E4F2] pb-3">
+              <BookOpen size={18} className="text-[#0057B8]" />
               <span>Kiến Thức Trọng Tâm & Quy Trình Thao Tác</span>
             </h3>
 
             {/* Theory paragraphs */}
-            <div className="space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed">
+            <div className="space-y-3 text-[#172B4D] text-sm sm:text-base leading-relaxed">
               {lesson.content.theory.map((p, i) => (
                 <p key={i} className="leading-relaxed">
                   {p}
@@ -404,32 +404,32 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
               {lesson.content.steps.map((step) => (
                 <div
                   key={step.stepNumber}
-                  className="p-5 rounded-2xl bg-slate-50/80 border border-slate-200/90 space-y-2"
+                  className="p-5 rounded-xl bg-[#F4F8FD] border border-[#D8E4F2] space-y-2"
                 >
                   <div className="flex items-center gap-2.5">
-                    <span className="w-6 h-6 rounded-lg bg-blue-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0">
+                    <span className="w-6 h-6 rounded-lg bg-[#0057B8] text-white font-mono font-black text-xs flex items-center justify-center shrink-0">
                       {step.stepNumber}
                     </span>
-                    <h4 className="font-black text-slate-900 text-sm sm:text-base">
+                    <h4 className="font-black text-[#0B2545] text-sm sm:text-base">
                       {step.title}
                     </h4>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-8.5">
+                  <p className="text-xs sm:text-sm text-[#526581] leading-relaxed pl-8.5">
                     {step.description}
                   </p>
 
                   {step.shortcut && (
-                    <div className="pl-8.5 flex items-center gap-1.5 text-xs text-slate-500 font-medium pt-1">
-                      <span className="font-bold text-slate-700">Phím tắt:</span>
-                      <kbd className="px-2 py-0.5 rounded bg-white border border-slate-300 font-mono text-[11px] text-blue-700 font-bold shadow-xs">
+                    <div className="pl-8.5 flex items-center gap-1.5 text-xs text-[#526581] font-medium pt-1">
+                      <span className="font-bold text-[#172B4D]">Phím tắt:</span>
+                      <kbd className="px-2 py-0.5 rounded bg-white border border-[#7186A3]/40 font-mono text-[11px] text-[#0057B8] font-bold shadow-xs">
                         {step.shortcut}
                       </kbd>
                     </div>
                   )}
 
                   {step.tip && (
-                    <div className="pl-8.5 text-xs text-amber-700 bg-amber-50/70 border border-amber-200/80 p-2.5 rounded-xl flex items-start gap-2 mt-1">
+                    <div className="pl-8.5 text-xs text-amber-900 bg-amber-50 border border-amber-200/80 p-2.5 rounded-xl flex items-start gap-2 mt-1">
                       <Lightbulb size={14} className="text-amber-600 shrink-0 mt-0.5" />
                       <span>{step.tip}</span>
                     </div>
@@ -440,15 +440,15 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
 
             {/* Exam Tips Box */}
             {lesson.content.examTips && lesson.content.examTips.length > 0 && (
-              <div className="p-5 rounded-2xl bg-blue-50/60 border border-blue-200 text-blue-950 space-y-2">
-                <span className="text-xs font-black uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
-                  <Sparkles size={14} className="text-blue-600" />
+              <div className="p-5 rounded-2xl bg-[#E8F1FC] border border-[#0057B8]/20 text-[#0B2545] space-y-2">
+                <span className="text-xs font-black uppercase tracking-wider text-[#0057B8] flex items-center gap-1.5">
+                  <Sparkles size={14} className="text-[#0057B8]" />
                   Mẹo Làm Bài Thi Certiport / IIG Tuyệt Đối:
                 </span>
                 <ul className="space-y-1.5 text-xs sm:text-sm font-medium">
                   {lesson.content.examTips.map((tip, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-2 shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] mt-2 shrink-0" />
                       <span>{tip}</span>
                     </li>
                   ))}
@@ -458,17 +458,17 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
           </div>
 
           {/* C. INTERACTIVE EXERCISE / CHALLENGE SECTION (CodeLearn Style) */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-blue-600/30 shadow-md space-y-6 relative overflow-hidden">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+          <div className="bg-white rounded-2xl p-6 sm:p-8 border-2 border-[#0057B8] shadow-card space-y-6 relative overflow-hidden">
+            <div className="flex items-center justify-between border-b border-[#D8E4F2] pb-3">
               <div className="flex items-center gap-2">
-                <span className="p-2 rounded-xl bg-blue-50 text-blue-600">
+                <span className="p-2 rounded-xl bg-[#E8F1FC] text-[#0057B8]">
                   <Award size={20} />
                 </span>
                 <div>
-                  <h3 className="text-base sm:text-lg font-black text-slate-900">
+                  <h3 className="text-base sm:text-lg font-black text-[#0B2545]">
                     Bài Tập Thực Hành Đo Lường Kiến Thức
                   </h3>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-[#526581]">
                     Điểm thưởng: +{lesson.exercise.points} XP
                   </span>
                 </div>
@@ -478,7 +478,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                 <button
                   type="button"
                   onClick={() => setShowHint(!showHint)}
-                  className="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1 p-2 rounded-xl hover:bg-amber-50 transition-colors"
+                  className="text-xs font-bold text-amber-700 hover:text-amber-800 flex items-center gap-1 p-2 rounded-xl hover:bg-amber-50 transition-colors"
                 >
                   <HelpCircle size={15} />
                   <span>{showHint ? "Ẩn gợi ý" : "Xem gợi ý"}</span>
@@ -495,8 +495,8 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
             )}
 
             {/* Practical Scenario */}
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 text-xs sm:text-sm text-slate-700 space-y-1">
-              <span className="font-bold text-slate-900 uppercase text-[10px] tracking-wider block text-blue-600">
+            <div className="p-4 rounded-xl bg-[#F4F8FD] border border-[#D8E4F2] text-xs sm:text-sm text-[#172B4D] space-y-1">
+              <span className="font-bold uppercase text-[10px] tracking-wider block text-[#0057B8]">
                 Tình huống thực tế:
               </span>
               <p>{lesson.exercise.scenario}</p>
@@ -504,7 +504,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
 
             {/* Question */}
             <div className="space-y-3">
-              <h4 className="text-sm sm:text-base font-black text-slate-900 leading-snug">
+              <h4 className="text-sm sm:text-base font-black text-[#0B2545] leading-snug">
                 {lesson.exercise.question}
               </h4>
 
@@ -514,9 +514,9 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                   const isSelected = selectedOption === idx;
                   const isCorrectAnswer = idx === lesson.exercise.correctIndex;
 
-                  let borderClass = "border-slate-200 hover:border-blue-400 hover:bg-blue-50/30";
+                  let borderClass = "border-[#7186A3]/30 bg-white hover:border-[#0057B8] hover:bg-[#F4F8FD] text-[#172B4D]";
                   if (isSelected) {
-                    borderClass = "border-blue-600 bg-blue-50 text-blue-950 font-bold shadow-xs";
+                    borderClass = "border-[#0057B8] bg-[#E8F1FC] text-[#0B2545] font-bold shadow-xs";
                   }
                   if (isSubmitted) {
                     if (isCorrectAnswer) {
@@ -530,7 +530,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                     <label
                       key={idx}
                       onClick={() => !isSubmitted && setSelectedOption(idx)}
-                      className={`flex items-start gap-3 p-4 rounded-2xl border-2 transition-all cursor-pointer text-xs sm:text-sm ${borderClass}`}
+                      className={`flex items-start gap-3 p-4 rounded-xl border-2 transition-all cursor-pointer text-xs sm:text-sm ${borderClass}`}
                     >
                       <input
                         type="radio"
@@ -538,7 +538,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                         checked={isSelected}
                         onChange={() => !isSubmitted && setSelectedOption(idx)}
                         disabled={isSubmitted}
-                        className="mt-0.5 text-blue-600 focus:ring-blue-500 shrink-0"
+                        className="mt-0.5 text-[#0057B8] focus:ring-[#0057B8] shrink-0"
                       />
                       <span className="flex-1 leading-relaxed">{opt}</span>
                     </label>
@@ -548,13 +548,13 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
             </div>
 
             {/* Action & Feedback Box */}
-            <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="pt-3 border-t border-[#D8E4F2] flex flex-col sm:flex-row items-center justify-between gap-4">
               {!isSubmitted ? (
                 <button
                   type="button"
                   onClick={handleSubmitAnswer}
                   disabled={selectedOption === null || isSubmitting}
-                  className="w-full sm:w-auto min-h-12 px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-black text-xs uppercase tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto min-h-12 px-8 py-3 rounded-full bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] disabled:bg-[#E7EDF5] disabled:text-[#66758A] text-white font-bold text-xs uppercase tracking-wide shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -571,8 +571,8 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
               ) : (
                 <div className="w-full space-y-4 animate-fade-in">
                   {isCorrect ? (
-                    <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-2">
-                      <div className="flex items-center gap-2 font-black text-sm text-emerald-700">
+                    <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-2">
+                      <div className="flex items-center gap-2 font-bold text-sm text-emerald-700">
                         <CheckCircle2 size={18} />
                         <span>Chính xác tuyệt đối! (+{lesson.exercise.points} XP)</span>
                       </div>
@@ -581,8 +581,8 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                       </p>
                     </div>
                   ) : (
-                    <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-950 space-y-2">
-                      <div className="flex items-center gap-2 font-black text-sm text-rose-700">
+                    <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-950 space-y-2">
+                      <div className="flex items-center gap-2 font-bold text-sm text-rose-700">
                         <AlertCircle size={18} />
                         <span>Chưa chính xác! Hãy đọc kỹ giải thích dưới đây:</span>
                       </div>
@@ -596,7 +596,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                     <button
                       type="button"
                       onClick={handleResetExercise}
-                      className="px-4 py-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="px-4 py-2.5 rounded-full bg-[#F4F8FD] hover:bg-[#E8F1FC] border border-[#D8E4F2] text-[#172B4D] font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <RotateCcw size={13} />
                       <span>Thử lại câu hỏi</span>
@@ -605,7 +605,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
                     {nextLesson && (
                       <Link
                         href={`/khoa-hoc/${courseId}/bai-hoc/${nextLesson.id}`}
-                        className="px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-black text-xs uppercase tracking-wide shadow-md flex items-center gap-1.5 transition-all cursor-pointer"
+                        className="px-6 py-2.5 rounded-full bg-[#0057B8] hover:bg-[#003F88] text-white font-bold text-xs uppercase tracking-wide shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
                       >
                         <span>Sang bài tiếp theo</span>
                         <ArrowRight size={14} />
@@ -618,11 +618,11 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
           </div>
 
           {/* D. Bottom Navigation Controls (Previous / Next) */}
-          <div className="flex items-center justify-between gap-4 pt-4 border-t border-slate-200">
+          <div className="flex items-center justify-between gap-4 pt-4 border-t border-[#D8E4F2]">
             {prevLesson ? (
               <Link
                 href={`/khoa-hoc/${courseId}/bai-hoc/${prevLesson.id}`}
-                className="px-5 py-3 rounded-2xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold text-xs flex items-center gap-2 shadow-xs transition-all"
+                className="px-5 py-3 rounded-xl bg-white hover:bg-[#F4F8FD] border border-[#D8E4F2] text-[#172B4D] font-bold text-xs flex items-center gap-2 shadow-xs transition-all"
               >
                 <ArrowLeft size={15} />
                 <span className="hidden sm:inline">Bài trước:</span>
@@ -635,7 +635,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
             {nextLesson ? (
               <Link
                 href={`/khoa-hoc/${courseId}/bai-hoc/${nextLesson.id}`}
-                className="px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs flex items-center gap-2 shadow-md transition-all ml-auto"
+                className="px-5 py-3 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white font-bold text-xs flex items-center gap-2 shadow-xs transition-all ml-auto"
               >
                 <span className="hidden sm:inline">Bài tiếp theo:</span>
                 <span className="truncate max-w-[120px] sm:max-w-[180px]">{nextLesson.title.replace(/^Bài \d+:\s*/, "")}</span>
@@ -644,7 +644,7 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
             ) : (
               <Link
                 href={`/khoa-hoc/${courseId}`}
-                className="px-5 py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center gap-2 shadow-md transition-all ml-auto"
+                className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 shadow-xs transition-all ml-auto"
               >
                 <span>Hoàn thành khóa học!</span>
                 <CheckCircle2 size={15} />
@@ -659,3 +659,4 @@ export default function InteractiveLessonPage(props: LessonPageProps) {
     </div>
   );
 }
+

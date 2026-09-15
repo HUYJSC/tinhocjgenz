@@ -74,3 +74,4 @@ export interface LearningAnalyticsEvent {
 ## 4. Quy tắc chống dữ liệu ảo & Gửi trùng (De-duplication)
 1. **Idempotency**: Sự kiện `lesson_complete` cho cùng một cặp `{ course_id, lesson_id }` chỉ được ghi nhận tăng số lượng hoàn thành duy nhất 1 lần trong 1 phiên học. Nếu người dùng refresh hoặc làm lại, chỉ ghi nhận là `exercise_submit` bổ sung.
 2. **Loại trừ bot & Admin test**: Bộ lọc tự động bỏ qua các user agent của bot tìm kiếm (Googlebot, Bingbot) và các tài khoản thuộc nhóm quản trị viên (`role: admin`, `role: super_admin`).
+

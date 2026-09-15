@@ -547,3 +547,4 @@ export function getLessonById(courseId: string, lessonId: string): { lesson: Les
   }
   return null;
 }
+

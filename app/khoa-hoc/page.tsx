@@ -60,23 +60,21 @@ function CourseCatalogContent() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-slate-50/30">
+    <div className="flex flex-col w-full bg-[#F4F8FD]">
       
       {/* 1. Header Banner & Filter Hub */}
-      <section className="bg-white pt-10 pb-10 sm:pt-14 sm:pb-12 lg:pt-20 lg:pb-14 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[550px] h-[550px] bg-gradient-to-tr from-blue-500/10 via-cyan-400/10 to-indigo-500/10 rounded-full blur-[110px] pointer-events-none" />
-        
+      <section className="bg-white pt-10 pb-10 sm:pt-14 sm:pb-12 lg:pt-20 lg:pb-14 border-b border-[#D8E4F2] relative overflow-hidden tech-grid-pattern">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-5">
-          <span className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-black tracking-wider uppercase text-blue-700 shadow-xs">
-            <Award size={13} className="text-blue-600" />
+          <span className="inline-flex items-center gap-1.5 border border-[#D8E4F2] bg-[#E8F1FC] px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase text-[#0057B8] shadow-xs">
+            <Award size={13} className="text-[#0057B8]" />
             PH DIGITAL EDUCATION • HỆ THỐNG KHÓA HỌC CHUẨN QUỐC TẾ
           </span>
           
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight font-display">
+          <h1 className="text-3xl sm:text-5xl font-black text-[#0B2545] tracking-tight leading-tight font-display">
             Chương Trình Đào Tạo & Luyện Thi Chứng Chỉ
           </h1>
           
-          <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+          <p className="text-[#526581] text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             Học thực chiến cùng đội ngũ giảng viên đạt chuẩn MOS Master & chuyên gia CNTT. Cam kết 100% đạt chứng chỉ quốc tế và làm chủ kỹ năng số trong công việc & doanh nghiệp.
           </p>
 
@@ -86,7 +84,7 @@ function CourseCatalogContent() {
               <label htmlFor="course-search-input" className="sr-only">
                 Tìm kiếm khóa học
               </label>
-              <div className="absolute left-4 pointer-events-none text-slate-400">
+              <div className="absolute left-4 pointer-events-none text-[#526581]">
                 <Search size={18} />
               </div>
               <input
@@ -95,13 +93,13 @@ function CourseCatalogContent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Tìm khóa học, môn thi (Word, Excel, MOS, IC3, Python)..."
-                className="w-full min-h-[48px] pl-11 pr-10 py-3 rounded-full bg-slate-50 border border-slate-200 text-slate-900 text-sm font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/30 focus:border-blue-600 shadow-inner transition-all"
+                className="w-full min-h-[48px] pl-11 pr-10 py-3 rounded-xl bg-white border border-[#7186A3] text-[#172B4D] text-sm font-medium placeholder-[#526581] focus:outline-none focus:ring-2 focus:ring-[#0057B8]/20 focus:border-[#0057B8] shadow-xs transition-all"
               />
               {searchQuery && (
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-200 transition-colors"
+                  className="absolute right-3.5 p-1 rounded-full text-[#526581] hover:text-[#172B4D] hover:bg-[#F4F8FD] transition-colors"
                   aria-label="Xóa từ khóa tìm kiếm"
                 >
                   <X size={16} />
@@ -117,10 +115,10 @@ function CourseCatalogContent() {
               role="tab"
               aria-selected={selectedCategory === "all"}
               onClick={() => setSelectedCategory("all")}
-              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 whitespace-nowrap snap-start cursor-pointer ${
+              className={`min-h-11 px-5 py-2.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap snap-start cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8] ${
                 selectedCategory === "all"
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-[#0057B8] text-white shadow-xs"
+                  : "bg-white text-[#526581] border border-[#D8E4F2] hover:bg-[#E8F1FC] hover:text-[#0057B8]"
               }`}
             >
               Tất Cả Khóa Học ({coursesData.length})
@@ -130,10 +128,10 @@ function CourseCatalogContent() {
               role="tab"
               aria-selected={selectedCategory === "mos-ic3"}
               onClick={() => setSelectedCategory("mos-ic3")}
-              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 whitespace-nowrap snap-start cursor-pointer ${
+              className={`min-h-11 px-5 py-2.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap snap-start cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8] ${
                 selectedCategory === "mos-ic3"
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-[#0057B8] text-white shadow-xs"
+                  : "bg-white text-[#526581] border border-[#D8E4F2] hover:bg-[#E8F1FC] hover:text-[#0057B8]"
               }`}
             >
               <Award size={15} className="inline-block mr-1.5 align-[-3px]" aria-hidden="true" />
@@ -144,10 +142,10 @@ function CourseCatalogContent() {
               role="tab"
               aria-selected={selectedCategory === "practical-office"}
               onClick={() => setSelectedCategory("practical-office")}
-              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-black transition-all duration-300 whitespace-nowrap snap-start cursor-pointer ${
+              className={`min-h-11 px-5 py-2.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap snap-start cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8] ${
                 selectedCategory === "practical-office"
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-[#0057B8] text-white shadow-xs"
+                  : "bg-white text-[#526581] border border-[#D8E4F2] hover:bg-[#E8F1FC] hover:text-[#0057B8]"
               }`}
             >
               <FileSpreadsheet size={15} className="inline-block mr-1.5 align-[-3px]" aria-hidden="true" />
@@ -158,15 +156,15 @@ function CourseCatalogContent() {
       </section>
 
       {/* 2. Courses Grid Section */}
-      <section className="py-10 sm:py-14 lg:py-20 bg-[#f8fafc]">
+      <section className="py-10 sm:py-14 lg:py-20 bg-[#F4F8FD]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Results bar */}
-          <div className="flex items-center justify-between mb-8 pb-3 border-b border-slate-200 text-xs font-bold text-slate-500">
+          <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#D8E4F2] text-xs font-bold text-[#526581]">
             <div>
-              Hiển thị <span className="text-blue-600 font-black">{filteredCourses.length}</span> / {coursesData.length} chương trình đào tạo
+              Hiển thị <span className="text-[#0057B8] font-black">{filteredCourses.length}</span> / {coursesData.length} chương trình đào tạo
               {searchQuery && (
-                <span className="ml-1 text-slate-700">
+                <span className="ml-1 text-[#172B4D]">
                   cho từ khóa &ldquo;{searchQuery}&rdquo;
                 </span>
               )}
@@ -176,7 +174,7 @@ function CourseCatalogContent() {
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-bold cursor-pointer"
+                className="inline-flex items-center gap-1 text-xs text-[#0057B8] hover:text-[#003F88] font-bold cursor-pointer"
               >
                 <RotateCcw size={13} />
                 <span>Đặt lại bộ lọc</span>
@@ -192,20 +190,20 @@ function CourseCatalogContent() {
               ))}
             </div>
           ) : (
-            <div className="bg-white rounded-3xl border border-slate-200 p-10 sm:p-16 text-center max-w-lg mx-auto shadow-sm space-y-4">
-              <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto">
+            <div className="bg-white rounded-2xl border border-[#D8E4F2] p-10 sm:p-16 text-center max-w-lg mx-auto shadow-card space-y-4">
+              <div className="w-14 h-14 rounded-xl bg-[#E8F1FC] text-[#0057B8] flex items-center justify-center mx-auto">
                 <BookOpen size={28} />
               </div>
-              <h3 className="text-lg font-black text-slate-900">
+              <h3 className="text-lg font-black text-[#0B2545]">
                 Không tìm thấy khóa học phù hợp
               </h3>
-              <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+              <p className="text-[#526581] text-xs sm:text-sm leading-relaxed">
                 Không có kết quả nào khớp với &ldquo;{searchQuery}&rdquo;. Hãy thử tìm kiếm với các từ khóa phổ biến: <strong>Excel</strong>, <strong>Word</strong>, <strong>MOS</strong>, <strong>IC3</strong> hoặc đặt lại bộ lọc.
               </p>
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wide shadow-md transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] text-white font-bold text-xs uppercase tracking-wide shadow-xs transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8]"
               >
                 <RotateCcw size={14} />
                 <span>Xóa bộ lọc & Xem tất cả</span>

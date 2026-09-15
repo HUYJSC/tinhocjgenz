@@ -130,3 +130,4 @@
   - `/api/admin/courses` -> 403 Forbidden.
   - `/admin` -> Được bảo vệ nghiêm ngặt qua `AdminAuthGate` và `proxy.ts`.
   - **Kết luận**: Tính toàn vẹn và bảo mật của các route nội bộ được giữ vững 100% khi trang chủ và danh mục mở cho công chúng.
+

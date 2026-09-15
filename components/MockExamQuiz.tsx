@@ -213,21 +213,21 @@ export default function MockExamQuiz() {
                     key={idx}
                     type="button"
                     onClick={() => handleSelectOption(idx)}
-                    className={`w-full min-h-14 text-left p-4 rounded-2xl border text-sm font-semibold transition-all duration-200 flex items-center justify-between cursor-pointer ${
+                    className={`w-full min-h-14 text-left p-4 rounded-xl border text-sm font-semibold transition-colors duration-150 flex items-center justify-between cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8] ${
                       isSelected
-                        ? "bg-blue-50/80 border-blue-600 text-blue-900 shadow-sm"
-                        : "bg-slate-50/60 border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50"
+                        ? "bg-[#E8F1FC] border-[#0057B8] text-[#0B2545] shadow-xs"
+                        : "bg-white border-[#7186A3]/60 hover:border-[#0057B8] text-[#172B4D] hover:bg-[#F4F8FD]"
                     }`}
                   >
                     <span className="flex items-center gap-3">
                       <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shrink-0 ${
-                        isSelected ? "bg-blue-600 text-white" : "bg-white border border-slate-300 text-slate-600"
+                        isSelected ? "bg-[#0057B8] text-white" : "bg-[#F4F8FD] border border-[#7186A3] text-[#526581]"
                       }`}>
                         {String.fromCharCode(65 + idx)}
                       </span>
                       <span>{opt}</span>
                     </span>
-                    {isSelected && <Check size={16} className="text-blue-600 shrink-0" />}
+                    {isSelected && <Check size={16} className="text-[#0057B8] shrink-0" />}
                   </button>
                 );
               })}
@@ -238,16 +238,16 @@ export default function MockExamQuiz() {
           {examError && (
             <div role="alert" className="flex items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               <span>{examError}</span>
-              <button type="button" onClick={() => void handleNext()} className="min-h-12 shrink-0 rounded-xl bg-red-600 px-4 font-bold text-white">Thử lại</button>
+              <button type="button" onClick={() => void handleNext()} className="min-h-11 shrink-0 rounded-xl bg-red-600 hover:bg-red-700 px-4 font-bold text-white">Thử lại</button>
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-3 pt-6 border-t border-slate-100">
+          <div className="flex items-center justify-between gap-3 pt-6 border-t border-[#D8E4F2]">
             <button
               type="button"
               onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
               disabled={currentStep === 0 || isSubmitting}
-              className="min-h-12 px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
+              className="min-h-11 px-4 py-2 rounded-xl border border-[#D8E4F2] text-sm font-bold text-[#526581] hover:bg-[#E8F1FC] disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
             >
               Câu trước
             </button>
@@ -256,7 +256,7 @@ export default function MockExamQuiz() {
               type="button"
               onClick={handleNext}
               disabled={answers[currentQ.id] === undefined || isSubmitting}
-              className="min-h-12 px-5 sm:px-6 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-black tracking-wide uppercase shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+              className="min-h-11 px-5 sm:px-6 py-2.5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] disabled:bg-[#E7EDF5] disabled:text-[#66758A] disabled:cursor-not-allowed text-white text-xs font-bold tracking-wide uppercase shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8]"
             >
               {isSubmitting ? (
                 <>
@@ -390,12 +390,12 @@ export default function MockExamQuiz() {
 
           {/* Lead Capture Box */}
           {!isSubmittedLead ? (
-            <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-3xl max-w-xl mx-auto space-y-4 shadow-xl text-left">
+            <div className="bg-white text-[#172B4D] p-6 sm:p-8 rounded-2xl max-w-xl mx-auto space-y-4 border border-[#D8E4F2] shadow-card text-left">
               <div className="space-y-1 text-center sm:text-left">
-                <span className="text-xs font-black text-cyan-400 uppercase tracking-widest flex items-center gap-1.5 justify-center sm:justify-start">
-                  <Sparkles size={14} /> TƯ VẤN LỘ TRÌNH BÙ ĐIỂM CẤP TỐC 3 BUỔI
+                <span className="text-xs font-bold text-[#0057B8] uppercase tracking-wider flex items-center gap-1.5 justify-center sm:justify-start">
+                  <Sparkles size={14} className="text-[#0057B8]" /> TƯ VẤN LỘ TRÌNH BÙ ĐIỂM CẤP TỐC 3 BUỔI
                 </span>
-                <h4 className="text-base sm:text-lg font-black text-white">
+                <h4 className="text-base sm:text-lg font-black text-[#0B2545]">
                   Nhận Trọn Bộ Đề Thi Thử + Kèm 1:1 Sát Đề Certiport
                 </h4>
               </div>
@@ -408,7 +408,7 @@ export default function MockExamQuiz() {
                   placeholder="Họ và tên của bạn"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  className="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
+                  className="px-4 py-3 rounded-xl bg-white border border-[#7186A3] text-sm text-[#172B4D] placeholder:text-[#526581] focus:outline-none focus:border-[#0057B8] focus:ring-2 focus:ring-[#0057B8]/20"
                 />
                 <input
                   type="tel"
@@ -420,7 +420,7 @@ export default function MockExamQuiz() {
                   onChange={(e) => { setContactPhone(e.target.value); setLeadError(null); }}
                   aria-invalid={Boolean(leadError)}
                   aria-describedby={leadError ? "exam-lead-error" : undefined}
-                  className="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-400"
+                  className="px-4 py-3 rounded-xl bg-white border border-[#7186A3] text-sm text-[#172B4D] placeholder:text-[#526581] focus:outline-none focus:border-[#0057B8] focus:ring-2 focus:ring-[#0057B8]/20"
                 />
               </div>
 
@@ -433,12 +433,12 @@ export default function MockExamQuiz() {
                     setLeadError("Vui lòng nhập số điện thoại hoặc Zalo hợp lệ.");
                   }
                 }}
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-black text-xs uppercase tracking-wide shadow-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full min-h-[48px] py-3 rounded-xl bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] text-white font-bold text-xs uppercase tracking-wide shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8]"
               >
                 <Send size={14} />
                 <span>Gửi Đăng Ký Ôn Luyện & Cam Kết Đầu Ra</span>
               </button>
-              {leadError && <p id="exam-lead-error" role="alert" className="text-sm font-semibold text-red-300">{leadError}</p>}
+              {leadError && <p id="exam-lead-error" role="alert" className="text-sm font-semibold text-red-600">{leadError}</p>}
             </div>
           ) : (
             <div className="p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-bold max-w-md mx-auto space-y-1">

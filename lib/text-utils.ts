@@ -16,3 +16,4 @@ export function matchesSearch(text: string, query: string): boolean {
   const normalizedQuery = removeVietnameseTones(query);
   return normalizedText.includes(normalizedQuery);
 }
+

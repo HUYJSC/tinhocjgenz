@@ -44,14 +44,14 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`sticky top-0 z-50 w-full transition-all duration-200 ${
-      scrolled 
-        ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200" 
-        : "bg-white border-b border-slate-200/80"
-    }`}>
+      <header className={`sticky top-0 z-50 w-full transition-all duration-200 ${
+        scrolled 
+          ? "bg-white/95 backdrop-blur-md shadow-xs border-b border-[#D8E4F2]" 
+          : "bg-white border-b border-[#D8E4F2]"
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         
-        {/* 1. LEFT: SLEEK BRAND LOGO (NGAY HÀNG THẲNG LỐI) */}
+        {/* 1. LEFT: SLEEK BRAND LOGO */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0 py-1 group">
           <img 
             src="/logo-icon.png" 
@@ -59,14 +59,14 @@ export default function Header() {
             className="h-9 w-auto object-contain group-hover:scale-105 transition-transform duration-200" 
           />
           <div className="flex flex-col justify-center">
-            <span className="text-[15px] font-black tracking-tight text-slate-900 leading-tight group-hover:text-blue-600 transition-colors font-display whitespace-nowrap">
+            <span className="text-[15px] font-black tracking-tight text-[#0B2545] leading-tight group-hover:text-[#0057B8] transition-colors font-display whitespace-nowrap">
               TIN HỌC GEN Z
             </span>
-            <div className="text-[10px] text-slate-500 font-bold tracking-wider flex items-center gap-1.5 leading-tight whitespace-nowrap mt-0.5">
-              <span className="text-blue-600 font-black">MOS</span>
-              <span className="text-slate-300">•</span>
-              <span className="text-cyan-600 font-black">IC3</span>
-              <span className="text-slate-300">•</span>
+            <div className="text-[10px] text-[#526581] font-bold tracking-wider flex items-center gap-1.5 leading-tight whitespace-nowrap mt-0.5">
+              <span className="text-[#0057B8] font-black">MOS</span>
+              <span className="text-[#D8E4F2]">•</span>
+              <span className="text-[#0057B8] font-black">IC3</span>
+              <span className="text-[#D8E4F2]">•</span>
               <span>VĂN PHÒNG</span>
             </div>
           </div>
@@ -75,22 +75,22 @@ export default function Header() {
         {/* 2. CENTER: GỘP GỌN 4 DROPDOWN NGAY HÀNG THẲNG LỐI */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2 shrink-0">
           
-          {/* Item 1: KHÓA HỌC (Dropdown 2 Cột Gọn Nhất) */}
+          {/* Item 1: KHÓA HỌC */}
           <div className="relative group">
             <button
               type="button"
               className={`h-9 px-3 rounded-xl text-[13px] font-bold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap ${
                 pathname.startsWith("/khoa-hoc") || pathname === "/mos" || pathname === "/ic3" || pathname === "/excel" || pathname === "/tin-hoc-van-phong"
-                  ? "text-blue-600 bg-blue-50 font-extrabold"
-                  : "text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+                  ? "text-[#0057B8] bg-[#E8F1FC] font-extrabold"
+                  : "text-[#172B4D] hover:text-[#0057B8] hover:bg-[#F4F8FD]"
               }`}
             >
               <span>Khóa Học & Lộ Trình</span>
-              <ChevronDown size={13} className="text-slate-400 group-hover:rotate-180 transition-transform duration-200" />
+              <ChevronDown size={13} className="text-[#526581] group-hover:rotate-180 transition-transform duration-200" />
             </button>
 
             <div className="absolute top-full left-0 hidden group-hover:block pt-1.5 z-50">
-              <div className="w-[520px] bg-white rounded-2xl shadow-2xl border border-slate-200 p-4 animate-in fade-in slide-in-from-top-1 duration-150">
+              <div className="w-[520px] bg-white rounded-2xl shadow-card border border-[#D8E4F2] p-4 animate-in fade-in slide-in-from-top-1 duration-150">
                 <div className="grid grid-cols-2 gap-4">
                   
                   {/* Cột 1: Chứng chỉ Quốc tế */}
@@ -385,10 +385,10 @@ export default function Header() {
         {/* 3. RIGHT: DIRECT ACTION BUTTON & MOBILE TOGGLE (NGAY HÀNG THẲNG LỐI) */}
         <div className="flex items-center gap-2.5 shrink-0">
           
-          {/* Action CTA Button (Chiều cao khớp h-10 ngay hàng) */}
+          {/* Action CTA Button */}
           <Link
             href="/lien-he"
-            className="hidden sm:inline-flex items-center gap-1.5 h-10 px-5 rounded-xl text-xs font-black tracking-wide uppercase bg-gradient-to-r from-blue-600 to-sky-500 hover:from-blue-700 hover:to-sky-600 text-white shadow-sm hover:shadow transition-all hover:scale-[1.02] whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-1.5 h-10 px-5 rounded-xl text-xs font-black tracking-wide uppercase bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] text-white shadow-xs transition-all whitespace-nowrap focus-visible:outline-2 focus-visible:outline-[#0057B8]"
           >
             <span>Đăng Ký Học</span>
             <ArrowRight size={13} />
@@ -398,7 +398,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden h-10 w-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors cursor-pointer"
+            className="lg:hidden h-10 w-10 flex items-center justify-center rounded-xl bg-[#F4F8FD] border border-[#D8E4F2] hover:bg-[#E8F1FC] text-[#0B2545] transition-colors cursor-pointer"
             aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
