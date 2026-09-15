@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { ArrowRight, Laptop, CheckCircle2, Sparkles, BookOpen, FileText } from "lucide-react";
@@ -43,35 +43,34 @@ export default function HeroSection() {
               Học Tin học văn phòng, thiết kế và AI theo lộ trình rõ ràng, ứng dụng ngay vào học tập và công việc.
             </p>
 
-            {/* Two Action CTAs */}
+            {/* Action CTAs */}
             <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-7">
-              {/* Primary CTA */}
+              {/* Primary CTA: Bắt đầu học thử */}
               <Link
-                href="/khoa-hoc"
-                className="min-h-[48px] px-7 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
+                href="/khoa-hoc/mos-master-combo/bai-hoc/word-lesson-1"
+                className="min-h-[48px] px-7 py-3.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
               >
-                <span className="lg:hidden">Xem khóa học</span>
-                <span className="hidden lg:inline">Khám phá khóa học</span>
+                <span>Học thử bài đầu tiên</span>
                 <ArrowRight size={16} />
               </Link>
 
-              {/* Mobile prioritizes the free exam; desktop keeps the existing LMS CTA. */}
+              {/* Secondary CTA: Khám phá danh mục khóa học */}
+              <Link
+                href="/khoa-hoc"
+                className="min-h-[48px] px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs hover:border-slate-400 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
+              >
+                <BookOpen size={16} className="text-blue-600" />
+                <span>Khám phá khóa học</span>
+              </Link>
+
+              {/* Thi thử miễn phí */}
               <Link
                 href="/thi-thu"
-                className="lg:hidden min-h-[48px] px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-semibold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
+                className="hidden xl:flex min-h-[48px] px-5 py-3.5 rounded-full bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold text-sm items-center justify-center gap-2 border border-slate-200 transition-all"
               >
-                <FileText size={16} className="text-blue-600" />
-                <span>Thi thử miễn phí</span>
+                <FileText size={15} className="text-amber-500" />
+                <span>Thi thử MOS/IC3</span>
               </Link>
-              <a
-                href="https://hoctructuyen.tinhocgenz.io.vn/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden lg:flex min-h-[48px] px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 font-semibold text-sm sm:text-base items-center justify-center gap-2 shadow-xs hover:border-slate-400 active:translate-y-0 transition-all focus-visible:outline-3 focus-visible:outline-blue-400 focus-visible:outline-offset-2"
-              >
-                <Laptop size={16} className="text-blue-600" />
-                <span>Vào hệ thống học tập</span>
-              </a>
             </div>
 
             {/* Benefit Proof Line */}

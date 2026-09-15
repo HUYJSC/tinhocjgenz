@@ -25,6 +25,7 @@ import CourseScheduleWidget from "@/components/CourseScheduleWidget";
 import Breadcrumb from "@/components/Breadcrumb";
 import { buildMetadata } from "@/lib/seo";
 import { generateCourseSchema, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/schema";
+import { getCurriculumByCourseId, getAllLessons } from "@/data/lessonsData";
 
 interface CoursePageProps {
   params: Promise<{ id: string }>;
@@ -104,6 +105,10 @@ export default async function CourseDetailPage(props: CoursePageProps) {
 
   // Relevant testimonials
   const courseReviews = testimonialsData.slice(0, 2);
+
+  const curriculum = getCurriculumByCourseId(course.id);
+  const allLessons = curriculum ? getAllLessons(course.id) : [];
+  const firstLesson = allLessons[0];
 
   return (
     <div className="flex flex-col w-full bg-slate-50/40 font-sans">
@@ -207,7 +212,7 @@ export default async function CourseDetailPage(props: CoursePageProps) {
 
             {/* Right Pricing & Quick CTA Card */}
             <div className="lg:col-span-4">
-              <div className="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
+              <div className="bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5">
                 <div>
                   <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 block mb-1">
                     Học phí trọn gói
@@ -244,13 +249,24 @@ export default async function CourseDetailPage(props: CoursePageProps) {
                   </div>
                 </div>
 
-                <a
-                  href="#dang-ky"
-                  className="w-full min-h-12 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-center"
-                >
-                  <span>Đăng Ký Nhận Ưu Đãi Ngay</span>
-                  <ArrowRight size={15} />
-                </a>
+                <div className="space-y-2.5 pt-1">
+                  {firstLesson && (
+                    <Link
+                      href={`/khoa-hoc/${course.id}/bai-hoc/${firstLesson.id}`}
+                      className="w-full min-h-12 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-center group"
+                    >
+                      <span>Bắt Đầu Học Ngay (Học Thử)</span>
+                      <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
+                    </Link>
+                  )}
+
+                  <a
+                    href="#dang-ky"
+                    className="w-full min-h-11 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs tracking-wide uppercase transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-center"
+                  >
+                    <span>Đăng Ký Nhận Ưu Đãi Trọn Gói</span>
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -271,18 +287,76 @@ export default async function CourseDetailPage(props: CoursePageProps) {
               <div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-black uppercase tracking-wider mb-2">
                   <BookOpen size={13} className="text-blue-600" />
-                  KHUNG CHƯƠNG TRÌNH ĐÀO TẠO
+                  KHUNG CHƯƠNG TRÌNH ĐÀO TẠO & BÀI HỌC
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                  Lộ Trình Học Chi Tiết Từng Buổi
+                  Lộ Trình Học Chi Tiết Từng Bài & Luyện Tập
                 </h2>
                 <p className="text-slate-500 text-xs sm:text-sm mt-1">
-                  Giáo trình được tối ưu thực chiến 100%, tập trung vào kỹ năng làm bài và ngân hàng đề thi thật của Certiport.
+                  Giáo trình được tối ưu thực chiến 100%, tích hợp lý thuyết trọng tâm và bài tập trắc nghiệm có chấm điểm tức thì.
                 </p>
               </div>
 
-              {/* Syllabus Timeline */}
-              {course.syllabus && course.syllabus.length > 0 ? (
+              {/* Interactive Curriculum with Direct Lesson Access */}
+              {curriculum && curriculum.chapters.length > 0 ? (
+                <div className="space-y-8">
+                  {curriculum.chapters.map((chapter) => (
+                    <div key={chapter.id} className="p-6 sm:p-7 rounded-3xl bg-slate-50/80 border border-slate-200 space-y-4">
+                      <div className="border-b border-slate-200/80 pb-3">
+                        <span className="text-[10px] font-black uppercase tracking-wider text-blue-600">
+                          Chương {chapter.order}
+                        </span>
+                        <h3 className="text-base sm:text-lg font-black text-slate-900">
+                          {chapter.title}
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          {chapter.description}
+                        </p>
+                      </div>
+
+                      <div className="space-y-3">
+                        {chapter.lessons.map((lesson) => (
+                          <div
+                            key={lesson.id}
+                            className="p-4 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-500/40 shadow-xs hover:shadow-md transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+                          >
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2">
+                                <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 text-[10px] font-black font-mono">
+                                  Bài {lesson.order}
+                                </span>
+                                {lesson.isFreePreview && (
+                                  <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[9px] font-extrabold uppercase">
+                                    Học thử miễn phí
+                                  </span>
+                                )}
+                                <span className="text-[11px] text-slate-400 font-semibold flex items-center gap-1">
+                                  <Clock size={11} />
+                                  {lesson.duration}
+                                </span>
+                              </div>
+                              <h4 className="text-sm font-black text-slate-900 group-hover:text-blue-600 transition-colors">
+                                {lesson.title}
+                              </h4>
+                              <p className="text-xs text-slate-500 line-clamp-1">
+                                {lesson.summary}
+                              </p>
+                            </div>
+
+                            <Link
+                              href={`/khoa-hoc/${course.id}/bai-hoc/${lesson.id}`}
+                              className="self-start sm:self-center shrink-0 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+                            >
+                              <span>Vào học</span>
+                              <ArrowRight size={13} />
+                            </Link>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : course.syllabus && course.syllabus.length > 0 ? (
                 <div className="space-y-6">
                   {course.syllabus.map((item) => (
                     <div

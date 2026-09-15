@@ -3,6 +3,7 @@ import { ArrowRight, Sparkles, ShieldCheck, Award, School, BookOpen, Clock, Chev
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
 import HomeTabbedHub from "@/components/HomeTabbedHub";
+import ContinueLearningWidget from "@/components/ContinueLearningWidget";
 import { BLOG_POSTS } from "@/data/blogData";
 import { SITE_CONFIG } from "@/data/siteConfig";
 
@@ -14,6 +15,9 @@ export default function Home() {
       
       {/* 1. Hero Section & Brand Value */}
       <HeroSection />
+
+      {/* 1.5. Dynamic Resume Learning Widget */}
+      <ContinueLearningWidget />
 
       {/* 2. Key Trust Metrics */}
       <StatsSection />
