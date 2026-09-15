@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckCircle2, FileText, UserCheck, Calendar, Award, ArrowRight, ShieldAlert, Sparkles, ExternalLink } from "lucide-react";
+import { ArrowRight, Sparkles, FileText } from "lucide-react";
 
 export default function ExamGuide() {
   const steps = [

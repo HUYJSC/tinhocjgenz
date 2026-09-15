@@ -30,7 +30,7 @@ export interface AdminCourseItem {
 }
 
 // Initial structured courses
-let COURSES_STORE: AdminCourseItem[] = [
+const COURSES_STORE: AdminCourseItem[] = [
   {
     id: "mos-master-combo",
     code: "CRS-MOS-COMBO",

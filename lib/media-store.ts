@@ -50,7 +50,7 @@ function sanitizeFilename(name: string): string {
   return name.replace(/[^a-zA-Z0-9._-]/g, "_").toLowerCase();
 }
 
-let MEDIA_FILES_STORE: MediaFileRecord[] = [
+const MEDIA_FILES_STORE: MediaFileRecord[] = [
   {
     id: "media-001",
     storagePath: "exams/2026/mos-excel-practice-test-01.pdf",

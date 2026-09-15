@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { BookOpen, ArrowRight, CheckCircle2, Play } from "lucide-react";
+import { BookOpen, ArrowRight, Play } from "lucide-react";
 import { AnalyticsEvents } from "@/lib/analytics";
 
 interface RecentLearningInfo {
@@ -22,7 +22,9 @@ export default function ContinueLearningWidget() {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed?.courseId && parsed?.lessonId) {
-          setRecent(parsed);
+          queueMicrotask(() => {
+            setRecent(parsed);
+          });
         }
       }
     } catch {}

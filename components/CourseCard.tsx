@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Clock, Sparkles, FileSpreadsheet, Award, Laptop } from "lucide-react";
+import { Clock, Sparkles, Award } from "lucide-react";
 import { Course } from "@/data/mockData";
 
 interface CourseCardProps {
@@ -7,7 +7,7 @@ interface CourseCardProps {
   index?: number;
 }
 
-export default function CourseCard({ course, index = 0 }: CourseCardProps) {
+export default function CourseCard({ course }: CourseCardProps) {
   // Format price dynamically into localized currency style or return direct string
   const formatPrice = (value: string | number) => {
     if (typeof value === "string") return value;
@@ -30,9 +30,6 @@ export default function CourseCard({ course, index = 0 }: CourseCardProps) {
   };
 
   const meta = getCourseMeta(course.id);
-
-  // Map index to stagger delay class
-  const delayClass = index === 0 ? "delay-0" : index === 1 ? "delay-100" : index === 2 ? "delay-200" : "delay-300";
 
   // Standardized SVG Checkmark
   const renderSvgCheck = () => {

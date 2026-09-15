@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       message: "Đăng ký tư vấn thành công! Giảng viên sẽ liên hệ trong 15 phút.",
       leadId: newLead.id,
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Contact Form Error:", error);
     return NextResponse.json(
       {

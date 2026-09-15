@@ -1,6 +1,6 @@
 "use client";
 
-import { ShieldCheck, CheckCircle2, RefreshCw, Award, HeartHandshake, FileCheck2, Sparkles } from "lucide-react";
+import { ShieldCheck, RefreshCw, Award, HeartHandshake, FileCheck2, Sparkles } from "lucide-react";
 
 export default function GuaranteePolicy() {
   const policies = [

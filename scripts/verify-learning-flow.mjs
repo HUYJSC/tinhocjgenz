@@ -1,6 +1,5 @@
 import { removeVietnameseTones, matchesSearch } from "../lib/text-utils.ts";
 import {
-  COURSE_CURRICULUMS,
   getCurriculumByCourseId,
   getLessonById,
   getAllLessons,

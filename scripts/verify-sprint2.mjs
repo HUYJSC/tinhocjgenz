@@ -3,7 +3,6 @@ import {
   hasPermission,
   canModifyRole,
   canLockAccount,
-  ROLE_PERMISSIONS_MAP,
 } from "../lib/rbac-core.ts";
 
 console.log("=== KIỂM THỬ XÁC MINH SPRINT 2: SERVER-SIDE RBAC & DATABASE ===");

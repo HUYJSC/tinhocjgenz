@@ -157,11 +157,11 @@ export class LeadsStore {
       if (fs.existsSync(LEADS_FILE)) {
         const raw = fs.readFileSync(LEADS_FILE, "utf-8");
         const parsed = JSON.parse(raw);
-        list = parsed.map((item: any) => ({
+        list = parsed.map((item: Partial<LeadRecord> & Record<string, unknown>) => ({
           ...item,
-          status: normalizeLeadStatus(item.status),
-          activities: Array.isArray(item.activities) ? item.activities : [],
-        }));
+          status: normalizeLeadStatus(item.status as string),
+          activities: Array.isArray(item.activities) ? (item.activities as LeadRecord["activities"]) : [],
+        })) as LeadRecord[];
       } else {
         list = [...memoryLeads];
       }

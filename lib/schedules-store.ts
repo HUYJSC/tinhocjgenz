@@ -38,7 +38,7 @@ export function computeAvailableSlots(batch: {
 }
 
 // Initial structured batches
-let BATCHES_STORE: AdminClassBatch[] = [
+const BATCHES_STORE: AdminClassBatch[] = [
   {
     id: "batch-mos-e01",
     batchCode: "MOS-E2019-K01",

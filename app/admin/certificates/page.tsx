@@ -5,12 +5,9 @@ import {
   Award,
   Search,
   CheckCircle2,
-  AlertCircle,
   QrCode,
   Sparkles,
-  ExternalLink,
   ShieldCheck,
-  Download,
   Copy,
   Check,
   Plus,
@@ -19,23 +16,14 @@ import {
   Printer,
   Eye,
   X,
-  FileText,
   Calendar,
-  User,
   Medal,
-  Share2,
-  RotateCcw,
   Upload,
   CheckCheck,
-  Image as ImageIcon,
-  Camera,
-  Link2,
-  FileCheck,
   ZoomIn,
   Layers,
   LayoutGrid,
   Table as TableIcon,
-  Filter,
   BadgeCheck,
   FileSpreadsheet,
   Star
@@ -598,7 +586,7 @@ export default function AdminCertificatesPage() {
   const directorSigInputRef = useRef<HTMLInputElement>(null);
 
   // Form State for Issuer / Editor (WYSIWYG)
-  const [formData, setFormData] = useState<Partial<CertificateRecord>>({
+  const [formData, setFormData] = useState<Partial<CertificateRecord>>(() => ({
     studentName: "",
     exam: "MOS Excel 2019 Associate",
     examType: "mos-excel",
@@ -620,7 +608,7 @@ export default function AdminCertificatesPage() {
     imageUrl: "",
     displayMode: "overlay-template",
     note: ""
-  });
+  }));
 
   // Load Templates from localStorage
   useEffect(() => {
@@ -639,7 +627,9 @@ export default function AdminCertificatesPage() {
             }
             return t;
           });
-          setTemplates(parsed);
+          queueMicrotask(() => {
+            setTemplates(parsed);
+          });
           try {
             localStorage.setItem(LOCAL_STORAGE_TEMPLATES_KEY, JSON.stringify(parsed));
           } catch {}
@@ -647,7 +637,9 @@ export default function AdminCertificatesPage() {
         }
       }
     } catch {}
-    setTemplates(DEFAULT_SYSTEM_TEMPLATES);
+    queueMicrotask(() => {
+      setTemplates(DEFAULT_SYSTEM_TEMPLATES);
+    });
   }, []);
 
   const saveTemplates = (newTemplates: CertificateTemplateItem[]) => {
@@ -753,12 +745,16 @@ export default function AdminCertificatesPage() {
             }
             return c;
           });
-          setCerts(parsed);
+          queueMicrotask(() => {
+            setCerts(parsed);
+          });
           return;
         }
       }
     } catch {}
-    setCerts(INITIAL_CERTIFICATES);
+    queueMicrotask(() => {
+      setCerts(INITIAL_CERTIFICATES);
+    });
   }, []);
 
   // Save to localStorage whenever certs change
@@ -868,7 +864,7 @@ export default function AdminCertificatesPage() {
         id: `cert-${Date.now()}`,
         studentName: formData.studentName?.trim() || "Học Viên",
         exam: formData.exam || "MOS Excel 2019 Associate",
-        examType: (formData.examType as any) || "mos-excel",
+        examType: (formData.examType as CertificateRecord["examType"]) || "mos-excel",
         score: Number(formData.score) || 1000,
         certCode: formData.certCode || `CERT-THGZ-2026-${Math.floor(1000 + Math.random() * 9000)}`,
         issueDate: formData.issueDate || new Date().toLocaleDateString("vi-VN"),
@@ -884,7 +880,7 @@ export default function AdminCertificatesPage() {
         directorSignature: formData.directorSignature || undefined,
         directorSigScale: formData.directorSigScale ?? 1.15,
         showSeal: false,
-        status: (formData.status as any) || "Hợp lệ",
+        status: (formData.status as CertificateRecord["status"]) || "Hợp lệ",
         templateType: formData.templateType || "tinhocgenz-official",
         imageUrl: formData.imageUrl || undefined,
         displayMode: formData.displayMode || "overlay-template",
@@ -955,7 +951,6 @@ export default function AdminCertificatesPage() {
   const totalCerts = certs.length;
   const perfectScoreCount = certs.filter((c) => c.score === 1000).length;
   const perfectRate = totalCerts > 0 ? Math.round((perfectScoreCount / totalCerts) * 100) : 0;
-  const officialTemplateCount = certs.filter((c) => c.templateType === "tinhocgenz-official" || !c.templateType).length;
 
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in pb-16">
@@ -1689,7 +1684,7 @@ export default function AdminCertificatesPage() {
                         value={formData.exam || "MOS Excel 2019 Associate"}
                         onChange={(e) => {
                           const val = e.target.value;
-                          let type: any = "mos-excel";
+                          let type: CertificateRecord["examType"] = "mos-excel";
                           if (val.includes("Word")) type = "mos-word";
                           else if (val.includes("PowerPoint") || val.includes("PPT")) type = "mos-ppt";
                           else if (val.includes("IC3")) type = "ic3";

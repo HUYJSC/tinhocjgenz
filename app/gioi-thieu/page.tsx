@@ -66,10 +66,10 @@ export default function AboutPage() {
                 <div className="my-auto space-y-4">
                   <h3 className="text-2xl font-black tracking-tight text-white">PH DIGITAL EDUCATION</h3>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-semibold">
-                    "Chúng tôi tin rằng kỹ năng công nghệ thông tin và chứng chỉ quốc tế không chỉ là tấm bằng để tốt nghiệp, mà là đòn bẩy trực tiếp quyết định thu nhập và vị thế của bạn trong môi trường làm việc hiện đại."
+                    &ldquo;Chúng tôi tin rằng kỹ năng công nghệ thông tin và chứng chỉ quốc tế không chỉ là tấm bằng để tốt nghiệp, mà là đòn bẩy trực tiếp quyết định thu nhập và vị thế của bạn trong môi trường làm việc hiện đại.&rdquo;
                   </p>
                   <blockquote className="border-l-2 border-cyan-400 pl-3.5 text-xs text-cyan-200 italic font-semibold leading-relaxed">
-                    "Mục tiêu của PH Digital Education: 100% học viên tự tin vượt qua kỳ thi và làm chủ dữ liệu doanh nghiệp!"
+                    &ldquo;Mục tiêu của PH Digital Education: 100% học viên tự tin vượt qua kỳ thi và làm chủ dữ liệu doanh nghiệp!&rdquo;
                   </blockquote>
                 </div>
 

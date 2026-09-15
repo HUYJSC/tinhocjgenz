@@ -11,7 +11,6 @@ import {
   BookOpen, 
   Award, 
   ChevronDown, 
-  ShieldCheck, 
   GraduationCap, 
   Users, 
   FileText, 

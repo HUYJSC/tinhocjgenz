@@ -21,7 +21,7 @@ export interface AdminUserRecord {
   lockReason?: string;
 }
 
-let ADMIN_USERS: AdminUserRecord[] = [
+const ADMIN_USERS: AdminUserRecord[] = [
   {
     id: "usr-01",
     username: "admin_super",

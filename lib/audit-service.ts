@@ -100,7 +100,7 @@ function sanitizePayload(data?: Record<string, unknown> | null): Record<string, 
 }
 
 // In-Memory append-only storage buffer (Fallback & Cache)
-let LOCAL_AUDIT_BUFFER: AuditRecord[] = [];
+const LOCAL_AUDIT_BUFFER: AuditRecord[] = [];
 
 export const AuditService = {
   /**
@@ -231,7 +231,22 @@ export const AuditService = {
         if (!error && data) {
           const total = count || 0;
           return {
-            logs: data.map((d: any) => ({
+            logs: (data as Array<{
+              id: string;
+              event_id: string;
+              timestamp_utc: string;
+              actor_id: string;
+              actor_username: string;
+              actor_role: string;
+              action: AuditAction;
+              resource_type: string;
+              resource_id?: string;
+              before_state?: Record<string, unknown> | null;
+              after_state?: Record<string, unknown> | null;
+              ip_address?: string;
+              user_agent?: string;
+              severity: "INFO" | "WARNING" | "CRITICAL";
+            }>).map((d) => ({
               id: d.id,
               eventId: d.event_id,
               timestamp: d.timestamp_utc,

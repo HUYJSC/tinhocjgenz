@@ -8,7 +8,6 @@ import {
   MapPin, 
   ShieldCheck, 
   Award, 
-  Clock,
   ArrowRight,
   ChevronDown,
   ExternalLink,

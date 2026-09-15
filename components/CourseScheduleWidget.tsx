@@ -4,15 +4,11 @@ import { useState } from "react";
 import { 
   Calendar, 
   Clock, 
-  Users, 
   CheckCircle2, 
   ArrowRight, 
-  Sparkles, 
-  Flame, 
   MessageSquare, 
   Laptop, 
   ShieldCheck,
-  AlertCircle
 } from "lucide-react";
 import { CONTACT_INFO } from "@/data/contactInfo";
 
@@ -69,8 +65,6 @@ export default function CourseScheduleWidget({ courseTitle, batches }: Props) {
   const scheduleList = batches && batches.length > 0 ? batches : defaultBatches;
   const [selectedBatchId, setSelectedBatchId] = useState<string>(scheduleList[0]?.id || "b-1");
   const [isCustom1on1, setIsCustom1on1] = useState<boolean>(false);
-
-  const selectedBatch = scheduleList.find(b => b.id === selectedBatchId) || scheduleList[0];
 
   const handleSelectAndScroll = (batch: BatchItem) => {
     setSelectedBatchId(batch.id);

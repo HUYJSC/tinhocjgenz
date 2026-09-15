@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Award, CheckCircle2, Star, Sparkles, Briefcase, GraduationCap, Users, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Star, Users, ShieldCheck } from "lucide-react";
 import BlockchainVerifyModal, { VerifiableCertificate } from "./BlockchainVerifyModal";
 
 interface CertificateItem {
@@ -213,7 +213,7 @@ export default function HallOfFame() {
 
                 {/* Testimonial Quote */}
                 <p className="text-slate-600 text-xs sm:text-sm leading-relaxed italic font-medium">
-                  "{item.quote}"
+                  &ldquo;{item.quote}&rdquo;
                 </p>
               </div>
 

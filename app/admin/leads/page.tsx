@@ -322,7 +322,7 @@ export default function AdminLeadsCRMPage() {
                   Trường/Nơi làm việc: <span className="text-slate-400">{selectedLead.university}</span>
                 </div>
                 <div>
-                  Nhu cầu ban đầu: <p className="text-slate-300 italic mt-0.5">"{selectedLead.note}"</p>
+                  Nhu cầu ban đầu: <p className="text-slate-300 italic mt-0.5">&ldquo;{selectedLead.note}&rdquo;</p>
                 </div>
               </div>
 

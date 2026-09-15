@@ -1,5 +1,4 @@
 import fs from "fs";
-import path from "path";
 
 console.log("=== KIỂM THỬ XÁC MINH SPRINT 0 & SPRINT 1 ===");
 let passed = 0;

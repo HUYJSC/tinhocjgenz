@@ -1,7 +1,7 @@
 import fs from "fs";
 import { CoursesStore } from "../lib/courses-store.ts";
 import { SchedulesStore, computeAvailableSlots } from "../lib/schedules-store.ts";
-import { LeadsStore, maskPhoneNumber } from "../lib/leads-store.ts";
+import { LeadsStore } from "../lib/leads-store.ts";
 import { MediaStore, MAX_FILE_SIZE_BYTES } from "../lib/media-store.ts";
 
 console.log("=== KIỂM THỬ XÁC MINH SPRINT 4: PRODUCTION BUSINESS MODULES ===");
