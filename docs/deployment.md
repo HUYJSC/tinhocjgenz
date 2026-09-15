@@ -57,23 +57,14 @@ sequenceDiagram
     Vercel-->>Dev: Xác minh live URL 200 OK
 ```
 
-### Các bước phát hành:
-1. **Kiểm tra cục bộ**:
-   ```bash
-   node scripts/verify-sprint0-1.mjs
-   node scripts/verify-sprint2.mjs
-   node scripts/verify-sprint3.mjs
-   node scripts/verify-sprint4.mjs
-   npm run build
-   ```
-2. **Commit & Push**:
-   ```bash
-   git add .
-   git commit -m "feat(learning): implement CodeLearn-inspired interactive learning flow and catalog search"
-   git push origin feat/codelearn-learning-flow-hardening
-   ```
-3. **Merge vào `main`**:
-   Tiến hành merge feature branch vào `main` để Vercel tự động triển khai phiên bản mới nhất.
+### Các bước phát hành đã thực hiện:
+1. **Kiểm tra cục bộ**: Chạy toàn bộ 5 bộ kiểm thử (65/65 PASS) và biên dịch `npm run build` thành công.
+2. **Commit & Push**: Commit hash `a2a0b19` đã push lên nhánh `feat/codelearn-learning-flow-hardening`.
+3. **Merge vào `main`**: Đã merge fast-forward vào nhánh `main` và push lên `origin/main`.
+4. **Triển khai Vercel Production**: 
+   - Deployment URL: `https://tinhocgenz-cg6om60e1-dinhhuy05707.vercel.app` (Status: Ready)
+   - Domain Alias: `https://www.tinhocgenz.io.vn/` đã trỏ vào deployment `tinhocgenz-cg6om60e1-dinhhuy05707.vercel.app`
+   - Xác minh Live: Trang chủ, danh mục khóa học, bài học mẫu, API tiến độ đều phản hồi HTTP 200 OK.
 
 ---
 
@@ -83,12 +74,12 @@ Nếu xảy ra sự cố nghiêm trọng sau khi triển khai phiên bản mới
 1. **Rollback tức thì trên Vercel** (không cần rebuild mã nguồn):
    - Mở Vercel Dashboard -> Project `tinhocgenz` -> Tab Deployments.
    - Tìm deployment ổn định trước đó (ví dụ: `https://tinhocgenz-3aciwb7xa-dinhhuy05707.vercel.app`).
-   - Nhấp biểu tượng 3 chấm `...` -> Chọn **Promote to Production** (Hoặc dùng lệnh `vercel alias <deployment-url> www.tinhocgenz.io.vn`).
+   - Nhấp biểu tượng 3 chấm `...` -> Chọn **Promote to Production** (Hoặc dùng lệnh `vercel alias set tinhocgenz-3aciwb7xa-dinhhuy05707.vercel.app www.tinhocgenz.io.vn`).
    - Quá trình chuyển đổi chỉ mất từ 1 đến 3 giây.
 2. **Rollback mã nguồn trên Git**:
    ```bash
    git checkout main
-   git revert HEAD -m 1
+   git revert HEAD
    git push origin main
    ```
 3. **Lưu ý về Dữ liệu**:
