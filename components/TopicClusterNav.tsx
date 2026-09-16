@@ -8,7 +8,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "MOS Word, Excel, PowerPoint 365/2019",
     href: "/mos",
     icon: Award,
-    color: "from-blue-600 to-cyan-500",
     badge: "Quốc Tế",
   },
   {
@@ -17,7 +16,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "Chuẩn kỹ năng số thế hệ mới",
     href: "/ic3",
     icon: GraduationCap,
-    color: "from-indigo-600 to-purple-500",
     badge: "Chuẩn SV",
   },
   {
@@ -26,7 +24,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "Kỹ năng thực chiến cho người đi làm",
     href: "/tin-hoc-van-phong",
     icon: CheckCircle2,
-    color: "from-emerald-600 to-teal-500",
     badge: "Thực Chiến",
   },
   {
@@ -35,7 +32,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "Hàm nâng cao, Dashboard & Tự động hóa",
     href: "/excel",
     icon: FileSpreadsheet,
-    color: "from-green-600 to-emerald-500",
     badge: "Hot Nhất",
   },
   {
@@ -44,7 +40,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "Soạn thảo văn bản, đồ án & hợp đồng",
     href: "/word",
     icon: FileText,
-    color: "from-blue-700 to-indigo-600",
     badge: "Chuẩn NĐ 30",
   },
   {
@@ -53,7 +48,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "Thiết kế Slide thuyết trình chuyên nghiệp",
     href: "/powerpoint",
     icon: Presentation,
-    color: "from-amber-600 to-orange-500",
     badge: "Ấn Tượng",
   },
   {
@@ -62,7 +56,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "Tự động hóa dữ liệu Excel & văn phòng",
     href: "/python",
     icon: Code2,
-    color: "from-cyan-600 to-blue-600",
     badge: "Xu Hướng",
   },
   {
@@ -71,7 +64,6 @@ export const TOPIC_CLUSTERS = [
     tagline: "Chuẩn Bộ Thông Tin & Truyền Thông",
     href: "/cntt-co-ban",
     icon: Cpu,
-    color: "from-slate-700 to-slate-900",
     badge: "Chuẩn TT03",
   },
 ];
@@ -112,14 +104,14 @@ export default function TopicClusterNav({ currentClusterId }: TopicClusterNavPro
                 }`}
               >
                 <div
-                  className={`w-9 h-9 rounded-lg flex items-center justify-center mb-2 bg-gradient-to-br ${cluster.color} text-white shadow-sm`}
+                  className="mb-2 flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white shadow-sm"
                 >
                   <Icon className="w-5 h-5" />
                 </div>
                 <span className="text-xs font-bold leading-tight group-hover:text-blue-600 transition-colors">
                   {cluster.title}
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium mt-0.5 hidden sm:inline-block truncate w-full">
+                <span className="text-xs text-slate-400 font-medium mt-0.5 hidden sm:inline-block truncate w-full">
                   {cluster.badge}
                 </span>
               </Link>

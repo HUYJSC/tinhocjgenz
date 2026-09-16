@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
 import { Source } from "@/lib/content-engine/types";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET() {
   try {
     const sources = ContentDb.getSources();
     return NextResponse.json({ success: true, data: sources });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi lấy danh sách nguồn" },
+      { success: false, error: getErrorMessage(err, "Lỗi lấy danh sách nguồn") },
       { status: 500 }
     );
   }
@@ -45,9 +46,9 @@ export async function POST(req: NextRequest) {
 
     const saved = ContentDb.saveSource(newSource);
     return NextResponse.json({ success: true, data: saved });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi tạo nguồn tin mới" },
+      { success: false, error: getErrorMessage(err, "Lỗi tạo nguồn tin mới") },
       { status: 500 }
     );
   }

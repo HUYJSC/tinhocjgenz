@@ -23,12 +23,12 @@ export default function PortalLayout({ children }: { children: React.ReactNode }
       <header className="border-b border-slate-800 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40 px-4 sm:px-8 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2 text-white font-black text-sm hover:text-blue-400 transition-colors">
+            <Link href="/" className="flex items-center gap-2 text-white font-bold text-sm hover:text-blue-400 transition-colors">
               <ArrowLeft size={16} />
               <span>Về Trang Chủ</span>
             </Link>
             <div className="h-4 w-px bg-slate-700 hidden sm:block" />
-            <span className="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
               <ShieldCheck size={14} /> KHU VỰC NỘI BỘ • XÁC THỰC PHÂN QUYỀN
             </span>
           </div>

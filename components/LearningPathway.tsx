@@ -140,11 +140,11 @@ export default function LearningPathway() {
       
       {/* Top Heading */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-extrabold text-[10px] uppercase tracking-wider">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-extrabold text-xs uppercase tracking-wider">
           <Sparkles size={12} className="text-blue-600" />
           LỘ TRÌNH ĐÀO TẠO CHO MỌI ĐỐI TƯỢNG
         </span>
-        <h3 className="text-2xl sm:text-3xl font-black text-slate-900 font-display">
+        <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 font-display">
           Chọn Lộ Trình Phù Hợp Nhất Với Bạn
         </h3>
         <p className="text-slate-500 text-xs sm:text-sm">
@@ -174,16 +174,16 @@ export default function LearningPathway() {
       </div>
 
       {/* Pathway Content Card */}
-      <div className="bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-8 shadow-premium space-y-6">
+      <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-premium space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           {/* Left info & outcomes */}
           <div className="lg:col-span-7 space-y-5">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md">
                 {currentPathway.subtitle}
               </span>
-              <h4 className="text-xl sm:text-2xl font-black text-slate-900 font-display mt-2">
+              <h4 className="text-xl sm:text-2xl font-bold text-slate-900 font-display mt-2">
                 {currentPathway.title}
               </h4>
               <p className="text-slate-600 text-xs sm:text-sm mt-1 leading-relaxed">
@@ -193,13 +193,13 @@ export default function LearningPathway() {
 
             {/* Outcomes */}
             <div className="space-y-2.5">
-              <p className="text-xs font-black uppercase tracking-wider text-slate-400">
+              <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Giá Trị Đạt Được Sau Khóa Học:
               </p>
               <ul className="space-y-2">
                 {currentPathway.outcomes.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 font-medium leading-snug">
-                    <CheckCircle2 size={16} className="text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 size={16} className="text-blue-600 shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -212,7 +212,7 @@ export default function LearningPathway() {
                 Thời lượng: <strong className="text-slate-800">{currentPathway.duration}</strong>
               </span>
               <span className="flex items-center gap-1">
-                <ShieldCheck size={13} className="text-emerald-600" />
+                <ShieldCheck size={13} className="text-blue-600" />
                 Cam kết: <strong className="text-slate-800">Bao đỗ 100%</strong>
               </span>
             </div>
@@ -220,8 +220,8 @@ export default function LearningPathway() {
 
           {/* Right recommended courses */}
           <div className="lg:col-span-5 bg-slate-50 border border-slate-200/80 rounded-2xl p-5 space-y-4">
-            <p className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-              <Award size={14} className="text-amber-500" />
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
+              <Award size={14} className="text-blue-500" />
               Khóa Học Khuyến Nghị
             </p>
 
@@ -229,7 +229,7 @@ export default function LearningPathway() {
               {currentPathway.recommendedCourses.map((c, idx) => (
                 <div key={idx} className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700">
+                    <span className="text-xs font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700">
                       {c.badge}
                     </span>
                     <Link href={c.link} className="text-blue-600 hover:text-blue-700 text-xs font-bold flex items-center gap-0.5">
@@ -237,10 +237,10 @@ export default function LearningPathway() {
                       <ArrowRight size={12} />
                     </Link>
                   </div>
-                  <h5 className="text-xs sm:text-sm font-black text-slate-900 leading-snug">
+                  <h5 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
                     {c.name}
                   </h5>
-                  <p className="text-slate-500 text-[11px] leading-relaxed">
+                  <p className="text-slate-500 text-xs leading-relaxed">
                     {c.description}
                   </p>
                 </div>
@@ -249,7 +249,7 @@ export default function LearningPathway() {
 
             <Link
               href="/lien-he"
-              className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm transition-all"
+              className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-sm transition-all"
             >
               <span>Đăng Ký Tư Vấn Lộ Trình Này</span>
               <ArrowRight size={13} />

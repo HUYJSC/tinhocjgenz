@@ -1,5 +1,7 @@
 "use client";
 
+import { getErrorMessage } from "@/lib/errors";
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export interface AdminUser {
@@ -102,10 +104,10 @@ export function AdminAuthProvider({ children }: { children: React.ReactNode }) {
         message: data.error || "Tên đăng nhập hoặc mật khẩu không chính xác!",
         remainingAttempts: data.remainingAttempts,
       };
-    } catch (err: any) {
+    } catch (err) {
       return {
         success: false,
-        message: err?.message || "Không thể kết nối đến máy chủ xác thực",
+        message: getErrorMessage(err, "Không thể kết nối đến máy chủ xác thực"),
       };
     }
   };

@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import {
   CheckCircle2,
+  XCircle,
+  Sparkles,
   Clock,
   Award,
   ArrowRight,
@@ -10,8 +12,7 @@ import {
   Send,
   Check,
   Loader2,
-  BarChart3,
-  AlertCircle,
+  BarChart3
 } from "lucide-react";
 import { ExamQuestion, ExamGradingResult } from "@/lib/exam-engine";
 
@@ -122,6 +123,7 @@ export default function MockExamQuiz() {
       setCurrentStep(prev => prev + 1);
     } else {
       if (!window.confirm("Bạn đã hoàn thành bài thi. Gửi đáp án để xem kết quả?")) return;
+      // Final question reached: Submit answers to server for authentic grading
       setIsSubmitting(true);
       try {
         const res = await fetch("/api/exam/submit", {
@@ -154,32 +156,35 @@ export default function MockExamQuiz() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border-2 border-[#0057B8] p-6 sm:p-10 max-w-4xl mx-auto relative overflow-hidden font-sans text-[#0057B8]">
+    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-lg p-6 sm:p-10 max-w-4xl mx-auto relative overflow-hidden font-sans">
+      {/* Decorative gradient bar */}
+      <div className="absolute top-0 left-0 w-full h-[4px] bg-blue-600" />
+
       {!gradingResult ? (
         <div className="space-y-6">
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#0057B8] pb-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[10px] font-black uppercase border border-[#0057B8] mb-2">
-                <Clock size={12} className="text-[#0057B8]" />
-                BÀI THI THỬ TRỰC TUYẾN
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase bg-blue-50 text-blue-700 border border-blue-100 mb-2">
+                <Clock size={12} className="text-blue-600" />
+                MINI TEST • MÔ PHỎNG ĐỀ THI CERTIPORT CHUẨN QUỐC TẾ
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-[#0057B8] tracking-tight">
-                Kiểm tra nhanh năng lực tin học
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                Kiểm Tra Nhanh Trình Độ Tin Học & Khả Năng Đỗ
               </h3>
             </div>
             <div className="flex items-center gap-2 self-start sm:self-auto">
-              <span className="text-xs font-bold text-[#0057B8]">Câu hỏi:</span>
-              <span className="px-3 py-1 rounded-md bg-[#0057B8] text-white font-mono font-black text-xs">
+              <span className="text-xs font-bold text-slate-400">Câu hỏi:</span>
+              <span className="px-3 py-1 rounded-xl bg-slate-900 text-white font-mono font-bold text-xs">
                 {currentStep + 1} / {totalQuestions}
               </span>
             </div>
           </div>
 
           {/* Progress Bar */}
-          <div className="w-full bg-white border border-[#0057B8] h-2 rounded-full overflow-hidden">
+          <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
             <div
-              className="bg-[#0057B8] h-full transition-all duration-300 rounded-full"
+              className="bg-blue-600 h-full transition-all duration-300 rounded-full"
               style={{ width: `${((currentStep + 1) / totalQuestions) * 100}%` }}
             />
           </div>
@@ -187,15 +192,15 @@ export default function MockExamQuiz() {
           {/* Question Box */}
           <div className="space-y-5 pt-2">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-md text-[10px] font-black uppercase border border-[#0057B8]">
+              <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold uppercase bg-blue-100 text-blue-800">
                 {currentQ.subject}
               </span>
-              <span className="px-2.5 py-0.5 rounded-md text-[10px] font-bold border border-[#0057B8]">
+              <span className="px-2.5 py-0.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600">
                 Kỹ năng: {currentQ.skill}
               </span>
             </div>
 
-            <h4 className="text-base sm:text-lg font-bold text-[#0057B8] leading-relaxed">
+            <h4 className="text-base sm:text-lg font-bold text-slate-900 leading-relaxed">
               {currentQ.question}
             </h4>
 
@@ -208,23 +213,21 @@ export default function MockExamQuiz() {
                     key={idx}
                     type="button"
                     onClick={() => handleSelectOption(idx)}
-                    className={`w-full min-h-14 text-left p-4 rounded-xl border-2 text-sm font-semibold transition-colors flex items-center justify-between cursor-pointer ${
+                    className={`w-full min-h-14 text-left p-4 rounded-2xl border text-sm font-semibold transition-all duration-200 flex items-center justify-between cursor-pointer ${
                       isSelected
-                        ? "bg-[#0057B8] text-white border-[#0057B8]"
-                        : "bg-white text-[#0057B8] border-[#0057B8] hover:bg-white"
+                        ? "bg-blue-50/80 border-blue-600 text-blue-900 shadow-sm"
+                        : "bg-slate-50/60 border-slate-200 hover:border-slate-300 text-slate-700 hover:bg-slate-50"
                     }`}
                   >
                     <span className="flex items-center gap-3">
-                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-black shrink-0 border ${
-                        isSelected
-                          ? "bg-white text-[#0057B8] border-white"
-                          : "bg-white text-[#0057B8] border-[#0057B8]"
+                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                        isSelected ? "bg-blue-600 text-white" : "bg-white border border-slate-300 text-slate-600"
                       }`}>
                         {String.fromCharCode(65 + idx)}
                       </span>
                       <span>{opt}</span>
                     </span>
-                    {isSelected && <Check size={16} className="text-white shrink-0" />}
+                    {isSelected && <Check size={16} className="text-blue-600 shrink-0" />}
                   </button>
                 );
               })}
@@ -233,18 +236,18 @@ export default function MockExamQuiz() {
 
           {/* Footer Controls */}
           {examError && (
-            <div role="alert" className="flex items-center justify-between gap-3 rounded-xl border-2 border-dashed border-[#0057B8] bg-white p-3 text-sm text-[#0057B8]">
+            <div role="alert" className="flex items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">
               <span>{examError}</span>
-              <button type="button" onClick={() => void handleNext()} className="min-h-11 shrink-0 rounded-lg bg-[#0057B8] text-white px-4 font-bold">Thử lại</button>
+              <button type="button" onClick={() => void handleNext()} className="min-h-12 shrink-0 rounded-xl bg-red-600 px-4 font-bold text-white">Thử lại</button>
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-3 pt-6 border-t border-[#0057B8]">
+          <div className="flex items-center justify-between gap-3 pt-6 border-t border-slate-100">
             <button
               type="button"
               onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
               disabled={currentStep === 0 || isSubmitting}
-              className="min-h-11 px-4 py-2 rounded-xl border border-[#0057B8] text-sm font-bold text-[#0057B8] hover:bg-[#0057B8] hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+              className="min-h-12 px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-bold text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all cursor-pointer"
             >
               Câu trước
             </button>
@@ -253,12 +256,12 @@ export default function MockExamQuiz() {
               type="button"
               onClick={handleNext}
               disabled={answers[currentQ.id] === undefined || isSubmitting}
-              className="min-h-11 px-5 sm:px-6 py-2.5 rounded-xl bg-[#0057B8] hover:bg-white disabled:bg-white text-white hover:text-[#0057B8] disabled:text-[#0057B8] disabled:opacity-40 border border-[#0057B8] text-xs font-bold tracking-wide uppercase transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+              className="min-h-12 px-5 sm:px-6 py-3 rounded-xl bg-slate-900 hover:bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed text-white text-xs font-bold tracking-wide uppercase shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
             >
               {isSubmitting ? (
                 <>
                   <Loader2 size={14} className="animate-spin" />
-                  <span>ĐANG CHẤM ĐIỂM...</span>
+                  <span>ĐANG CHẤM ĐIỂM SERVER...</span>
                 </>
               ) : (
                 <>
@@ -270,38 +273,42 @@ export default function MockExamQuiz() {
           </div>
         </div>
       ) : (
-        /* Result Screen: Strict Blue & White */
-        <div className="space-y-8 text-center text-[#0057B8]">
+        /* Server Graded Result Screen */
+        <div className="space-y-8 animate-fade-in text-center">
           <div className="space-y-3">
-            <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center bg-white border-2 border-[#0057B8] text-[#0057B8]">
-              <Award size={32} className="text-[#0057B8]" />
+            <div className="w-16 h-16 rounded-full mx-auto flex items-center justify-center bg-blue-50 border border-blue-100 text-blue-600 shadow-md">
+              <Award size={32} className="text-blue-500" />
             </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-[#0057B8] tracking-tight">
-              Kết quả bài thi thử
+            <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
+              Bảng Điểm Khảo Thí Chính Thức
             </h3>
-            <p className="text-xs sm:text-sm max-w-md mx-auto">
-              Chấm điểm tự động theo thang điểm quy đổi chuẩn Certiport (1000 điểm).
+            <p className="text-slate-500 text-xs sm:text-sm max-w-md mx-auto">
+              Chấm điểm tự động trên hệ thống máy chủ PH Digital Education theo thang chuẩn Certiport Hoa Kỳ (1000 điểm).
             </p>
           </div>
 
           {/* Score Box */}
-          <div className="p-6 sm:p-8 rounded-2xl border-2 border-[#0057B8] max-w-md mx-auto bg-white text-[#0057B8]">
-            <div className="text-4xl sm:text-5xl font-black mb-1">
-              {gradingResult.scaledScore} <span className="text-base font-bold">/ 1000 Điểm</span>
+          <div className={`p-6 sm:p-8 rounded-2xl border max-w-md mx-auto ${
+            gradingResult.passed
+              ? "bg-blue-50/70 border-blue-200 text-blue-900"
+              : "bg-blue-50/70 border-blue-200 text-blue-900"
+          }`}>
+            <div className="text-4xl sm:text-5xl font-bold mb-1">
+              {gradingResult.scaledScore} <span className="text-base font-bold text-slate-500">/ 1000 Điểm</span>
             </div>
-            <p className="text-xs sm:text-sm font-bold mt-2">
+            <p className="text-xs sm:text-sm font-extrabold mt-2">
               Chính xác {gradingResult.correctCount} / {gradingResult.totalQuestions} câu hỏi ({gradingResult.percentage}%)
             </p>
-            <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-xs font-bold border border-[#0057B8]">
+            <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white shadow-sm">
               {gradingResult.passed ? (
                 <>
-                  <CheckCircle2 size={14} className="text-[#0057B8]" />
-                  <span>ĐỦ ĐIỀU KIỆN ĐẠT CHUẨN ĐẦU RA (≥ 700đ)</span>
+                  <CheckCircle2 size={14} className="text-blue-600" />
+                  <span>ĐỦ ĐIỀU KIỆN XÉT CHUẨN ĐẦU RA ĐẠI HỌC (≥ 700đ)</span>
                 </>
               ) : (
                 <>
-                  <AlertCircle size={14} className="text-[#0057B8]" />
-                  <span>CẦN ÔN TẬP THÊM (Mục tiêu tối thiểu 700/1000đ)</span>
+                  <XCircle size={14} className="text-blue-600" />
+                  <span>CHƯA ĐẠT CHUẨN ĐẦU RA (Cần tối thiểu 700/1000đ)</span>
                 </>
               )}
             </div>
@@ -309,23 +316,27 @@ export default function MockExamQuiz() {
 
           {/* Skill Radar / Analysis Breakdown */}
           {gradingResult.skillAnalysis && gradingResult.skillAnalysis.length > 0 && (
-            <div className="text-left max-w-2xl mx-auto space-y-3 bg-white p-5 rounded-2xl border border-[#0057B8]">
+            <div className="text-left max-w-2xl mx-auto space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-200">
               <div className="flex items-center gap-2 mb-2">
-                <BarChart3 size={16} className="text-[#0057B8]" />
-                <h4 className="text-xs font-black uppercase tracking-wider text-[#0057B8]">
-                  Phân tích kỹ năng chi tiết
+                <BarChart3 size={16} className="text-blue-600" />
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
+                  Phân Tích Năng Lực & Kỹ Năng Chuyên Sâu
                 </h4>
               </div>
               <div className="space-y-2.5">
                 {gradingResult.skillAnalysis.map((sk, idx) => (
                   <div key={idx} className="space-y-1">
-                    <div className="flex justify-between text-xs font-bold text-[#0057B8]">
+                    <div className="flex justify-between text-xs font-bold text-slate-700">
                       <span>{sk.skill} ({sk.subject})</span>
-                      <span>{sk.percent}% — {sk.status}</span>
+                      <span className={sk.percent >= 80 ? "text-blue-600" : sk.percent >= 50 ? "text-blue-600" : "text-red-600"}>
+                        {sk.percent}% — {sk.status}
+                      </span>
                     </div>
-                    <div className="w-full bg-white border border-[#0057B8] h-2 rounded-full overflow-hidden">
+                    <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-[#0057B8] transition-all"
+                        className={`h-full rounded-full transition-all ${
+                          sk.percent >= 80 ? "bg-blue-500" : sk.percent >= 50 ? "bg-blue-500" : "bg-red-500"
+                        }`}
                         style={{ width: `${sk.percent}%` }}
                       />
                     </div>
@@ -335,38 +346,42 @@ export default function MockExamQuiz() {
             </div>
           )}
 
-          {/* Detailed Question Review */}
+          {/* Detailed Question Review returned from Server */}
           <div className="text-left space-y-3 max-w-2xl mx-auto">
-            <h4 className="text-xs font-black uppercase tracking-wider text-[#0057B8]">
-              Giải thích chi tiết câu hỏi:
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+              Giải thích đáp án & phân tích bẫy đề thi:
             </h4>
             {gradingResult.reviewItems.map((item, idx) => (
               <div
                 key={item.id}
-                className="p-4 rounded-xl border border-[#0057B8] bg-white space-y-2"
+                className={`p-4 rounded-2xl border space-y-2 ${
+                  item.isCorrect
+                    ? "bg-blue-50/40 border-blue-200"
+                    : "bg-red-50/40 border-red-200"
+                }`}
               >
-                <div className="flex items-center justify-between text-xs font-black">
-                  <span>
+                <div className="flex items-center justify-between text-xs font-bold">
+                  <span className="text-slate-800">
                     Câu {idx + 1}: {item.subject} • {item.skill}
                   </span>
-                  <span className="font-bold">
+                  <span className={item.isCorrect ? "text-blue-600 font-bold" : "text-red-600 font-bold"}>
                     {item.isCorrect ? "✓ Chính xác" : "✗ Chưa đúng"}
                   </span>
                 </div>
-                <p className="text-xs font-semibold">{item.question}</p>
-                <div className="text-[11px] space-y-1 pt-1 border-t border-[#0057B8]">
-                  <p>
+                <p className="text-xs text-slate-700 font-semibold">{item.question}</p>
+                <div className="text-xs space-y-1 pt-1 border-t border-slate-200/60">
+                  <p className="text-slate-600">
                     <span className="font-bold">Bạn đã chọn: </span>
                     {item.userAnswerIndex !== null ? item.options[item.userAnswerIndex] : "Chưa chọn"}
                   </p>
                   {!item.isCorrect && (
-                    <p className="font-bold">
-                      <span>Đáp án đúng: </span>
+                    <p className="text-blue-700 font-bold">
+                      <span>Đáp án chuẩn: </span>
                       {item.options[item.correctIndex]}
                     </p>
                   )}
-                  <p className="italic mt-1 p-2 rounded-md border border-[#0057B8] bg-white">
-                    <strong>Giải thích:</strong> {item.explanation}
+                  <p className="text-slate-600 italic mt-1 bg-white/80 p-2 rounded-lg border border-slate-100">
+                    💡 <strong>Giải thích chuyên gia:</strong> {item.explanation}
                   </p>
                 </div>
               </div>
@@ -375,13 +390,13 @@ export default function MockExamQuiz() {
 
           {/* Lead Capture Box */}
           {!isSubmittedLead ? (
-            <div className="bg-white text-[#0057B8] p-6 sm:p-8 rounded-2xl max-w-xl mx-auto space-y-4 border-2 border-[#0057B8] text-left">
+            <div className="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl max-w-xl mx-auto space-y-4 shadow-md text-left">
               <div className="space-y-1 text-center sm:text-left">
-                <span className="text-xs font-bold uppercase tracking-wider block">
-                  TƯ VẤN LỘ TRÌNH LẤY BẰNG CẤP TỐC
+                <span className="text-xs font-bold text-blue-400 uppercase tracking-widest flex items-center gap-1.5 justify-center sm:justify-start">
+                  <Sparkles size={14} /> TƯ VẤN LỘ TRÌNH BÙ ĐIỂM CẤP TỐC 3 BUỔI
                 </span>
-                <h4 className="text-base sm:text-lg font-black text-[#0057B8]">
-                  Nhận bộ đề thi mẫu và tư vấn điểm số
+                <h4 className="text-base sm:text-lg font-bold text-white">
+                  Nhận Trọn Bộ Đề Thi Thử + Kèm 1:1 Sát Đề Certiport
                 </h4>
               </div>
 
@@ -389,18 +404,23 @@ export default function MockExamQuiz() {
                 <input
                   type="text"
                   name="exam-contact-name"
-                  placeholder="Họ và tên"
+                  autoComplete="name"
+                  placeholder="Họ và tên của bạn"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  className="px-4 py-3 rounded-lg bg-white border border-[#0057B8] text-sm text-[#0057B8] placeholder:text-[#0057B8]/60 focus:outline-none focus:ring-2 focus:ring-[#0057B8]"
+                  className="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-400"
                 />
                 <input
                   type="tel"
                   name="exam-contact-phone"
+                  inputMode="tel"
+                  autoComplete="tel"
                   placeholder="Số điện thoại / Zalo *"
                   value={contactPhone}
                   onChange={(e) => { setContactPhone(e.target.value); setLeadError(null); }}
-                  className="px-4 py-3 rounded-lg bg-white border border-[#0057B8] text-sm text-[#0057B8] placeholder:text-[#0057B8]/60 focus:outline-none focus:ring-2 focus:ring-[#0057B8]"
+                  aria-invalid={Boolean(leadError)}
+                  aria-describedby={leadError ? "exam-lead-error" : undefined}
+                  className="px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-400"
                 />
               </div>
 
@@ -413,21 +433,21 @@ export default function MockExamQuiz() {
                     setLeadError("Vui lòng nhập số điện thoại hoặc Zalo hợp lệ.");
                   }
                 }}
-                className="w-full min-h-[48px] py-3 rounded-xl bg-[#0057B8] hover:bg-white text-white hover:text-[#0057B8] border border-[#0057B8] font-bold text-xs uppercase tracking-wide transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-blue-400 text-slate-950 font-bold text-xs uppercase tracking-wide shadow-lg hover:scale-[1.01] transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Send size={14} />
-                <span>Gửi đăng ký tư vấn</span>
+                <span>Gửi Đăng Ký Ôn Luyện & Cam Kết Đầu Ra</span>
               </button>
-              {leadError && <p role="alert" className="text-sm font-semibold text-[#0057B8]">{leadError}</p>}
+              {leadError && <p id="exam-lead-error" role="alert" className="text-sm font-semibold text-red-300">{leadError}</p>}
             </div>
           ) : (
-            <div className="p-6 rounded-2xl border-2 border-[#0057B8] bg-white text-[#0057B8] text-xs sm:text-sm font-bold max-w-md mx-auto space-y-1">
-              <p className="flex items-center justify-center gap-1.5 text-base font-black">
-                <CheckCircle2 size={18} className="text-[#0057B8]" />
-                Đã tiếp nhận thông tin thành công!
+            <div className="p-6 rounded-2xl bg-blue-50 border border-blue-200 text-blue-800 text-xs sm:text-sm font-bold max-w-md mx-auto space-y-1">
+              <p className="flex items-center justify-center gap-1.5 text-base font-bold">
+                <CheckCircle2 size={18} className="text-blue-600" />
+                Đã Tiếp Nhận Thông Tin Thành Công!
               </p>
-              <p className="font-normal">
-                Giảng viên Tin Học Gen Z sẽ liên hệ tư vấn bạn qua Zalo <strong>{contactPhone}</strong> trong thời gian sớm nhất.
+              <p className="text-slate-600 text-xs font-normal">
+                Giảng viên PH Digital Education sẽ gửi bộ đề thi thử và liên hệ tư vấn bạn qua Zalo <strong>{contactPhone}</strong> trong vòng 15 phút.
               </p>
             </div>
           )}
@@ -436,10 +456,10 @@ export default function MockExamQuiz() {
             <button
               type="button"
               onClick={handleReset}
-              className="min-h-12 inline-flex items-center gap-1.5 text-sm font-bold text-[#0057B8] hover:underline cursor-pointer"
+              className="min-h-12 inline-flex items-center gap-1.5 text-sm font-bold text-slate-500 hover:text-blue-600 underline cursor-pointer"
             >
-              <RefreshCw size={14} />
-              <span>Làm lại bài thi thử</span>
+              <RefreshCw size={12} />
+              Làm lại bài thi thử
             </button>
           </div>
         </div>

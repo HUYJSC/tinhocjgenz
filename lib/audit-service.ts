@@ -55,6 +55,24 @@ export interface AuditRecord {
   severity: AuditSeverity;
 }
 
+
+interface AuditDbRow {
+  id: string;
+  event_id: string;
+  timestamp_utc: string;
+  actor_id?: string | null;
+  actor_username: string;
+  actor_role: string;
+  action: string;
+  resource_type: string;
+  resource_id?: string | null;
+  before_state?: Record<string, unknown> | null;
+  after_state?: Record<string, unknown> | null;
+  ip_address: string;
+  user_agent?: string | null;
+  severity: AuditSeverity;
+}
+
 export interface AuditEventInput {
   actorId?: string;
   actorUsername: string;
@@ -231,35 +249,20 @@ export const AuditService = {
         if (!error && data) {
           const total = count || 0;
           return {
-            logs: (data as Array<{
-              id: string;
-              event_id: string;
-              timestamp_utc: string;
-              actor_id: string;
-              actor_username: string;
-              actor_role: string;
-              action: AuditAction;
-              resource_type: string;
-              resource_id?: string;
-              before_state?: Record<string, unknown> | null;
-              after_state?: Record<string, unknown> | null;
-              ip_address?: string;
-              user_agent?: string;
-              severity: "INFO" | "WARNING" | "CRITICAL";
-            }>).map((d) => ({
+            logs: (data as AuditDbRow[]).map((d) => ({
               id: d.id,
               eventId: d.event_id,
               timestamp: d.timestamp_utc,
-              actorId: d.actor_id,
+              actorId: d.actor_id || undefined,
               actorUsername: d.actor_username,
               actorRole: d.actor_role,
               action: d.action,
               resourceType: d.resource_type,
-              resourceId: d.resource_id,
+              resourceId: d.resource_id || undefined,
               beforeState: d.before_state,
               afterState: d.after_state,
-              ipAddress: d.ip_address || "127.0.0.1",
-              userAgent: d.user_agent,
+              ipAddress: d.ip_address,
+              userAgent: d.user_agent || undefined,
               details: `${d.action} on ${d.resource_type} (${d.actor_username})`,
               severity: d.severity,
             })),

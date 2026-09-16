@@ -1,24 +1,10 @@
+import NextImage from "next/image";
 import { Metadata } from "next";
 import Link from "next/link";
-import {
-  Sparkles,
-  Clock,
-  ArrowRight,
-  TrendingUp,
-  Eye,
-  Search,
-  Brain,
-  FileSpreadsheet,
-  Layers,
-  ShieldAlert,
-  Code2,
-  Zap,
-  CheckCircle2,
-  Calendar,
-} from "lucide-react";
+import { Sparkles, Clock, ArrowRight, TrendingUp, Brain, CheckCircle2, Calendar } from "lucide-react";
 import { ContentDb } from "@/lib/content-engine/db";
 import { DEFAULT_CATEGORIES } from "@/lib/content-engine/default-sources";
-import { Article } from "@/lib/content-engine/types";
+
 
 export const metadata: Metadata = {
   title: "Tin Công Nghệ & AI - Cập Nhật Kỹ Năng Số | Tin học GenZ",
@@ -45,11 +31,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TechNewsHubPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ cat?: string; q?: string }>;
-}) {
+export default function TechNewsHubPage() {
   const publishedArticles = ContentDb.getPublishedArticles();
   const categories = DEFAULT_CATEGORIES;
 
@@ -59,16 +41,15 @@ export default function TechNewsHubPage({
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans pb-16">
       {/* 1. Hero Header Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 text-white py-12 md:py-16 border-b border-slate-800">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
+      <section className="relative overflow-hidden bg-blue-950 text-white py-12 md:py-16 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-cyan-300 text-xs font-black tracking-wide">
-            <Sparkles size={14} className="text-cyan-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold tracking-wide">
+            <Sparkles size={14} className="text-blue-400" />
             <span>TÒA SOẠN TIN CÔNG NGHỆ & KỸ NĂNG SỐ</span>
           </div>
 
           <div className="max-w-3xl space-y-3">
-            <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
               Cập Nhật Xu Hướng Công Nghệ, AI & Tin Học Văn Phòng
             </h1>
             <p className="text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
@@ -79,15 +60,15 @@ export default function TechNewsHubPage({
           {/* Quick Stats Pills */}
           <div className="flex flex-wrap items-center gap-4 pt-2 text-xs font-bold text-slate-300">
             <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-xs border border-white/10">
-              <CheckCircle2 size={14} className="text-emerald-400" />
+              <CheckCircle2 size={14} className="text-blue-400" />
               <span>Nội dung độc lập chuẩn SEO</span>
             </div>
             <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-xs border border-white/10">
-              <Brain size={14} className="text-cyan-400" />
+              <Brain size={14} className="text-blue-400" />
               <span>Ứng dụng thực chiến MOS & IC3</span>
             </div>
             <div className="flex items-center gap-1.5 bg-white/10 px-3 py-1.5 rounded-xl backdrop-blur-xs border border-white/10">
-              <Clock size={14} className="text-amber-400" />
+              <Clock size={14} className="text-blue-400" />
               <span>Cập nhật liên tục 24/7</span>
             </div>
           </div>
@@ -118,11 +99,11 @@ export default function TechNewsHubPage({
         {/* 3. Featured Article Card */}
         {featured && (
           <div className="mt-8">
-            <div className="group relative overflow-hidden rounded-3xl bg-white border border-slate-200/80 hover:border-blue-300 shadow-lg hover:shadow-xl transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 sm:p-8">
+            <div className="group relative overflow-hidden rounded-2xl bg-white border border-slate-200/80 hover:border-blue-300 shadow-lg hover:shadow-md transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 sm:p-8">
               <div className="lg:col-span-7 space-y-4 flex flex-col justify-between">
                 <div className="space-y-3">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-blue-100 text-blue-800">
+                    <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800">
                       {featured.categoryName}
                     </span>
                     <span className="text-xs font-bold text-slate-400 flex items-center gap-1">
@@ -135,7 +116,7 @@ export default function TechNewsHubPage({
 
                   <Link
                     href={`/tin-cong-nghe/${featured.slug}`}
-                    className="block text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 group-hover:text-blue-600 transition-colors leading-tight"
+                    className="block text-xl sm:text-2xl lg:text-3xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-tight"
                   >
                     {featured.title}
                   </Link>
@@ -152,13 +133,13 @@ export default function TechNewsHubPage({
                     </div>
                     <div>
                       <p className="text-xs font-bold text-slate-900 leading-none">Ban Biên Tập Tin học GenZ</p>
-                      <p className="text-[10px] text-slate-400 mt-0.5">Theo {featured.sourceName}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">Theo {featured.sourceName}</p>
                     </div>
                   </div>
 
                   <Link
                     href={`/tin-cong-nghe/${featured.slug}`}
-                    className="flex items-center gap-1.5 text-xs font-black text-blue-600 group-hover:translate-x-1 transition-transform"
+                    className="flex items-center gap-1.5 text-xs font-bold text-blue-600 group-hover:translate-x-1 transition-transform"
                   >
                     <span>Đọc Bài Viết</span>
                     <ArrowRight size={14} />
@@ -168,10 +149,13 @@ export default function TechNewsHubPage({
 
               {/* Featured Image */}
               <div className="lg:col-span-5 relative h-56 sm:h-72 lg:h-auto rounded-2xl overflow-hidden bg-slate-100">
-                <img
+                <NextImage
                   src={featured.imageUrl || "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"}
                   alt={featured.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  fill
+                  unoptimized
+                  sizes="(max-width: 1023px) 100vw, 42vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
@@ -181,7 +165,7 @@ export default function TechNewsHubPage({
         {/* 4. Article Grid */}
         <div className="mt-12 space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 flex items-center gap-2">
               <TrendingUp size={22} className="text-blue-600" />
               <span>Tin Tức & Phân Tích Mới Nhất</span>
             </h2>
@@ -191,22 +175,25 @@ export default function TechNewsHubPage({
             {listArticles.map((art) => (
               <article
                 key={art.id}
-                className="group flex flex-col justify-between bg-white rounded-3xl border border-slate-200/80 hover:border-blue-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
+                className="group flex flex-col justify-between bg-white rounded-2xl border border-slate-200/80 hover:border-blue-300 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
               >
                 <div className="relative h-48 w-full overflow-hidden bg-slate-100">
-                  <img
+                  <NextImage
                     src={art.imageUrl || "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80"}
                     alt={art.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    unoptimized
+                    sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-[10px] font-black uppercase text-blue-700 shadow-xs">
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg text-xs font-bold uppercase text-blue-700 shadow-xs">
                     {art.categoryName}
                   </div>
                 </div>
 
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-400">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-400">
                       <span>{new Date(art.publishedAt || art.createdAt).toLocaleDateString("vi-VN")}</span>
                       <span>•</span>
                       <span>~{art.readingTimeMinutes || 3} phút đọc</span>
@@ -225,7 +212,7 @@ export default function TechNewsHubPage({
                   </div>
 
                   <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <span className="text-[11px] font-bold text-slate-400 truncate max-w-[140px]">
+                    <span className="text-xs font-bold text-slate-400 truncate max-w-[140px]">
                       Nguồn: {art.sourceName}
                     </span>
                     <Link
@@ -243,12 +230,12 @@ export default function TechNewsHubPage({
         </div>
 
         {/* 5. CTA Community & Courses Banner */}
-        <div className="mt-16 rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 p-8 sm:p-12 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mt-16 rounded-2xl bg-blue-600 p-8 sm:p-12 text-white shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
-            <span className="text-xs font-black uppercase tracking-wider text-cyan-200 bg-white/10 px-3 py-1 rounded-full">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-200 bg-white/10 px-3 py-1 rounded-full">
               HỌC TẬP & NÂNG CẤP KỸ NĂNG SỐ
             </span>
-            <h3 className="text-2xl sm:text-3xl font-black text-white">
+            <h3 className="text-2xl sm:text-3xl font-bold text-white">
               Luyện Thi Chứng Chỉ Quốc Tế MOS & IC3 Thực Chiến
             </h3>
             <p className="text-xs sm:text-sm text-blue-100 leading-relaxed">

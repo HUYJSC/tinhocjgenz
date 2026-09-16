@@ -17,7 +17,7 @@ export default function ContactForm(props: ContactFormProps) {
   return (
     <Suspense
       fallback={
-        <div className="flex items-center justify-center p-8 bg-white rounded-2xl border border-slate-200 shadow-xl">
+        <div className="flex items-center justify-center p-8 bg-white rounded-2xl border border-slate-200 shadow-md">
           <Loader2 className="animate-spin text-blue-600 mr-2" />
           <span className="text-slate-500 font-medium">Đang tải biểu mẫu...</span>
         </div>
@@ -109,12 +109,12 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
 
   if (submitSuccess) {
     return (
-      <div className="bg-gradient-to-br from-blue-50 to-white p-8 sm:p-10 rounded-2xl border border-blue-200 shadow-xl text-center flex flex-col items-center gap-5">
-        <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shadow-md">
+      <div className="bg-blue-50 p-8 sm:p-10 rounded-2xl border border-blue-200 shadow-md text-center flex flex-col items-center gap-5">
+        <div className="w-14 h-14 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shadow-md">
           <CheckCircle2 size={32} className="stroke-[2.5]" />
         </div>
         <div className="space-y-2">
-          <h3 className="text-2xl font-black text-slate-900">Đăng Ký Thành Công!</h3>
+          <h3 className="text-2xl font-bold text-slate-900">Đăng Ký Thành Công!</h3>
           <p className="text-slate-600 text-sm max-w-md mx-auto">
             Cảm ơn <strong className="text-blue-600">{formData.name}</strong>, đội ngũ giảng viên sẽ liên hệ qua SĐT <strong className="text-blue-600">{formData.phone}</strong> trong vòng 15 phút.
           </p>
@@ -142,10 +142,10 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
   }
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl">
+    <div className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-md">
       {title && (
         <div className="mb-6 text-center space-y-1">
-          <h3 className="text-xl sm:text-2xl font-black text-slate-900">{title}</h3>
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900">{title}</h3>
           {subtitle && <p className="text-slate-500 text-xs sm:text-sm">{subtitle}</p>}
         </div>
       )}
@@ -258,7 +258,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full min-h-12 py-3.5 px-6 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-md shadow-amber-400/20 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-70"
+          className="w-full min-h-12 py-3.5 px-6 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-md shadow-blue-400/20 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-70"
         >
           {isSubmitting ? (
             <>
@@ -273,7 +273,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
           )}
         </button>
 
-        <p className="text-center text-[11px] text-slate-400 font-medium">
+        <p className="text-center text-xs text-slate-400 font-medium">
           🔒 Thông tin cá nhân của bạn được bảo mật tuyệt đối theo chính sách đào tạo.
         </p>
       </form>

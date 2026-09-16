@@ -4,7 +4,7 @@ import { generateCourseSchema } from "@/lib/schema";
 import Breadcrumb from "@/components/Breadcrumb";
 import TopicClusterNav from "@/components/TopicClusterNav";
 import ContactForm from "@/components/ContactForm";
-import { Code2, CheckCircle2, ShieldCheck, Cpu, Terminal, FileCode } from "lucide-react";
+import { Code2, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   title: "Khóa Học Python Cho Người Mới & Tự Động Hóa Văn Phòng | Tin Học Gen Z",
@@ -44,18 +44,18 @@ export default function PythonPillarPage() {
       <TopicClusterNav currentClusterId="python" />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-cyan-950 via-slate-900 to-slate-900 text-white pt-16 pb-20 relative overflow-hidden">
+      <section className="bg-blue-950 text-white pt-16 pb-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs font-bold">
-                <Code2 className="w-4 h-4 text-cyan-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
+                <Code2 className="w-4 h-4 text-blue-400" />
                 <span>KỸ NĂNG CÔNG NGHỆ TƯƠNG LAI</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
                 Lập Trình Python &{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+                <span className="text-blue-300">
                   Tự Động Hóa Công Việc
                 </span>
               </h1>
@@ -67,7 +67,7 @@ export default function PythonPillarPage() {
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <a
                   href="#dang-ky"
-                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 shadow-lg transition-all"
+                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-lg transition-all"
                 >
                   Đăng Ký Khóa Học Ngay &rarr;
                 </a>
@@ -75,22 +75,22 @@ export default function PythonPillarPage() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                  <ShieldCheck className="w-5 h-5 text-blue-400" />
                   Nội Dung Trọng Tâm
                 </h3>
                 <ul className="space-y-3 text-sm text-slate-300">
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Nền tảng cú pháp Python dễ hiểu qua các ví dụ thực tế.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Làm việc với thư viện Pandas, OpenPyXL xử lý file Excel siêu tốc.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Cào dữ liệu trang web (BeautifulSoup / Selenium) và xuất báo cáo tự động.</span>
                   </li>
                 </ul>

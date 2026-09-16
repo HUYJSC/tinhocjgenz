@@ -1,267 +1,104 @@
 "use client";
 
-import { useState, useTransition, Suspense, useEffect } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useState } from "react";
 import CourseCard from "@/components/CourseCard";
 import { coursesData } from "@/data/mockData";
-import { matchesSearch } from "@/lib/text-utils";
-import { Search, X, BookOpen, RotateCcw, Award, FileSpreadsheet } from "lucide-react";
+import { Star, Award, ShieldCheck, FileSpreadsheet } from "lucide-react";
 
-function CourseCatalogContent() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [, startTransition] = useTransition();
+export default function CoursesPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  // Read initial query params from URL
-  const initialSearch = searchParams.get("q") || "";
-  const initialCategory = searchParams.get("category") || "all";
-
-  const [searchQuery, setSearchQuery] = useState(initialSearch);
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-
-  // Sync state to URL without full reload
-  useEffect(() => {
-    const params = new URLSearchParams();
-    if (searchQuery.trim()) {
-      params.set("q", searchQuery.trim());
-    }
-    if (selectedCategory && selectedCategory !== "all") {
-      params.set("category", selectedCategory);
-    }
-    const queryString = params.toString();
-    const targetUrl = queryString ? `${pathname}?${queryString}` : pathname;
-    startTransition(() => {
-      router.replace(targetUrl, { scroll: false });
-    });
-  }, [searchQuery, selectedCategory, pathname, router]);
-
-  // Filtering logic
-  const filteredCourses = coursesData.filter((course) => {
-    // 1. Category check
-    const matchesCat =
-      selectedCategory === "all" || course.category === selectedCategory;
-
-    // 2. Search query check (accent-insensitive & case-insensitive)
-    const matchesQuery =
-      matchesSearch(course.title, searchQuery) ||
-      matchesSearch(course.tagline, searchQuery) ||
-      matchesSearch(course.description, searchQuery) ||
-      matchesSearch(course.examCode || "", searchQuery) ||
-      matchesSearch(course.badge || "", searchQuery);
-
-    return matchesCat && matchesQuery;
-  });
-
-  const handleResetFilters = () => {
-    setSearchQuery("");
-    setSelectedCategory("all");
-  };
+  const filteredCourses = selectedCategory === "all"
+    ? coursesData
+    : coursesData.filter((c) => c.category === selectedCategory);
 
   return (
-    <div className="flex flex-col w-full bg-white text-[#0057B8]">
+    <div className="flex flex-col w-full bg-slate-50/30">
       
-      {/* 1. Compact Header & Search (IA-01: Concise title, 2 lines desc, immediate search) */}
-      <section className="bg-white pt-8 pb-8 sm:pt-10 sm:pb-10 border-b border-[#0057B8]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <h1 className="text-3xl sm:text-4xl font-black text-[#0057B8] tracking-tight leading-tight font-display">
-            Khóa học tin học
+      {/* 1. Header Banner */}
+      <section className="bg-white pt-10 pb-10 sm:pt-14 sm:pb-12 lg:pt-20 lg:pb-14 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
+        
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+          <span className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-xs sm:text-xs font-bold tracking-wider uppercase text-blue-700">
+            <Award size={13} className="text-blue-600" />
+            PH DIGITAL EDUCATION • HỆ THỐNG KHÓA HỌC CHUẨN QUỐC TẾ
+          </span>
+          <h1 className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight font-display">
+            Chương Trình Đào Tạo & Luyện Thi Chứng Chỉ
           </h1>
-          
-          <p className="text-[#0057B8] text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-            Học thực chiến cùng giảng viên đạt chuẩn quốc tế MOS Master. Làm chủ kỹ năng số trong học tập và công việc.
+          <p className="text-slate-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+            Học thực chiến cùng đội ngũ giảng viên đạt chuẩn MOS Master & chuyên gia CNTT. Cam kết 100% đạt chứng chỉ quốc tế và làm chủ kỹ năng số trong công việc & doanh nghiệp.
           </p>
 
-          {/* Search Bar Input */}
-          <div className="max-w-xl mx-auto pt-2">
-            <div className="relative flex items-center">
-              <label htmlFor="course-search-input" className="sr-only">
-                Tìm kiếm khóa học
-              </label>
-              <div className="absolute left-4 pointer-events-none text-[#0057B8]">
-                <Search size={18} />
-              </div>
-              <input
-                id="course-search-input"
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Tìm khóa học (Word, Excel, MOS, IC3)..."
-                className="w-full min-h-[48px] pl-11 pr-10 py-3 rounded-xl bg-white border-2 border-[#0057B8] text-[#0057B8] text-sm font-semibold placeholder-[#0057B8]/60 focus:outline-none focus:ring-2 focus:ring-[#0057B8] transition-all"
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 p-1 rounded-full text-[#0057B8] hover:bg-[#0057B8] hover:text-white transition-colors"
-                  aria-label="Xóa từ khóa tìm kiếm"
-                >
-                  <X size={16} />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Category Filter Tabs: Short, clear labels */}
-          <div
-            className="pt-2 -mx-4 px-4 flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar snap-x"
-            role="tablist"
-            aria-label="Lọc khóa học theo nhóm"
-          >
+          {/* Filter Tabs */}
+          <div className="pt-5 -mx-4 px-4 flex flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-2.5 overflow-x-auto no-scrollbar snap-x" role="tablist" aria-label="Lọc khóa học theo nhóm">
             <button
               type="button"
               role="tab"
               aria-selected={selectedCategory === "all"}
               onClick={() => setSelectedCategory("all")}
-              className={`min-h-10 px-4 py-2 rounded-xl text-xs font-bold transition-colors whitespace-nowrap snap-start cursor-pointer border border-[#0057B8] ${
+              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 whitespace-nowrap snap-start ${
                 selectedCategory === "all"
-                  ? "bg-[#0057B8] text-white"
-                  : "bg-white text-[#0057B8] hover:bg-[#0057B8] hover:text-white"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              Tất cả ({coursesData.length})
+              Tất Cả Khóa Học ({coursesData.length})
             </button>
             <button
               type="button"
               role="tab"
               aria-selected={selectedCategory === "mos-ic3"}
               onClick={() => setSelectedCategory("mos-ic3")}
-              className={`min-h-10 px-4 py-2 rounded-xl text-xs font-bold transition-colors whitespace-nowrap snap-start cursor-pointer border border-[#0057B8] ${
+              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 whitespace-nowrap snap-start ${
                 selectedCategory === "mos-ic3"
-                  ? "bg-[#0057B8] text-white"
-                  : "bg-white text-[#0057B8] hover:bg-[#0057B8] hover:text-white"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              <Award size={14} className="inline-block mr-1.5 align-[-2px]" aria-hidden="true" />
-              MOS & IC3
+              <Award size={15} className="inline-block mr-1.5 align-[-3px]" aria-hidden="true" />
+              Chứng Chỉ Quốc Tế MOS & IC3 (Certiport)
             </button>
             <button
               type="button"
               role="tab"
               aria-selected={selectedCategory === "practical-office"}
               onClick={() => setSelectedCategory("practical-office")}
-              className={`min-h-10 px-4 py-2 rounded-xl text-xs font-bold transition-colors whitespace-nowrap snap-start cursor-pointer border border-[#0057B8] ${
+              className={`min-h-12 px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 whitespace-nowrap snap-start ${
                 selectedCategory === "practical-office"
-                  ? "bg-[#0057B8] text-white"
-                  : "bg-white text-[#0057B8] hover:bg-[#0057B8] hover:text-white"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
-              <FileSpreadsheet size={14} className="inline-block mr-1.5 align-[-2px]" aria-hidden="true" />
-              Tin học & AI văn phòng
+              <FileSpreadsheet size={15} className="inline-block mr-1.5 align-[-3px]" aria-hidden="true" />
+              Tin Học Thực Chiến & AI Doanh Nghiệp
             </button>
           </div>
         </div>
       </section>
 
       {/* 2. Courses Grid Section */}
-      <section className="py-10 sm:py-14 bg-white">
+      <section className="py-10 sm:py-14 lg:py-20 bg-[#f8fafc]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Results bar */}
-          <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#0057B8] text-xs font-bold text-[#0057B8]">
-            <div>
-              Hiển thị <span className="font-black">{filteredCourses.length}</span> / {coursesData.length} khóa học
-              {searchQuery && (
-                <span className="ml-1">
-                  cho từ khóa &ldquo;{searchQuery}&rdquo;
-                </span>
-              )}
-            </div>
-
-            {(searchQuery || selectedCategory !== "all") && (
-              <button
-                type="button"
-                onClick={handleResetFilters}
-                className="inline-flex items-center gap-1 text-xs text-[#0057B8] hover:underline font-bold cursor-pointer"
-              >
-                <RotateCcw size={13} />
-                <span>Đặt lại bộ lọc</span>
-              </button>
-            )}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+            {filteredCourses.map((course, index) => (
+              <CourseCard key={course.id} course={course} index={index} />
+            ))}
           </div>
-
-          {/* Results Grid or Empty State */}
-          {filteredCourses.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
-              {filteredCourses.map((course, index) => (
-                <CourseCard key={course.id} course={course} index={index} />
-              ))}
-            </div>
-          ) : (
-            <div className="bg-white rounded-2xl border-2 border-[#0057B8] p-10 sm:p-14 text-center max-w-lg mx-auto space-y-4">
-              <div className="w-14 h-14 rounded-xl border border-[#0057B8] text-[#0057B8] flex items-center justify-center mx-auto">
-                <BookOpen size={28} />
-              </div>
-              <h3 className="text-lg font-black text-[#0057B8]">
-                Không tìm thấy khóa học phù hợp
-              </h3>
-              <p className="text-[#0057B8] text-xs sm:text-sm leading-relaxed">
-                Không có kết quả nào khớp với &ldquo;{searchQuery}&rdquo;. Hãy thử tìm kiếm với các từ khóa phổ biến: <strong>Excel</strong>, <strong>Word</strong>, <strong>MOS</strong>, <strong>IC3</strong> hoặc đặt lại bộ lọc.
-              </p>
-              <button
-                type="button"
-                onClick={handleResetFilters}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0057B8] hover:bg-white text-white hover:text-[#0057B8] border border-[#0057B8] font-bold text-xs uppercase tracking-wide transition-colors cursor-pointer"
-              >
-                <RotateCcw size={14} />
-                <span>Xóa bộ lọc & Xem tất cả</span>
-              </button>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* 3. MOS vs IC3 Comparison Matrix (Two-Color System) */}
-      <section className="py-14 bg-white border-t border-[#0057B8]">
+      {/* 3. MOS vs IC3 Comparison Matrix */}
+      <section className="py-16 bg-white border-y border-slate-200/80">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10 space-y-2">
-            <h2 className="text-2xl sm:text-3xl font-black text-[#0057B8]">
-              So sánh chứng chỉ: MOS và IC3 GS6
+          <div className="text-center mb-12 space-y-3">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+              Bảng So Sánh Chứng Chỉ: <span className="text-blue-600">Nên Học MOS Hay IC3?</span>
             </h2>
-            <p className="text-[#0057B8] text-xs sm:text-sm max-w-xl mx-auto">
-              Lựa chọn đúng chứng chỉ phù hợp với mục tiêu tốt nghiệp và yêu cầu công việc.
+            <p className="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto">
+              Giúp bạn dễ dàng lựa chọn đúng chứng chỉ phù hợp với mục tiêu học tập, tốt nghiệp và nâng cao kỹ năng đi làm.
             </p>
-          </div>
-
-          {/* Desktop Table (>= md) */}
-          <div className="hidden md:block overflow-hidden rounded-2xl border-2 border-[#0057B8]">
-            <table className="w-full text-left text-xs border-collapse">
-              <caption className="sr-only">Bảng so sánh chứng chỉ MOS và IC3 GS6</caption>
-              <thead>
-                <tr className="bg-[#0057B8] text-white">
-                  <th scope="col" className="p-4 font-black uppercase tracking-wider w-1/4 border-r border-white">Tiêu chí</th>
-                  <th scope="col" className="p-4 font-black uppercase tracking-wider w-3/8 text-center border-r border-white">Chứng chỉ MOS (Microsoft)</th>
-                  <th scope="col" className="p-4 font-black uppercase tracking-wider w-3/8 text-center">Chứng chỉ IC3 GS6 (Certiport)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#0057B8] bg-white font-medium text-[#0057B8]">
-                <tr>
-                  <th scope="row" className="p-4 font-bold border-r border-[#0057B8]">Đơn vị cấp bằng</th>
-                  <td className="p-4 text-center font-bold border-r border-[#0057B8]">Microsoft Corporation (Hoa Kỳ)</td>
-                  <td className="p-4 text-center font-bold">Certiport (Hoa Kỳ)</td>
-                </tr>
-                <tr>
-                  <th scope="row" className="p-4 font-bold border-r border-[#0057B8]">Nội dung khảo thí</th>
-                  <td className="p-4 border-r border-[#0057B8]">Từng phần mềm chuyên sâu: Word, Excel, PowerPoint. Xử lý văn bản, hàm tính, trình chiếu.</td>
-                  <td className="p-4">Kỹ năng số tổng quan: Máy tính căn bản, Ứng dụng số, Cuộc sống trực tuyến.</td>
-                </tr>
-                <tr>
-                  <th scope="row" className="p-4 font-bold border-r border-[#0057B8]">Thời hạn giá trị</th>
-                  <td className="p-4 text-center font-bold border-r border-[#0057B8]">Vô thời hạn (Toàn cầu)</td>
-                  <td className="p-4 text-center font-bold">Vô thời hạn (Toàn cầu)</td>
-                </tr>
-                <tr>
-                  <th scope="row" className="p-4 font-bold border-r border-[#0057B8]">Đối tượng & Mục đích</th>
-                  <td className="p-4 border-r border-[#0057B8]">Chuẩn đầu ra phổ biến tại các trường Đại học; ưu tiên tuyển dụng doanh nghiệp.</td>
-                  <td className="p-4">Chuẩn năng lực số cho khối kỹ thuật, giáo dục và người cần bằng đánh giá CNTT tổng quát.</td>
-                </tr>
-                <tr className="bg-white">
-                  <th scope="row" className="p-4 font-bold border-r border-[#0057B8]">Cam kết đào tạo</th>
-                  <td className="p-4 text-center font-bold border-r border-[#0057B8]">Luyện đề trên máy ảo • Hỗ trợ học lại miễn phí</td>
-                  <td className="p-4 text-center font-bold">Bộ đề chuẩn Certiport • Hỗ trợ học lại miễn phí</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
 
           {/* Mobile Comparison Cards (< md) */}
@@ -274,7 +111,7 @@ function CourseCatalogContent() {
               },
               {
                 title: "Nội dung khảo thí",
-                mos: "Từng phần mềm Word, Excel, PowerPoint chuyên sâu",
+                mos: "Chuyên sâu từng môn Word, Excel, PowerPoint riêng biệt",
                 ic3: "Tổng quát 3 phần: Máy tính, Ứng dụng số, Kỷ nguyên số",
               },
               {
@@ -284,43 +121,124 @@ function CourseCatalogContent() {
               },
               {
                 title: "Mục đích sử dụng",
-                mos: "Chuẩn đầu ra ĐH, ưu tiên ứng tuyển doanh nghiệp",
-                ic3: "Chứng chỉ kỹ năng số toàn diện chuẩn Certiport",
+                mos: "Chuẩn quốc tế phổ biến nhất, ưu tiên tuyển dụng doanh nghiệp",
+                ic3: "Chuẩn kỹ năng số toàn diện về máy tính & công nghệ",
+              },
+              {
+                title: "Cam kết tại Tin Học Gen Z",
+                mos: "Bao đỗ 100% • Ôn 3 - 5 buổi cấp tốc",
+                ic3: "Bao đỗ 100% • Bộ đề chuẩn Certiport 2026",
               },
             ].map((row, idx) => (
-              <div key={idx} className="p-4 rounded-xl bg-white border border-[#0057B8] space-y-2 text-[#0057B8]">
-                <div className="text-xs font-black uppercase tracking-wider border-b border-[#0057B8] pb-1.5 flex items-center justify-between">
+              <div key={idx} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
+                <div className="text-xs font-bold text-slate-900 uppercase tracking-wider border-b border-slate-100 pb-1.5 flex items-center justify-between">
                   <span>{row.title}</span>
-                  <span className="text-[10px] font-bold">Tiêu chí {idx + 1}</span>
+                  <span className="text-xs text-slate-400 font-bold">Tiêu chí {idx + 1}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2.5 rounded-lg border border-[#0057B8] space-y-1">
-                    <span className="text-[10px] font-black uppercase block">MOS</span>
-                    <p className="font-semibold">{row.mos}</p>
+                  <div className="p-2.5 rounded-xl bg-blue-50/70 border border-blue-100 space-y-1">
+                    <span className="text-xs font-bold text-blue-700 uppercase block">MOS</span>
+                    <p className="text-slate-800 font-semibold leading-relaxed">{row.mos}</p>
                   </div>
-                  <div className="p-2.5 rounded-lg border border-[#0057B8] space-y-1">
-                    <span className="text-[10px] font-black uppercase block">IC3 GS6</span>
-                    <p className="font-semibold">{row.ic3}</p>
+                  <div className="p-2.5 rounded-xl bg-blue-50/70 border border-blue-100 space-y-1">
+                    <span className="text-xs font-bold text-blue-700 uppercase block">IC3 GS6</span>
+                    <p className="text-slate-800 font-semibold leading-relaxed">{row.ic3}</p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Desktop Table (>= md) */}
+          <div className="hidden md:block overflow-x-auto rounded-2xl border border-slate-200" tabIndex={0} role="region" aria-label="Bảng so sánh chứng chỉ MOS và IC3">
+            <table className="w-full min-w-[720px] text-left border-collapse bg-slate-50 overflow-hidden text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-slate-900 text-white">
+                  <th className="p-4 font-bold">Tiêu chí so sánh</th>
+                  <th className="p-4 font-bold text-blue-400">Chứng Chỉ MOS (Microsoft)</th>
+                  <th className="p-4 font-bold text-blue-400">Chứng Chỉ IC3 GS6 (Certiport)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                <tr>
+                  <td className="p-4 font-extrabold text-slate-900">Đơn vị cấp bằng</td>
+                  <td className="p-4 text-slate-700">Microsoft Corporation (Hoa Kỳ)</td>
+                  <td className="p-4 text-slate-700">Certiport (Hoa Kỳ)</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="p-4 font-extrabold text-slate-900">Nội dung khảo thí</td>
+                  <td className="p-4 text-slate-700">Chuyên sâu từng ứng dụng: Word, Excel, PowerPoint riêng biệt</td>
+                  <td className="p-4 text-slate-700">Tổng quát 3 phần: Nền tảng máy tính, Ứng dụng số, Kỷ nguyên số</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-extrabold text-slate-900">Thời hạn giá trị</td>
+                  <td className="p-4 text-blue-600 font-bold">Vô thời hạn (Vĩnh viễn)</td>
+                  <td className="p-4 text-blue-600 font-bold">Vô thời hạn (Vĩnh viễn)</td>
+                </tr>
+                <tr className="bg-white">
+                  <td className="p-4 font-extrabold text-slate-900">Mục đích sử dụng</td>
+                  <td className="p-4 text-blue-700 font-bold">Chuẩn quốc tế phổ biến nhất, ưu tiên tuyển dụng doanh nghiệp</td>
+                  <td className="p-4 text-blue-700 font-bold">Chuẩn kỹ năng số toàn diện về máy tính & công nghệ</td>
+                </tr>
+                <tr>
+                  <td className="p-4 font-extrabold text-slate-900">Cam kết tại PH Digital Education</td>
+                  <td className="p-4 text-slate-800 font-extrabold">Bao đỗ 100% • Ôn 3 - 5 buổi</td>
+                  <td className="p-4 text-slate-800 font-extrabold">Bao đỗ 100% • Bộ đề chuẩn 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Teaching Guarantees */}
+      <section className="py-16 bg-slate-50 border-b border-slate-100/60 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Feature 1 */}
+            <div className="flex gap-4 p-6 sm:p-7 bg-white rounded-2xl border border-slate-200/80 hover:border-blue-500/25 transition-all duration-500 shadow-premium hover:shadow-premium-hover group">
+              <div className="p-3.5 bg-blue-50 border border-blue-100 rounded-2xl h-fit shrink-0 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white smooth-transition text-blue-600">
+                <Star size={20} fill="currentColor" />
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="font-bold text-slate-900 text-sm leading-snug">Học liệu & Phần mềm thi thử</h3>
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                  Cung cấp phần mềm mô phỏng phòng thi thật Certiport 100% và kho biểu mẫu doanh nghiệp độc quyền.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="flex gap-4 p-6 sm:p-7 bg-white rounded-2xl border border-slate-200/80 hover:border-blue-500/25 transition-all duration-500 shadow-premium hover:shadow-premium-hover group">
+              <div className="p-3.5 bg-blue-50 border border-blue-100 rounded-2xl h-fit shrink-0 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white smooth-transition text-blue-600">
+                <Award size={20} />
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="font-bold text-slate-900 text-sm leading-snug">Luyện thi chuẩn đề 2026</h3>
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                  Cập nhật các dạng câu hỏi mới nhất, mẹo tránh bẫy giúp 99.4% học viên đạt từ 850 đến 1000 điểm.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="flex gap-4 p-6 sm:p-7 bg-white rounded-2xl border border-slate-200/80 hover:border-blue-500/25 transition-all duration-500 shadow-premium hover:shadow-premium-hover group">
+              <div className="p-3.5 bg-blue-50 border border-blue-100 rounded-2xl h-fit shrink-0 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white smooth-transition text-blue-600">
+                <ShieldCheck size={20} />
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="font-bold text-slate-900 text-sm leading-snug">Bảo hành đầu ra 100%</h3>
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                  Đồng hành hỗ trợ giải đáp 24/7. Nếu không thi đỗ được đào tạo lại hoàn toàn miễn phí đến khi nhận bằng.
+                </p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
     </div>
-  );
-}
-
-export default function CoursesPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-[50vh] flex items-center justify-center bg-white">
-        <div className="text-[#0057B8] text-sm font-bold animate-pulse">Đang tải danh mục khóa học...</div>
-      </div>
-    }>
-      <CourseCatalogContent />
-    </Suspense>
   );
 }

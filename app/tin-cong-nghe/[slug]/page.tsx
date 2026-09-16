@@ -1,20 +1,8 @@
+import NextImage from "next/image";
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ChevronRight,
-  Clock,
-  Calendar,
-  Eye,
-  Share2,
-  ExternalLink,
-  BookOpen,
-  ArrowRight,
-  CheckCircle2,
-  Sparkles,
-  ArrowLeft,
-  GraduationCap,
-} from "lucide-react";
+import { ChevronRight, Clock, Calendar, Eye, ExternalLink, ArrowRight, Sparkles, GraduationCap } from "lucide-react";
 import { ContentDb } from "@/lib/content-engine/db";
 import { SITE_CONFIG } from "@/data/siteConfig";
 
@@ -175,7 +163,7 @@ export default async function TechArticleDetailPage({
         elements.push(
           <h2
             key={`h2-${index}`}
-            className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 mt-8 mb-3 pb-1 border-b border-slate-100 flex items-center gap-2"
+            className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 mt-8 mb-3 pb-1 border-b border-slate-100 flex items-center gap-2"
           >
             <span className="w-1.5 h-6 bg-blue-600 rounded-full inline-block" />
             <span>{trimmed.replace("## ", "")}</span>
@@ -255,7 +243,7 @@ export default async function TechArticleDetailPage({
       <article className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 space-y-6">
         {/* Category Badge & Meta */}
         <div className="flex flex-wrap items-center gap-3">
-          <span className="px-3.5 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-blue-100 text-blue-800">
+          <span className="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800">
             {article.categoryName}
           </span>
           <span className="text-xs font-bold text-slate-400 flex items-center gap-1">
@@ -270,7 +258,7 @@ export default async function TechArticleDetailPage({
         </div>
 
         {/* Title */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-tight sm:leading-snug">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 leading-tight sm:leading-snug">
           {article.title}
         </h1>
 
@@ -281,17 +269,20 @@ export default async function TechArticleDetailPage({
 
         {/* Cover Image */}
         {article.imageUrl && (
-          <div className="relative w-full h-64 sm:h-96 rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-100 my-6">
-            <img
+          <div className="relative w-full h-64 sm:h-96 rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-slate-100 my-6">
+            <NextImage
               src={article.imageUrl}
               alt={article.title}
-              className="w-full h-full object-cover"
+              fill
+              unoptimized
+              sizes="(max-width: 1023px) 100vw, 896px"
+              className="object-cover"
             />
           </div>
         )}
 
         {/* 3. Main Content Container */}
-        <div className="bg-white p-6 sm:p-10 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+        <div className="bg-white p-6 sm:p-10 rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
           <div className="prose prose-slate max-w-none">
             {renderFormattedContent(article.content)}
           </div>
@@ -317,8 +308,8 @@ export default async function TechArticleDetailPage({
 
           {/* 5. CONTEXTUAL COURSE CTA BANNER */}
           {article.ctaText && (
-            <div className="mt-8 p-6 rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-xl space-y-4">
-              <div className="flex items-center gap-2 text-cyan-200 font-bold text-xs">
+            <div className="mt-8 p-6 rounded-2xl bg-blue-600 text-white shadow-md space-y-4">
+              <div className="flex items-center gap-2 text-blue-200 font-bold text-xs">
                 <GraduationCap size={18} />
                 <span>LỘ TRÌNH ĐÀO TẠO CHUẨN QUỐC TẾ TẠI TIN HỌC GENZ</span>
               </div>
@@ -328,7 +319,7 @@ export default async function TechArticleDetailPage({
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Link
                   href="/khoa-hoc"
-                  className="px-5 py-2.5 bg-white text-blue-700 font-black text-xs rounded-xl shadow-md hover:bg-blue-50 transition-all active:scale-95 flex items-center gap-1.5"
+                  className="px-5 py-2.5 bg-white text-blue-700 font-bold text-xs rounded-xl shadow-md hover:bg-blue-50 transition-all active:scale-95 flex items-center gap-1.5"
                 >
                   <span>Xem Khóa Học Ngay</span>
                   <ArrowRight size={14} />
@@ -362,7 +353,7 @@ export default async function TechArticleDetailPage({
         {/* 7. Related Articles Section */}
         {relatedArticles.length > 0 && (
           <div className="pt-12 space-y-6">
-            <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
               <Sparkles size={20} className="text-blue-600" />
               <span>Bài Viết Liên Quan Khác</span>
             </h3>
@@ -374,7 +365,7 @@ export default async function TechArticleDetailPage({
                   className="group bg-white rounded-2xl border border-slate-200/80 hover:border-blue-300 p-4 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div className="space-y-2">
-                    <span className="text-[10px] font-black uppercase text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
+                    <span className="text-xs font-bold uppercase text-blue-700 bg-blue-50 px-2 py-0.5 rounded">
                       {rel.categoryName}
                     </span>
                     <Link
@@ -384,7 +375,7 @@ export default async function TechArticleDetailPage({
                       {rel.title}
                     </Link>
                   </div>
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 mt-3 font-semibold">
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 mt-3 font-semibold">
                     <span>{new Date(rel.publishedAt || rel.createdAt).toLocaleDateString("vi-VN")}</span>
                     <Link
                       href={`/tin-cong-nghe/${rel.slug}`}

@@ -4,7 +4,7 @@ import { generateCourseSchema } from "@/lib/schema";
 import Breadcrumb from "@/components/Breadcrumb";
 import TopicClusterNav from "@/components/TopicClusterNav";
 import ContactForm from "@/components/ContactForm";
-import { FileText, CheckCircle2, ShieldCheck, Bookmark, FileSpreadsheet, Sparkles } from "lucide-react";
+import { FileText, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   title: "Khóa Học Microsoft Word Soạn Thảo Văn Bản Chuẩn Nghị Định 30 | Tin Học Gen Z",
@@ -44,7 +44,7 @@ export default function WordPillarPage() {
       <TopicClusterNav currentClusterId="word" />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-blue-950 via-slate-900 to-slate-900 text-white pt-16 pb-20 relative overflow-hidden">
+      <section className="bg-blue-950 text-white pt-16 pb-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
@@ -53,9 +53,9 @@ export default function WordPillarPage() {
                 <span>CHUẨN NGHỊ ĐỊNH 30/2020/NĐ-CP</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
                 Soạn Thảo Văn Bản Chuẩn{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                <span className="text-transparent bg-clip-text bg-blue-400">
                   Chuyên Nghiệp Với Word
                 </span>
               </h1>
@@ -67,7 +67,7 @@ export default function WordPillarPage() {
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <a
                   href="#dang-ky"
-                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 shadow-lg transition-all"
+                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-lg transition-all"
                 >
                   Đăng Ký Khóa Học Ngay &rarr;
                 </a>
@@ -75,9 +75,9 @@ export default function WordPillarPage() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                  <ShieldCheck className="w-5 h-5 text-blue-400" />
                   Kỹ Năng Đạt Được
                 </h3>
                 <ul className="space-y-3 text-sm text-slate-300">

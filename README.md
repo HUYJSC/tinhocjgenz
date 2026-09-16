@@ -4,6 +4,16 @@ Website: [https://tinhocgenz.io.vn/](https://tinhocgenz.io.vn/)
 
 ---
 
+## Chất lượng & triển khai
+
+- Quy tắc UI/code: [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md)
+- Báo cáo refactor: [`REFACTOR_REPORT.md`](./REFACTOR_REPORT.md)
+- Hướng dẫn GitHub/Vercel và biến môi trường: [`DEPLOYMENT.md`](./DEPLOYMENT.md)
+
+Quality gate: `npm run lint`, `npm run typecheck`, `npm run build`. Trước production, chạy thêm `npm run deploy:check`.
+
+---
+
 ## 🌟 Giới thiệu: Tin học GenZ Content Engine
 
 **Tin học GenZ Content Engine** là module tòa soạn tin tức và AI content tự động hóa 24/7, chuyên thu thập các bản tin công nghệ mới nhất từ các nguồn uy tín hàng đầu thế giới (Microsoft, Google, OpenAI, Cybersecurity, GitHub, The Verge,...), phát hiện trùng lặp, chấm điểm AI Relevance (0-100), biên tập độc lập chuẩn SEO tiếng Việt cho học sinh, sinh viên và nhân viên văn phòng, hỗ trợ quy trình duyệt bài 2 cột chuyên nghiệp và tự động xuất bản tại `/tin-cong-nghe/[slug]`.

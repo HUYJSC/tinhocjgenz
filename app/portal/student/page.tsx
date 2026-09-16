@@ -1,26 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  GraduationCap,
-  PlayCircle,
-  CheckCircle2,
-  Clock,
-  Award,
-  UploadCloud,
-  FileText,
-  Sparkles,
-  BarChart3,
-  QrCode,
-  ExternalLink,
-  MessageSquare,
-  AlertCircle,
-  Download,
-  Users,
-  UserCheck,
-  Calendar,
-  BookOpen
-} from "lucide-react";
+import { GraduationCap, PlayCircle, CheckCircle2, Clock, Award, UploadCloud, FileText, BarChart3, QrCode, ExternalLink, MessageSquare, Download, Users } from "lucide-react";
 
 export default function StudentPortalPage() {
   const [activeTab, setActiveTab] = useState<"lessons" | "submissions" | "skills" | "certificate">("lessons");
@@ -115,10 +96,10 @@ export default function StudentPortalPage() {
       <div className="lg:hidden space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-[10px] font-black text-blue-400 uppercase tracking-wider">Hệ Thống Trực Tuyến</p>
-            <h1 className="text-xl font-black text-white font-display">TÀI KHOẢN HỌC TẬP</h1>
+            <p className="text-xs font-bold text-blue-400 uppercase tracking-wider">Hệ Thống Trực Tuyến</p>
+            <h1 className="text-xl font-bold text-white font-display">TÀI KHOẢN HỌC TẬP</h1>
           </div>
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+          <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-400/30">
             Học viên trực tuyến
           </span>
         </div>
@@ -131,10 +112,10 @@ export default function StudentPortalPage() {
             rel="noopener noreferrer"
             className="min-h-12 p-3 rounded-2xl bg-blue-600/30 border border-blue-500/40 text-white flex items-center gap-2.5 shadow-sm active:scale-98 transition-transform"
           >
-            <GraduationCap size={20} className="text-cyan-400 shrink-0" />
+            <GraduationCap size={20} className="text-blue-400 shrink-0" />
             <div className="text-left leading-tight">
-              <span className="text-xs font-black block text-cyan-200">Cổng Học Viên</span>
-              <span className="text-[10px] text-slate-300">Vào lớp LMS</span>
+              <span className="text-xs font-bold block text-blue-200">Cổng Học Viên</span>
+              <span className="text-xs text-slate-300">Vào lớp LMS</span>
             </div>
           </a>
           <a
@@ -143,33 +124,33 @@ export default function StudentPortalPage() {
             rel="noopener noreferrer"
             className="min-h-12 p-3 rounded-2xl bg-slate-800/80 border border-slate-700 text-white flex items-center gap-2.5 shadow-sm active:scale-98 transition-transform"
           >
-            <Users size={20} className="text-amber-400 shrink-0" />
+            <Users size={20} className="text-blue-400 shrink-0" />
             <div className="text-left leading-tight">
-              <span className="text-xs font-black block text-amber-200">Cổng Giảng Viên</span>
-              <span className="text-[10px] text-slate-300">Quản lý lớp</span>
+              <span className="text-xs font-bold block text-blue-200">Cổng Giảng Viên</span>
+              <span className="text-xs text-slate-300">Quản lý lớp</span>
             </div>
           </a>
         </div>
       </div>
 
       {/* 1. Header Banner */}
-      <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-xl relative overflow-hidden">
+      <div className="bg-blue-950 border border-slate-800 rounded-2xl p-5 sm:p-8 shadow-md relative overflow-hidden">
         <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-black uppercase bg-blue-500/20 text-blue-300 border border-blue-400/30">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs sm:text-xs font-bold uppercase bg-blue-500/20 text-blue-300 border border-blue-400/30">
               <GraduationCap size={13} />
               <span>CỔNG HỌC VIÊN PH DIGITAL • MÃ HỌC VIÊN: {studentInfo.studentId}</span>
             </div>
-            <h2 className="text-xl sm:text-3xl font-black text-white tracking-tight">
+            <h2 className="text-xl sm:text-3xl font-bold text-white tracking-tight">
               Xin chào, {studentInfo.name}! 👋
             </h2>
             <p className="text-xs sm:text-sm text-slate-300">
               Khóa học: <span className="text-white font-bold">{studentInfo.course}</span>
             </p>
             <p className="text-xs text-slate-400">
-              Giảng viên hướng dẫn: <strong className="text-cyan-400">{studentInfo.teacher}</strong> • Dự kiến thi IIG: <strong className="text-amber-400">{studentInfo.nextExamDate}</strong>
+              Giảng viên hướng dẫn: <strong className="text-blue-400">{studentInfo.teacher}</strong> • Dự kiến thi IIG: <strong className="text-blue-400">{studentInfo.nextExamDate}</strong>
             </p>
           </div>
 
@@ -177,15 +158,15 @@ export default function StudentPortalPage() {
           <div className="bg-slate-900/90 border border-slate-700/80 rounded-2xl p-5 shrink-0 min-w-[260px] space-y-2.5">
             <div className="flex justify-between text-xs font-bold">
               <span className="text-slate-300">Tiến độ hoàn thành:</span>
-              <span className="text-cyan-400 font-black">{studentInfo.progress}%</span>
+              <span className="text-blue-400 font-bold">{studentInfo.progress}%</span>
             </div>
             <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
               <div
-                className="bg-gradient-to-r from-blue-500 to-cyan-400 h-full rounded-full transition-all duration-500"
+                className="bg-blue-500 h-full rounded-full transition-all duration-500"
                 style={{ width: `${studentInfo.progress}%` }}
               />
             </div>
-            <p className="text-[11px] text-slate-400">Đã hoàn thành 3/5 buổi học & 2 bài tập thực hành.</p>
+            <p className="text-xs text-slate-400">Đã hoàn thành 3/5 buổi học & 2 bài tập thực hành.</p>
           </div>
         </div>
       </div>
@@ -238,7 +219,7 @@ export default function StudentPortalPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Lessons List (Left Column) */}
           <div className="lg:col-span-1 space-y-3">
-            <h3 className="text-sm font-black uppercase text-slate-400 tracking-wider">Lộ trình bài học</h3>
+            <h3 className="text-sm font-bold uppercase text-slate-400 tracking-wider">Lộ trình bài học</h3>
             <div className="space-y-2">
               {lessons.map((les) => (
                 <div
@@ -251,19 +232,19 @@ export default function StudentPortalPage() {
                   }`}
                 >
                   <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="font-bold text-cyan-400">{les.session}</span>
-                    <span className="flex items-center gap-1 text-[11px] text-slate-400">
+                    <span className="font-bold text-blue-400">{les.session}</span>
+                    <span className="flex items-center gap-1 text-xs text-slate-400">
                       <Clock size={11} /> {les.duration}
                     </span>
                   </div>
                   <h4 className="text-xs sm:text-sm font-bold text-white leading-snug">{les.title}</h4>
-                  <div className="mt-2.5 flex items-center justify-between text-[11px]">
+                  <div className="mt-2.5 flex items-center justify-between text-xs">
                     {les.completed ? (
-                      <span className="inline-flex items-center gap-1 text-emerald-400 font-bold">
+                      <span className="inline-flex items-center gap-1 text-blue-400 font-bold">
                         <CheckCircle2 size={12} /> Đã hoàn thành
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-amber-400 font-bold">
+                      <span className="inline-flex items-center gap-1 text-blue-400 font-bold">
                         <Clock size={12} /> Đang tiến hành
                       </span>
                     )}
@@ -279,15 +260,15 @@ export default function StudentPortalPage() {
           </div>
 
           {/* Active Lesson Detail View (Right Column) */}
-          <div className="lg:col-span-2 space-y-5 bg-slate-900/90 border border-slate-800 rounded-3xl p-6">
+          <div className="lg:col-span-2 space-y-5 bg-slate-900/90 border border-slate-800 rounded-2xl p-6">
             {(() => {
               const cur = lessons.find((l) => l.id === selectedLesson) || lessons[0];
               return (
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
                     <div>
-                      <span className="text-xs font-bold text-cyan-400">{cur.session}</span>
-                      <h2 className="text-lg font-black text-white">{cur.title}</h2>
+                      <span className="text-xs font-bold text-blue-400">{cur.session}</span>
+                      <h2 className="text-lg font-bold text-white">{cur.title}</h2>
                     </div>
                     <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-300 border border-slate-700 self-start sm:self-auto">
                       Thời lượng: {cur.duration}
@@ -301,7 +282,7 @@ export default function StudentPortalPage() {
                         <PlayCircle size={36} />
                       </div>
                       <p className="text-xs font-bold text-slate-300">Video Bài Giảng Chuẩn HD Bản Quyền PH Digital</p>
-                      <p className="text-[11px] text-slate-500">Mã hóa chống tải lậu & lưu vết xem của từng học viên</p>
+                      <p className="text-xs text-slate-500">Mã hóa chống tải lậu & lưu vết xem của từng học viên</p>
                     </div>
                   </div>
 
@@ -318,10 +299,10 @@ export default function StudentPortalPage() {
                   {cur.hasExercise && (
                     <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <div className="flex items-center gap-3">
-                        <FileText className="w-8 h-8 text-cyan-400 shrink-0" />
+                        <FileText className="w-8 h-8 text-blue-400 shrink-0" />
                         <div>
                           <p className="text-xs font-bold text-white">{cur.exerciseName}</p>
-                          <p className="text-[10px] text-slate-400">File thực hành chuẩn khảo thí Certiport</p>
+                          <p className="text-xs text-slate-400">File thực hành chuẩn khảo thí Certiport</p>
                         </div>
                       </div>
                       <button
@@ -330,7 +311,7 @@ export default function StudentPortalPage() {
                           setDownloadNotice(`Đang bắt đầu tải: ${cur.exerciseName}`);
                           setTimeout(() => setDownloadNotice(null), 3000);
                         }}
-                        className="min-h-12 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-cyan-300 transition-colors flex items-center justify-center gap-1.5 cursor-pointer border border-slate-700"
+                        className="min-h-12 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-blue-300 transition-colors flex items-center justify-center gap-1.5 cursor-pointer border border-slate-700"
                       >
                         <Download size={15} />
                         <span>Tải Về</span>
@@ -339,8 +320,8 @@ export default function StudentPortalPage() {
                   )}
 
                   {downloadNotice && (
-                    <div role="status" aria-live="polite" className="p-3 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <div role="status" aria-live="polite" className="p-3 rounded-xl bg-blue-500/20 border border-blue-400/40 text-blue-300 text-xs font-bold flex items-center gap-2">
+                      <CheckCircle2 size={16} className="text-blue-400 shrink-0" />
                       <span>{downloadNotice}</span>
                     </div>
                   )}
@@ -353,9 +334,9 @@ export default function StudentPortalPage() {
 
       {/* Submissions Tab */}
       {activeTab === "submissions" && (
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 max-w-3xl mx-auto space-y-6">
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-3xl mx-auto space-y-6">
           <div className="space-y-1">
-            <h3 className="text-xl font-black text-white">Nộp Bài Thực Hành Cho Giảng Viên</h3>
+            <h3 className="text-xl font-bold text-white">Nộp Bài Thực Hành Cho Giảng Viên</h3>
             <p className="text-xs text-slate-400">
               Giảng viên sẽ chấm điểm, phát hiện lỗi sai và gửi phản hồi qua cổng trong vòng 24 giờ.
             </p>
@@ -384,7 +365,7 @@ export default function StudentPortalPage() {
                 <p className="text-xs font-bold text-white">
                   {uploadedFile ? `Tệp đã chọn: ${uploadedFile}` : "Kéo thả hoặc bấm để chọn tệp bài làm (.xlsx, .docx, .py)"}
                 </p>
-                <p className="text-[10px] text-slate-500 mt-1">Dung lượng tối đa 25MB.</p>
+                <p className="text-xs text-slate-500 mt-1">Dung lượng tối đa 25MB.</p>
               </div>
 
               <div>
@@ -399,7 +380,7 @@ export default function StudentPortalPage() {
               <button
                 type="submit"
                 disabled={!uploadedFile || isSubmitting}
-                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs uppercase tracking-wide shadow-lg disabled:opacity-40 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-blue-600 text-white font-bold text-xs uppercase tracking-wide shadow-lg disabled:opacity-40 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isSubmitting ? (
                   <span>Đang nộp bài lên hệ thống...</span>
@@ -412,9 +393,9 @@ export default function StudentPortalPage() {
               </button>
             </form>
           ) : (
-            <div className="p-6 rounded-2xl bg-emerald-950/60 border border-emerald-700 text-center space-y-2">
-              <CheckCircle2 size={36} className="text-emerald-400 mx-auto" />
-              <h4 className="text-base font-black text-white">Đã Nộp Bài Thành Công!</h4>
+            <div className="p-6 rounded-2xl bg-blue-950/60 border border-blue-700 text-center space-y-2">
+              <CheckCircle2 size={36} className="text-blue-400 mx-auto" />
+              <h4 className="text-base font-bold text-white">Đã Nộp Bài Thành Công!</h4>
               <p className="text-xs text-slate-300">
                 Tệp <strong>{uploadedFile}</strong> đã được lưu trữ an toàn. Giảng viên phụ trách đã nhận được thông báo chấm bài.
               </p>
@@ -435,15 +416,15 @@ export default function StudentPortalPage() {
 
       {/* Skills Tab */}
       {activeTab === "skills" && (
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h3 className="text-xl font-black text-white">Bảng Đo Lường Năng Lực & Kỹ Năng Số</h3>
+              <h3 className="text-xl font-bold text-white">Bảng Đo Lường Năng Lực & Kỹ Năng Số</h3>
               <p className="text-xs text-slate-400">
                 Dữ liệu tổng hợp từ bài kiểm tra đầu vào, bài tập thực hành và đề thi thử Certiport.
               </p>
             </div>
-            <span className="px-3 py-1 rounded-full text-xs font-black bg-cyan-950 text-cyan-300 border border-cyan-700">
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-950 text-blue-300 border border-blue-700">
               ĐIỂM NĂNG LỰC: 885 / 1000
             </span>
           </div>
@@ -460,17 +441,17 @@ export default function StudentPortalPage() {
               <div key={idx} className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
                 <div className="flex justify-between items-center text-xs font-bold">
                   <span className="text-white">{sk.name}</span>
-                  <span className={sk.percent >= 80 ? "text-emerald-400" : "text-amber-400"}>
+                  <span className={sk.percent >= 80 ? "text-blue-400" : "text-blue-400"}>
                     {sk.percent}% • {sk.status}
                   </span>
                 </div>
                 <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full ${sk.percent >= 80 ? "bg-emerald-500" : "bg-amber-500"}`}
+                    className={`h-full rounded-full ${sk.percent >= 80 ? "bg-blue-500" : "bg-blue-500"}`}
                     style={{ width: `${sk.percent}%` }}
                   />
                 </div>
-                <p className="text-[11px] text-slate-500">{sk.note}</p>
+                <p className="text-xs text-slate-500">{sk.note}</p>
               </div>
             ))}
           </div>
@@ -479,12 +460,12 @@ export default function StudentPortalPage() {
 
       {/* Certificate Tab */}
       {activeTab === "certificate" && (
-        <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-10 max-w-2xl mx-auto space-y-6 text-center">
-          <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center mx-auto text-amber-400">
+        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-10 max-w-2xl mx-auto space-y-6 text-center">
+          <div className="w-16 h-16 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center mx-auto text-blue-400">
             <Award size={36} />
           </div>
           <div className="space-y-1">
-            <h3 className="text-2xl font-black text-white">Chứng Nhận Hoàn Thành Đào Tạo</h3>
+            <h3 className="text-2xl font-bold text-white">Chứng Nhận Hoàn Thành Đào Tạo</h3>
             <p className="text-xs text-slate-400">
               Chứng chỉ điện tử chính thức được mã hóa xác thực bằng SHA-256 Hash.
             </p>
@@ -493,7 +474,7 @@ export default function StudentPortalPage() {
           <div className="p-6 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 text-left">
             <div className="flex justify-between items-center border-b border-slate-800 pb-2 text-xs">
               <span className="text-slate-400">Mã chứng nhận:</span>
-              <span className="font-mono font-bold text-cyan-400">CERT-MOS-2026-9842</span>
+              <span className="font-mono font-bold text-blue-400">CERT-MOS-2026-9842</span>
             </div>
             <div className="flex justify-between items-center border-b border-slate-800 pb-2 text-xs">
               <span className="text-slate-400">Học viên:</span>
@@ -505,11 +486,11 @@ export default function StudentPortalPage() {
             </div>
             <div className="flex justify-between items-center border-b border-slate-800 pb-2 text-xs">
               <span className="text-slate-400">Điểm số:</span>
-              <span className="font-black text-emerald-400">1000 / 1000 Điểm tuyệt đối</span>
+              <span className="font-bold text-blue-400">1000 / 1000 Điểm tuyệt đối</span>
             </div>
             <div className="flex justify-between items-center text-xs pt-1">
               <span className="text-slate-400">Mã băm SHA-256:</span>
-              <span className="font-mono text-[10px] text-slate-500 truncate max-w-[280px]">
+              <span className="font-mono text-xs text-slate-500 truncate max-w-[280px]">
                 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
               </span>
             </div>

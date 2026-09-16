@@ -2,22 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { 
-  Sparkles, 
-  Brain, 
-  Users, 
-  Award, 
-  Clock, 
-  CheckCircle2, 
-  ArrowRight, 
-  RefreshCw, 
-  Zap, 
-  ShieldCheck, 
-  X,
-  MessageSquare,
-  Briefcase,
-  GraduationCap
-} from "lucide-react";
+import { Sparkles, Brain, Users, Award, ArrowRight, RefreshCw, X, MessageSquare } from "lucide-react";
 import { AnalyticsEvents } from "@/lib/analytics";
 import { SITE_CONFIG } from "@/data/siteConfig";
 
@@ -107,14 +92,14 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
   const rec = getCourseRecommendation();
 
   const content = (
-    <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-slate-700/80 rounded-t-3xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl text-white">
+    <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-slate-950 border border-slate-700/80 rounded-t-2xl sm:rounded-2xl p-5 sm:p-8 shadow-lg text-white">
       
       {/* Mobile drag indicator */}
       <div className="sm:hidden w-10 h-1 bg-slate-600 rounded-full mx-auto mb-3" aria-hidden="true" />
 
       {/* Background Tech Glow */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-500/15 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/15 rounded-full blur-[90px] pointer-events-none" />
 
       {/* Close button if modal */}
       {!isEmbedded && onClose && (
@@ -129,11 +114,11 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
 
       {/* Header */}
       <div className="space-y-2 mb-6">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-cyan-400/30 text-cyan-300 text-xs font-black uppercase tracking-wider">
-          <Brain size={14} className="text-cyan-400 animate-pulse" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">
+          <Brain size={14} className="text-blue-400" />
           <span>PH DIGITAL AI ADVISOR • TƯ VẤN LỘ TRÌNH THÔNG MINH</span>
         </div>
-        <h3 className="text-xl sm:text-2xl font-black text-white font-display">
+        <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
           Trợ Lý AI Chuẩn Đoán & Thiết Kế Lộ Trình Phù Hợp Nhất
         </h3>
         <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
@@ -162,7 +147,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
                   key={u.id}
                   type="button"
                   onClick={() => setUserRole(u.id)}
-                  className={`py-2.5 px-3 rounded-xl text-xs font-black transition-all border text-center cursor-pointer ${
+                  className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all border text-center cursor-pointer ${
                     userRole === u.id
                       ? "bg-blue-600 border-blue-400 text-white shadow-md scale-[1.02]"
                       : "bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white"
@@ -177,7 +162,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           {/* Select Target Goal */}
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <Award size={14} className="text-amber-400" />
+              <Award size={14} className="text-blue-400" />
               <span>Mục Tiêu Đào Tạo Bạn Hướng Đến:</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -196,8 +181,8 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
                       : "bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white"
                   }`}
                 >
-                  <div className="text-[10px] font-mono text-cyan-300 uppercase font-black">{c.badge}</div>
-                  <div className="text-xs font-black mt-0.5 leading-snug">{c.label}</div>
+                  <div className="text-xs font-mono text-blue-300 uppercase font-bold">{c.badge}</div>
+                  <div className="text-xs font-bold mt-0.5 leading-snug">{c.label}</div>
                 </button>
               ))}
             </div>
@@ -236,7 +221,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <div className="pt-2">
             <button
               onClick={startAnalysis}
-              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-sky-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
+              className="w-full py-3.5 rounded-2xl bg-blue-600 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
             >
               <Sparkles size={16} />
               <span>Kích Hoạt AI Phân Tích Lộ Trình & Nhận Ưu Đãi</span>
@@ -251,13 +236,13 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
         <div className="py-12 text-center space-y-5">
           <div className="relative w-16 h-16 mx-auto">
             <div className="absolute inset-0 rounded-full border-4 border-blue-500/20 animate-ping" />
-            <div className="relative w-16 h-16 rounded-full border-4 border-t-cyan-400 border-r-blue-500 border-b-indigo-500 border-l-transparent animate-spin flex items-center justify-center">
-              <Brain size={24} className="text-cyan-400" />
+            <div className="relative w-16 h-16 rounded-full border-4 border-t-blue-400 border-r-blue-500 border-b-blue-500 border-l-transparent animate-spin flex items-center justify-center">
+              <Brain size={24} className="text-blue-400" />
             </div>
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm font-black text-white">
+            <p className="text-sm font-bold text-white">
               AI Đang Tính Toán Lộ Trình Tối Ưu Cho Bạn...
             </p>
             <p className="text-xs text-slate-400">
@@ -274,15 +259,15 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           {/* Diagnostic Summary Box */}
           <div className="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-black uppercase tracking-wider text-cyan-400">
+              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
                 KẾT QUẢ PHÂN TÍCH DÀNH CHO: {getRoleLabel()}
               </span>
-              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/30">
+              <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/30">
                 Cam Kết Bao Đỗ 100%
               </span>
             </div>
 
-            <h4 className="text-base sm:text-lg font-black text-white leading-snug font-display">
+            <h4 className="text-base sm:text-lg font-bold text-white leading-snug font-display">
               {rec.title}
             </h4>
 
@@ -293,27 +278,27 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
             {/* Metrics */}
             <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center">
               <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-[10px] text-slate-400">Thời lượng:</span>
-                <p className="text-xs font-black text-white mt-0.5">{rec.duration}</p>
+                <span className="text-xs text-slate-400">Thời lượng:</span>
+                <p className="text-xs font-bold text-white mt-0.5">{rec.duration}</p>
               </div>
               <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-[10px] text-slate-400">Mục tiêu:</span>
-                <p className="text-xs font-black text-amber-400 mt-0.5">{rec.scoreTarget}</p>
+                <span className="text-xs text-slate-400">Mục tiêu:</span>
+                <p className="text-xs font-bold text-blue-400 mt-0.5">{rec.scoreTarget}</p>
               </div>
               <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-[10px] text-slate-400">Cam kết:</span>
-                <p className="text-xs font-black text-emerald-400 mt-0.5">{rec.passRate}</p>
+                <span className="text-xs text-slate-400">Cam kết:</span>
+                <p className="text-xs font-bold text-blue-400 mt-0.5">{rec.passRate}</p>
               </div>
             </div>
           </div>
 
           {/* AI Voucher Card */}
-          <div className="bg-gradient-to-r from-amber-500/10 via-blue-500/10 to-cyan-500/10 border border-amber-400/30 p-4 rounded-2xl flex items-center justify-between gap-3">
+          <div className="bg-blue-500/10 border border-blue-400/30 p-4 rounded-2xl flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-black text-amber-300">Ưu Đãi Học Viên:</p>
-              <p className="text-[11px] text-slate-300">{rec.discount}</p>
+              <p className="text-xs font-bold text-blue-300">Ưu Đãi Học Viên:</p>
+              <p className="text-xs text-slate-300">{rec.discount}</p>
             </div>
-            <div className="px-3 py-1.5 rounded-xl bg-amber-400 text-slate-950 font-mono font-black text-xs tracking-wider">
+            <div className="px-3 py-1.5 rounded-xl bg-blue-400 text-slate-950 font-mono font-bold text-xs tracking-wider">
               {rec.code}
             </div>
           </div>
@@ -322,7 +307,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
             <Link
               href="/lien-he"
-              className="w-full sm:flex-1 py-3 px-5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-lg transition-all"
+              className="w-full sm:flex-1 py-3 px-5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-lg transition-all"
             >
               <span>Đăng Ký Xếp Lớp Ngay</span>
               <ArrowRight size={14} />
@@ -332,7 +317,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
               href={SITE_CONFIG.contact.zaloUrl}
               target="_blank"
               rel="noreferrer"
-              className="w-full sm:w-auto py-3 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-black uppercase tracking-wider text-center border border-slate-700 transition-all flex items-center justify-center gap-1.5"
+              className="w-full sm:w-auto py-3 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-blue-300 text-xs font-bold uppercase tracking-wider text-center border border-slate-700 transition-all flex items-center justify-center gap-1.5"
             >
               <MessageSquare size={14} />
               <span>Tư Vấn Trực Tiếp Zalo</span>
@@ -343,7 +328,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <div className="text-center">
             <button
               onClick={resetAnalysis}
-              className="text-[11px] text-slate-400 hover:text-slate-200 inline-flex items-center gap-1 cursor-pointer"
+              className="text-xs text-slate-400 hover:text-slate-200 inline-flex items-center gap-1 cursor-pointer"
             >
               <RefreshCw size={11} />
               <span>Thử phân tích với mục tiêu khác</span>

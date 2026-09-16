@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { CoursesStore } from "@/lib/courses-store";
 import { authorizeAdminRequest } from "@/lib/rbac";
 import { AuditService } from "@/lib/audit-service";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -17,8 +18,8 @@ export async function GET(req: NextRequest) {
       total: courses.length,
       data: courses,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -70,8 +71,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, data: created });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -106,8 +107,8 @@ export async function PUT(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, data: updated });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -141,7 +142,7 @@ export async function DELETE(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, message: "Đã chuyển khóa học vào thùng rác an toàn." });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }

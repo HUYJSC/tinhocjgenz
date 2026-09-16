@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Link from "next/link";
+
 import { buildMetadata } from "@/lib/seo";
 import { generateCourseSchema, generateFAQSchema } from "@/lib/schema";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -7,7 +7,7 @@ import TopicClusterNav from "@/components/TopicClusterNav";
 import ContactForm from "@/components/ContactForm";
 import CourseCard from "@/components/CourseCard";
 import { coursesData } from "@/data/mockData";
-import { Award, CheckCircle2, Star, ShieldCheck, Clock, FileSpreadsheet, FileText, Presentation, HelpCircle, ArrowRight, BookOpen, GraduationCap } from "lucide-react";
+import { Award, CheckCircle2, ShieldCheck, FileSpreadsheet, FileText, Presentation, HelpCircle } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   title: "Khóa Học Luyện Thi MOS 2019 / 365 Cấp Tốc",
@@ -83,19 +83,19 @@ export default function MosPillarPage() {
       <TopicClusterNav currentClusterId="mos" />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white pt-16 pb-20 relative overflow-hidden">
+      <section className="bg-blue-950 text-white pt-16 pb-20 relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
-                <Award className="w-4 h-4 text-cyan-400" />
+                <Award className="w-4 h-4 text-blue-400" />
                 <span>CHỨNG CHỈ QUỐC TẾ MICROSOFT VĨNH VIỄN</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
                 Khóa Học Luyện Thi MOS 2019 / 365{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+                <span className="text-blue-300">
                   Bao Đậu 100%
                 </span>
               </h1>
@@ -106,15 +106,15 @@ export default function MosPillarPage() {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
                 <div className="bg-slate-800/60 backdrop-blur border border-slate-700/60 p-3.5 rounded-xl">
-                  <div className="text-2xl font-black text-cyan-400">99.6%</div>
+                  <div className="text-2xl font-bold text-blue-400">99.6%</div>
                   <div className="text-xs text-slate-400 mt-0.5">Tỷ lệ đậu lần đầu</div>
                 </div>
                 <div className="bg-slate-800/60 backdrop-blur border border-slate-700/60 p-3.5 rounded-xl">
-                  <div className="text-2xl font-black text-amber-400">3 - 5 Buổi</div>
+                  <div className="text-2xl font-bold text-blue-400">3 - 5 Buổi</div>
                   <div className="text-xs text-slate-400 mt-0.5">Thời gian hoàn thành</div>
                 </div>
                 <div className="bg-slate-800/60 backdrop-blur border border-slate-700/60 p-3.5 rounded-xl col-span-2 sm:col-span-1">
-                  <div className="text-2xl font-black text-emerald-400">100%</div>
+                  <div className="text-2xl font-bold text-blue-400">100%</div>
                   <div className="text-xs text-slate-400 mt-0.5">Bảo hành học lại Free</div>
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default function MosPillarPage() {
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <a
                   href="#dang-ky"
-                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 hover:to-amber-200 shadow-lg shadow-amber-400/20 transition-all transform hover:-translate-y-0.5"
+                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-lg shadow-blue-400/20 transition-all transform hover:-translate-y-0.5"
                 >
                   Đăng Ký Tư Vấn Ngay &rarr;
                 </a>
@@ -137,26 +137,26 @@ export default function MosPillarPage() {
 
             {/* Right Card */}
             <div className="lg:col-span-5">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-2xl backdrop-blur">
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg backdrop-blur">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                  <ShieldCheck className="w-5 h-5 text-blue-400" />
                   Quyền Lợi Đặc Quyền Tại TinHocGenZ
                 </h3>
                 <ul className="space-y-3 text-sm text-slate-300">
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Bộ tài liệu & video bài giảng chuẩn format Certiport Multi-Project mới nhất.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Hệ thống chấm thi thử tự động, giao diện giống 100% phòng thi thật IIG.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Giảng viên kèm 1-1, sửa lỗi thao tác chi tiết từng bài tập.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Hỗ trợ thủ tục đăng ký thi tại IIG Việt Nam trọn gói.</span>
                   </li>
                 </ul>
@@ -171,7 +171,7 @@ export default function MosPillarPage() {
         {/* Course Modules Grid */}
         <section id="cac-mon-mos" className="mb-20">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
               Lộ Trình Các Môn Thi MOS Trọng Điểm
             </h2>
             <p className="text-slate-600 mt-2 text-sm sm:text-base">
@@ -198,14 +198,14 @@ export default function MosPillarPage() {
 
             {/* MOS Excel */}
             <div className="bg-white rounded-2xl p-6 border-2 border-blue-500 shadow-lg relative">
-              <div className="absolute -top-3 right-6 bg-amber-400 text-slate-900 text-[10px] font-black uppercase px-3 py-0.5 rounded-full">
+              <div className="absolute -top-3 right-6 bg-blue-400 text-slate-900 text-xs font-bold uppercase px-3 py-0.5 rounded-full">
                 Phổ biến nhất
               </div>
-              <div className="w-12 h-12 rounded-xl bg-emerald-600/10 text-emerald-700 flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-600/10 text-blue-700 flex items-center justify-center mb-4">
                 <FileSpreadsheet className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">MOS Excel</h3>
-              <p className="text-xs font-semibold text-emerald-600 mb-3">Mã đề: MO-200 / MO-210</p>
+              <p className="text-xs font-semibold text-blue-600 mb-3">Mã đề: MO-200 / MO-210</p>
               <p className="text-sm text-slate-600 mb-4">
                 Thành thạo bảng tính, công thức & hàm (VLOOKUP, IF, INDEX-MATCH), biểu đồ nâng cao, PivotTable và phân tích dữ liệu.
               </p>
@@ -217,11 +217,11 @@ export default function MosPillarPage() {
 
             {/* MOS PowerPoint */}
             <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-orange-600/10 text-orange-700 flex items-center justify-center mb-4">
+              <div className="w-12 h-12 rounded-xl bg-blue-600/10 text-blue-700 flex items-center justify-center mb-4">
                 <Presentation className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">MOS PowerPoint</h3>
-              <p className="text-xs font-semibold text-orange-600 mb-3">Mã đề: MO-300</p>
+              <p className="text-xs font-semibold text-blue-600 mb-3">Mã đề: MO-300</p>
               <p className="text-sm text-slate-600 mb-4">
                 Thiết kế Slide thuyết trình chuyên nghiệp, Animation, Morph effect, Master Slide, chèn đa phương tiện ấn tượng.
               </p>
@@ -237,7 +237,7 @@ export default function MosPillarPage() {
         <section className="mb-20">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl font-black text-slate-900">Các Lớp MOS Đang Khai Giảng</h2>
+              <h2 className="text-2xl font-bold text-slate-900">Các Lớp MOS Đang Khai Giảng</h2>
               <p className="text-sm text-slate-500 mt-1">Lịch học linh hoạt cả tuần, học bù & hỗ trợ 24/7</p>
             </div>
           </div>
@@ -250,14 +250,14 @@ export default function MosPillarPage() {
         </section>
 
         {/* FAQ Section with JSON-LD Schema */}
-        <section className="mb-20 bg-white rounded-3xl p-8 sm:p-12 border border-slate-200">
+        <section className="mb-20 bg-white rounded-2xl p-8 sm:p-12 border border-slate-200">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 uppercase tracking-wider mb-2">
                 <HelpCircle className="w-4 h-4" />
                 Giải Đáp Thắc Mắc
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
                 Câu Hỏi Thường Gặp Về Chứng Chỉ MOS
               </h2>
             </div>

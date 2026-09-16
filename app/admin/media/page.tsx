@@ -1,23 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  FileSpreadsheet,
-  Upload,
-  Video,
-  Image,
-  FileText,
-  Copy,
-  Check,
-  Eye,
-  Trash2,
-  X,
-  Download,
-  RefreshCw,
-  HardDrive,
-  ShieldCheck,
-  AlertTriangle
-} from "lucide-react";
+import { FileSpreadsheet, Upload, Image as ImageIcon, FileText, Copy, Check, Eye, Trash2, X, RefreshCw, HardDrive, ShieldCheck, AlertTriangle } from "lucide-react";
 import { MediaFileRecord, ALLOWED_EXTENSIONS, MAX_FILE_SIZE_BYTES } from "@/lib/media-store";
 
 export default function AdminMediaPage() {
@@ -50,7 +34,8 @@ export default function AdminMediaPage() {
   }, [categoryFilter]);
 
   useEffect(() => {
-    fetchFiles();
+    const timer = window.setTimeout(() => { void fetchFiles(); }, 0);
+    return () => window.clearTimeout(timer);
   }, [fetchFiles]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,8 +123,8 @@ export default function AdminMediaPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-display">
-            <FileSpreadsheet className="text-pink-400" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5 font-display">
+            <FileSpreadsheet className="text-blue-400" />
             <span>Kho Đề Thi & Tài Liệu Media Bảo Mật</span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -167,7 +152,7 @@ export default function AdminMediaPage() {
             type="button"
             disabled={uploading}
             onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-500 disabled:opacity-50 text-white text-xs font-black shadow-lg shadow-pink-600/30 transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white text-xs font-bold shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
           >
             <Upload size={16} />
             <span>{uploading ? "Đang xử lý..." : "Tải Lên Tệp Mới"}</span>
@@ -178,7 +163,7 @@ export default function AdminMediaPage() {
       {/* Storage Metrics Pill Banner */}
       <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
         <div className="flex items-center gap-2.5 text-slate-300">
-          <HardDrive size={18} className="text-pink-400" />
+          <HardDrive size={18} className="text-blue-400" />
           <span>
             Dung lượng lưu trữ thực tế: <strong className="text-white font-mono">{totalStorageFormatted}</strong> / 1.0 GB
           </span>
@@ -220,7 +205,7 @@ export default function AdminMediaPage() {
             onClick={() => setCategoryFilter(tab.id)}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
               categoryFilter === tab.id
-                ? "bg-pink-600 text-white shadow-sm font-black"
+                ? "bg-blue-600 text-white shadow-sm font-bold"
                 : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
             }`}
           >
@@ -232,7 +217,7 @@ export default function AdminMediaPage() {
       {/* Media Grid */}
       {loading ? (
         <div className="py-20 text-center text-slate-500">
-          <RefreshCw size={24} className="animate-spin mx-auto mb-3 text-pink-500" />
+          <RefreshCw size={24} className="animate-spin mx-auto mb-3 text-blue-500" />
           <p className="text-xs">Đang tải kho tài liệu...</p>
         </div>
       ) : files.length === 0 ? (
@@ -253,10 +238,10 @@ export default function AdminMediaPage() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-800 text-slate-300 font-mono">
+                    <span className="px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-300 font-mono">
                       {file.originalFilename.split(".").pop()}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-mono">
+                    <span className="text-xs text-slate-400 font-mono">
                       {formatBytes(file.fileSizeBytes)}
                     </span>
                   </div>
@@ -264,10 +249,10 @@ export default function AdminMediaPage() {
                   <div className="flex items-center gap-2.5 my-2">
                     {isImg ? (
                       <div className="w-10 h-10 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-800/60 flex items-center justify-center shrink-0">
-                        <Image size={18} />
+                        <ImageIcon size={18} />
                       </div>
                     ) : isExam ? (
-                      <div className="w-10 h-10 rounded-xl bg-pink-950 text-pink-400 border border-pink-800/60 flex items-center justify-center shrink-0">
+                      <div className="w-10 h-10 rounded-xl bg-blue-950 text-blue-400 border border-blue-800/60 flex items-center justify-center shrink-0">
                         <FileSpreadsheet size={18} />
                       </div>
                     ) : (
@@ -279,7 +264,7 @@ export default function AdminMediaPage() {
                       <div className="text-xs font-bold text-white truncate" title={file.originalFilename}>
                         {file.originalFilename}
                       </div>
-                      <div className="text-[10px] text-slate-500 mt-0.5 font-mono truncate">
+                      <div className="text-xs text-slate-500 mt-0.5 font-mono truncate">
                         Người tải: {file.uploadedBy} • {new Date(file.createdAt).toLocaleDateString("vi-VN")}
                       </div>
                     </div>
@@ -325,11 +310,11 @@ export default function AdminMediaPage() {
       {/* Preview Detail Modal */}
       {selectedPreview && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl">
+          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
               <div className="truncate">
-                <h3 className="text-sm font-black text-white truncate">{selectedPreview.originalFilename}</h3>
-                <span className="text-[10px] text-slate-400 font-mono">
+                <h3 className="text-sm font-bold text-white truncate">{selectedPreview.originalFilename}</h3>
+                <span className="text-xs text-slate-400 font-mono">
                   {formatBytes(selectedPreview.fileSizeBytes)} • {selectedPreview.mimeType}
                 </span>
               </div>
@@ -343,7 +328,7 @@ export default function AdminMediaPage() {
             </div>
 
             <div className="space-y-3 text-xs text-slate-300">
-              <div className="p-3 rounded-xl bg-slate-950 font-mono text-[11px] text-slate-400 break-all">
+              <div className="p-3 rounded-xl bg-slate-950 font-mono text-xs text-slate-400 break-all">
                 Đường dẫn nội bộ: {selectedPreview.storagePath}
               </div>
               <div className="flex items-center justify-between">
@@ -369,7 +354,7 @@ export default function AdminMediaPage() {
               <button
                 type="button"
                 onClick={() => handleCopyLink(selectedPreview)}
-                className="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold"
+                className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold"
               >
                 Sao Chép Đường Dẫn Tải
               </button>

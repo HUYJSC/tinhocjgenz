@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
 import { ContentCollectorService } from "@/lib/content-engine/services/collector";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(
   req: NextRequest,
@@ -41,9 +42,9 @@ export async function POST(
 
     const testResult = await ContentCollectorService.testSource(source);
     return NextResponse.json({ success: testResult.ok, data: testResult });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi kiểm tra kết nối nguồn" },
+      { success: false, error: getErrorMessage(err, "Lỗi kiểm tra kết nối nguồn") },
       { status: 500 }
     );
   }

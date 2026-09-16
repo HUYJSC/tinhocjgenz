@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(
   _req: NextRequest,
@@ -15,9 +16,9 @@ export async function GET(
       );
     }
     return NextResponse.json({ success: true, data: article });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi lấy chi tiết bài viết" },
+      { success: false, error: getErrorMessage(err, "Lỗi lấy chi tiết bài viết") },
       { status: 500 }
     );
   }
@@ -54,9 +55,9 @@ export async function PATCH(
     });
 
     return NextResponse.json({ success: true, data: updated });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi cập nhật bài viết" },
+      { success: false, error: getErrorMessage(err, "Lỗi cập nhật bài viết") },
       { status: 500 }
     );
   }
@@ -76,9 +77,9 @@ export async function DELETE(
       );
     }
     return NextResponse.json({ success: true, message: "Đã xóa bài viết" });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi xóa bài viết" },
+      { success: false, error: getErrorMessage(err, "Lỗi xóa bài viết") },
       { status: 500 }
     );
   }

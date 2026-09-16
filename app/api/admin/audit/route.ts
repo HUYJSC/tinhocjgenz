@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AuditService } from "@/lib/audit-service";
 import { authorizeAdminRequest } from "@/lib/rbac";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -37,7 +38,7 @@ export async function GET(req: NextRequest) {
       totalPages: result.totalPages,
       data: result.logs,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }

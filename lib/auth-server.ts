@@ -14,11 +14,39 @@ export const SESSION_EXPIRATION_SECONDS = 60 * 60 * 12; // 12 hours
  * Retrieves master secret with strict production requirement
  */
 function getMasterSecret(): string {
-  const secret = process.env.ADMIN_SESSION_SECRET || process.env.CRON_SECRET;
-  if (!secret) {
-    return "tgz_prod_session_master_secret_2026_fallback_key_tinhocgenz";
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (secret && secret.length >= 32) return secret;
+
+  if (process.env.NODE_ENV === "production") {
+    throw new Error("ADMIN_SESSION_SECRET must be configured with at least 32 characters.");
   }
-  return secret;
+
+  return "development-only-session-secret-change-before-deploy";
+}
+
+function constantTimeEqual(left: string, right: string): boolean {
+  if (left.length !== right.length) return false;
+
+  let difference = 0;
+  for (let index = 0; index < left.length; index += 1) {
+    difference |= left.charCodeAt(index) ^ right.charCodeAt(index);
+  }
+  return difference === 0;
+}
+
+function getConfiguredPassword(username: string): string | undefined {
+  const raw = process.env.ADMIN_USER_PASSWORDS_JSON;
+  if (!raw) return undefined;
+
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return undefined;
+
+    const value = (parsed as Record<string, unknown>)[username];
+    return typeof value === "string" && value.length >= 12 ? value : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 export type UserRoleType = RoleType;
@@ -135,32 +163,18 @@ export async function hashPassword(password: string, salt: string): Promise<stri
 }
 
 /**
- * Validates a 6-digit MFA / TOTP code
+ * Validates the configured six-digit administrative MFA backup code.
+ * No default or client-visible bypass code is accepted.
  */
 export function verifyMfaCode(code: string): boolean {
   const cleanCode = code.trim();
-  if (!/^\d{6}$/.test(cleanCode)) return false;
+  const configuredCode = process.env.ADMIN_MFA_BACKUP_CODE?.trim();
 
-  // Supports configured backup code via environment or standard dynamic window
-  const backupCode = process.env.ADMIN_MFA_BACKUP_CODE || "888666";
-  if (cleanCode === backupCode || cleanCode === "888666" || cleanCode === "123456" || cleanCode === "000000") return true;
-
-  // Time-based rotating code (TOTP window: current 30s block and adjacent blocks)
-  const epoch = Math.floor(Date.now() / 1000 / 30);
-  for (let offset = -1; offset <= 1; offset++) {
-    const block = (epoch + offset).toString();
-    let hash = 0;
-    for (let i = 0; i < block.length; i++) {
-      hash = (hash << 5) - hash + block.charCodeAt(i);
-      hash |= 0;
-    }
-    const computedCode = Math.abs(hash % 1000000)
-      .toString()
-      .padStart(6, "0");
-    if (cleanCode === computedCode) return true;
+  if (!/^\d{6}$/.test(cleanCode) || !configuredCode || !/^\d{6}$/.test(configuredCode)) {
+    return false;
   }
 
-  return false;
+  return constantTimeEqual(cleanCode, configuredCode);
 }
 
 export interface AuthResult {
@@ -240,35 +254,27 @@ export async function authenticateUser(params: {
   }
 
   if (user.lockedUntil && user.lockedUntil > Date.now()) {
-    if (cleanPass.trim() === "TinHocGenZ@2026!" || cleanPass.trim() === "TinHocGenZ@2026") {
-      AdminUsersStore.resetFailedAttempts(user.id);
-    } else {
-      const waitSeconds = Math.ceil((user.lockedUntil - Date.now()) / 1000);
-      return {
-        success: false,
-        error: `Tài khoản tạm thời bị khóa do nhập sai nhiều lần. Vui lòng thử lại sau ${waitSeconds} giây.`,
-      };
-    }
+    const waitSeconds = Math.ceil((user.lockedUntil - Date.now()) / 1000);
+    return {
+      success: false,
+      error: `Tài khoản tạm thời bị khóa do nhập sai nhiều lần. Vui lòng thử lại sau ${waitSeconds} giây.`,
+    };
   }
 
-  // 4. Verify PBKDF2 Password Hash
+  // 4. Verify password. Production credentials must come from server-only environment variables.
   let isPasswordCorrect = false;
-  if (user.passwordHash && user.salt) {
-    const computed = await hashPassword(cleanPass, user.salt);
-    isPasswordCorrect = computed === user.passwordHash;
-  }
+  const configuredPassword = getConfiguredPassword(user.username);
 
-  // Support verified administrative variations
-  if (!isPasswordCorrect && (user.role === "super_admin" || user.role === "academic" || user.role === "teacher")) {
-    const norm = cleanPass.trim();
-    if (
-      norm === "TinHocGenZ@2026!" ||
-      norm === "TinHocGenZ@2026" ||
-      norm === "Admin@TinHocGenZ2026!" ||
-      norm === "Admin@PHDigital2026"
-    ) {
-      isPasswordCorrect = true;
-    }
+  if (configuredPassword) {
+    isPasswordCorrect = constantTimeEqual(cleanPass, configuredPassword);
+  } else if (process.env.NODE_ENV === "production") {
+    return {
+      success: false,
+      error: "Tài khoản quản trị chưa được cấu hình thông tin xác thực trên máy chủ.",
+    };
+  } else if (user.passwordHash && user.salt) {
+    const computed = await hashPassword(cleanPass, user.salt);
+    isPasswordCorrect = constantTimeEqual(computed, user.passwordHash);
   }
 
   if (!isPasswordCorrect) {

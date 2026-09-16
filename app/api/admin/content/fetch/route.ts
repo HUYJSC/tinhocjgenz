@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
 import { ContentPipelineService } from "@/lib/content-engine/services/pipeline";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,9 +23,9 @@ export async function POST(req: NextRequest) {
     // Fetch all active sources
     const results = await ContentPipelineService.runAllActive();
     return NextResponse.json({ success: true, data: results });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi tiến trình thu thập tin" },
+      { success: false, error: getErrorMessage(err, "Lỗi tiến trình thu thập tin") },
       { status: 500 }
     );
   }

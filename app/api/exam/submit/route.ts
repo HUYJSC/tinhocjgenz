@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { gradeExamAttempt } from "@/lib/exam-engine";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,9 +21,9 @@ export async function POST(req: NextRequest) {
       data: grading,
       timestamp: new Date().toISOString(),
     });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi xử lý chấm điểm bài thi" },
+      { success: false, error: getErrorMessage(err, "Lỗi xử lý chấm điểm bài thi") },
       { status: 500 }
     );
   }

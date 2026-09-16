@@ -6,6 +6,7 @@ import { MediaStore } from "@/lib/media-store";
 import { AdminUsersStore } from "@/lib/admin-users-store";
 import { BLOG_POSTS } from "@/data/blogData";
 import { authorizeAdminRequest } from "@/lib/rbac";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -37,7 +38,7 @@ export async function GET(req: NextRequest) {
         systemStatus: "OPTIMAL",
       },
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }

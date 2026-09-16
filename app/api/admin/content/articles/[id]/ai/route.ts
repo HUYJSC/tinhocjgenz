@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
 import { AiContentEditorService, RewriteTone } from "@/lib/content-engine/services/ai-editor";
 import { AiRelevanceEngine } from "@/lib/content-engine/services/ai-relevance";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(
   req: NextRequest,
@@ -86,9 +87,9 @@ export async function POST(
     });
 
     return NextResponse.json({ success: true, data: article });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi xử lý AI" },
+      { success: false, error: getErrorMessage(err, "Lỗi xử lý AI") },
       { status: 500 }
     );
   }

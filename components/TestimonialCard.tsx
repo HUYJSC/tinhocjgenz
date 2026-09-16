@@ -16,20 +16,8 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
       .toUpperCase();
   };
 
-  // Map IDs to specific colorful gradients for visual variety
-  const getGradient = (id: string) => {
-    const gradients = [
-      "from-blue-600 to-cyan-400",
-      "from-purple-600 to-pink-500",
-      "from-teal-500 to-emerald-400",
-      "from-indigo-600 to-blue-500",
-    ];
-    const index = parseInt(id.replace(/\D/g, "")) || 0;
-    return gradients[index % gradients.length];
-  };
-
   return (
-    <div className="bg-white p-6 sm:p-7 rounded-3xl border border-slate-200/80 hover:border-blue-500/25 shadow-premium hover:shadow-premium-hover transition-all duration-500 flex flex-col justify-between h-full group relative">
+    <div className="bg-white p-6 sm:p-7 rounded-2xl border border-slate-200/80 hover:border-blue-500/25 shadow-premium hover:shadow-premium-hover smooth-transition flex flex-col justify-between h-full group relative">
       
       {/* Dynamic Quotation Mark Mark */}
       <span className="absolute top-3 right-6 text-slate-100 text-7xl font-serif select-none pointer-events-none group-hover:text-blue-50 smooth-transition">
@@ -38,7 +26,7 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
 
       <div className="relative z-10 flex-1 flex flex-col">
         {/* Star Rating */}
-        <div className="flex gap-1 text-amber-400 mb-4">
+        <div className="flex gap-1 text-blue-400 mb-4">
           {[...Array(testimonial.rating)].map((_, i) => (
             <Star key={i} size={15} fill="currentColor" />
           ))}
@@ -53,26 +41,25 @@ export default function TestimonialCard({ testimonial }: TestimonialCardProps) {
       {/* User Information Footer */}
       <div className="flex items-center gap-3.5 border-t border-slate-100/80 pt-5 mt-6 relative z-10">
         
-        {/* Colorful Gradient Initials Avatar */}
-        <div className={`w-11 h-11 rounded-full bg-gradient-to-tr ${getGradient(testimonial.id)} flex items-center justify-center font-black text-white text-xs shadow-md shrink-0 select-none`}>
+        <div className="flex h-11 w-11 shrink-0 select-none items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-sm">
           {getInitials(testimonial.name)}
         </div>
         
         <div className="flex flex-col min-w-0 flex-1">
           <div className="flex items-center justify-between gap-1">
-            <cite className="not-italic text-sm font-black text-slate-900 leading-snug truncate">
+            <cite className="not-italic text-sm font-bold text-slate-900 leading-snug truncate">
               {testimonial.name}
             </cite>
             {testimonial.score && (
-              <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black shrink-0">
+              <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold shrink-0">
                 {testimonial.score}
               </span>
             )}
           </div>
-          <span className="text-[10px] font-black text-blue-600 uppercase tracking-wide mt-1 truncate">
+          <span className="text-xs font-bold text-blue-600 uppercase tracking-wide mt-1 truncate">
             {testimonial.courseOrService}
           </span>
-          <span className="text-[10px] text-slate-500 font-bold tracking-normal mt-0.5 truncate">
+          <span className="text-xs text-slate-500 font-bold tracking-normal mt-0.5 truncate">
             {testimonial.role} • {testimonial.universityOrCompany}
           </span>
         </div>

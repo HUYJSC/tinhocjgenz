@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { AdminUsersStore, RoleType } from "@/lib/admin-users-store";
 import { authorizeAdminRequest, canModifyRole, canLockAccount } from "@/lib/rbac";
 import { AuditService } from "@/lib/audit-service";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -21,8 +22,8 @@ export async function GET(req: NextRequest) {
       total: users.length,
       data: users,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -128,7 +129,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     return NextResponse.json({ success: false, error: "Hành động không hợp lệ." }, { status: 400 });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }

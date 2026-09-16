@@ -2,31 +2,10 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import {
-  BookOpen,
-  Calendar,
-  Users,
-  FileSpreadsheet,
-  FileText,
-  Sparkles,
-  ArrowRight,
-  Clock,
-  CheckCircle2,
-  ExternalLink,
-  ShieldCheck,
-  BarChart3,
-  KeyRound,
-  RefreshCw,
-  Plus,
-  PhoneCall,
-  Flame,
-  Award,
-  HelpCircle,
-  TrendingUp,
-  GraduationCap,
-  Layers
-} from "lucide-react";
+import { BookOpen, Calendar, Users, FileSpreadsheet, FileText, ArrowRight, Clock, CheckCircle2, BarChart3, KeyRound, RefreshCw, Plus, PhoneCall, Award, Layers } from "lucide-react";
 import { useAdminAuth } from "./context/AdminAuthContext";
+import type { LeadRecord } from "@/lib/leads-store";
+import type { AdminClassBatch } from "@/lib/schedules-store";
 
 interface DashboardKpiData {
   coursesActive: number;
@@ -56,8 +35,8 @@ export default function AdminDashboardOverviewPage() {
     usersActive: 0,
     systemStatus: "OPTIMAL",
   });
-  const [recentLeads, setRecentLeads] = useState<any[]>([]);
-  const [recentBatches, setRecentBatches] = useState<any[]>([]);
+  const [recentLeads, setRecentLeads] = useState<LeadRecord[]>([]);
+  const [recentBatches, setRecentBatches] = useState<Array<AdminClassBatch & { availableSlots: number }>>([]);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState<string>("");
 
@@ -103,7 +82,8 @@ export default function AdminDashboardOverviewPage() {
   }, []);
 
   useEffect(() => {
-    fetchDashboardData();
+    const timer = window.setTimeout(() => { void fetchDashboardData(); }, 0);
+    return () => window.clearTimeout(timer);
   }, [fetchDashboardData]);
 
   const stats = [
@@ -115,7 +95,7 @@ export default function AdminDashboardOverviewPage() {
       badgeColor: "bg-blue-500/15 text-blue-300 border-blue-500/30",
       href: "/admin/courses",
       icon: BookOpen,
-      color: "from-blue-600 to-cyan-600",
+      color: "bg-blue-600",
       textColor: "text-blue-400",
     },
     {
@@ -123,11 +103,11 @@ export default function AdminDashboardOverviewPage() {
       value: kpi.batchesOpening.toString(),
       subtext: `Tổng cộng ${kpi.batchesTotal} ca học`,
       badge: "Khai giảng",
-      badgeColor: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
+      badgeColor: "bg-blue-500/15 text-blue-300 border-blue-500/30",
       href: "/admin/schedules",
       icon: Calendar,
-      color: "from-indigo-600 to-purple-600",
-      textColor: "text-indigo-400",
+      color: "bg-blue-600",
+      textColor: "text-blue-400",
     },
     {
       title: "Học Viên Đăng Ký (Leads)",
@@ -137,7 +117,7 @@ export default function AdminDashboardOverviewPage() {
       badgeColor: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
       href: "/admin/leads",
       icon: Users,
-      color: "from-emerald-600 to-teal-600",
+      color: "bg-emerald-600",
       textColor: "text-emerald-400",
     },
     {
@@ -148,7 +128,7 @@ export default function AdminDashboardOverviewPage() {
       badgeColor: "bg-amber-500/15 text-amber-300 border-amber-500/30",
       href: "/admin/blog",
       icon: FileText,
-      color: "from-amber-600 to-orange-600",
+      color: "bg-amber-600",
       textColor: "text-amber-400",
     },
     {
@@ -156,40 +136,37 @@ export default function AdminDashboardOverviewPage() {
       value: kpi.storageFormatted,
       subtext: "Đã quét an toàn nội bộ",
       badge: "Private",
-      badgeColor: "bg-pink-500/15 text-pink-300 border-pink-500/30",
+      badgeColor: "bg-blue-500/15 text-blue-300 border-blue-500/30",
       href: "/admin/media",
       icon: FileSpreadsheet,
-      color: "from-pink-600 to-rose-600",
-      textColor: "text-pink-400",
+      color: "bg-blue-600",
+      textColor: "text-blue-400",
     },
     {
       title: "Nhân Sự Điều Hành",
       value: `${kpi.usersActive} tài khoản`,
       subtext: "Phân quyền cá nhân an toàn",
       badge: "RBAC",
-      badgeColor: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+      badgeColor: "bg-blue-500/15 text-blue-300 border-blue-500/30",
       href: "/admin/users",
       icon: KeyRound,
-      color: "from-cyan-600 to-blue-600",
-      textColor: "text-cyan-400",
+      color: "bg-blue-600",
+      textColor: "text-blue-400",
     },
   ];
 
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in pb-12">
       {/* 1. Friendly Welcome Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 border border-blue-500/30 p-6 sm:p-8 shadow-2xl">
-        <div className="absolute -right-16 -top-16 w-64 h-64 bg-blue-600/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 w-64 h-64 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none" />
-
+      <div className="relative overflow-hidden rounded-xl bg-slate-900 border border-blue-500/30 p-6 sm:p-8 shadow-sm">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold mb-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
               <span>HỆ THỐNG ĐIỀU HÀNH TRỰC TUYẾN</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight font-display">
+            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-display">
               {getGreeting()}, {user?.name || "Thầy Huy"}! 👋
             </h1>
 
@@ -202,7 +179,7 @@ export default function AdminDashboardOverviewPage() {
             <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 mt-5">
               <Link
                 href="/admin/courses"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black transition-all shadow-md shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Plus size={15} />
                 <span>Thêm Khóa Học Mới</span>
@@ -210,7 +187,7 @@ export default function AdminDashboardOverviewPage() {
 
               <Link
                 href="/admin/schedules"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black transition-all shadow-md shadow-indigo-600/30 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow-md shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Calendar size={15} />
                 <span>Mở Lịch Khai Giảng</span>
@@ -218,7 +195,7 @@ export default function AdminDashboardOverviewPage() {
 
               <Link
                 href="/admin/leads"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black transition-all shadow-md shadow-emerald-600/30 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md shadow-emerald-600/30 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Users size={15} />
                 <span>Xử Lý Leads ({kpi.leadsPending})</span>
@@ -228,7 +205,7 @@ export default function AdminDashboardOverviewPage() {
 
           {/* Quick Hub Status Badge */}
           <div className="shrink-0 bg-slate-900/80 border border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 min-w-[200px]">
-            <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               Trạng Thái Hệ Thống
             </div>
             <div className="flex items-center gap-2.5 text-xs font-bold text-emerald-400">
@@ -255,7 +232,7 @@ export default function AdminDashboardOverviewPage() {
       {/* 2. Quick Actions Hub (Lối tắt thao tác nhanh) */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
             <Layers size={14} className="text-blue-400" />
             <span>Thao Tác Nhanh Thường Dùng</span>
           </h2>
@@ -271,20 +248,20 @@ export default function AdminDashboardOverviewPage() {
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-white truncate">Khóa Học</div>
-              <div className="text-[10px] text-slate-400 truncate">Tạo / Sửa học phí</div>
+              <div className="text-xs text-slate-400 truncate">Tạo / Sửa học phí</div>
             </div>
           </Link>
 
           <Link
             href="/admin/schedules"
-            className="p-3.5 rounded-2xl bg-slate-900/70 hover:bg-slate-900 border border-slate-800 hover:border-indigo-500/40 transition-all flex items-center gap-3 group shadow-sm"
+            className="p-3.5 rounded-2xl bg-slate-900/70 hover:bg-slate-900 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-3 group shadow-sm"
           >
-            <div className="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
               <Calendar size={18} />
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-white truncate">Lịch Học</div>
-              <div className="text-[10px] text-slate-400 truncate">Xếp ca & chỗ trống</div>
+              <div className="text-xs text-slate-400 truncate">Xếp ca & chỗ trống</div>
             </div>
           </Link>
 
@@ -297,20 +274,20 @@ export default function AdminDashboardOverviewPage() {
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-white truncate">CRM Leads</div>
-              <div className="text-[10px] text-slate-400 truncate">Tư vấn đăng ký</div>
+              <div className="text-xs text-slate-400 truncate">Tư vấn đăng ký</div>
             </div>
           </Link>
 
           <Link
             href="/admin/media"
-            className="p-3.5 rounded-2xl bg-slate-900/70 hover:bg-slate-900 border border-slate-800 hover:border-pink-500/40 transition-all flex items-center gap-3 group shadow-sm"
+            className="p-3.5 rounded-2xl bg-slate-900/70 hover:bg-slate-900 border border-slate-800 hover:border-blue-500/40 transition-all flex items-center gap-3 group shadow-sm"
           >
-            <div className="w-10 h-10 rounded-xl bg-pink-500/15 text-pink-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform shrink-0">
               <FileSpreadsheet size={18} />
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-white truncate">Kho Đề Thi</div>
-              <div className="text-[10px] text-slate-400 truncate">MOS & IC3 Thực chiến</div>
+              <div className="text-xs text-slate-400 truncate">MOS & IC3 Thực chiến</div>
             </div>
           </Link>
 
@@ -323,7 +300,7 @@ export default function AdminDashboardOverviewPage() {
             </div>
             <div className="min-w-0">
               <div className="text-xs font-bold text-white truncate">Chứng Chỉ</div>
-              <div className="text-[10px] text-slate-400 truncate">Khảo thí & Đỗ Cert</div>
+              <div className="text-xs text-slate-400 truncate">Khảo thí & Đỗ Cert</div>
             </div>
           </Link>
         </div>
@@ -332,7 +309,7 @@ export default function AdminDashboardOverviewPage() {
       {/* 3. KPI Metrics Cards */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xs font-black text-slate-400 uppercase tracking-wider flex items-center gap-2">
+          <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-2">
             <BarChart3 size={15} className="text-blue-400" />
             <span>Chỉ Số Trọng Yếu Thực Tế (KPIs)</span>
           </h2>
@@ -352,15 +329,15 @@ export default function AdminDashboardOverviewPage() {
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-bold text-slate-400 block truncate">{stat.title}</span>
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${stat.badgeColor}`}>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${stat.badgeColor}`}>
                         {stat.badge}
                       </span>
                     </div>
-                    <span className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-1.5 block font-display font-mono">
+                    <span className="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1.5 block font-display font-mono">
                       {loading ? "..." : stat.value}
                     </span>
                   </div>
-                  <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform shrink-0`}>
+                  <div className={`w-11 h-11 rounded-2xl ${stat.color} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform shrink-0`}>
                     <Icon size={20} />
                   </div>
                 </div>
@@ -380,42 +357,41 @@ export default function AdminDashboardOverviewPage() {
       {/* 4. Two Column Section: Recent Leads & Upcoming Batches */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Inquiries / Leads */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 sm:p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center">
                 <Users size={16} />
               </div>
               <div>
-                <h3 className="text-sm font-black text-white">Học Viên Mới Đăng Ký</h3>
-                <p className="text-[11px] text-slate-400">Danh sách cần gọi tư vấn sớm nhất</p>
+                <h3 className="text-sm font-bold text-white">Học Viên Mới Đăng Ký</h3>
+                <p className="text-xs text-slate-400">Danh sách cần gọi tư vấn sớm nhất</p>
               </div>
             </div>
             <Link
               href="/admin/leads"
               className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-slate-800 transition-all"
             >
-              Xem tất cả ({kpi.leadsTotal}) <ArrowRight size={13} />
+              <span>Xem tất cả</span>
+              <ArrowRight size={13} />
             </Link>
           </div>
 
           <div className="space-y-2.5">
             {recentLeads.length === 0 ? (
-              <div className="text-center py-10 text-slate-500 text-xs">
-                Chưa có học viên mới nào đăng ký hôm nay.
-              </div>
+              <div className="py-8 text-center text-xs text-slate-400">Chưa có thông tin học viên mới</div>
             ) : (
               recentLeads.map((lead) => (
                 <div
                   key={lead.id}
-                  className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80 flex items-center justify-between gap-3 hover:border-slate-700 transition-colors"
+                  className="flex items-center justify-between p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 hover:border-slate-700 transition-all"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-black text-white truncate">{lead.name}</span>
-                      <span className="text-[11px] text-slate-400 font-mono">({lead.phone})</span>
+                      <span className="text-xs font-bold text-white truncate">{lead.name}</span>
+                      <span className="text-xs text-slate-400 font-mono">({lead.phone})</span>
                     </div>
-                    <div className="text-[11px] text-blue-400 font-medium truncate mt-0.5">
+                    <div className="text-xs text-blue-400 font-medium truncate mt-0.5">
                       {lead.course} • <span className="text-slate-400">{lead.university}</span>
                     </div>
                   </div>
@@ -428,7 +404,7 @@ export default function AdminDashboardOverviewPage() {
                     >
                       <PhoneCall size={14} />
                     </a>
-                    <span className="inline-block px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-950 text-blue-300 border border-blue-800/60 font-mono">
+                    <span className="inline-block px-2.5 py-1 rounded-full text-xs font-bold bg-blue-950 text-blue-300 border border-blue-800/60 font-mono">
                       {lead.status}
                     </span>
                   </div>
@@ -439,20 +415,20 @@ export default function AdminDashboardOverviewPage() {
         </div>
 
         {/* Upcoming Batches */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 sm:p-6 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center">
                 <Calendar size={16} />
               </div>
               <div>
-                <h3 className="text-sm font-black text-white">Lớp Sắp Khai Giảng</h3>
-                <p className="text-[11px] text-slate-400">Theo dõi số lượng chỗ trống từng lớp</p>
+                <h3 className="text-sm font-bold text-white">Lớp Sắp Khai Giảng</h3>
+                <p className="text-xs text-slate-400">Theo dõi số lượng chỗ trống từng lớp</p>
               </div>
             </div>
             <Link
               href="/admin/schedules"
-              className="text-xs font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-slate-800 transition-all"
+              className="text-xs font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1 py-1 px-2.5 rounded-lg hover:bg-slate-800 transition-all"
             >
               Quản lý lịch <ArrowRight size={13} />
             </Link>
@@ -471,12 +447,12 @@ export default function AdminDashboardOverviewPage() {
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-black text-white truncate">{batch.courseName}</span>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-blue-950 text-blue-300 border border-blue-800/50 font-mono">
+                      <span className="text-xs font-bold text-white truncate">{batch.courseName}</span>
+                      <span className="px-1.5 py-0.5 rounded text-xs font-bold bg-blue-950 text-blue-300 border border-blue-800/50 font-mono">
                         {batch.batchCode}
                       </span>
                     </div>
-                    <div className="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5">
+                    <div className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
                       <Clock size={11} className="text-slate-500" />
                       <span>{batch.startTime} - {batch.endTime}</span>
                       <span>• Khai giảng: {new Date(batch.startDate).toLocaleDateString("vi-VN")}</span>
@@ -484,10 +460,10 @@ export default function AdminDashboardOverviewPage() {
                   </div>
 
                   <div className="shrink-0 text-right">
-                    <div className="text-xs font-black text-emerald-400 font-mono">
+                    <div className="text-xs font-bold text-emerald-400 font-mono">
                       Còn {batch.availableSlots} chỗ
                     </div>
-                    <span className="text-[10px] text-slate-500 mt-0.5 block">
+                    <span className="text-xs text-slate-500 mt-0.5 block">
                       Sĩ số: {batch.capacity} HV
                     </span>
                   </div>

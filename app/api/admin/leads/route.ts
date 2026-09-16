@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { LeadsStore, LeadStatus } from "@/lib/leads-store";
 import { authorizeAdminRequest, hasPermission } from "@/lib/rbac";
 import { AuditService } from "@/lib/audit-service";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -20,8 +21,8 @@ export async function GET(req: NextRequest) {
       canExport,
       data: leads,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -70,8 +71,8 @@ export async function PUT(req: NextRequest) {
     }
 
     return NextResponse.json({ success: true, message: "Đã thêm hoạt động tư vấn mới" });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -103,7 +104,7 @@ export async function DELETE(req: NextRequest) {
     });
 
     return NextResponse.json({ success: deleted });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }

@@ -73,6 +73,20 @@ export function maskPhoneNumber(phone: string): string {
   return phone.slice(0, 4) + "***" + phone.slice(-3);
 }
 
+function isLeadRecord(value: unknown): value is LeadRecord {
+  if (!value || typeof value !== "object") return false;
+  const record = value as Record<string, unknown>;
+  return (
+    typeof record.id === "string" &&
+    typeof record.name === "string" &&
+    typeof record.phone === "string" &&
+    typeof record.course === "string" &&
+    typeof record.date === "string" &&
+    typeof record.note === "string" &&
+    typeof record.createdAt === "string"
+  );
+}
+
 const INITIAL_LEADS: LeadRecord[] = [
   {
     id: "lead-1",
@@ -156,12 +170,15 @@ export class LeadsStore {
     try {
       if (fs.existsSync(LEADS_FILE)) {
         const raw = fs.readFileSync(LEADS_FILE, "utf-8");
-        const parsed = JSON.parse(raw);
-        list = parsed.map((item: Partial<LeadRecord> & Record<string, unknown>) => ({
+        const parsed: unknown = JSON.parse(raw);
+        if (!Array.isArray(parsed)) {
+          throw new Error("Dữ liệu leads không đúng định dạng mảng.");
+        }
+        list = parsed.filter(isLeadRecord).map((item) => ({
           ...item,
-          status: normalizeLeadStatus(item.status as string),
-          activities: Array.isArray(item.activities) ? (item.activities as LeadRecord["activities"]) : [],
-        })) as LeadRecord[];
+          status: normalizeLeadStatus(item.status),
+          activities: Array.isArray(item.activities) ? item.activities : [],
+        }));
       } else {
         list = [...memoryLeads];
       }

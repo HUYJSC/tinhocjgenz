@@ -124,7 +124,7 @@ function MobileDrawer({ open, pathname, onClose }: { open: boolean; pathname: st
         <div className="mobile-sheet-heading">
           <div>
             <p className="mobile-kicker">Điều hướng</p>
-            <h2 id="mobile-menu-title" className="text-lg font-black text-slate-950">Khám phá Tin Học Gen Z</h2>
+            <h2 id="mobile-menu-title" className="text-lg font-bold text-slate-950">Khám phá Tin Học Gen Z</h2>
           </div>
           <button ref={closeRef} type="button" className="mobile-icon-button" onClick={onClose} aria-label="Đóng menu">
             <X size={22} aria-hidden="true" />
@@ -208,7 +208,7 @@ function MobileSearch({ open, onClose }: { open: boolean; onClose: () => void })
         <div className="mobile-sheet-heading">
           <div>
             <p className="mobile-kicker">Tìm nhanh</p>
-            <h2 id="mobile-search-title" className="text-lg font-black text-slate-950">Bạn muốn học gì?</h2>
+            <h2 id="mobile-search-title" className="text-lg font-bold text-slate-950">Bạn muốn học gì?</h2>
           </div>
           <button ref={closeRef} type="button" onClick={onClose} className="mobile-icon-button" aria-label="Đóng tìm kiếm"><X size={22} /></button>
         </div>
@@ -241,7 +241,7 @@ function NotificationSheet({ open, onClose }: { open: boolean; onClose: () => vo
       <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby="notification-title" className="mobile-bottom-sheet">
         <div className="mobile-sheet-handle" aria-hidden="true" />
         <div className="mobile-sheet-heading">
-          <div><p className="mobile-kicker">Cập nhật</p><h2 id="notification-title" className="text-lg font-black text-slate-950">Thông báo</h2></div>
+          <div><p className="mobile-kicker">Cập nhật</p><h2 id="notification-title" className="text-lg font-bold text-slate-950">Thông báo</h2></div>
           <button ref={closeRef} type="button" onClick={onClose} className="mobile-icon-button" aria-label="Đóng thông báo"><X size={22} /></button>
         </div>
         <div className="mobile-empty-state py-8"><Bell size={30} /><strong>Chưa có thông báo mới</strong><span>Thông báo lớp học sẽ hiển thị trong hệ thống học trực tuyến.</span></div>

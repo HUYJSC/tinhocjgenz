@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Sparkles, FileText } from "lucide-react";
+import { FileText, ArrowRight, Sparkles } from "lucide-react";
 
 export default function ExamGuide() {
   const steps = [
@@ -36,11 +36,11 @@ export default function ExamGuide() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-50 border border-cyan-100 text-cyan-800 text-xs font-black tracking-wider uppercase">
-            <FileText size={14} className="text-cyan-600" />
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-800 text-xs font-bold tracking-wider uppercase">
+            <FileText size={14} className="text-blue-600" />
             CẨM NANG KHẢO THÍ • HƯỚNG DẪN TỪ A ĐẾN Z
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight leading-snug font-display">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 tracking-tight leading-snug font-display">
             Quy Trình 4 Bước Đăng Ký & Thi Đạt Chuẩn Đầu Ra
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
@@ -53,20 +53,20 @@ export default function ExamGuide() {
           {steps.map((item, index) => (
             <div
               key={index}
-              className="bg-slate-50/70 hover:bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 hover:border-blue-500/30 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between group relative"
+              className="bg-slate-50/70 hover:bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/80 hover:border-blue-500/30 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between group relative"
             >
               <div>
                 {/* Step Number */}
                 <div className="flex items-center justify-between mb-5">
-                  <span className="text-3xl sm:text-4xl font-black text-blue-600/30 group-hover:text-blue-600 font-mono transition-colors">
+                  <span className="text-3xl sm:text-4xl font-bold text-blue-600/30 group-hover:text-blue-600 font-mono transition-colors">
                     {item.step}
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-black">
+                  <div className="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold">
                     ✓
                   </div>
                 </div>
 
-                <h3 className="text-base font-black text-slate-900 leading-snug mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="text-base font-bold text-slate-900 leading-snug mb-3 group-hover:text-blue-600 transition-colors">
                   {item.title}
                 </h3>
 
@@ -76,7 +76,7 @@ export default function ExamGuide() {
               </div>
 
               {/* Note / Tip box */}
-              <div className="p-3 rounded-2xl bg-white border border-slate-200/70 text-[11px] text-slate-500 leading-normal">
+              <div className="p-3 rounded-2xl bg-white border border-slate-200/70 text-xs text-slate-500 leading-normal">
                 <span className="font-bold text-slate-800">💡 Lưu ý:</span> {item.tips}
               </div>
             </div>
@@ -84,12 +84,12 @@ export default function ExamGuide() {
         </div>
 
         {/* Helpful Resources & Support Callout */}
-        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-md">
           <div className="space-y-1.5 text-center sm:text-left">
-            <span className="text-xs font-black text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 justify-center sm:justify-start">
+            <span className="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5 justify-center sm:justify-start">
               <Sparkles size={14} /> HỖ TRỢ THỦ TỤC CERTIPORT 24/7
             </span>
-            <h4 className="text-lg sm:text-xl font-black text-white">
+            <h4 className="text-lg sm:text-xl font-bold text-white">
               Bạn Cần Hướng Dẫn Đăng Ký Tài Khoản & Tra Cứu Ca Thi Gần Nhất?
             </h4>
             <p className="text-slate-400 text-xs sm:text-sm">
@@ -98,7 +98,7 @@ export default function ExamGuide() {
           </div>
           <a
             href="/lien-he"
-            className="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:scale-105 transition-all shrink-0 flex items-center gap-2"
+            className="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:scale-105 transition-all shrink-0 flex items-center gap-2"
           >
             <span>Nhận Hướng Dẫn Miễn Phí</span>
             <ArrowRight size={14} />

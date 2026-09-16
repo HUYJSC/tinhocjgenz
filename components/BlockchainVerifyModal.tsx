@@ -1,19 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { 
-  ShieldCheck, 
-  CheckCircle2, 
-  X, 
-  Copy, 
-  Award, 
-  School, 
-  Calendar, 
-  Lock, 
-  FileCheck2,
-  Sparkles,
-  Hash
-} from "lucide-react";
+import { ShieldCheck, CheckCircle2, X, Copy, School, Calendar, FileCheck2, Sparkles, Hash } from "lucide-react";
 
 export interface VerifiableCertificate {
   id: string;
@@ -57,7 +45,7 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
       <div 
-        className="relative w-full max-w-xl bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-white overflow-hidden"
+        className="relative w-full max-w-xl bg-slate-950 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-lg text-white overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Glow */}
@@ -74,20 +62,20 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
 
         {/* Header Badges */}
         <div className="flex items-center gap-2 mb-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-black uppercase tracking-wider">
-            <ShieldCheck size={14} className="text-emerald-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">
+            <ShieldCheck size={14} className="text-blue-400" />
             <span>Xác Thực Khảo Thí Tin Học Gen Z</span>
           </div>
-          <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded-full border border-cyan-800">
+          <span className="text-xs font-mono text-blue-400 bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-800">
             SHA-256 CHECKSUM
           </span>
         </div>
 
         {/* Modal Title */}
         <div className="space-y-1 mb-6">
-          <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white font-display flex items-center gap-2">
+          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-display flex items-center gap-2">
             <span>Đối Soát Kết Quả & Chứng Nhận Học Viên</span>
-            <Sparkles size={18} className="text-amber-400" />
+            <Sparkles size={18} className="text-blue-400" />
           </h3>
           <p className="text-slate-400 text-xs sm:text-sm">
             Hệ thống quản lý điểm số và hồ sơ hoàn thành khóa học đạt chuẩn khảo thí quốc tế.
@@ -98,7 +86,7 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
         <div className="flex bg-slate-800/80 p-1 rounded-2xl mb-6 border border-slate-700/60">
           <button
             onClick={() => setActiveTab("credential")}
-            className={`flex-1 py-2 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === "credential"
                 ? "bg-blue-600 text-white shadow-md"
                 : "text-slate-400 hover:text-white"
@@ -109,7 +97,7 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
           </button>
           <button
             onClick={() => setActiveTab("hash")}
-            className={`flex-1 py-2 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === "hash"
                 ? "bg-blue-600 text-white shadow-md"
                 : "text-slate-400 hover:text-white"
@@ -125,43 +113,43 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
           <div className="space-y-4 bg-slate-950/60 p-5 rounded-2xl border border-slate-800">
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div>
-                <p className="text-slate-400 text-[11px]">Họ & Tên Học Viên:</p>
-                <p className="font-black text-sm text-white mt-0.5">{cert.studentName}</p>
+                <p className="text-slate-400 text-xs">Họ & Tên Học Viên:</p>
+                <p className="font-bold text-sm text-white mt-0.5">{cert.studentName}</p>
               </div>
               <div>
-                <p className="text-slate-400 text-[11px]">Điểm Khảo Thí:</p>
-                <p className="font-black text-sm text-amber-400 mt-0.5">
+                <p className="text-slate-400 text-xs">Điểm Khảo Thí:</p>
+                <p className="font-bold text-sm text-blue-400 mt-0.5">
                   {cert.score} / {cert.maxScore} Điểm
                 </p>
               </div>
               <div className="col-span-2">
-                <p className="text-slate-400 text-[11px]">Đơn vị Trường / Cơ quan:</p>
-                <p className="font-bold text-xs text-cyan-300 mt-0.5 flex items-center gap-1">
+                <p className="text-slate-400 text-xs">Đơn vị Trường / Cơ quan:</p>
+                <p className="font-bold text-xs text-blue-300 mt-0.5 flex items-center gap-1">
                   <School size={13} /> {cert.universityFull}
                 </p>
               </div>
               <div className="col-span-2">
-                <p className="text-slate-400 text-[11px]">Khóa Học & Môn Thi:</p>
+                <p className="text-slate-400 text-xs">Khóa Học & Môn Thi:</p>
                 <p className="font-bold text-xs text-white mt-0.5">{cert.courseName} ({cert.examCode})</p>
               </div>
               <div>
-                <p className="text-slate-400 text-[11px]">Thời gian hoàn thành:</p>
+                <p className="text-slate-400 text-xs">Thời gian hoàn thành:</p>
                 <p className="font-semibold text-slate-300 mt-0.5 flex items-center gap-1">
                   <Calendar size={12} /> {cert.completionDate}
                 </p>
               </div>
               <div>
-                <p className="text-slate-400 text-[11px]">Mã Hồ Sơ:</p>
+                <p className="text-slate-400 text-xs">Mã Hồ Sơ:</p>
                 <p className="font-mono font-bold text-blue-400 mt-0.5">{regId}</p>
               </div>
             </div>
 
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-emerald-400">
+            <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-blue-400">
               <span className="flex items-center gap-1.5 font-bold">
                 <CheckCircle2 size={15} />
                 Đạt chuẩn xét tốt nghiệp & Hoàn thành khóa học
               </span>
-              <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px] font-mono font-bold border border-emerald-800">
+              <span className="px-2 py-0.5 rounded bg-blue-950 text-blue-300 text-xs font-mono font-bold border border-blue-800">
                 HỢP LỆ
               </span>
             </div>
@@ -170,11 +158,11 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
           /* Tab 2: SHA-256 Checksum Hash */
           <div className="space-y-4 bg-slate-950/60 p-5 rounded-2xl border border-slate-800">
             <div className="space-y-1.5">
-              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
                 Mã Băm Bảo Vệ Toàn Vẹn Dữ Liệu (SHA-256):
               </p>
               <div className="flex items-center gap-2 bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-                <span className="font-mono text-xs text-cyan-300 break-all select-all flex-1">
+                <span className="font-mono text-xs text-blue-300 break-all select-all flex-1">
                   {verificationHash}
                 </span>
                 <button
@@ -186,13 +174,13 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
                 </button>
               </div>
               {copied && (
-                <p className="text-[11px] text-emerald-400 font-bold animate-fade-in">
+                <p className="text-xs text-blue-400 font-bold animate-fade-in">
                   ✓ Đã sao chép mã đối soát vào bộ nhớ tạm!
                 </p>
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-3 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
+            <div className="grid grid-cols-2 gap-3 text-xs text-slate-300 pt-2 border-t border-slate-800">
               <div>
                 <span className="text-slate-500">Thuật toán băm:</span>
                 <p className="font-bold text-white">SHA-256 Cryptographic Hash</p>
@@ -203,11 +191,11 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
               </div>
               <div>
                 <span className="text-slate-500">Đơn vị đào tạo:</span>
-                <p className="font-bold text-cyan-400">Tin Học Gen Z</p>
+                <p className="font-bold text-blue-400">Tin Học Gen Z</p>
               </div>
               <div>
                 <span className="text-slate-500">Tình trạng hồ sơ:</span>
-                <p className="font-bold text-emerald-400">Khảo thí hoàn thành</p>
+                <p className="font-bold text-blue-400">Khảo thí hoàn thành</p>
               </div>
             </div>
           </div>
@@ -215,12 +203,12 @@ export default function BlockchainVerifyModal({ cert, onClose }: Props) {
 
         {/* Footer CTA */}
         <div className="mt-6 pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[11px] text-slate-400 text-center sm:text-left">
+          <p className="text-xs text-slate-400 text-center sm:text-left">
             Doanh nghiệp và trường đại học có thể liên hệ xác thực hồ sơ học viên.
           </p>
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-black uppercase tracking-wider transition-all cursor-pointer"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
           >
             Đóng Cửa Sổ
           </button>

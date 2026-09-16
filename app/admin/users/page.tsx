@@ -1,23 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import {
-  Users,
-  ShieldCheck,
-  ShieldAlert,
-  Search,
-  CheckCircle2,
-  XCircle,
-  Lock,
-  Unlock,
-  KeyRound,
-  GraduationCap,
-  BookOpen,
-  Filter,
-  RefreshCw,
-  AlertTriangle
-} from "lucide-react";
-import { useAdminAuth } from "../context/AdminAuthContext";
+import React, { useState, useEffect, useCallback } from "react";
+import { Users, ShieldCheck, ShieldAlert, Search, CheckCircle2, XCircle, Lock, Unlock, KeyRound, GraduationCap, BookOpen, RefreshCw, AlertTriangle } from "lucide-react";
 
 interface AdminUserItem {
   id: string;
@@ -33,7 +17,6 @@ interface AdminUserItem {
 }
 
 export default function AdminUsersPage() {
-  const { user: currentAdmin } = useAdminAuth();
   const [users, setUsers] = useState<AdminUserItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeRoleTab, setActiveRoleTab] = useState<string>("ALL");
@@ -46,13 +29,13 @@ export default function AdminUsersPage() {
   const [actionLoading, setActionLoading] = useState(false);
   const [feedbackMsg, setFeedbackMsg] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async (search = "") => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
       if (activeRoleTab !== "ALL") params.set("role", activeRoleTab);
       if (statusFilter !== "ALL") params.set("status", statusFilter);
-      if (searchQuery.trim()) params.set("search", searchQuery.trim());
+      if (search.trim()) params.set("search", search.trim());
 
       const res = await fetch(`/api/admin/users?${params.toString()}`);
       const data = await res.json();
@@ -64,15 +47,16 @@ export default function AdminUsersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [activeRoleTab, statusFilter]);
 
   useEffect(() => {
-    fetchUsers();
-  }, [activeRoleTab, statusFilter]);
+    const timer = window.setTimeout(() => { void fetchUsers(); }, 0);
+    return () => window.clearTimeout(timer);
+  }, [fetchUsers]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchUsers();
+    void fetchUsers(searchQuery);
   };
 
   const handleToggleStatus = async (user: AdminUserItem) => {
@@ -133,15 +117,15 @@ export default function AdminUsersPage() {
   const getRoleBadge = (role: string) => {
     switch (role) {
       case "super_admin":
-        return <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40 flex items-center gap-1"><ShieldAlert size={11} /> Super Admin</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40 flex items-center gap-1"><ShieldAlert size={11} /> Super Admin</span>;
       case "admin":
-        return <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center gap-1"><ShieldCheck size={11} /> Quản Trị</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/40 flex items-center gap-1"><ShieldCheck size={11} /> Quản Trị</span>;
       case "academic":
-        return <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1"><BookOpen size={11} /> Giáo Vụ</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1"><BookOpen size={11} /> Giáo Vụ</span>;
       case "teacher":
-        return <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1"><Users size={11} /> Giảng Viên</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1"><Users size={11} /> Giảng Viên</span>;
       default:
-        return <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/40 flex items-center gap-1"><GraduationCap size={11} /> Học Viên</span>;
+        return <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-500/40 flex items-center gap-1"><GraduationCap size={11} /> Học Viên</span>;
     }
   };
 
@@ -155,7 +139,7 @@ export default function AdminUsersPage() {
               <Users size={22} />
             </div>
             <div>
-              <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+              <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Quản Lý Người Dùng & Phân Quyền Bốn Cổng
               </h1>
               <p className="text-xs sm:text-sm text-slate-400 mt-0.5">
@@ -167,7 +151,7 @@ export default function AdminUsersPage() {
 
         <button
           type="button"
-          onClick={fetchUsers}
+          onClick={() => { void fetchUsers(); }}
           className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-all border border-slate-700/60 self-start sm:self-auto"
         >
           <RefreshCw size={13} className={loading ? "animate-spin" : ""} />
@@ -255,7 +239,7 @@ export default function AdminUsersPage() {
 
             <button
               type="button"
-              onClick={fetchUsers}
+              onClick={() => { void fetchUsers(); }}
               className="h-10 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-colors shrink-0"
             >
               Lọc Dữ Liệu
@@ -268,7 +252,7 @@ export default function AdminUsersPage() {
       <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950/80 text-[11px] font-black uppercase tracking-wider text-slate-400 border-b border-slate-800">
+            <thead className="bg-slate-950/80 text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800">
               <tr>
                 <th className="py-3.5 px-4">Tài Khoản / Họ Tên</th>
                 <th className="py-3.5 px-4">Vai Trò Hệ Thống</th>
@@ -297,32 +281,32 @@ export default function AdminUsersPage() {
                   <tr key={u.id} className="hover:bg-slate-800/40 transition-colors">
                     <td className="py-3.5 px-4">
                       <div className="font-bold text-white text-sm">{u.fullName}</div>
-                      <div className="text-[11px] text-slate-400 font-mono">@{u.username}</div>
+                      <div className="text-xs text-slate-400 font-mono">@{u.username}</div>
                     </td>
                     <td className="py-3.5 px-4">
                       {getRoleBadge(u.role)}
                       {u.assignedClasses && u.assignedClasses.length > 0 && (
-                        <div className="text-[10px] text-slate-400 mt-1 max-w-[200px] truncate">
+                        <div className="text-xs text-slate-400 mt-1 max-w-[200px] truncate">
                           Lớp: {u.assignedClasses.join(", ")}
                         </div>
                       )}
                     </td>
                     <td className="py-3.5 px-4">
                       <div className="text-slate-300">{u.email}</div>
-                      <div className="text-[11px] text-slate-500">{u.phone}</div>
+                      <div className="text-xs text-slate-500">{u.phone}</div>
                     </td>
                     <td className="py-3.5 px-4">
                       {u.isActive ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                           <CheckCircle2 size={12} /> Hoạt động
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">
                           <XCircle size={12} /> Đã khóa
                         </span>
                       )}
                     </td>
-                    <td className="py-3.5 px-4 text-slate-400 text-[11px]">
+                    <td className="py-3.5 px-4 text-slate-400 text-xs">
                       {new Date(u.lastLogin).toLocaleString("vi-VN")}
                     </td>
                     <td className="py-3.5 px-4 text-right">
@@ -331,7 +315,7 @@ export default function AdminUsersPage() {
                           type="button"
                           onClick={() => handleOpenRoleModal(u)}
                           disabled={actionLoading}
-                          className="px-2.5 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 text-[11px] font-bold border border-blue-500/30 transition-all flex items-center gap-1"
+                          className="px-2.5 py-1.5 rounded-lg bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 text-xs font-bold border border-blue-500/30 transition-all flex items-center gap-1"
                           title="Thay đổi vai trò người dùng (Chỉ Super Admin)"
                         >
                           <KeyRound size={12} />
@@ -342,7 +326,7 @@ export default function AdminUsersPage() {
                           type="button"
                           onClick={() => handleToggleStatus(u)}
                           disabled={actionLoading || u.role === "super_admin"}
-                          className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold border transition-all flex items-center gap-1 ${
+                          className={`px-2.5 py-1.5 rounded-lg text-xs font-bold border transition-all flex items-center gap-1 ${
                             u.isActive
                               ? "bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border-rose-500/30"
                               : "bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border-emerald-500/30"
@@ -365,7 +349,7 @@ export default function AdminUsersPage() {
       {/* Role Assignment Modal */}
       {selectedUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-5">
+          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl space-y-5">
             <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
               <div className="p-2 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30">
                 <KeyRound size={20} />
@@ -406,14 +390,14 @@ export default function AdminUsersPage() {
                     />
                     <div>
                       <div className="text-xs font-bold text-slate-200">{opt.label}</div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">{opt.desc}</div>
+                      <div className="text-xs text-slate-500 mt-0.5">{opt.desc}</div>
                     </div>
                   </label>
                 ))}
               </div>
             </div>
 
-            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs flex items-center gap-2">
               <AlertTriangle size={15} className="shrink-0" />
               <span>Hành động thay đổi vai trò sẽ được ghi vĩnh viễn vào hệ thống Audit Log.</span>
             </div>

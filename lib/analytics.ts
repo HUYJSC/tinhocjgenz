@@ -87,45 +87,4 @@ export const AnalyticsEvents = {
     }),
   VIEW_ARTICLE: (slug: string, title: string) =>
     trackEvent("article_viewed", { category: "Content", label: slug, title }),
-
-  // 5. Learning Lifecycle Events (CodeLearn model)
-  COURSE_VIEW: (courseId: string, category?: string) =>
-    trackEvent("course_view", {
-      category: "Learning",
-      course_id: courseId,
-      course_category: category,
-    }),
-  LESSON_START: (courseId: string, lessonId: string) =>
-    trackEvent("lesson_start", {
-      category: "Learning",
-      course_id: courseId,
-      lesson_id: lessonId,
-    }),
-  LESSON_COMPLETE: (courseId: string, lessonId: string, timeSpentSeconds?: number) =>
-    trackEvent("lesson_complete", {
-      category: "Learning",
-      course_id: courseId,
-      lesson_id: lessonId,
-      time_spent_seconds: timeSpentSeconds,
-    }),
-  EXERCISE_SUBMIT: (courseId: string, lessonId: string, exerciseId: string) =>
-    trackEvent("exercise_submit", {
-      category: "Learning",
-      course_id: courseId,
-      lesson_id: lessonId,
-      exercise_id: exerciseId,
-    }),
-  EXERCISE_RESULT: (courseId: string, exerciseId: string, isCorrect: boolean) =>
-    trackEvent("exercise_result", {
-      category: "Learning",
-      course_id: courseId,
-      exercise_id: exerciseId,
-      is_correct: isCorrect,
-    }),
-  RESUME_LEARNING: (courseId: string, lessonId: string) =>
-    trackEvent("resume_learning", {
-      category: "Learning",
-      course_id: courseId,
-      lesson_id: lessonId,
-    }),
 };

@@ -2,19 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  FileText,
-  Plus,
-  Edit2,
-  Trash2,
-  Search,
-  ExternalLink,
-  Clock,
-  Tag,
-  Eye,
-  CheckCircle2,
-  X
-} from "lucide-react";
+import { FileText, Plus, Edit2, Trash2, Search, ExternalLink, Clock, X } from "lucide-react";
 import { BLOG_POSTS as initialBlogPosts, BlogPost } from "@/data/blogData";
 
 export default function AdminBlogCMSPage() {
@@ -83,7 +71,7 @@ export default function AdminBlogCMSPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-display">
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5 font-display">
             <FileText className="text-amber-400" />
             <span>Quản Trị Bài Viết & Tin Tức (CMS)</span>
           </h2>
@@ -94,7 +82,7 @@ export default function AdminBlogCMSPage() {
         <button
           type="button"
           onClick={handleOpenAdd}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-black shadow-lg shadow-amber-600/30 transition-all cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-lg shadow-amber-600/30 transition-all cursor-pointer"
         >
           <Plus size={16} />
           <span>Viết Bài Viết Mới</span>
@@ -125,14 +113,14 @@ export default function AdminBlogCMSPage() {
                 {post.tags.map((tag, i) => (
                   <span
                     key={i}
-                    className="px-2 py-0.5 rounded-md bg-slate-800 text-amber-300 text-[10px] font-bold"
+                    className="px-2 py-0.5 rounded-md bg-slate-800 text-amber-300 text-xs font-bold"
                   >
                     #{tag}
                   </span>
                 ))}
               </div>
 
-              <h3 className="text-base font-black text-white tracking-tight line-clamp-2 font-display">
+              <h3 className="text-base font-bold text-white tracking-tight line-clamp-2 font-display">
                 {post.title}
               </h3>
               <p className="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
@@ -186,9 +174,9 @@ export default function AdminBlogCMSPage() {
       {/* Edit/Add Modal */}
       {showModal && editingBlog && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
-              <h3 className="text-base font-black text-white flex items-center gap-2">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <FileText size={18} className="text-amber-400" />
                 <span>{editingBlog.title ? "Chỉnh Sửa Bài Viết" : "Tạo Bài Viết Mới"}</span>
               </h3>
@@ -273,7 +261,7 @@ export default function AdminBlogCMSPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-black shadow-md shadow-amber-600/30"
+                  className="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold shadow-md shadow-amber-600/30"
                 >
                   Lưu & Xuất Bản Bài Viết
                 </button>

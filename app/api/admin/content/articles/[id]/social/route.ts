@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
 import { SocialDistributionService } from "@/lib/content-engine/services/social-generator";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(
   _req: NextRequest,
@@ -22,9 +23,9 @@ export async function POST(
     }
 
     return NextResponse.json({ success: true, data: posts });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi tạo nội dung mạng xã hội" },
+      { success: false, error: getErrorMessage(err, "Lỗi tạo nội dung mạng xã hội") },
       { status: 500 }
     );
   }

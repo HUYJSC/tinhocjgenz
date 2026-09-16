@@ -1,9 +1,5 @@
 import fs from "fs";
-import {
-  hasPermission,
-  canModifyRole,
-  canLockAccount,
-} from "../lib/rbac-core.ts";
+import { hasPermission, canModifyRole, canLockAccount } from "../lib/rbac-core.ts";
 
 console.log("=== KIỂM THỬ XÁC MINH SPRINT 2: SERVER-SIDE RBAC & DATABASE ===");
 let passed = 0;

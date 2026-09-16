@@ -1,20 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  Calendar,
-  Plus,
-  Edit2,
-  Trash2,
-  Clock,
-  Video,
-  Users,
-  X,
-  RefreshCw,
-  Building,
-  CheckCircle2,
-  AlertTriangle
-} from "lucide-react";
+import { Calendar, Plus, Edit2, Trash2, Clock, Video, Users, X, RefreshCw, Building } from "lucide-react";
 import { AdminClassBatch } from "@/lib/schedules-store";
 
 interface BatchItemWithSlots extends AdminClassBatch {
@@ -48,7 +35,8 @@ export default function AdminSchedulesPage() {
   }, []);
 
   useEffect(() => {
-    fetchBatches();
+    const timer = window.setTimeout(() => { void fetchBatches(); }, 0);
+    return () => window.clearTimeout(timer);
   }, [fetchBatches]);
 
   const handleOpenAdd = () => {
@@ -129,8 +117,8 @@ export default function AdminSchedulesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-display">
-            <Calendar className="text-indigo-400" />
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5 font-display">
+            <Calendar className="text-blue-400" />
             <span>Quản Lý Lịch Khai Giảng & Lớp Học</span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 mt-1">
@@ -149,7 +137,7 @@ export default function AdminSchedulesPage() {
           <button
             type="button"
             onClick={handleOpenAdd}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black shadow-lg shadow-indigo-600/30 transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
           >
             <Plus size={16} />
             <span>Mở Lớp Khai Giảng Mới</span>
@@ -174,7 +162,7 @@ export default function AdminSchedulesPage() {
       {/* Batches Grid */}
       {loading ? (
         <div className="py-20 text-center text-slate-500">
-          <RefreshCw size={24} className="animate-spin mx-auto mb-3 text-indigo-500" />
+          <RefreshCw size={24} className="animate-spin mx-auto mb-3 text-blue-500" />
           <p className="text-xs">Đang tải danh sách lịch khai giảng...</p>
         </div>
       ) : batches.length === 0 ? (
@@ -191,11 +179,11 @@ export default function AdminSchedulesPage() {
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="px-2 py-0.5 rounded-md bg-indigo-950 text-indigo-300 border border-indigo-800/60 text-[10px] font-mono font-black uppercase">
+                  <span className="px-2 py-0.5 rounded-md bg-blue-950 text-blue-300 border border-blue-800/60 text-xs font-mono font-bold uppercase">
                     {batch.batchCode}
                   </span>
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                    className={`px-2 py-0.5 rounded-full text-xs font-bold ${
                       batch.status === "OPENING"
                         ? "bg-emerald-950 text-emerald-300 border border-emerald-800/60"
                         : "bg-amber-950 text-amber-300 border border-amber-800/60"
@@ -205,7 +193,7 @@ export default function AdminSchedulesPage() {
                   </span>
                 </div>
 
-                <h3 className="text-base font-black text-white tracking-tight font-display">
+                <h3 className="text-base font-bold text-white tracking-tight font-display">
                   {batch.courseName}
                 </h3>
 
@@ -241,7 +229,7 @@ export default function AdminSchedulesPage() {
                       </strong>
                     </span>
                   </div>
-                  <div className="text-[11px] text-slate-500 font-mono pl-5">
+                  <div className="text-xs text-slate-500 font-mono pl-5">
                     (Đã học: {batch.enrolledCount}, Giữ chỗ: {batch.reservedCount})
                   </div>
                 </div>
@@ -273,10 +261,10 @@ export default function AdminSchedulesPage() {
       {/* Edit/Add Modal */}
       {showModal && editingBatch && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
-              <h3 className="text-base font-black text-white flex items-center gap-2">
-                <Calendar size={18} className="text-indigo-400" />
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Calendar size={18} className="text-blue-400" />
                 <span>{editingBatch.id ? "Chỉnh Sửa Ca Học" : "Mở Lớp Khai Giảng"}</span>
               </h3>
               <button
@@ -452,7 +440,7 @@ export default function AdminSchedulesPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black shadow-md shadow-indigo-600/30"
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md shadow-blue-600/30"
                 >
                   {submitting ? "Đang lưu..." : "Lưu Ca Học"}
                 </button>

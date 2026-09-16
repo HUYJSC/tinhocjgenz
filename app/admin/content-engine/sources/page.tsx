@@ -1,25 +1,25 @@
 "use client";
 
+import { getErrorMessage } from "@/lib/errors";
+
 import { useState, useEffect } from "react";
-import {
-  Rss,
-  Plus,
-  Play,
-  CheckCircle2,
-  XCircle,
-  AlertCircle,
-  Edit2,
-  Trash2,
-  ExternalLink,
-  RefreshCw,
-  Zap,
-  Search,
-  Check,
-  X,
-  Radio,
-} from "lucide-react";
+import { Plus, Play, CheckCircle2, XCircle, AlertCircle, Edit2, Trash2, ExternalLink, RefreshCw, Zap, Search, X } from "lucide-react";
 import { Source, SourcePriority, SourceType } from "@/lib/content-engine/types";
 import { DEFAULT_CATEGORIES } from "@/lib/content-engine/default-sources";
+
+interface FeedSampleItem {
+  title?: string;
+  description?: string;
+}
+
+interface FeedTestResult {
+  ok: boolean;
+  feedType?: string;
+  itemCount?: number;
+  latestItemTitle?: string;
+  error?: string;
+  sampleItems?: FeedSampleItem[];
+}
 
 export default function SourcesManagementPage() {
   const [sources, setSources] = useState<Source[]>([]);
@@ -31,7 +31,7 @@ export default function SourcesManagementPage() {
   const [editingSource, setEditingSource] = useState<Partial<Source> | null>(null);
 
   // Modal State: Test Feed
-  const [testResult, setTestResult] = useState<any | null>(null);
+  const [testResult, setTestResult] = useState<FeedTestResult | null>(null);
   const [isTesting, setIsTesting] = useState(false);
   const [showTestModal, setShowTestModal] = useState(false);
 
@@ -59,7 +59,8 @@ export default function SourcesManagementPage() {
   };
 
   useEffect(() => {
-    loadSources();
+    const timer = window.setTimeout(() => { void loadSources(); }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const showToast = (message: string, type: "success" | "error" = "success") => {
@@ -149,8 +150,8 @@ export default function SourcesManagementPage() {
       });
       const data = await res.json();
       setTestResult(data.data || { ok: false, error: data.error });
-    } catch (err: any) {
-      setTestResult({ ok: false, error: err?.message || "Không thể kết nối" });
+    } catch (err) {
+      setTestResult({ ok: false, error: getErrorMessage(err, "Không thể kết nối") });
     } finally {
       setIsTesting(false);
     }
@@ -209,7 +210,7 @@ export default function SourcesManagementPage() {
       {/* Header & Controls */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-black text-slate-900">Quản Lý Nguồn Tin Tức (RSS / ATOM / API)</h2>
+          <h2 className="text-xl font-bold text-slate-900">Quản Lý Nguồn Tin Tức (RSS / ATOM / API)</h2>
           <p className="text-xs text-slate-500 font-medium mt-0.5">
             Cấu hình danh sách nguồn công nghệ, tần suất quét và chế độ AI biên tập tự động.
           </p>
@@ -257,7 +258,7 @@ export default function SourcesManagementPage() {
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200/80 uppercase text-[10px] tracking-wider">
+            <thead className="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200/80 uppercase text-xs tracking-wider">
               <tr>
                 <th className="px-4 py-3.5">Trạng Thái</th>
                 <th className="px-4 py-3.5">Tên Nguồn & Feed URL</th>
@@ -315,7 +316,7 @@ export default function SourcesManagementPage() {
                           <ExternalLink size={12} />
                         </a>
                       </div>
-                      <p className="text-[11px] text-slate-400 truncate mt-0.5" title={source.feedUrl}>
+                      <p className="text-xs text-slate-400 truncate mt-0.5" title={source.feedUrl}>
                         {source.feedUrl}
                       </p>
                     </td>
@@ -328,7 +329,7 @@ export default function SourcesManagementPage() {
                     {/* Priority */}
                     <td className="px-4 py-3.5">
                       <span
-                        className={`text-[10px] font-extrabold px-2 py-0.5 rounded-md ${
+                        className={`text-xs font-extrabold px-2 py-0.5 rounded-md ${
                           source.priority === "OFFICIAL"
                             ? "bg-blue-100 text-blue-800"
                             : source.priority === "HIGH"
@@ -355,7 +356,7 @@ export default function SourcesManagementPage() {
                               minute: "2-digit",
                             })}
                           </span>
-                          <span className="text-[10px] text-slate-400 block">
+                          <span className="text-xs text-slate-400 block">
                             {new Date(source.lastFetchAt).toLocaleDateString("vi-VN")}
                           </span>
                         </div>
@@ -371,7 +372,7 @@ export default function SourcesManagementPage() {
                         <button
                           onClick={() => handleTestFeed(source)}
                           title="Kiểm tra kết nối Feed (Test)"
-                          className="p-1.5 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
+                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
                         >
                           <Zap size={15} />
                         </button>
@@ -422,7 +423,7 @@ export default function SourcesManagementPage() {
       {/* MODAL 1: Add / Edit Source Modal */}
       {showModal && editingSource && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-xl max-w-xl w-full p-6 shadow-xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <h3 className="text-base font-extrabold text-slate-900">
                 {editingSource.id ? "Chỉnh Sửa Nguồn Tin" : "Thêm Nguồn Tin Mới"}
@@ -486,7 +487,7 @@ export default function SourcesManagementPage() {
                         sourceType: editingSource.sourceType,
                       })
                     }
-                    className="px-3 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl shrink-0 transition-colors cursor-pointer"
+                    className="px-3 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold rounded-xl shrink-0 transition-colors cursor-pointer"
                   >
                     Test Feed
                   </button>
@@ -551,7 +552,7 @@ export default function SourcesManagementPage() {
                     }
                     className="rounded text-blue-600"
                   />
-                  <span className="text-[11px] text-slate-700">Tự động quét</span>
+                  <span className="text-xs text-slate-700">Tự động quét</span>
                 </label>
 
                 <label className="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
@@ -563,7 +564,7 @@ export default function SourcesManagementPage() {
                     }
                     className="rounded text-blue-600"
                   />
-                  <span className="text-[11px] text-slate-700">AI biên tập</span>
+                  <span className="text-xs text-slate-700">AI biên tập</span>
                 </label>
 
                 <label className="flex items-center gap-2 p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50">
@@ -575,7 +576,7 @@ export default function SourcesManagementPage() {
                     }
                     className="rounded text-blue-600"
                   />
-                  <span className="text-[11px] text-slate-700">Tự đăng (Auto-Publish)</span>
+                  <span className="text-xs text-slate-700">Tự đăng (Auto-Publish)</span>
                 </label>
               </div>
 
@@ -602,10 +603,10 @@ export default function SourcesManagementPage() {
       {/* MODAL 2: Test Feed Result Modal */}
       {showTestModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-xl max-w-lg w-full p-6 shadow-xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <Zap size={18} className="text-indigo-600" />
+                <Zap size={18} className="text-blue-600" />
                 <h3 className="text-base font-extrabold text-slate-900">Kiểm Tra Kết Nối Feed</h3>
               </div>
               <button
@@ -652,10 +653,10 @@ export default function SourcesManagementPage() {
                     <div className="space-y-2 pt-2">
                       <h4 className="text-xs font-bold text-slate-700">Xem trước bài viết mẫu ({testResult.sampleItems.length}):</h4>
                       <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
-                        {testResult.sampleItems.map((item: any, idx: number) => (
+                        {testResult.sampleItems.map((item, idx) => (
                           <div key={idx} className="p-2.5 bg-slate-50 rounded-xl border border-slate-200/80 text-xs">
                             <p className="font-bold text-slate-900 truncate">{item.title}</p>
-                            <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">{item.description}</p>
+                            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">{item.description}</p>
                           </div>
                         ))}
                       </div>

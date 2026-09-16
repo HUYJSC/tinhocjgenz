@@ -32,7 +32,7 @@ async function runTests() {
     },
     afterState: {
       token: "secret_jwt_token_xyz",
-      otp: "888666",
+      otp: "654321",
       role: "admin",
     },
     ipAddress: "14.232.18.99",

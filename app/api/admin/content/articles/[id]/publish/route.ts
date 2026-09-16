@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(
   req: NextRequest,
@@ -42,9 +43,9 @@ export async function POST(
 
     ContentDb.saveArticle(article);
     return NextResponse.json({ success: true, data: article });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi xuất bản bài viết" },
+      { success: false, error: getErrorMessage(err, "Lỗi xuất bản bài viết") },
       { status: 500 }
     );
   }

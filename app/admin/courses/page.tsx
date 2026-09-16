@@ -1,20 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  BookOpen,
-  Plus,
-  Edit2,
-  Trash2,
-  Search,
-  X,
-  Tag,
-  RefreshCw,
-  Eye,
-  CheckCircle2,
-  Archive,
-  Layers
-} from "lucide-react";
+import { BookOpen, Plus, Edit2, Trash2, Search, X, Tag, RefreshCw } from "lucide-react";
 import { AdminCourseItem } from "@/lib/courses-store";
 
 export default function AdminCoursesPage() {
@@ -45,7 +32,8 @@ export default function AdminCoursesPage() {
   }, []);
 
   useEffect(() => {
-    fetchCourses();
+    const timer = window.setTimeout(() => { void fetchCourses(); }, 0);
+    return () => window.clearTimeout(timer);
   }, [fetchCourses]);
 
   const filteredCourses = courses.filter(
@@ -141,7 +129,7 @@ export default function AdminCoursesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-display">
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5 font-display">
             <BookOpen className="text-blue-500" />
             <span>Quản Lý Danh Mục Khóa Học & Học Phí</span>
           </h2>
@@ -161,7 +149,7 @@ export default function AdminCoursesPage() {
           <button
             type="button"
             onClick={handleOpenAdd}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30 transition-all cursor-pointer"
           >
             <Plus size={16} />
             <span>Thêm Khóa Học Mới</span>
@@ -223,7 +211,7 @@ export default function AdminCoursesPage() {
               className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition-all relative overflow-hidden group shadow-lg"
             >
               {c.popular && (
-                <div className="absolute top-0 right-0 bg-gradient-to-l from-amber-500 to-orange-500 text-slate-950 text-[9px] font-black px-2.5 py-0.5 rounded-bl-xl uppercase tracking-wider">
+                <div className="absolute top-0 right-0 bg-amber-500 text-slate-950 text-xs font-bold px-2.5 py-0.5 rounded-bl-xl uppercase tracking-wider">
                   Nổi Bật
                 </div>
               )}
@@ -235,7 +223,7 @@ export default function AdminCoursesPage() {
                     <span className="truncate">{c.categoryName}</span>
                   </div>
                   <span
-                    className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase ${
+                    className={`px-2 py-0.5 rounded-full text-xs font-mono font-bold uppercase ${
                       c.status === "PUBLISHED"
                         ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
                         : "bg-amber-500/20 text-amber-400 border border-amber-500/30"
@@ -245,10 +233,10 @@ export default function AdminCoursesPage() {
                   </span>
                 </div>
 
-                <h3 className="text-base font-black text-white tracking-tight line-clamp-2 font-display">
+                <h3 className="text-base font-bold text-white tracking-tight line-clamp-2 font-display">
                   {c.title}
                 </h3>
-                <div className="text-[11px] font-mono text-slate-500 mt-1">
+                <div className="text-xs font-mono text-slate-500 mt-1">
                   Mã: {c.code || c.id}
                 </div>
                 <p className="text-xs text-slate-400 mt-2 line-clamp-2 leading-relaxed">
@@ -257,13 +245,13 @@ export default function AdminCoursesPage() {
 
                 <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] text-slate-500 font-bold block uppercase">Học Phí</span>
-                    <span className="text-sm font-black text-emerald-400 font-display">
+                    <span className="text-xs text-slate-500 font-bold block uppercase">Học Phí</span>
+                    <span className="text-sm font-bold text-emerald-400 font-display">
                       {new Intl.NumberFormat("vi-VN").format(c.priceAmount)} VNĐ
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] text-slate-500 font-bold block uppercase">Thời Lượng</span>
+                    <span className="text-xs text-slate-500 font-bold block uppercase">Thời Lượng</span>
                     <span className="text-xs font-bold text-slate-300">
                       {c.duration} ({c.totalSessions} buổi)
                     </span>
@@ -297,9 +285,9 @@ export default function AdminCoursesPage() {
       {/* Edit/Add Modal */}
       {showModal && editingCourse && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-xl p-6 shadow-xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
-              <h3 className="text-base font-black text-white flex items-center gap-2">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <BookOpen size={18} className="text-blue-400" />
                 <span>{editingCourse.id ? "Chỉnh Sửa Khóa Học" : "Thêm Khóa Học Mới"}</span>
               </h3>
@@ -447,7 +435,7 @@ export default function AdminCoursesPage() {
                   type="button"
                   disabled={submitting}
                   onClick={() => handleSave("PUBLISHED")}
-                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-black shadow-md shadow-blue-600/30"
+                  className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-md shadow-blue-600/30"
                 >
                   {submitting ? "Đang lưu..." : "Xuất Bản (Publish)"}
                 </button>

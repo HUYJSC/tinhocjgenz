@@ -4,7 +4,7 @@ import { generateCourseSchema } from "@/lib/schema";
 import Breadcrumb from "@/components/Breadcrumb";
 import TopicClusterNav from "@/components/TopicClusterNav";
 import ContactForm from "@/components/ContactForm";
-import { Presentation, CheckCircle2, ShieldCheck, Sparkles, Palette, Video } from "lucide-react";
+import { Presentation, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export const metadata: Metadata = buildMetadata({
   title: "Khóa Học Thiết Kế Slide PowerPoint Chuyên Nghiệp & Thuyết Trình | Tin Học Gen Z",
@@ -44,18 +44,18 @@ export default function PowerPointPillarPage() {
       <TopicClusterNav currentClusterId="powerpoint" />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-amber-950 via-slate-900 to-slate-900 text-white pt-16 pb-20 relative overflow-hidden">
+      <section className="bg-blue-950 text-white pt-16 pb-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold">
-                <Presentation className="w-4 h-4 text-amber-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
+                <Presentation className="w-4 h-4 text-blue-400" />
                 <span>THIẾT KẾ SLIDE THỜI ĐẠI MỚI</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
                 Thiết Kế Slide Thuyết Trình{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-300">
+                <span className="text-transparent bg-clip-text bg-blue-400">
                   Cuốn Hút & Đẳng Cấp
                 </span>
               </h1>
@@ -67,7 +67,7 @@ export default function PowerPointPillarPage() {
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <a
                   href="#dang-ky"
-                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-gradient-to-r from-amber-400 to-amber-300 hover:from-amber-300 shadow-lg transition-all"
+                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-lg transition-all"
                 >
                   Đăng Ký Khóa Học Ngay &rarr;
                 </a>
@@ -75,22 +75,22 @@ export default function PowerPointPillarPage() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-2xl">
+              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                  <ShieldCheck className="w-5 h-5 text-blue-400" />
                   Bạn Sẽ Làm Chủ
                 </h3>
                 <ul className="space-y-3 text-sm text-slate-300">
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Tư duy bố cục, phân cấp thông tin và phối màu chuẩn nhận diện thương hiệu.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Làm chủ kỹ thuật Morph, Zoom transition tạo chuyển động như video 3D.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
                     <span>Kho tài nguyên hơn 10.000+ template, icon vector và infographic bản quyền.</span>
                   </li>
                 </ul>

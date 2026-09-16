@@ -1,26 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import {
-  FileText,
-  Search,
-  Filter,
-  Sparkles,
-  CheckCircle2,
-  XCircle,
-  Clock,
-  Eye,
-  Edit2,
-  Trash2,
-  ExternalLink,
-  RefreshCw,
-  SlidersHorizontal,
-  ChevronRight,
-  Send,
-  Calendar,
-} from "lucide-react";
-import { Article, Source, Category } from "@/lib/content-engine/types";
+import { Search, Sparkles, CheckCircle2, Edit2, Trash2, ExternalLink, RefreshCw, Send } from "lucide-react";
+import { Article, Source } from "@/lib/content-engine/types";
 import { DEFAULT_CATEGORIES } from "@/lib/content-engine/default-sources";
 
 export default function ArticlesManagementPage() {
@@ -32,7 +15,6 @@ export default function ArticlesManagementPage() {
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
   const [categoryFilter, setCategoryFilter] = useState<string>("ALL");
   const [sourceFilter, setSourceFilter] = useState<string>("ALL");
-  const [minScoreFilter, setMinScoreFilter] = useState<string>("");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   // Toast
@@ -42,15 +24,14 @@ export default function ArticlesManagementPage() {
     type: "success" | "error";
   }>({ show: false, message: "", type: "success" });
 
-  const loadData = async () => {
+  const loadData = useCallback(async (search = "") => {
     try {
       setIsLoading(true);
       const params = new URLSearchParams();
       if (statusFilter !== "ALL") params.append("status", statusFilter);
       if (categoryFilter !== "ALL") params.append("category", categoryFilter);
       if (sourceFilter !== "ALL") params.append("sourceId", sourceFilter);
-      if (minScoreFilter) params.append("minScore", minScoreFilter);
-      if (searchTerm) params.append("search", searchTerm);
+      if (search) params.append("search", search);
 
       const [resArticles, resSources] = await Promise.all([
         fetch(`/api/admin/content/articles?${params.toString()}`).then((r) => r.json()),
@@ -64,33 +45,21 @@ export default function ArticlesManagementPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [statusFilter, categoryFilter, sourceFilter]);
 
   useEffect(() => {
-    loadData();
-  }, [statusFilter, categoryFilter, sourceFilter, minScoreFilter]);
+    const timer = window.setTimeout(() => { void loadData(); }, 0);
+    return () => window.clearTimeout(timer);
+  }, [loadData]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    loadData();
+    void loadData(searchTerm);
   };
 
   const showToast = (message: string, type: "success" | "error" = "success") => {
     setActionToast({ show: true, message, type });
     setTimeout(() => setActionToast({ show: false, message: "", type: "success" }), 3500);
-  };
-
-  const handleQuickApprove = async (id: string, title: string) => {
-    try {
-      const res = await fetch(`/api/admin/content/articles/${id}/approve`, { method: "POST" });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`Đã duyệt bài viết: "${title.slice(0, 40)}..."`);
-        loadData();
-      }
-    } catch {
-      showToast("Lỗi duyệt bài", "error");
-    }
   };
 
   const handleQuickPublish = async (id: string, title: string) => {
@@ -107,23 +76,6 @@ export default function ArticlesManagementPage() {
       }
     } catch {
       showToast("Lỗi xuất bản", "error");
-    }
-  };
-
-  const handleQuickReject = async (id: string, title: string) => {
-    try {
-      const res = await fetch(`/api/admin/content/articles/${id}/reject`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ reason: "Admin từ chối" }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        showToast(`Đã từ chối bài viết: "${title.slice(0, 40)}..."`);
-        loadData();
-      }
-    } catch {
-      showToast("Lỗi từ chối bài", "error");
     }
   };
 
@@ -144,39 +96,39 @@ export default function ArticlesManagementPage() {
   const getStatusBadge = (status: Article["status"]) => {
     switch (status) {
       case "PUBLISHED":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-emerald-100 text-emerald-800">ĐÃ ĐĂNG</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-emerald-100 text-emerald-800">ĐÃ ĐĂNG</span>;
       case "APPROVED":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-blue-100 text-blue-800">ĐÃ DUYỆT</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-blue-100 text-blue-800">ĐÃ DUYỆT</span>;
       case "AI_DRAFT":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-indigo-100 text-indigo-800">AI DRAFT</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-blue-100 text-blue-800">AI DRAFT</span>;
       case "REVIEW":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-amber-100 text-amber-800">CHỜ DUYỆT</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-amber-100 text-amber-800">CHỜ DUYỆT</span>;
       case "REJECTED":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-slate-200 text-slate-700">TỪ CHỐI</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-slate-200 text-slate-700">TỪ CHỐI</span>;
       case "DUPLICATE":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-purple-100 text-purple-800">TRÙNG</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-blue-100 text-blue-800">TRÙNG</span>;
       default:
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-slate-100 text-slate-800">{status}</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-slate-100 text-slate-800">{status}</span>;
     }
   };
 
   const getScoreBadge = (score: number) => {
     if (score >= 80) {
       return (
-        <span className="inline-flex items-center gap-1 text-[11px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+        <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
           <Sparkles size={11} /> {score}
         </span>
       );
     }
     if (score >= 60) {
       return (
-        <span className="inline-flex items-center gap-1 text-[11px] font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+        <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
           {score}
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1 text-[11px] font-black text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
+      <span className="inline-flex items-center gap-1 text-xs font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded-md border border-rose-200">
         {score}
       </span>
     );
@@ -201,7 +153,7 @@ export default function ArticlesManagementPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-black text-slate-900">Danh Sách Bài Viết Thu Thập & Biên Tập</h2>
+          <h2 className="text-xl font-bold text-slate-900">Danh Sách Bài Viết Thu Thập & Biên Tập</h2>
           <p className="text-xs text-slate-500 font-medium mt-0.5">
             Quản lý, duyệt bài hai cột, lọc theo điểm AI và xuất bản lên trang tin tức công nghệ.
           </p>
@@ -209,7 +161,7 @@ export default function ArticlesManagementPage() {
 
         <div className="flex items-center gap-2">
           <button
-            onClick={loadData}
+            onClick={() => { void loadData(searchTerm); }}
             className="flex items-center gap-1.5 px-3 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
           >
             <RefreshCw size={13} className={isLoading ? "animate-spin" : ""} />
@@ -289,7 +241,7 @@ export default function ArticlesManagementPage() {
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200/80 uppercase text-[10px] tracking-wider">
+            <thead className="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200/80 uppercase text-xs tracking-wider">
               <tr>
                 <th className="px-4 py-3.5">Tiêu Đề Bài Viết</th>
                 <th className="px-4 py-3.5">Nguồn</th>
@@ -325,7 +277,7 @@ export default function ArticlesManagementPage() {
                       >
                         {article.title || article.originalTitle}
                       </Link>
-                      <span className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">
+                      <span className="text-xs text-slate-400 line-clamp-1 mt-0.5">
                         Gốc: {article.originalTitle}
                       </span>
                     </td>

@@ -1,22 +1,9 @@
+import NextImage from "next/image";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { 
-  ArrowLeft, 
-  Clock, 
-  Eye, 
-  Calendar, 
-  Tag, 
-  Share2, 
-  BookOpen, 
-  Award, 
-  ArrowRight, 
-  CheckCircle2, 
-  Sparkles, 
-  School,
-  ChevronRight
-} from "lucide-react";
-import { BLOG_POSTS, BlogPost } from "@/data/blogData";
+import { ArrowLeft, Clock, Eye, Calendar, Tag, BookOpen, Award, ArrowRight, Sparkles, ChevronRight } from "lucide-react";
+import { BLOG_POSTS } from "@/data/blogData";
 import { SITE_CONFIG } from "@/data/siteConfig";
 import { coursesData } from "@/data/mockData";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -153,7 +140,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
           
           <div className="flex flex-wrap items-center gap-3">
-            <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100">
+            <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-100">
               {post.categoryName}
             </span>
             <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
@@ -167,7 +154,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.18] font-display">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-[1.18] font-display">
             {post.title}
           </h1>
 
@@ -178,13 +165,16 @@ export default async function BlogPostPage({ params }: PageProps) {
           {/* Author Badge */}
           <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img
+              <NextImage
                 src={post.author.avatar}
                 alt={post.author.name}
+                width={44}
+                height={44}
+                sizes="44px"
                 className="w-11 h-11 rounded-full object-cover border-2 border-blue-100 shadow-xs"
               />
               <div>
-                <p className="text-sm font-black text-slate-900 leading-tight">
+                <p className="text-sm font-bold text-slate-900 leading-tight">
                   {post.author.name}
                 </p>
                 <p className="text-xs text-slate-500 mt-0.5">{post.author.role}</p>
@@ -208,21 +198,25 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* Article Main Body (Col 8) */}
-          <article className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/90 shadow-premium space-y-8">
+          <article className="lg:col-span-8 bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/90 shadow-premium space-y-8">
             
             {/* Featured Image */}
             <div className="rounded-2xl overflow-hidden shadow-md max-h-[420px]">
-              <img
+              <NextImage
                 src={post.coverImage}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                width={1200}
+                height={630}
+                sizes="(max-width: 1023px) 100vw, 800px"
+                preload
+                className="w-full h-auto max-h-[420px] object-cover"
               />
             </div>
 
             {/* Mobile TOC */}
             {post.tableOfContents && post.tableOfContents.length > 0 && (
               <div className="lg:hidden bg-slate-50 p-5 rounded-2xl border border-slate-200">
-                <p className="text-xs font-black uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-1.5">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-1.5">
                   <BookOpen size={14} className="text-blue-600" />
                   Mục lục bài viết
                 </p>
@@ -240,7 +234,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             {/* Rich Content Area */}
             <div 
-              className="prose prose-slate max-w-none prose-headings:font-display prose-headings:font-black prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:text-slate-900 prose-h2:pt-6 prose-h2:border-t prose-h2:border-slate-100 prose-p:text-slate-700 prose-p:text-sm sm:prose-p:text-base prose-p:leading-relaxed prose-li:text-sm sm:prose-li:text-base prose-strong:text-slate-900"
+              className="prose prose-slate max-w-none prose-headings:font-display prose-headings:font-bold prose-h2:text-xl sm:prose-h2:text-2xl prose-h2:text-slate-900 prose-h2:pt-6 prose-h2:border-t prose-h2:border-slate-100 prose-p:text-slate-700 prose-p:text-sm sm:prose-p:text-base prose-p:leading-relaxed prose-li:text-sm sm:prose-li:text-base prose-strong:text-slate-900"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
@@ -262,26 +256,26 @@ export default async function BlogPostPage({ params }: PageProps) {
 
             {/* In-Article Conversion Callout */}
             {relatedCourse && (
-              <div className="bg-gradient-to-br from-blue-900 to-slate-950 text-white rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
-                <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-cyan-300">
+              <div className="bg-blue-950 text-white rounded-2xl p-6 sm:p-8 space-y-4 shadow-md">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-300">
                   <Sparkles size={14} />
                   <span>Khóa Học Đề Xuất Dành Cho Bạn</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white font-display">
+                <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
                   {relatedCourse.title}
                 </h3>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
                   {relatedCourse.description}
                 </p>
                 <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <div className="text-xl font-black text-amber-400">
+                  <div className="text-xl font-bold text-blue-400">
                     {typeof relatedCourse.price === "number"
                       ? relatedCourse.price.toLocaleString("vi-VN") + "đ"
                       : relatedCourse.price}
                   </div>
                   <Link
                     href={`/khoa-hoc/${relatedCourse.id}`}
-                    className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-wider bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all"
+                    className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all"
                   >
                     <span>Xem Chi Tiết Khóa Học</span>
                     <ArrowRight size={13} />
@@ -297,8 +291,8 @@ export default async function BlogPostPage({ params }: PageProps) {
             
             {/* Desktop Sticky Table of Contents */}
             {post.tableOfContents && post.tableOfContents.length > 0 && (
-              <div className="hidden lg:block bg-white rounded-3xl p-6 border border-slate-200/90 shadow-premium sticky top-[100px]">
-                <p className="text-xs font-black uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-2">
+              <div className="hidden lg:block bg-white rounded-2xl p-6 border border-slate-200/90 shadow-premium sticky top-[100px]">
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-900 mb-4 flex items-center gap-2">
                   <BookOpen size={15} className="text-blue-600" />
                   Mục Lục Bài Viết
                 </p>
@@ -316,14 +310,14 @@ export default async function BlogPostPage({ params }: PageProps) {
                 </ul>
 
                 <div className="mt-6 pt-6 border-t border-slate-100">
-                  <p className="text-[11px] text-slate-400 font-medium">
+                  <p className="text-xs text-slate-400 font-medium">
                     Bạn cần tài liệu hoặc thắc mắc về đề thi?
                   </p>
                   <a
                     href={SITE_CONFIG.contact.zaloUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-2 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-black uppercase tracking-wide transition-colors"
+                    className="mt-2 inline-flex items-center justify-center gap-1.5 w-full py-2.5 rounded-xl bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-bold uppercase tracking-wide transition-colors"
                   >
                     <span>Nhắn Giảng Viên Hỗ Trợ</span>
                   </a>
@@ -332,11 +326,11 @@ export default async function BlogPostPage({ params }: PageProps) {
             )}
 
             {/* Quick Test / Resource Promotion Card */}
-            <div className="bg-gradient-to-br from-slate-900 to-blue-950 text-white rounded-3xl p-6 border border-slate-800 space-y-4 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-cyan-400">
+            <div className="bg-blue-950 text-white rounded-2xl p-6 border border-slate-800 space-y-4 shadow-md">
+              <div className="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400">
                 <Award size={20} />
               </div>
-              <h4 className="text-lg font-black text-white font-display">
+              <h4 className="text-lg font-bold text-white font-display">
                 Thi Thử MOS & IC3 Online Miễn Phí
               </h4>
               <p className="text-slate-300 text-xs leading-relaxed">
@@ -344,7 +338,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </p>
               <Link
                 href="/thi-thu"
-                className="inline-flex items-center justify-center gap-1.5 w-full py-3 rounded-full text-xs font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white shadow-md transition-all"
+                className="inline-flex items-center justify-center gap-1.5 w-full py-3 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-600 text-white shadow-md transition-all"
               >
                 <span>Bắt Đầu Thi Thử Ngay</span>
                 <ArrowRight size={13} />
@@ -358,7 +352,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         {/* 4. Related Articles Section */}
         {relatedPosts.length > 0 && (
           <section className="mt-16 pt-12 border-t border-slate-200">
-            <h3 className="text-2xl font-black text-slate-900 mb-8 font-display">
+            <h3 className="text-2xl font-bold text-slate-900 mb-8 font-display">
               Bài Viết Liên Quan Cùng Chủ Đề
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -368,11 +362,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                   className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-blue-500/40 transition-all flex flex-col justify-between"
                 >
                   <div className="space-y-3">
-                    <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700">
+                    <span className="text-xs font-bold uppercase px-2 py-0.5 rounded bg-blue-50 text-blue-700">
                       {rPost.categoryName}
                     </span>
                     <Link href={`/blog/${rPost.slug}`} className="block">
-                      <h4 className="text-sm font-black text-slate-900 hover:text-blue-600 transition-colors line-clamp-2">
+                      <h4 className="text-sm font-bold text-slate-900 hover:text-blue-600 transition-colors line-clamp-2">
                         {rPost.title}
                       </h4>
                     </Link>

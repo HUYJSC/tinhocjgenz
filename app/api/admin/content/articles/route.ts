@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentDb } from "@/lib/content-engine/db";
 import { Article } from "@/lib/content-engine/types";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -52,9 +53,9 @@ export async function GET(req: NextRequest) {
       total: articles.length,
       data: articles,
     });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi lấy danh sách bài viết" },
+      { success: false, error: getErrorMessage(err, "Lỗi lấy danh sách bài viết") },
       { status: 500 }
     );
   }
@@ -107,9 +108,9 @@ export async function POST(req: NextRequest) {
 
     const saved = ContentDb.saveArticle(newArticle);
     return NextResponse.json({ success: true, data: saved });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi tạo bài viết mới" },
+      { success: false, error: getErrorMessage(err, "Lỗi tạo bài viết mới") },
       { status: 500 }
     );
   }

@@ -4,6 +4,7 @@ import {
   SESSION_COOKIE_NAME,
   SESSION_EXPIRATION_SECONDS,
 } from "@/lib/auth-server";
+import { getErrorMessage } from "@/lib/errors";
 import { AuditService } from "@/lib/audit-service";
 
 // IP Rate limiter (Max 10 requests per minute)
@@ -140,9 +141,9 @@ export async function POST(req: NextRequest) {
     });
 
     return response;
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
-      { success: false, error: err?.message || "Lỗi xử lý xác thực hệ thống" },
+      { success: false, error: getErrorMessage(err, "Lỗi xử lý xác thực hệ thống") },
       { status: 500 }
     );
   }

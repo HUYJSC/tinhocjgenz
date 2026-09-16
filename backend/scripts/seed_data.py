@@ -24,6 +24,13 @@ User = get_user_model()
 def seed():
     print("[SEED] Dang khoi tao du lieu mau cho PH Digital Education...")
 
+    admin_password = os.environ.get('SEED_ADMIN_PASSWORD')
+    teacher_password = os.environ.get('SEED_TEACHER_PASSWORD')
+    if not admin_password or not teacher_password:
+        raise RuntimeError(
+            'Set SEED_ADMIN_PASSWORD and SEED_TEACHER_PASSWORD before running seed_data.py'
+        )
+
     # 1. Admin & Teacher Accounts
     admin_user, _ = User.objects.get_or_create(
         username='admin',
@@ -36,7 +43,7 @@ def seed():
             'is_superuser': True,
         }
     )
-    admin_user.set_password('Admin@PHDigital2026')
+    admin_user.set_password(admin_password)
     admin_user.save()
     UserProfile.objects.get_or_create(user=admin_user, defaults={'organization': 'PH Digital Education'})
 
@@ -49,7 +56,7 @@ def seed():
             'role': UserRole.TEACHER,
         }
     )
-    teacher_user.set_password('Teacher@Huy2026')
+    teacher_user.set_password(teacher_password)
     teacher_user.save()
     UserProfile.objects.get_or_create(user=teacher_user, defaults={'organization': 'Certiport Master Trainer'})
 

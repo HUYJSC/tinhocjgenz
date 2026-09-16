@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { LeadsStore } from "@/lib/leads-store";
 import { authorizeAdminRequest } from "@/lib/rbac";
 import { AuditService } from "@/lib/audit-service";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -48,7 +49,7 @@ export async function GET(req: NextRequest) {
         "Content-Disposition": `attachment; filename="tinhocgenz-leads-${Date.now()}.csv"`,
       },
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }

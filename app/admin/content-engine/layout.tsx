@@ -118,14 +118,14 @@ export default function ContentEngineLayout({
               </Link>
               <div className="h-5 w-px bg-slate-200" />
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-500 flex items-center justify-center text-white shadow-sm shadow-blue-500/20">
+                <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm shadow-blue-500/20">
                   <Sparkles size={16} />
                 </div>
                 <div>
                   <h1 className="text-sm sm:text-base font-extrabold text-slate-900 leading-tight">
                     Tin học GenZ Content Engine
                   </h1>
-                  <p className="text-[11px] text-slate-500 font-medium leading-none">
+                  <p className="text-xs text-slate-500 font-medium leading-none">
                     AI Content Aggregator & Automated Newsroom
                   </p>
                 </div>
@@ -146,7 +146,7 @@ export default function ContentEngineLayout({
               <button
                 onClick={handleFetchAll}
                 disabled={isFetchingAll}
-                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm shadow-blue-500/20 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-sm shadow-blue-500/20 transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
               >
                 <RefreshCw
                   size={14}

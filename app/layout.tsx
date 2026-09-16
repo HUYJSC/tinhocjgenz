@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -16,11 +16,6 @@ const inter = Inter({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin", "vietnamese"],
-  display: "swap",
-});
 
 // Production-ready SEO Metadata
 export const metadata: Metadata = {
@@ -144,7 +139,7 @@ export default function RootLayout({
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
   return (
-    <html lang="vi" className={`${inter.variable} ${spaceGrotesk.variable} h-full scroll-smooth`}>
+    <html lang="vi" className={`${inter.variable} h-full scroll-smooth`}>
       <head>
         {/* Organization JSON-LD */}
         <script
@@ -199,7 +194,7 @@ export default function RootLayout({
         )}
       </head>
 
-      <body className="font-sans antialiased min-h-full flex flex-col bg-white text-slate-900">
+      <body className="min-h-full flex flex-col bg-white text-slate-900 antialiased">
         {/* GTM noscript fallback */}
         {gtmId && (
           <noscript>

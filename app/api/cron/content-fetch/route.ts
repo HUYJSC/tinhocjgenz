@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContentPipelineService } from "@/lib/content-engine/services/pipeline";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   return handleCron(req);
@@ -16,7 +17,13 @@ async function handleCron(req: NextRequest) {
 
   const cronSecret = process.env.CRON_SECRET;
 
-  // If CRON_SECRET is set in environment, enforce authentication
+  if (!cronSecret && process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { success: false, error: "Cron endpoint is not configured." },
+      { status: 503 }
+    );
+  }
+
   if (cronSecret) {
     const isBearerValid = authHeader === `Bearer ${cronSecret}`;
     const isQueryValid = querySecret === cronSecret;
@@ -36,11 +43,11 @@ async function handleCron(req: NextRequest) {
       timestamp: new Date().toISOString(),
       results,
     });
-  } catch (err: any) {
+  } catch (err) {
     return NextResponse.json(
       {
         success: false,
-        error: err?.message || "Lỗi tiến trình Cron content-fetch",
+        error: getErrorMessage(err, "Lỗi tiến trình Cron content-fetch"),
       },
       { status: 500 }
     );

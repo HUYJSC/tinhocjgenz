@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { MediaStore } from "@/lib/media-store";
 import { authorizeAdminRequest } from "@/lib/rbac";
 import { AuditService } from "@/lib/audit-service";
+import { getErrorMessage } from "@/lib/errors";
 
 export async function GET(req: NextRequest) {
   try {
@@ -20,8 +21,8 @@ export async function GET(req: NextRequest) {
       totalStorageFormatted: MediaStore.formatBytes(totalBytes),
       data: files,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -67,8 +68,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, data: result.file });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
 
@@ -102,7 +103,7 @@ export async function DELETE(req: NextRequest) {
     });
 
     return NextResponse.json({ success: true, message: "Đã xóa tệp thành công." });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err) {
+    return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }

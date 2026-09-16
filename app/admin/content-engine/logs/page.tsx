@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { History, RefreshCw, Filter, ShieldCheck, Clock, User, ArrowRight } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { AuditLog } from "@/lib/content-engine/types";
 
 export default function ContentEngineLogsPage() {
@@ -25,7 +25,8 @@ export default function ContentEngineLogsPage() {
   };
 
   useEffect(() => {
-    loadLogs();
+    const timer = window.setTimeout(() => { void loadLogs(); }, 0);
+    return () => window.clearTimeout(timer);
   }, []);
 
   const filteredLogs = logs.filter((log) => {
@@ -36,22 +37,22 @@ export default function ContentEngineLogsPage() {
   const getActionBadge = (action: AuditLog["action"]) => {
     switch (action) {
       case "publish":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-emerald-100 text-emerald-800">PUBLISH</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-emerald-100 text-emerald-800">PUBLISH</span>;
       case "approve":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-blue-100 text-blue-800">APPROVE</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-blue-100 text-blue-800">APPROVE</span>;
       case "reject":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-rose-100 text-rose-800">REJECT</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-rose-100 text-rose-800">REJECT</span>;
       case "ai_rewrite":
       case "ai_generate":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-purple-100 text-purple-800">AI ACTION</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-blue-100 text-blue-800">AI ACTION</span>;
       case "source_fetch":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-cyan-100 text-cyan-800">CRAWLER</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-blue-100 text-blue-800">CRAWLER</span>;
       case "source_add":
       case "source_edit":
       case "source_delete":
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-amber-100 text-amber-800">SOURCE</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-amber-100 text-amber-800">SOURCE</span>;
       default:
-        return <span className="px-2 py-0.5 text-[10px] font-extrabold rounded-md bg-slate-100 text-slate-800">{action}</span>;
+        return <span className="px-2 py-0.5 text-xs font-extrabold rounded-md bg-slate-100 text-slate-800">{action}</span>;
     }
   };
 
@@ -60,7 +61,7 @@ export default function ContentEngineLogsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-black text-slate-900">Nhật Ký Hoạt Động & Kiểm Toán (Audit Logs)</h2>
+          <h2 className="text-xl font-bold text-slate-900">Nhật Ký Hoạt Động & Kiểm Toán (Audit Logs)</h2>
           <p className="text-xs text-slate-500 font-medium mt-0.5">
             Theo dõi chi tiết toàn bộ lịch sử quét tin, AI chấm điểm, thao tác duyệt và xuất bản bài viết.
           </p>
@@ -95,7 +96,7 @@ export default function ContentEngineLogsPage() {
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200/80 uppercase text-[10px] tracking-wider">
+            <thead className="bg-slate-50/80 text-slate-500 font-bold border-b border-slate-200/80 uppercase text-xs tracking-wider">
               <tr>
                 <th className="px-4 py-3.5">Thời Gian</th>
                 <th className="px-4 py-3.5">Hành Động</th>
@@ -120,7 +121,7 @@ export default function ContentEngineLogsPage() {
               ) : (
                 filteredLogs.map((log) => (
                   <tr key={log.id} className="hover:bg-slate-50/60 transition-colors">
-                    <td className="px-4 py-3.5 whitespace-nowrap text-slate-500 font-mono text-[11px]">
+                    <td className="px-4 py-3.5 whitespace-nowrap text-slate-500 font-mono text-xs">
                       {new Date(log.timestamp).toLocaleString("vi-VN")}
                     </td>
                     <td className="px-4 py-3.5 whitespace-nowrap">

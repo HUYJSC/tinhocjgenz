@@ -1,32 +1,17 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import {
-  Users,
-  Phone,
-  Search,
-  Download,
-  Trash2,
-  RefreshCw,
-  Clock,
-  MessageSquare,
-  ChevronRight,
-  X,
-  Send,
-  ShieldCheck,
-  Building,
-  User
-} from "lucide-react";
+import { Users, Phone, Search, Download, Trash2, RefreshCw, Clock, X, Send, User } from "lucide-react";
 import { LeadRecord, LeadStatus } from "@/lib/leads-store";
 
 const PIPELINE_STAGES: { id: LeadStatus | "ALL"; label: string; color: string }[] = [
   { id: "ALL", label: "Tất Cả", color: "bg-slate-800 text-slate-300" },
   { id: "NEW", label: "Mới Tiếp Nhận", color: "bg-blue-950 text-blue-300 border-blue-800/60" },
   { id: "CONTACTING", label: "Đang Liên Hệ", color: "bg-amber-950 text-amber-300 border-amber-800/60" },
-  { id: "CONSULTED", label: "Đã Tư Vấn", color: "bg-purple-950 text-purple-300 border-purple-800/60" },
-  { id: "RESERVED", label: "Đã Giữ Chỗ", color: "bg-teal-950 text-teal-300 border-teal-800/60" },
+  { id: "CONSULTED", label: "Đã Tư Vấn", color: "bg-blue-950 text-blue-300 border-blue-800/60" },
+  { id: "RESERVED", label: "Đã Giữ Chỗ", color: "bg-blue-950 text-blue-300 border-blue-800/60" },
   { id: "PAID", label: "Đã Đóng Phí", color: "bg-emerald-950 text-emerald-300 border-emerald-800/60" },
-  { id: "ENROLLED", label: "Đã Vào Lớp", color: "bg-indigo-950 text-indigo-300 border-indigo-800/60" },
+  { id: "ENROLLED", label: "Đã Vào Lớp", color: "bg-blue-950 text-blue-300 border-blue-800/60" },
   { id: "LOST", label: "Hủy / Mất Lead", color: "bg-rose-950 text-rose-300 border-rose-800/60" },
 ];
 
@@ -49,10 +34,10 @@ export default function AdminLeadsCRMPage() {
         if (json.data) {
           setLeads(json.data);
           setCanExport(Boolean(json.canExport));
-          if (selectedLead) {
-            const fresh = json.data.find((l: LeadRecord) => l.id === selectedLead.id);
-            if (fresh) setSelectedLead(fresh);
-          }
+          setSelectedLead((current) => {
+            if (!current) return current;
+            return json.data.find((lead: LeadRecord) => lead.id === current.id) || current;
+          });
         }
       }
     } catch (e) {
@@ -60,11 +45,12 @@ export default function AdminLeadsCRMPage() {
     } finally {
       setLoading(false);
     }
-  }, [selectedLead]);
+  }, []);
 
   useEffect(() => {
-    loadLeads();
-  }, []);
+    const timer = window.setTimeout(() => { void loadLeads(); }, 0);
+    return () => window.clearTimeout(timer);
+  }, [loadLeads]);
 
   const filteredLeads = leads.filter((l) => {
     const matchesFilter = leadFilter === "ALL" || l.status === leadFilter;
@@ -122,16 +108,12 @@ export default function AdminLeadsCRMPage() {
     }
   };
 
-  const handleExportCSV = () => {
-    window.location.href = "/api/admin/leads/export";
-  };
-
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2.5 font-display">
+          <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2.5 font-display">
             <Users className="text-emerald-400" />
             <span>CRM Tiếp Nhận & Tư Vấn Học Viên</span>
           </h2>
@@ -149,14 +131,14 @@ export default function AdminLeadsCRMPage() {
             <RefreshCw size={15} className={loading ? "animate-spin" : ""} />
           </button>
           {canExport && (
-            <button
-              type="button"
-              onClick={handleExportCSV}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black transition-all shadow-md shadow-emerald-600/30 cursor-pointer"
+            <a
+              href="/api/admin/leads/export"
+              download
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md shadow-emerald-600/30 cursor-pointer"
             >
               <Download size={14} />
               <span>Xuất CSV (Excel)</span>
-            </button>
+            </a>
           )}
         </div>
       </div>
@@ -175,12 +157,12 @@ export default function AdminLeadsCRMPage() {
                 onClick={() => setLeadFilter(tab.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   active
-                    ? "bg-blue-600 text-white shadow-sm font-black"
+                    ? "bg-blue-600 text-white shadow-sm font-bold"
                     : "bg-slate-800/80 text-slate-400 hover:text-white"
                 }`}
               >
                 <span>{tab.label}</span>
-                <span className="text-[10px] px-1 rounded-full bg-slate-900/60 font-mono">
+                <span className="text-xs px-1 rounded-full bg-slate-900/60 font-mono">
                   {count}
                 </span>
               </button>
@@ -207,7 +189,7 @@ export default function AdminLeadsCRMPage() {
         <div className={`bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden ${selectedLead ? "lg:col-span-2" : "lg:col-span-3"}`}>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950 text-slate-400 uppercase tracking-wider font-black text-[10px] border-b border-slate-800">
+              <thead className="bg-slate-950 text-slate-400 uppercase tracking-wider font-bold text-xs border-b border-slate-800">
                 <tr>
                   <th className="py-3.5 px-4">Học Viên</th>
                   <th className="py-3.5 px-4">Khóa Học</th>
@@ -242,7 +224,7 @@ export default function AdminLeadsCRMPage() {
                         <div className="font-bold text-white text-sm flex items-center gap-1.5">
                           <span>{lead.name}</span>
                           {canExport && (
-                            <span className="text-[10px] text-emerald-400 font-mono font-normal">
+                            <span className="text-xs text-emerald-400 font-mono font-normal">
                               (Đầy đủ PII)
                             </span>
                           )}
@@ -251,7 +233,7 @@ export default function AdminLeadsCRMPage() {
                           <Phone size={11} className="text-blue-400" />
                           <span>{lead.phone}</span>
                         </div>
-                        <div className="text-[10px] text-slate-500 mt-0.5 truncate max-w-[200px]">
+                        <div className="text-xs text-slate-500 mt-0.5 truncate max-w-[200px]">
                           {lead.university} • {lead.date}
                         </div>
                       </td>
@@ -300,7 +282,7 @@ export default function AdminLeadsCRMPage() {
               <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                 <div className="flex items-center gap-2">
                   <User size={18} className="text-blue-400" />
-                  <h3 className="text-sm font-black text-white">{selectedLead.name}</h3>
+                  <h3 className="text-sm font-bold text-white">{selectedLead.name}</h3>
                 </div>
                 <button
                   type="button"
@@ -322,14 +304,14 @@ export default function AdminLeadsCRMPage() {
                   Trường/Nơi làm việc: <span className="text-slate-400">{selectedLead.university}</span>
                 </div>
                 <div>
-                  Nhu cầu ban đầu: <p className="text-slate-300 italic mt-0.5">&ldquo;{selectedLead.note}&rdquo;</p>
+                  Nhu cầu ban đầu: <p className="text-slate-300 italic mt-0.5">“{selectedLead.note}”</p>
                 </div>
               </div>
 
               {/* Timeline list */}
               <div className="mt-4">
-                <h4 className="text-[11px] font-black uppercase text-slate-400 tracking-wider mb-3 flex items-center gap-1.5">
-                  <Clock size={13} className="text-purple-400" />
+                <h4 className="text-xs font-bold uppercase text-slate-400 tracking-wider mb-3 flex items-center gap-1.5">
+                  <Clock size={13} className="text-blue-400" />
                   <span>Dòng Lịch Sử Hoạt Động (Timeline)</span>
                 </h4>
 
@@ -337,7 +319,7 @@ export default function AdminLeadsCRMPage() {
                   {selectedLead.activities && selectedLead.activities.length > 0 ? (
                     selectedLead.activities.map((act) => (
                       <div key={act.id} className="p-3 rounded-xl bg-slate-950/70 border border-slate-800/80 text-xs">
-                        <div className="flex items-center justify-between text-[10px] text-slate-500 mb-1">
+                        <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
                           <span className="font-bold text-slate-400">{act.actor}</span>
                           <span className="font-mono">{new Date(act.timestamp).toLocaleString("vi-VN")}</span>
                         </div>

@@ -1,97 +1,92 @@
 import Link from "next/link";
-import { Clock, Award, ArrowRight } from "lucide-react";
-import { Course } from "@/data/mockData";
-import PriceBlock from "@/components/PriceBlock";
+import { ArrowRight, Check, Clock } from "lucide-react";
+import type { Course } from "@/data/mockData";
 
 interface CourseCardProps {
   course: Course;
   index?: number;
 }
 
-export default function CourseCard({ course }: CourseCardProps) {
-  // Category mapping
-  const categoryLabel = course.id.includes("mos")
-    ? "Chứng Chỉ MOS Quốc Tế"
-    : course.id.includes("ic3")
-    ? "Kỹ Năng Số IC3 GS6"
-    : "Tin Học Thực Chiến";
+function formatPrice(value: string | number) {
+  if (typeof value === "string") return value;
+  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" })
+    .format(value)
+    .replace("₫", "đ");
+}
+
+function Price({ course }: { course: Course }) {
+  const price = String(course.price);
+
+  if (price.includes("|")) {
+    return (
+      <div className="space-y-2">
+        {price.split("|").map((part) => {
+          const [label, value] = part.split(":");
+          return (
+            <div key={part} className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+              <span className="text-slate-500">{label?.trim()}</span>
+              <strong className="text-right font-semibold text-slate-900">{value?.trim() || part.trim()}</strong>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
-    <div
-      className={`relative flex flex-col justify-between h-full bg-white rounded-2xl border ${
-        course.popular
-          ? "border-2 border-[#0057B8]"
-          : "border border-[#0057B8]"
-      } transition-colors overflow-hidden group`}
-    >
-      {/* Popular badge */}
-      {course.popular && (
-        <div className="absolute top-0 right-0 bg-[#0057B8] text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg z-10">
-          NỔI BẬT
-        </div>
-      )}
+    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+      <strong className="text-lg font-bold text-slate-950">{formatPrice(course.price)}</strong>
+      {course.originalPrice && <span className="text-sm text-slate-400 line-through">{formatPrice(course.originalPrice)}</span>}
+    </div>
+  );
+}
 
-      {/* Card Body */}
-      <div className="p-5 sm:p-6 pb-4 flex-1 flex flex-col relative z-10 text-[#0057B8]">
-        
-        {/* 1. Category Tag */}
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="inline-flex items-center border border-[#0057B8] px-2.5 py-0.5 rounded-md text-[10px] font-bold tracking-wider uppercase bg-white text-[#0057B8]">
-            {categoryLabel}
-          </span>
-          <div className="p-1.5 border border-[#0057B8] rounded-md shrink-0">
-            <Award size={16} className="text-[#0057B8]" />
-          </div>
+export default function CourseCard({ course }: CourseCardProps) {
+  const category = course.categoryName || course.badge || "Khóa học Tin Học Gen Z";
+
+  return (
+    <article className={`flex h-full flex-col overflow-hidden rounded-2xl border bg-white ${course.popular ? "border-blue-300 shadow-md" : "border-slate-200 shadow-sm"}`}>
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <div className="flex items-start justify-between gap-3">
+          <span className="inline-flex rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-700">{category}</span>
+          {course.popular && <span className="rounded-md bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white">Nổi bật</span>}
         </div>
 
-        {/* 2. Bold Title */}
-        <Link href={`/khoa-hoc/${course.id}`} className="block group/title">
-          <h3 className="text-base sm:text-[17px] font-black text-[#0057B8] hover:underline transition-colors tracking-tight leading-snug min-h-[2.5rem] flex items-center">
-            <span className="line-clamp-2">{course.title}</span>
-          </h3>
+        <Link href={`/khoa-hoc/${course.id}`} className="mt-4 block">
+          <h3 className="line-clamp-2 text-lg font-bold leading-6 text-slate-950 transition-colors hover:text-blue-700">{course.title}</h3>
         </Link>
 
-        {/* 3. Course Tagline: Outcome statement */}
-        <div className="mt-2 px-3 py-2 rounded-lg text-xs font-semibold leading-relaxed border border-[#0057B8] min-h-[3rem] flex items-center bg-white text-[#0057B8]">
-          <span className="line-clamp-2">{course.tagline}</span>
+        <p className="mt-3 line-clamp-2 text-sm font-medium leading-6 text-blue-800">{course.tagline}</p>
+
+        <div className="mt-3 inline-flex w-fit items-center gap-2 text-sm text-slate-500">
+          <Clock size={15} className="text-blue-600" aria-hidden="true" />
+          {course.duration}
         </div>
 
-        {/* 4. Duration Badge */}
-        <div className="inline-flex items-center gap-1.5 mt-2 w-max px-2.5 py-1 rounded-md border border-[#0057B8] text-[#0057B8] text-[10px] font-semibold">
-          <Clock size={12} className="text-[#0057B8]" />
-          <span>{course.duration}</span>
-        </div>
+        <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-600">{course.description}</p>
 
-        {/* 5. Max 2 Key Features Bullets (IA-01) */}
-        <ul className="space-y-1.5 my-3 pt-3 border-t border-[#0057B8] flex-1">
-          {course.features.slice(0, 2).map((feature, idx) => (
-            <li key={idx} className="flex items-start gap-2 text-[#0057B8] font-medium text-xs leading-normal">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] mt-1.5 shrink-0" />
+        <ul className="mt-5 space-y-2.5 border-t border-slate-100 pt-5">
+          {course.features.slice(0, 4).map((feature) => (
+            <li key={feature} className="flex gap-2.5 text-sm leading-5 text-slate-600">
+              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-700"><Check size={13} strokeWidth={2.5} aria-hidden="true" /></span>
               <span className="line-clamp-2">{feature}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* 6. Card Footer: Price + Single Primary CTA (IA-01) */}
-      <div className="p-5 sm:p-6 pt-0 bg-white border-t border-[#0057B8] rounded-b-2xl relative z-10">
-        <div className="flex flex-col gap-3 pt-3">
-          <PriceBlock
-            price={course.price}
-            originalPrice={course.originalPrice}
-            priceNote={course.priceNote}
-            size="sm"
-          />
-
-          <Link
-            href={`/khoa-hoc/${course.id}`}
-            className="w-full min-h-11 py-2.5 rounded-xl text-xs font-black tracking-wide uppercase transition-colors text-center bg-[#0057B8] hover:bg-white text-white hover:text-[#0057B8] border border-[#0057B8] flex items-center justify-center gap-1.5 cursor-pointer"
-          >
-            <span>Xem Chi Tiết</span>
-            <ArrowRight size={13} />
+      <div className="border-t border-slate-100 bg-slate-50 p-5 sm:p-6">
+        <Price course={course} />
+        {course.priceNote && <p className="mt-2 text-xs leading-5 text-blue-700">{course.priceNote}</p>}
+        <div className="mt-4 grid grid-cols-2 gap-2.5">
+          <Link href={`/khoa-hoc/${course.id}`} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100">
+            Chi tiết
+          </Link>
+          <Link href={`/lien-he?select=${course.id}`} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700">
+            Đăng ký <ArrowRight size={15} aria-hidden="true" />
           </Link>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
