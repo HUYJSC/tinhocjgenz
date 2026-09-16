@@ -28,7 +28,7 @@ export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
       {/* Visual Breadcrumb Navigation */}
       <nav
         aria-label="Breadcrumb"
-        className={`flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-slate-500 overflow-x-auto py-2.5 scrollbar-none ${className}`}
+        className={`flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm text-[#0057B8] overflow-x-auto py-2.5 scrollbar-none ${className}`}
       >
         {fullItems.map((item, index) => {
           const isLast = index === fullItems.length - 1;
@@ -36,19 +36,19 @@ export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
           return (
             <div key={item.url + index} className="flex items-center whitespace-nowrap">
               {index > 0 && (
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400 mx-1 flex-shrink-0" />
+                <ChevronRight className="w-3.5 h-3.5 text-[#0057B8] mx-1 flex-shrink-0" />
               )}
               {index === 0 ? (
                 <Link
                   href={item.url}
-                  className="flex items-center gap-1 text-slate-600 hover:text-blue-600 font-medium transition-colors"
+                  className="flex items-center gap-1 text-[#0057B8] hover:underline font-semibold transition-colors"
                 >
                   <Home className="w-3.5 h-3.5" />
                   <span className="sr-only sm:not-sr-only">{item.name}</span>
                 </Link>
               ) : isLast ? (
                 <span
-                  className="text-slate-900 font-semibold truncate max-w-[200px] sm:max-w-xs md:max-w-md"
+                  className="text-[#0057B8] font-bold truncate max-w-[200px] sm:max-w-xs md:max-w-md"
                   aria-current="page"
                 >
                   {item.name}
@@ -56,7 +56,7 @@ export default function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
               ) : (
                 <Link
                   href={item.url}
-                  className="text-slate-600 hover:text-blue-600 font-medium transition-colors"
+                  className="text-[#0057B8] hover:underline font-semibold transition-colors"
                 >
                   {item.name}
                 </Link>

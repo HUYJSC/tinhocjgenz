@@ -1,453 +1,199 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  ShieldCheck, 
-  Award, 
-  ArrowRight,
-  ChevronDown,
-  ExternalLink,
-  Sparkles
-} from "lucide-react";
+import { Phone, Mail, MapPin, Award, ExternalLink } from "lucide-react";
 import { SITE_CONFIG } from "@/data/siteConfig";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Accordion state for mobile (< 768px)
-  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>({
-    courses: true, // open by default for visibility
-    resources: false,
-    contact: true,
-  });
-
-  const toggleSection = (section: string) => {
-    setOpenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }));
-  };
-
   return (
     <footer 
-      className="bg-[#0B2545] text-[#D8E4F2] relative overflow-hidden font-sans border-t border-[#16365C]"
+      className="bg-[#0057B8] text-white relative font-sans border-t border-[#0057B8]"
       role="contentinfo"
     >
-      {/* Top subtle accent border */}
-      <div 
-        className="absolute top-0 left-0 right-0 h-[1px] bg-[#1D4A7D]" 
-        aria-hidden="true"
-      />
-
-      {/* Main Footer Container */}
-      <div className="w-[min(100%-48px,1280px)] mx-auto pt-14 pb-12 lg:pt-16 lg:pb-14 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
         
-        {/* RESPONSIVE GRID
-            - Desktop (>= 1200px): 4 balanced columns (minmax)
-            - Tablet (768px - 1199px): 2 balanced columns with 32px gap
-            - Mobile (< 768px): 1 column with clean accordions
-        */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(280px,1.45fr)_minmax(240px,1.15fr)_minmax(210px,0.9fr)_minmax(260px,1.1fr)] gap-8 lg:gap-12 pb-12 border-b border-[#16365C] items-start">
+        {/* RESPONSIVE GRID: 4 columns desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-10 border-b border-white/30 items-start">
           
-          {/* CỘT 1 — THƯƠNG HIỆU (BRAND & ACCREDITATION) */}
-          <div className="flex flex-col gap-4">
+          {/* CỘT 1: THƯƠNG HIỆU */}
+          <div className="flex flex-col gap-3">
             <Link 
               href="/" 
-              className="group flex items-center gap-3 w-max focus-visible:outline-2 focus-visible:outline-white rounded-lg"
+              className="flex items-center gap-2.5 w-max focus-visible:outline-2 focus-visible:outline-white"
               aria-label="Về trang chủ Tin Học Gen Z"
             >
               <img
                 src="/logo-icon.png"
                 alt="Logo Tin Học Gen Z"
-                width={48}
-                height={48}
-                className="h-11 sm:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-200"
+                width={40}
+                height={40}
+                className="h-10 w-auto object-contain bg-white rounded-lg p-0.5"
               />
               <div className="flex flex-col">
-                <span className="text-base sm:text-lg font-black tracking-tight text-white leading-tight font-display">
+                <span className="text-base font-black tracking-tight text-white leading-tight font-display">
                   TIN HỌC GEN Z
                 </span>
-                <div className="text-[10px] sm:text-[11px] font-bold text-[#D8E4F2] mt-1 flex items-center gap-1.5 leading-none">
-                  <span className="text-white font-black">MOS</span>
-                  <span className="text-[#526581]">•</span>
-                  <span className="text-white font-black">IC3</span>
-                  <span className="text-[#526581]">•</span>
-                  <span className="text-[#D8E4F2] font-medium">TIN HỌC VĂN PHÒNG</span>
-                </div>
+                <span className="text-[10px] font-bold text-white tracking-wider mt-0.5">
+                  MOS • IC3 • TIN HỌC VĂN PHÒNG
+                </span>
               </div>
             </Link>
 
-            <p className="text-[#D8E4F2] text-sm leading-relaxed max-w-sm mt-0.5">
-              Hệ sinh thái đào tạo Tin học văn phòng thực chiến và luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport. Đồng hành cùng sinh viên và người đi làm làm chủ kỹ năng số trong kỷ nguyên AI.
+            <p className="text-white text-xs leading-relaxed max-w-sm mt-1">
+              Đào tạo tin học văn phòng thực chiến và luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport. Hỗ trợ học lại miễn phí cho đến khi thi đạt chuẩn.
             </p>
 
-            {/* Accreditation Badge */}
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-[#07192F] border border-[#16365C] max-w-sm">
-              <div className="w-9 h-9 rounded-xl bg-[#0057B8]/30 border border-[#0057B8]/50 flex items-center justify-center text-white shrink-0">
-                <Award size={18} aria-hidden="true" />
-              </div>
-              <div className="leading-tight">
-                <span className="text-[10px] font-black uppercase tracking-wider text-[#D8E4F2] block">
-                  Tiêu Chuẩn Đào Tạo
-                </span>
-                <span className="text-xs font-bold text-white">
-                  Giảng Viên Certiport Master Trainer
-                </span>
+            <div className="flex items-center gap-2 p-2.5 rounded-xl border border-white max-w-sm mt-2">
+              <Award size={18} className="text-white shrink-0" />
+              <div className="text-xs font-bold leading-tight">
+                <span>Giảng viên đạt chuẩn Certiport Master</span>
               </div>
             </div>
 
-            {/* Social Channels */}
-            <div className="flex items-center gap-3 mt-1">
+            {/* Social Channels: Verified Fanpage only (LINK-01: generic youtube link removed) */}
+            <div className="flex items-center gap-3 mt-2">
               <a
                 href={SITE_CONFIG.socials.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-10 px-4 rounded-xl bg-slate-900 hover:bg-blue-600 text-slate-300 hover:text-white flex items-center gap-2 transition-all border border-slate-800 text-xs font-bold focus-visible:outline-2 focus-visible:outline-blue-500"
-                aria-label="Theo dõi Fanpage Tin Học Gen Z trên Facebook (mở trong tab mới)"
+                className="h-9 px-3 rounded-lg border border-white text-white hover:bg-white hover:text-[#0057B8] flex items-center gap-1.5 transition-colors text-xs font-bold"
+                aria-label="Theo dõi Fanpage Tin Học Gen Z trên Facebook"
               >
-                <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
-                </svg>
-                <span>Fanpage</span>
-                <ExternalLink size={11} className="text-slate-500" aria-hidden="true" />
+                <span>Fanpage Facebook</span>
+                <ExternalLink size={12} />
               </a>
 
               <a
-                href={SITE_CONFIG.socials.youtube}
+                href={SITE_CONFIG.contact.zaloUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-10 px-4 rounded-xl bg-slate-900 hover:bg-red-600 text-slate-300 hover:text-white flex items-center gap-2 transition-all border border-slate-800 text-xs font-bold focus-visible:outline-2 focus-visible:outline-red-500"
-                aria-label="Kênh video bài giảng Tin Học Gen Z trên YouTube (mở trong tab mới)"
+                className="h-9 px-3 rounded-lg border border-white text-white hover:bg-white hover:text-[#0057B8] flex items-center gap-1.5 transition-colors text-xs font-bold"
+                aria-label="Liên hệ Zalo Tin Học Gen Z"
               >
-                <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                  <path fillRule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C22 8.68 22 12 22 12s0 3.32-.42 4.814a2.504 2.504 0 0 1-1.768 1.768C18.32 19 12 19 12 19s-6.32 0-7.812-.418a2.504 2.504 0 0 1-1.768-1.768C2 15.32 2 12 2 12s0-3.32.42-4.814a2.504 2.504 0 0 1 1.768-1.768C5.68 5 12 5 12 5s6.32 0 7.812.418zM9.75 15.02l5.75-3.02-5.75-3v6z" clipRule="evenodd" />
-                </svg>
-                <span>Bài Giảng</span>
-                <ExternalLink size={11} className="text-slate-500" aria-hidden="true" />
+                <span>Zalo Tư Vấn</span>
+                <ExternalLink size={12} />
               </a>
             </div>
           </div>
 
-          {/* CỘT 2 — CHƯƠNG TRÌNH ĐÀO TẠO (COURSES NAV) */}
-          <nav aria-label="Chương trình đào tạo tin học" className="w-full">
-            {/* Mobile accordion button */}
-            <button
-              type="button"
-              onClick={() => toggleSection("courses")}
-              className="w-full flex items-center justify-between py-2 text-left font-black text-sm uppercase tracking-wider text-white md:cursor-default focus-visible:outline-2 focus-visible:outline-blue-500 rounded"
-              aria-expanded={openSections.courses}
-              aria-controls="footer-courses-list"
-            >
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-4 bg-blue-500 rounded-full" aria-hidden="true" />
-                Chương Trình Đào Tạo
-              </span>
-              <ChevronDown 
-                size={16} 
-                className={`md:hidden text-slate-400 transition-transform duration-200 ${openSections.courses ? "rotate-180" : ""}`}
-                aria-hidden="true"
-              />
-            </button>
-
-            {/* Link List */}
-            <ul 
-              id="footer-courses-list"
-              className={`mt-4 space-y-3 text-sm transition-all duration-200 ${
-                openSections.courses ? "block" : "hidden md:block"
-              }`}
-            >
+          {/* CỘT 2: CHƯƠNG TRÌNH ĐÀO TẠO */}
+          <nav aria-label="Chương trình đào tạo" className="w-full space-y-3">
+            <h3 className="font-black text-xs uppercase tracking-wider text-white border-b border-white/40 pb-2">
+              Chương trình đào tạo
+            </h3>
+            <ul className="space-y-2 text-xs font-medium">
               <li>
-                <Link 
-                  href="/mos" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Luyện thi MOS 2019/365</span>
+                <Link href="/khoa-hoc/mos-master-combo" className="hover:underline">
+                  Combo Luyện Thi MOS 3 Môn (Word, Excel, PPT)
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/ic3" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Chứng chỉ IC3 GS6</span>
+                <Link href="/khoa-hoc/mos-2019" className="hover:underline">
+                  Luyện Thi MOS Từng Môn Cấp Tốc
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/excel" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Master Excel & Dashboard</span>
+                <Link href="/khoa-hoc/ic3-gs6" className="hover:underline">
+                  Chứng Chỉ IC3 GS6 Chuẩn Đại Học
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/word" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Soạn thảo Word chuẩn NĐ 30</span>
+                <Link href="/khoa-hoc/excel-master" className="hover:underline">
+                  Master Excel & Dashboard Báo Cáo
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/powerpoint" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Thiết kế PowerPoint</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/python" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Python tự động hóa dữ liệu</span>
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/cntt-co-ban" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Ứng dụng CNTT cơ bản</span>
-                </Link>
-              </li>
-              <li className="pt-2 border-t border-slate-900">
-                <Link 
-                  href="/khoa-hoc" 
-                  className="text-blue-400 font-extrabold hover:text-blue-300 transition-colors inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-blue-400 rounded py-0.5"
-                >
-                  <span>Xem tất cả khóa học</span>
-                  <ArrowRight size={13} aria-hidden="true" />
+                <Link href="/khoa-hoc/cntt-co-ban" className="hover:underline">
+                  Ứng Dụng CNTT Cơ Bản (Thông Tư 03)
                 </Link>
               </li>
             </ul>
           </nav>
 
-          {/* CỘT 3 — HỌC LIỆU & THI THỬ (RESOURCES NAV) */}
-          <nav aria-label="Học liệu và thi thử" className="w-full">
-            {/* Mobile accordion button */}
-            <button
-              type="button"
-              onClick={() => toggleSection("resources")}
-              className="w-full flex items-center justify-between py-2 text-left font-black text-sm uppercase tracking-wider text-white md:cursor-default focus-visible:outline-2 focus-visible:outline-blue-500 rounded"
-              aria-expanded={openSections.resources}
-              aria-controls="footer-resources-list"
-            >
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-4 bg-[#0057B8] rounded-full" aria-hidden="true" />
-                Học Liệu & Thi Thử
-              </span>
-              <ChevronDown 
-                size={16} 
-                className={`md:hidden text-[#D8E4F2] transition-transform duration-200 ${openSections.resources ? "rotate-180" : ""}`}
-                aria-hidden="true"
-              />
-            </button>
-
-            {/* Link List */}
-            <ul 
-              id="footer-resources-list"
-              className={`mt-4 space-y-3 text-sm transition-all duration-200 ${
-                openSections.resources ? "block" : "hidden md:block"
-              }`}
-            >
+          {/* CỘT 3: HỌC LIỆU & HỆ THỐNG */}
+          <nav aria-label="Học liệu và hệ thống" className="w-full space-y-3">
+            <h3 className="font-black text-xs uppercase tracking-wider text-white border-b border-white/40 pb-2">
+              Học liệu & Hệ thống
+            </h3>
+            <ul className="space-y-2 text-xs font-medium">
               <li>
-                <Link 
-                  href="/thi-thu" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Thi thử online</span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-[#0057B8]/30 text-white border border-[#0057B8]/50">
-                    HOT
-                  </span>
+                <Link href="/thi-thu" className="hover:underline">
+                  Thi thử MOS / IC3 Online
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/tai-lieu" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Kho đề thi thử miễn phí</span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-[#107C41]/30 text-white border border-[#107C41]/50">
-                    Free
-                  </span>
+                <Link href="/tai-lieu" className="hover:underline">
+                  Kho đề thi mẫu & Phím tắt
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/blog" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Cẩm nang và mẹo ôn thi</span>
+                <Link href="/blog" className="hover:underline">
+                  Cẩm nang & Mẹo thi 1000 điểm
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/tin-cong-nghe" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Tin học và AI văn phòng</span>
-                  <span className="px-1.5 py-0.2 rounded text-[9px] font-black bg-[#0057B8]/30 text-white border border-[#0057B8]/50 flex items-center gap-0.5">
-                    <Sparkles size={8} aria-hidden="true" />
-                    AI
-                  </span>
+                <Link href="/bang-gia" className="hover:underline">
+                  Bảng giá & Chính sách học phí
                 </Link>
               </li>
               <li>
-                <Link 
-                  href="/bang-gia" 
-                  className="text-[#D8E4F2] hover:text-white transition-colors inline-flex items-center gap-1.5 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
-                >
-                  <span>Bảng giá, ưu đãi nhóm</span>
-                </Link>
-              </li>
-              <li className="pt-2 border-t border-[#16365C]">
-                <a 
-                  href="https://hoctructuyen.tinhocgenz.io.vn/" 
-                  target="_blank" 
+                <a
+                  href="https://hoctructuyen.tinhocgenz.io.vn/"
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white font-extrabold hover:underline transition-colors inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-white rounded py-0.5"
+                  className="hover:underline flex items-center gap-1"
                 >
-                  <span>Cổng học tập trực tuyến (LMS)</span>
-                  <ArrowRight size={13} aria-hidden="true" />
+                  <span>Cổng học viên LMS</span>
+                  <ExternalLink size={11} />
                 </a>
               </li>
             </ul>
           </nav>
 
-          {/* CỘT 4 — TƯ VẤN & HỌC VỤ (CONTACT & GUARANTEE) */}
-          <section aria-labelledby="footer-contact-title" className="w-full flex flex-col gap-4">
-            {/* Section heading */}
-            <div className="flex items-center justify-between py-2 text-left font-black text-sm uppercase tracking-wider text-white">
-              <span id="footer-contact-title" className="flex items-center gap-2">
-                <span className="w-1.5 h-4 bg-[#0057B8] rounded-full" aria-hidden="true" />
-                Tư Vấn & Học Vụ
-              </span>
-            </div>
-
-            {/* Contact Details List */}
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2.5 text-[#D8E4F2]">
-                <Phone size={16} className="text-white shrink-0 mt-1" aria-hidden="true" />
-                <div>
-                  <span className="text-[11px] text-[#D8E4F2] font-bold block uppercase tracking-wider">
-                    Hotline & Zalo Tuyển Sinh
-                  </span>
-                  <a 
-                    href={`tel:${SITE_CONFIG.contact.phone.replace(/\./g, '')}`}
-                    className="text-white font-bold hover:underline transition-colors text-sm sm:text-base focus-visible:outline-2 focus-visible:outline-white rounded"
-                  >
-                    {SITE_CONFIG.contact.displayPhone}
-                  </a>
-                </div>
+          {/* CỘT 4: THÔNG TIN LIÊN HỆ */}
+          <div className="space-y-3 text-xs">
+            <h3 className="font-black uppercase tracking-wider text-white border-b border-white/40 pb-2">
+              Liên hệ tư vấn
+            </h3>
+            <ul className="space-y-2.5">
+              <li className="flex items-start gap-2">
+                <Phone size={14} className="shrink-0 mt-0.5" />
+                <span>Hotline / Zalo: <strong>033.229.8065</strong></span>
               </li>
-              <li className="flex items-start gap-2.5 text-[#D8E4F2]">
-                <Mail size={16} className="text-white shrink-0 mt-1" aria-hidden="true" />
-                <div>
-                  <span className="text-[11px] text-[#D8E4F2] font-bold block uppercase tracking-wider">
-                    Email Học Vụ
-                  </span>
-                  <a 
-                    href={`mailto:${SITE_CONFIG.contact.email}`}
-                    className="text-white font-semibold hover:underline transition-colors text-xs sm:text-sm focus-visible:outline-2 focus-visible:outline-white rounded"
-                  >
-                    {SITE_CONFIG.contact.email}
-                  </a>
-                </div>
+              <li className="flex items-start gap-2">
+                <Mail size={14} className="shrink-0 mt-0.5" />
+                <span>Email: tinhocgenz@gmail.com</span>
               </li>
-              <li className="flex items-start gap-2.5 text-[#D8E4F2]">
-                <MapPin size={16} className="text-white shrink-0 mt-1" aria-hidden="true" />
-                <div className="leading-snug">
-                  <span className="text-[11px] text-[#D8E4F2] font-bold block uppercase tracking-wider">
-                    Hình Thức Đào Tạo
-                  </span>
-                  <span className="text-[#D8E4F2] font-medium text-xs sm:text-sm">
-                    Online tương tác toàn quốc & Phòng thi liên kết
-                  </span>
-                </div>
+              <li className="flex items-start gap-2">
+                <MapPin size={14} className="shrink-0 mt-0.5" />
+                <span>Đào tạo Online Toàn quốc & Trực tiếp tại cơ sở đào tạo liên kết</span>
               </li>
             </ul>
-
-            {/* Action CTA Button */}
-            <div className="pt-1">
+            <div className="pt-2">
               <Link
                 href="/lien-he"
-                className="w-full inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white font-bold text-xs uppercase tracking-wider shadow-xs transition-colors focus-visible:outline-2 focus-visible:outline-white"
+                className="w-full h-9 flex items-center justify-center rounded-lg bg-white text-[#0057B8] font-bold text-xs uppercase tracking-wider hover:bg-white/90 transition-colors"
               >
-                <span>Đăng Ký Tư Vấn Ngay</span>
-                <ArrowRight size={14} aria-hidden="true" />
+                Gửi yêu cầu tư vấn
               </Link>
             </div>
-
-            {/* Horizontal Guarantee Box */}
-            <div className="p-3.5 rounded-2xl bg-[#107C41]/15 border border-[#107C41]/40 text-xs space-y-1 mt-1">
-              <div className="flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-wider">
-                <ShieldCheck size={16} aria-hidden="true" />
-                <span>Cam Kết Đào Tạo</span>
-              </div>
-              <p className="text-emerald-200/90 text-xs leading-relaxed font-medium">
-                Tài trợ 100% học phí học lại miễn phí nếu chưa đạt điểm chuẩn đầu ra Certiport.
-              </p>
-            </div>
-          </section>
+          </div>
 
         </div>
 
-        {/* THANH CUỐI TRANG (BOTTOM BAR) */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-          <p className="text-center md:text-left leading-normal text-slate-400">
-            © {currentYear} TIN HỌC GEN Z. All rights reserved. Hệ thống đào tạo Tin học Văn phòng & Chứng chỉ Quốc tế.
-          </p>
-
-          <nav 
-            aria-label="Chính sách và điều khoản" 
-            className="flex flex-wrap gap-x-5 gap-y-2 items-center justify-center"
-          >
-            <Link 
-              href="/gioi-thieu#bao-mat" 
-              className="text-slate-400 hover:text-slate-200 transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 rounded py-1"
-            >
+        {/* BOTTOM BAR: COPYRIGHT & POLICY */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white">
+          <p>© {currentYear} Tin Học Gen Z. Bảo lưu mọi quyền.</p>
+          <div className="flex items-center gap-4">
+            <Link href="/chinh-sach-bao-mat" className="hover:underline">
               Chính sách bảo mật
             </Link>
-            <Link 
-              href="/gioi-thieu#dieu-khoan" 
-              className="text-slate-400 hover:text-slate-200 transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 rounded py-1"
-            >
-              Điều khoản sử dụng
+            <Link href="/dieu-khoan-dich-vu" className="hover:underline">
+              Điều khoản dịch vụ
             </Link>
-            <Link 
-              href="/gioi-thieu#hoan-tien" 
-              className="text-slate-400 hover:text-slate-200 transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 rounded py-1"
-            >
-              Chính sách hoàn tiền
-            </Link>
-            <Link 
-              href="/lien-he" 
-              className="text-slate-400 hover:text-slate-200 transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 rounded py-1"
-            >
-              Liên hệ
-            </Link>
-            <Link 
-              href="/sitemap.xml" 
-              className="text-slate-400 hover:text-slate-200 transition-colors focus-visible:outline-2 focus-visible:outline-blue-500 rounded py-1"
-            >
-              Sitemap
-            </Link>
-            <a 
-              href="https://hoctructuyen.tinhocgenz.io.vn/" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:underline transition-colors font-bold inline-flex items-center gap-1 focus-visible:outline-2 focus-visible:outline-white rounded py-1 pl-1"
-            >
-              <ShieldCheck size={13} aria-hidden="true" />
-              <span>Đăng Nhập LMS</span>
-            </a>
-          </nav>
+          </div>
         </div>
 
       </div>

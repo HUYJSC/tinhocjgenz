@@ -1,43 +1,51 @@
-import { statsData } from "@/data/mockData";
-import { Users, GraduationCap, Award, School, CheckCircle2 } from "lucide-react";
+import { Award, Clock, ShieldCheck } from "lucide-react";
 
 export default function StatsSection() {
-  // Mapping icons to stat item IDs
-  const getIcon = (id: string) => {
-    switch (id) {
-      case "students":
-        return <Users size={22} className="text-blue-600 group-hover:scale-110 smooth-transition" />;
-      case "pass-rate":
-        return <CheckCircle2 size={22} className="text-emerald-500 group-hover:scale-110 smooth-transition" />;
-      case "universities":
-        return <School size={22} className="text-indigo-500 group-hover:scale-110 smooth-transition" />;
-      case "cert-instructors":
-        return <Award size={22} className="text-amber-500 group-hover:scale-110 smooth-transition" />;
-      default:
-        return <GraduationCap size={22} className="text-blue-600" />;
-    }
-  };
+  const verifiedStats = [
+    {
+      id: "cert-instructors",
+      value: "100%",
+      label: "Giảng viên MOS Master Trainer",
+      description: "Được chứng nhận chính thức từ Certiport / Microsoft",
+      icon: <Award size={22} className="text-[#0057B8]" />,
+    },
+    {
+      id: "duration-efficient",
+      value: "3 - 5",
+      label: "Buổi học thực chiến cấp tốc",
+      description: "Lộ trình tinh gọn, thực hành trên máy ảo thi thử",
+      icon: <Clock size={22} className="text-[#0057B8]" />,
+    },
+    {
+      id: "guarantee-policy",
+      value: "0 ₫",
+      label: "Chi phí học lại nếu chưa đạt chuẩn",
+      description: "Hỗ trợ học lại miễn phí đến khi đạt chuẩn đầu ra",
+      icon: <ShieldCheck size={22} className="text-[#0057B8]" />,
+    },
+  ];
 
   return (
-    <section className="py-10 md:py-18 bg-white relative z-10 border-y border-slate-100/80">
+    <section className="py-8 md:py-12 bg-white relative z-10 border-b border-[#0057B8]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
-          {statsData.map((item) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          {verifiedStats.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-blue-500/30 transition-all duration-300 shadow-premium hover:shadow-premium-hover group"
+              className="flex items-start gap-4 p-5 sm:p-6 rounded-2xl bg-white border border-[#0057B8] text-[#0057B8]"
             >
-              <div className="p-3.5 bg-white border border-slate-100 rounded-2xl shadow-sm shrink-0 group-hover:bg-slate-50 group-hover:border-blue-100 smooth-transition">
-                {getIcon(item.id)}
+              <div className="p-3 bg-white border border-[#0057B8] rounded-xl shrink-0">
+                {item.icon}
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight leading-none mb-1.5 font-display">
+                <span className="text-2xl sm:text-3xl font-black text-[#0057B8] tracking-tight leading-none mb-1 font-display">
                   {item.value}
                 </span>
-                <span className="text-xs font-black text-slate-800 uppercase tracking-wide sm:tracking-wider line-clamp-2 sm:truncate">
+                {/* UI-03: Allow text to wrap cleanly onto multiple lines without truncation */}
+                <span className="text-xs sm:text-sm font-black text-[#0057B8] uppercase tracking-wide break-words whitespace-normal mt-0.5">
                   {item.label}
                 </span>
-                <span className="hidden sm:block text-[11px] text-slate-500 font-medium mt-0.5 leading-snug">
+                <span className="text-xs text-[#0057B8] font-medium mt-1 leading-snug break-words whitespace-normal">
                   {item.description}
                 </span>
               </div>

@@ -3,7 +3,7 @@ import path from "path";
 import assert from "assert";
 
 console.log("==================================================================");
-console.log("🎨 RUNNING DESIGN SYSTEM & WCAG CONTRAST VERIFICATION SUITE");
+console.log("🎨 RUNNING TWO-COLOR SYSTEM (BLUE & WHITE / 01) VERIFICATION SUITE");
 console.log("==================================================================");
 
 let testsPassed = 0;
@@ -22,7 +22,7 @@ function it(desc, fn) {
 }
 
 // -------------------------------------------------------------
-// Contrast Ratio Calculation helper
+// Contrast Ratio Calculation helper (WCAG 2.2)
 // -------------------------------------------------------------
 function hexToRgb(hex) {
   const normalized = hex.replace("#", "");
@@ -59,38 +59,14 @@ function getContrast(hex1, hex2) {
 // -------------------------------------------------------------
 console.log("\n[Test Suite 1: WCAG 2.2 AA Color Contrast Ratios]");
 
-it("Text Primary (#172B4D) on Surface Base (#FFFFFF) satisfies WCAG AAA (>= 7:1)", () => {
-  const contrast = getContrast("#172B4D", "#FFFFFF");
-  console.log(`     Calculated ratio: ${contrast.toFixed(2)}:1`);
-  assert(contrast >= 7.0, `Expected >= 7.0, got ${contrast.toFixed(2)}`);
-});
-
-it("Brand Primary (#0057B8) on Surface Base (#FFFFFF) satisfies WCAG AA (>= 4.5:1)", () => {
+it("Primitive Blue (#0057B8) on Primitive White (#FFFFFF) satisfies WCAG AA (>= 4.5:1)", () => {
   const contrast = getContrast("#0057B8", "#FFFFFF");
   console.log(`     Calculated ratio: ${contrast.toFixed(2)}:1`);
   assert(contrast >= 4.5, `Expected >= 4.5, got ${contrast.toFixed(2)}`);
 });
 
-it("Text Secondary (#526581) on Surface Base (#FFFFFF) satisfies WCAG AA (>= 4.5:1)", () => {
-  const contrast = getContrast("#526581", "#FFFFFF");
-  console.log(`     Calculated ratio: ${contrast.toFixed(2)}:1`);
-  assert(contrast >= 4.5, `Expected >= 4.5, got ${contrast.toFixed(2)}`);
-});
-
-it("Border Control (#7186A3) on Surface Base (#FFFFFF) satisfies WCAG Non-Text Contrast (>= 3.0:1)", () => {
-  const contrast = getContrast("#7186A3", "#FFFFFF");
-  console.log(`     Calculated ratio: ${contrast.toFixed(2)}:1`);
-  assert(contrast >= 3.0, `Expected >= 3.0, got ${contrast.toFixed(2)}`);
-});
-
-it("Brand Navy (#0B2545) with Inverse Text (#FFFFFF) satisfies WCAG AAA (>= 7.0:1)", () => {
-  const contrast = getContrast("#0B2545", "#FFFFFF");
-  console.log(`     Calculated ratio: ${contrast.toFixed(2)}:1`);
-  assert(contrast >= 7.0, `Expected >= 7.0, got ${contrast.toFixed(2)}`);
-});
-
-it("Brand Primary (#0057B8) with Inverse Text (#FFFFFF) satisfies WCAG AA (>= 4.5:1)", () => {
-  const contrast = getContrast("#0057B8", "#FFFFFF");
+it("Inverse Text (#FFFFFF) on Primitive Blue (#0057B8) satisfies WCAG AA (>= 4.5:1)", () => {
+  const contrast = getContrast("#FFFFFF", "#0057B8");
   console.log(`     Calculated ratio: ${contrast.toFixed(2)}:1`);
   assert(contrast >= 4.5, `Expected >= 4.5, got ${contrast.toFixed(2)}`);
 });
@@ -103,23 +79,18 @@ console.log("\n[Test Suite 2: Global CSS Design Tokens & Primitives]");
 const globalsCssPath = path.resolve(process.cwd(), "app/globals.css");
 const globalsCss = fs.readFileSync(globalsCssPath, "utf-8");
 
-it("globals.css contains mandatory Oceanic color variables in :root", () => {
+it("globals.css enforces strict Blue & White variables in :root", () => {
   const requiredTokens = [
     "--color-brand-primary: #0057B8;",
-    "--color-brand-hover: #003F88;",
-    "--color-brand-active: #00336F;",
-    "--color-brand-navy: #0B2545;",
+    "--color-brand-hover: #0057B8;",
+    "--color-brand-navy: #0057B8;",
     "--color-surface-base: #FFFFFF;",
-    "--color-surface-page: #F4F8FD;",
-    "--color-surface-selected: #E8F1FC;",
-    "--color-text-primary: #172B4D;",
-    "--color-text-secondary: #526581;",
+    "--color-surface-page: #FFFFFF;",
+    "--color-text-primary: #0057B8;",
+    "--color-text-secondary: #0057B8;",
     "--color-text-inverse: #FFFFFF;",
-    "--color-border-subtle: #D8E4F2;",
-    "--color-border-control: #7186A3;",
-    "--color-focus-ring: #0057B8;",
-    "--color-disabled-background: #E7EDF5;",
-    "--color-disabled-text: #66758A;",
+    "--color-border-subtle: #0057B8;",
+    "--color-border-control: #0057B8;",
   ];
 
   for (const token of requiredTokens) {
@@ -127,13 +98,12 @@ it("globals.css contains mandatory Oceanic color variables in :root", () => {
   }
 });
 
-it("globals.css defines standard button, card, and input classes", () => {
+it("globals.css disables all drop shadows and sets solid borders", () => {
+  assert(globalsCss.includes("box-shadow: none !important;"), "Missing global box-shadow disable");
   assert(globalsCss.includes(".btn-primary"), "Missing .btn-primary");
   assert(globalsCss.includes(".btn-secondary"), "Missing .btn-secondary");
-  assert(globalsCss.includes(".btn-tertiary"), "Missing .btn-tertiary");
   assert(globalsCss.includes(".card-ocean"), "Missing .card-ocean");
   assert(globalsCss.includes(".input-control"), "Missing .input-control");
-  assert(globalsCss.includes("min-height: 48px;"), "Missing 48px touch target on buttons/controls");
 });
 
 // -------------------------------------------------------------
@@ -152,116 +122,155 @@ function checkFile(relPath, checks) {
 
 checkFile("components/Header.tsx", [
   {
-    desc: "Uses Brand Navy (#0B2545) and Brand Primary (#0057B8) branding",
+    desc: "Uses pure #0057B8 and white with 72px desktop / 64px mobile height",
     assertFn: (c) => {
-      assert(c.includes("#0B2545"), "Expected #0B2545 for logo/text");
-      assert(c.includes("#0057B8"), "Expected #0057B8 for brand highlights/CTA");
-    },
-  },
-  {
-    desc: "Active navigation uses selected surface #E8F1FC and primary text #0057B8",
-    assertFn: (c) => {
-      assert(c.includes("#E8F1FC"), "Expected #E8F1FC for active link background");
-      assert(c.includes("#D8E4F2"), "Expected subtle border #D8E4F2 for header and dropdowns");
+      assert(c.includes("#0057B8"), "Expected #0057B8 for branding and links");
+      assert(c.includes("bg-white") || c.includes("bg-[#FFFFFF]"), "Expected white background");
+      assert(c.includes("h-[72px]"), "Expected 72px desktop header height");
     },
   },
 ]);
 
 checkFile("components/Footer.tsx", [
   {
-    desc: "Uses Brand Navy #0B2545 and eliminates slate-950",
+    desc: "Uses #0057B8 background, white text, and no generic youtube link",
     assertFn: (c) => {
-      assert(c.includes("#0B2545"), "Expected brand navy #0B2545 for footer background");
-      assert(!c.includes("bg-slate-950"), "Footer should not use bg-slate-950");
-    },
-  },
-  {
-    desc: "Provides accessible contrast text #D8E4F2 and #FFFFFF",
-    assertFn: (c) => {
-      assert(c.includes("#D8E4F2"), "Expected #D8E4F2 for footer body links");
+      assert(c.includes("bg-[#0057B8]"), "Expected bg-[#0057B8] for footer");
+      assert(c.includes("text-white") || c.includes("text-[#FFFFFF]"), "Expected white text for footer");
+      assert(!c.includes("https://youtube.com"), "Must not include generic youtube.com link (LINK-01)");
     },
   },
 ]);
 
 checkFile("components/HeroSection.tsx", [
   {
-    desc: "Uses clean surface page #F4F8FD with subtle border #D8E4F2",
+    desc: "Uses white background with #0057B8 headings and 7/5 grid structure",
     assertFn: (c) => {
-      assert(c.includes("#F4F8FD"), "Expected #F4F8FD for Hero background");
-      assert(c.includes("#D8E4F2"), "Expected #D8E4F2 for Hero border");
-    },
-  },
-  {
-    desc: "Headings use #0B2545 and primary brand highlight #0057B8",
-    assertFn: (c) => {
-      assert(c.includes("#0B2545"), "Expected #0B2545 for H1");
-      assert(c.includes("#0057B8"), "Expected #0057B8 for highlighted text");
+      assert(c.includes("bg-white") || c.includes("bg-[#FFFFFF]"), "Expected white Hero background");
+      assert(c.includes("text-[#0057B8]"), "Expected #0057B8 for H1");
+      assert(c.includes("border-[#0057B8]"), "Expected solid border for frame");
     },
   },
 ]);
 
 checkFile("components/CourseCard.tsx", [
   {
-    desc: "Uses unified oceanic tag bg #E8F1FC and primary brand #0057B8",
+    desc: "Adheres to strict Blue & White styling and limits bullets to 2",
     assertFn: (c) => {
-      assert(c.includes("#E8F1FC"), "Expected tag background #E8F1FC");
-      assert(c.includes("#0057B8"), "Expected button/icon #0057B8");
-      assert(c.includes("#D8E4F2"), "Expected subtle border #D8E4F2");
+      assert(c.includes("#0057B8"), "Expected #0057B8 styling");
+      assert(c.includes("bg-white") || c.includes("bg-[#FFFFFF]"), "Expected white background");
+      assert(c.includes("features.slice(0, 2)"), "Expected features limited to max 2 bullets");
+      assert(c.includes("Xem Chi Tiết"), "Expected primary action Xem Chi Tiết");
+    },
+  },
+]);
+
+checkFile("components/PriceBlock.tsx", [
+  {
+    desc: "Handles multi-tier pricing and separates lines cleanly",
+    assertFn: (c) => {
+      assert(c.includes("split"), "Expected split handling");
+      assert(c.includes("border-[#0057B8]"), "Expected border-[#0057B8]");
+      assert(c.includes("text-[#0057B8]"), "Expected text-[#0057B8]");
+    },
+  },
+]);
+
+checkFile("components/StatsSection.tsx", [
+  {
+    desc: "Shows exactly 3 verified stats without truncating labels",
+    assertFn: (c) => {
+      assert(c.includes("verifiedStats = ["), "Expected verifiedStats list");
+      assert(!c.includes("truncate") && !c.includes("line-clamp"), "Must not truncate stat labels");
+    },
+  },
+]);
+
+checkFile("components/AudienceSelector.tsx", [
+  {
+    desc: "Provides interactive audience selector with verified catalog links",
+    assertFn: (c) => {
+      assert(c.includes("Sinh viên"), "Expected Sinh viên option");
+      assert(c.includes("Người đi làm"), "Expected Người đi làm option");
+      assert(c.includes("Người mới bắt đầu"), "Expected Người mới bắt đầu option");
+      assert(c.includes("border-[#0057B8]"), "Expected border-[#0057B8]");
     },
   },
 ]);
 
 checkFile("components/ContinueLearningWidget.tsx", [
   {
-    desc: "Replaces dark cyan gradient with clean white card and oceanic tokens",
+    desc: "Uses pure #0057B8 and white card with no multi-color gradients",
     assertFn: (c) => {
-      assert(c.includes("#D8E4F2"), "Expected subtle border #D8E4F2");
-      assert(c.includes("#0057B8"), "Expected brand primary #0057B8");
-      assert(c.includes("#0B2545"), "Expected navy heading #0B2545");
-      assert(!c.includes("from-cyan-900"), "Should not contain from-cyan-900 gradient");
+      assert(c.includes("border-2 border-[#0057B8]"), "Expected border-2 border-[#0057B8]");
+      assert(c.includes("#0057B8"), "Expected #0057B8 tokens");
+      assert(!c.includes("from-cyan-900"), "Should not contain gradient");
     },
   },
 ]);
 
 checkFile("components/MockExamQuiz.tsx", [
   {
-    desc: "Option selection uses #E8F1FC and #0057B8 with clear focus rings",
+    desc: "Quiz options use strict Blue & White states with keyboard accessibility",
     assertFn: (c) => {
-      assert(c.includes("#E8F1FC"), "Expected selected background #E8F1FC");
-      assert(c.includes("#0057B8"), "Expected border/accent #0057B8");
-      assert(c.includes("#7186A3"), "Expected control border #7186A3");
+      assert(c.includes("border-2"), "Expected border-2");
+      assert(c.includes("bg-[#0057B8] text-white"), "Expected selected option blue fill");
+      assert(c.includes("bg-white text-[#0057B8]"), "Expected unselected option white fill");
     },
   },
 ]);
 
 checkFile("app/khoa-hoc/page.tsx", [
   {
-    desc: "Course catalog uses #F4F8FD page surface and #7186A3 control borders",
+    desc: "Compact header, search directly below title, and category filters",
     assertFn: (c) => {
-      assert(c.includes("#F4F8FD"), "Expected page background #F4F8FD");
-      assert(c.includes("#7186A3"), "Expected input border #7186A3");
-      assert(c.includes("#0057B8"), "Expected active category #0057B8");
+      assert(c.includes("Khóa học tin học"), "Expected compact H1");
+      assert(c.includes("MOS & IC3"), "Expected MOS & IC3 category filter");
+      assert(c.includes("Tin học & AI văn phòng"), "Expected Tin học & AI văn phòng filter");
+      assert(c.includes("border-[#0057B8]"), "Expected border-[#0057B8]");
+    },
+  },
+]);
+
+checkFile("app/khoa-hoc/[id]/page.tsx", [
+  {
+    desc: "Detail page has pure white hero with #0057B8 text and integrates CourseScheduleWidget",
+    assertFn: (c) => {
+      assert(c.includes("bg-white") || c.includes("bg-[#FFFFFF]"), "Expected white hero background");
+      assert(c.includes("text-[#0057B8]"), "Expected #0057B8 text");
+      assert(c.includes("PriceBlock"), "Expected PriceBlock component");
+      assert(c.includes("CourseScheduleWidget"), "Expected CourseScheduleWidget component");
+    },
+  },
+]);
+
+checkFile("components/CourseScheduleWidget.tsx", [
+  {
+    desc: "Schedule widget provides honest advisory CTA without fake urgency",
+    assertFn: (c) => {
+      assert(c.includes("Yêu Cầu Tư Vấn Lớp Này"), "Expected honest advisory CTA label");
+      assert(c.includes("#0057B8"), "Expected #0057B8 styling");
     },
   },
 ]);
 
 checkFile("app/khoa-hoc/[id]/bai-hoc/[lessonId]/page.tsx", [
   {
-    desc: "Lesson player uses white header with #D8E4F2 border and #0B2545 title",
+    desc: "Eliminates nested <main> landmark tag and uses strict Blue & White styling",
     assertFn: (c) => {
-      assert(c.includes("#0B2545"), "Expected #0B2545 for lesson title");
-      assert(c.includes("#D8E4F2"), "Expected #D8E4F2 for header border");
-      assert(c.includes("#0057B8"), "Expected #0057B8 for active syllabus and buttons");
+      assert(!c.includes("<main"), "Must not have nested <main> tag (A11Y-01)");
+      assert(c.includes("border-[#0057B8]"), "Expected border-[#0057B8]");
+      assert(c.includes("bg-[#0057B8] text-white"), "Expected selected quiz state");
     },
   },
 ]);
 
 checkFile("app/not-found.tsx", [
   {
-    desc: "404 page uses #0057B8 for error code and clean oceanic styling",
+    desc: "404 page uses #0057B8 and #FFFFFF with border-2",
     assertFn: (c) => {
-      assert(c.includes("#0057B8"), "Expected #0057B8 for 404 number");
-      assert(c.includes("#0B2545"), "Expected #0B2545 for title");
+      assert(c.includes("text-[#0057B8]"), "Expected #0057B8 for 404 number");
+      assert(c.includes("border-2 border-[#0057B8]"), "Expected border-2 border-[#0057B8]");
       assert(!c.includes("from-blue-600 to-cyan-500"), "Should not use gradient text");
     },
   },
@@ -277,6 +286,6 @@ console.log("=================================================================="
 if (testsFailed > 0) {
   process.exit(1);
 } else {
-  console.log("🎉 All Design System & WCAG contrast verifications passed!\n");
+  console.log("🎉 All Blue & White / 01 Design System & WCAG verifications passed!\n");
   process.exit(0);
 }

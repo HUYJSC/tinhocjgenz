@@ -258,7 +258,7 @@ export const AuditService = {
               resourceId: d.resource_id,
               beforeState: d.before_state,
               afterState: d.after_state,
-              ipAddress: d.ip_address,
+              ipAddress: d.ip_address || "127.0.0.1",
               userAgent: d.user_agent,
               details: `${d.action} on ${d.resource_type} (${d.actor_username})`,
               severity: d.severity,

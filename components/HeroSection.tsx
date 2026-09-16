@@ -1,92 +1,88 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Laptop, CheckCircle2, Sparkles, BookOpen, FileText } from "lucide-react";
+import { ArrowRight, BookOpen, FileText, CheckCircle2, Sparkles } from "lucide-react";
 
 export default function HeroSection() {
   return (
     <section
-      aria-label="Tin Học Gen Z - Học Thực Chiến"
-      className="relative w-full bg-[#F4F8FD] border-b border-[#D8E4F2] overflow-hidden pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-28 lg:pb-20 tech-grid-pattern"
+      aria-label="Tin Học Gen Z - Học Tin Học Thực Chiến"
+      className="relative w-full bg-white border-b border-[#0057B8] overflow-hidden pt-8 pb-10 sm:pt-12 sm:pb-14 lg:pt-20 lg:pb-16 text-[#0057B8]"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* LEFT COLUMN: BRAND LABEL, H1, DESCRIPTION, CTAS, PROOF LINE */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left">
+          {/* LEFT COLUMN: 7 cols desktop */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left space-y-5">
             {/* Small Brand Chip */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8F1FC] border border-[#D8E4F2] text-[#0057B8] text-xs font-bold uppercase tracking-wider mb-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#0057B8] text-[#0057B8] text-xs font-bold uppercase tracking-wider bg-white">
               <Sparkles size={14} className="text-[#0057B8] shrink-0" />
-              <span>TIN HỌC GEN Z • HỌC THỰC CHIẾN</span>
+              <span>TIN HỌC GEN Z • ĐÀO TẠO THỰC CHIẾN</span>
             </div>
 
-            {/* Single Semantic H1 */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-[#0B2545] leading-[1.15] tracking-tight mb-5">
-              Nâng kỹ năng số –{" "}
-              <span className="text-[#0057B8] inline-block">
-                Mở lối tương lai
-              </span>
+            {/* Single Semantic H1 (Spec 4.2) */}
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-black text-[#0057B8] leading-[1.15] tracking-tight font-display">
+              Học tin học để thi tốt và làm việc hiệu quả.
             </h1>
 
             {/* Description */}
-            <p className="text-base sm:text-lg text-[#526581] leading-relaxed mb-8 max-w-2xl font-normal">
-              Học Tin học văn phòng, thiết kế và AI theo lộ trình rõ ràng, ứng dụng ngay vào học tập và công việc.
+            <p className="text-base sm:text-lg text-[#0057B8] leading-relaxed max-w-2xl font-medium">
+              Đào tạo chứng chỉ quốc tế MOS, IC3 và tin học văn phòng thực chiến. Lộ trình rõ ràng, bài tập thực hành trên máy ảo, ứng dụng ngay vào học tập và công việc.
             </p>
 
-            {/* Action CTAs */}
-            <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-7">
-              {/* Primary CTA: Bắt đầu học thử */}
-              <Link
-                href="/khoa-hoc/mos-master-combo/bai-hoc/word-lesson-1"
-                className="min-h-[48px] px-7 py-3 rounded-xl bg-[#0057B8] hover:bg-[#003F88] active:bg-[#00336F] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-xs transition-colors focus-visible:outline-3 focus-visible:outline-[#0057B8] focus-visible:outline-offset-2"
-              >
-                <span>Học thử bài đầu tiên</span>
-                <ArrowRight size={16} />
-              </Link>
-
-              {/* Secondary CTA: Khám phá danh mục khóa học */}
+            {/* Action CTAs (Spec 4.2) */}
+            <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+              {/* Primary CTA: Khám phá khóa học */}
               <Link
                 href="/khoa-hoc"
-                className="min-h-[48px] px-6 py-3 rounded-xl bg-white hover:bg-[#E8F1FC] border-1.5 border-[#0057B8] text-[#0057B8] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors focus-visible:outline-3 focus-visible:outline-[#0057B8] focus-visible:outline-offset-2"
+                className="min-h-[48px] px-6 py-3 rounded-xl bg-[#0057B8] hover:bg-white text-white hover:text-[#0057B8] border border-[#0057B8] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
-                <BookOpen size={16} className="text-[#0057B8]" />
+                <BookOpen size={16} />
                 <span>Khám phá khóa học</span>
               </Link>
 
-              {/* Thi thử miễn phí */}
+              {/* Secondary CTA: Học thử miễn phí */}
+              <Link
+                href="/khoa-hoc/mos-master-combo/bai-hoc/word-lesson-1"
+                className="min-h-[48px] px-6 py-3 rounded-xl bg-white hover:bg-[#0057B8] text-[#0057B8] hover:text-white border border-[#0057B8] font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-colors cursor-pointer"
+              >
+                <span>Học thử miễn phí</span>
+                <ArrowRight size={16} />
+              </Link>
+
+              {/* Text link: Thi thử MOS/IC3 */}
               <Link
                 href="/thi-thu"
-                className="hidden xl:flex min-h-[48px] px-5 py-3 rounded-xl bg-white hover:bg-[#E8F1FC] text-[#172B4D] font-semibold text-sm items-center justify-center gap-2 border border-[#D8E4F2] transition-colors"
+                className="min-h-[48px] px-4 py-3 text-[#0057B8] hover:underline font-bold text-sm flex items-center justify-center gap-1.5"
               >
-                <FileText size={15} className="text-[#0057B8]" />
+                <FileText size={15} />
                 <span>Thi thử MOS/IC3</span>
               </Link>
             </div>
 
             {/* Benefit Proof Line */}
-            <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 text-xs sm:text-sm font-semibold text-[#526581]">
+            <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm font-semibold text-[#0057B8]">
               <div className="inline-flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-[#107C41] shrink-0" />
-                <span>Lộ trình rõ ràng</span>
+                <CheckCircle2 size={15} className="text-[#0057B8] shrink-0" />
+                <span>Giảng viên chuẩn MOS Master</span>
               </div>
-              <span className="text-[#D8E4F2]">•</span>
+              <span>•</span>
               <div className="inline-flex items-center gap-1.5">
-                <BookOpen size={15} className="text-[#0057B8] shrink-0" />
-                <span>Bài tập thực hành</span>
+                <CheckCircle2 size={15} className="text-[#0057B8] shrink-0" />
+                <span>Máy ảo mô phỏng đề thi</span>
               </div>
-              <span className="text-[#D8E4F2]">•</span>
+              <span>•</span>
               <div className="inline-flex items-center gap-1.5">
-                <CheckCircle2 size={15} className="text-[#107C41] shrink-0" />
-                <span>Hỗ trợ tận tâm</span>
+                <CheckCircle2 size={15} className="text-[#0057B8] shrink-0" />
+                <span>Hỗ trợ học lại 0đ</span>
               </div>
             </div>
           </div>
 
-          {/* RIGHT COLUMN: ARTWORK PICTURE (AVIF/WEBP ART DIRECTION) */}
+          {/* RIGHT COLUMN: 5 cols desktop, clean single-frame artwork */}
           <div className="hidden sm:flex lg:col-span-5 items-center justify-center w-full">
-            <div className="relative w-full max-w-lg lg:max-w-none rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border border-slate-200/80 bg-blue-50 aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10]">
+            <div className="relative w-full max-w-lg lg:max-w-none rounded-2xl overflow-hidden border-2 border-[#0057B8] bg-white aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10]">
               <picture>
-                {/* Mobile: 1080x1350 portrait AVIF/WebP */}
                 <source
                   media="(max-width: 639px)"
                   type="image/avif"
@@ -97,8 +93,6 @@ export default function HeroSection() {
                   type="image/webp"
                   srcSet="/banner-tin-hoc-gen-z-mobile.webp"
                 />
-
-                {/* Desktop/Tablet: 1920x720 landscape AVIF/WebP */}
                 <source
                   media="(min-width: 640px)"
                   type="image/avif"
@@ -109,11 +103,9 @@ export default function HeroSection() {
                   type="image/webp"
                   srcSet="/banner-tin-hoc-gen-z-hoc-thuc-chien.webp"
                 />
-
-                {/* Eager fallback image */}
                 <img
                   src="/banner-tin-hoc-gen-z-hoc-thuc-chien.jpg"
-                  alt="Học viên Tin Học Gen Z thực hành kỹ năng tin học, thiết kế và AI trên máy tính"
+                  alt="Học viên Tin Học Gen Z thực hành kỹ năng tin học trên máy tính"
                   width={1920}
                   height={720}
                   loading="eager"
@@ -122,21 +114,6 @@ export default function HeroSection() {
                   className="w-full h-full object-cover object-center"
                 />
               </picture>
-
-              {/* Floating Credibility Card */}
-              <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/95 backdrop-blur-md rounded-2xl p-2.5 sm:p-3 shadow-lg border border-slate-200/80 flex items-center gap-2.5 max-w-[calc(100%-24px)]">
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-blue-700 flex items-center justify-center text-white shrink-0 shadow-xs">
-                  <Laptop size={17} />
-                </div>
-                <div className="flex flex-col min-w-0">
-                  <span className="text-xs font-bold text-slate-900 truncate">
-                    Chứng chỉ Quốc tế Certiport & CNTT
-                  </span>
-                  <span className="text-[11px] text-emerald-600 font-semibold truncate">
-                    ✓ Đề thi sát 99% đề thi thật
-                  </span>
-                </div>
-              </div>
             </div>
           </div>
 
