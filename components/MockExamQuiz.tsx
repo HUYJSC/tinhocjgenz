@@ -283,7 +283,7 @@ export default function MockExamQuiz() {
               Bảng Điểm Khảo Thí Chính Thức
             </h3>
             <p className="text-slate-500 text-xs sm:text-sm max-w-md mx-auto">
-              Chấm điểm tự động trên hệ thống máy chủ PH Digital Education theo thang chuẩn Certiport Hoa Kỳ (1000 điểm).
+              Chấm điểm tự động trên hệ thống máy chủ Tin Học Gen Z theo thang chuẩn Certiport Hoa Kỳ (1000 điểm).
             </p>
           </div>
 
@@ -447,7 +447,7 @@ export default function MockExamQuiz() {
                 Đã Tiếp Nhận Thông Tin Thành Công!
               </p>
               <p className="text-slate-600 text-xs font-normal">
-                Giảng viên PH Digital Education sẽ gửi bộ đề thi thử và liên hệ tư vấn bạn qua Zalo <strong>{contactPhone}</strong> trong vòng 15 phút.
+                Giảng viên Tin Học Gen Z sẽ gửi bộ đề thi thử và liên hệ tư vấn bạn qua Zalo <strong>{contactPhone}</strong> trong vòng 15 phút.
               </p>
             </div>
           )}

@@ -7,7 +7,7 @@ export default function ExamGuide() {
     {
       step: "01",
       title: "Tạo Tài Khoản Khảo Thí Certiport Quốc Tế",
-      desc: "Đăng ký tài khoản chính thức tại Certiport.com bằng Email và thông tin CCCD/Hộ chiếu. Giảng viên PH Digital Education sẽ hướng dẫn bạn liên kết mã thí sinh và tài khoản sinh viên đúng quy định.",
+      desc: "Đăng ký tài khoản chính thức tại Certiport.com bằng Email và thông tin CCCD/Hộ chiếu. Giảng viên Tin Học Gen Z sẽ hướng dẫn bạn liên kết mã thí sinh và tài khoản sinh viên đúng quy định.",
       tips: "Lưu ý: Tên đăng ký phải khớp 100% với CCCD để chứng chỉ quốc tế được trường ĐH công nhận."
     },
     {
@@ -44,7 +44,7 @@ export default function ExamGuide() {
             Quy Trình 4 Bước Đăng Ký & Thi Đạt Chuẩn Đầu Ra
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            PH Digital Education đồng hành cùng bạn trọn gói từ lúc tạo tài khoản, đăng ký ca thi đến khi cầm chứng chỉ Certiport chính thức trên tay.
+            Tin Học Gen Z đồng hành cùng bạn trọn gói từ lúc tạo tài khoản, đăng ký ca thi đến khi cầm chứng chỉ Certiport chính thức trên tay.
           </p>
         </div>
 

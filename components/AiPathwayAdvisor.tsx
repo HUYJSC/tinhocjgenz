@@ -116,7 +116,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       <div className="space-y-2 mb-6">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">
           <Brain size={14} className="text-blue-400" />
-          <span>PH DIGITAL AI ADVISOR • TƯ VẤN LỘ TRÌNH THÔNG MINH</span>
+          <span>TIN HỌC GEN Z AI ADVISOR • TƯ VẤN LỘ TRÌNH THÔNG MINH</span>
         </div>
         <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
           Trợ Lý AI Chuẩn Đoán & Thiết Kế Lộ Trình Phù Hợp Nhất

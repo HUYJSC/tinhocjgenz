@@ -107,7 +107,7 @@ export default function ResourceHub() {
             Tải Miễn Phí Bộ Đề Thi & Template Excel Mẫu
           </h2>
           <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-            PH Digital Education tổng hợp và chia sẻ miễn phí nguồn học liệu chuẩn quốc tế giúp bạn tự tin ôn luyện chuẩn đầu ra và nâng tầm kỹ năng làm việc.
+            Tin Học Gen Z tổng hợp và chia sẻ miễn phí nguồn học liệu chuẩn quốc tế giúp bạn tự tin ôn luyện chuẩn đầu ra và nâng tầm kỹ năng làm việc.
           </p>
         </div>
 

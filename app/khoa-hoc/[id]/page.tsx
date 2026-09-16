@@ -227,6 +227,12 @@ export default async function CourseDetailPage(props: CoursePageProps) {
                   </div>
                 </div>
 
+                <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-[11px] text-slate-500 space-y-1">
+                  <p className="font-semibold text-slate-700">💡 Minh bạch chi phí:</p>
+                  <p>• Đã bao gồm trọn gói: Phần mềm thi thử bản quyền, tài liệu học & bảo hành học lại 0đ.</p>
+                  <p>• Lệ phí thi Certiport quốc tế đóng trực tiếp theo quy định của IIG Việt Nam khi đăng ký thi.</p>
+                </div>
+
                 <a
                   href="#dang-ky"
                   className="w-full min-h-12 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:shadow-md transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer text-center"

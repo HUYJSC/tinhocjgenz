@@ -38,7 +38,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <span className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-xs sm:text-xs font-bold tracking-wider uppercase text-blue-700">
             <School size={13} className="text-blue-600" />
-            PH DIGITAL EDUCATION • HỆ SINH THÁI ĐÀO TẠO CNTT
+            TIN HỌC GEN Z • HỆ SINH THÁI ĐÀO TẠO CNTT
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight font-display">
             Sứ Mệnh & Giá Trị Cốt Lõi
@@ -58,25 +58,25 @@ export default function AboutPage() {
             <div className="lg:col-span-5 flex justify-center items-center">
               <div className="relative w-full max-w-sm aspect-[4/5] rounded-2xl bg-blue-950 shadow-sm overflow-hidden p-6 sm:p-8 flex flex-col justify-between text-white border border-slate-800 transition-colors duration-200">
                 <div className="flex justify-between items-start">
-                  <NextImage src="/logo-icon.png" alt="PH Digital Education" width={48} height={48} sizes="48px" className="h-12 w-auto object-contain drop-shadow-md" />
+                  <NextImage src="/logo-icon.png" alt="Tin Học Gen Z" width={48} height={48} sizes="48px" className="h-12 w-auto object-contain drop-shadow-md" />
                   <span className="text-xs uppercase font-bold tracking-widest text-blue-300 bg-blue-900/60 px-3 py-1 rounded-full border border-blue-500/40">
                     Certiport Certified
                   </span>
                 </div>
                 
                 <div className="my-auto space-y-4">
-                  <h3 className="text-2xl font-bold tracking-tight text-white">PH DIGITAL EDUCATION</h3>
+                  <h3 className="text-2xl font-bold tracking-tight text-white">TIN HỌC GEN Z</h3>
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-semibold">
                     “Chúng tôi tin rằng kỹ năng công nghệ thông tin và chứng chỉ quốc tế không chỉ là tấm bằng để tốt nghiệp, mà là đòn bẩy trực tiếp quyết định thu nhập và vị thế của bạn trong môi trường làm việc hiện đại.”
                   </p>
                   <blockquote className="border-l-2 border-blue-400 pl-3.5 text-xs text-blue-200 italic font-semibold leading-relaxed">
-                    “Mục tiêu của PH Digital Education: 100% học viên tự tin vượt qua kỳ thi và làm chủ dữ liệu doanh nghiệp!”
+                    “Mục tiêu của Tin Học Gen Z: 100% học viên tự tin vượt qua kỳ thi và làm chủ dữ liệu doanh nghiệp!”
                   </blockquote>
                 </div>
 
                 <div className="flex items-center gap-3 border-t border-slate-800/80 pt-4">
                   <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-xs shadow-md">
-                    PH
+                    GZ
                   </div>
                   <div>
                     <p className="text-xs font-bold leading-none text-white">Microsoft MOS Master Instructors</p>
@@ -93,11 +93,11 @@ export default function AboutPage() {
               </h2>
               
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                <strong>PH DIGITAL EDUCATION</strong> được thành lập từ sự thấu hiểu sâu sắc trước những khó khăn của học sinh, sinh viên và người đi làm khi phải đối mặt với kỳ thi chứng chỉ quốc tế MOS, IC3 hoặc các rào cản xử lý dữ liệu bảng tính trong công việc hàng ngày.
+                <strong>TIN HỌC GEN Z</strong> được thành lập từ sự thấu hiểu sâu sắc trước những khó khăn của học sinh, sinh viên và người đi làm khi phải đối mặt với kỳ thi chứng chỉ quốc tế MOS, IC3 hoặc các rào cản xử lý dữ liệu bảng tính trong công việc hàng ngày.
               </p>
 
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Khác biệt hoàn toàn với phương pháp dạy dàn trải truyền thống, PH Digital Education tập trung vào <strong>Lộ trình cấp tốc 3 - 5 buổi thực chiến</strong>, luyện trực tiếp trên phần mềm mô phỏng giống 99% đề thi thật của Certiport và kèm cặp 1:1 sát sao.
+                Khác biệt hoàn toàn với phương pháp dạy dàn trải truyền thống, Tin Học Gen Z tập trung vào <strong>Lộ trình cấp tốc 3 - 5 buổi thực chiến</strong>, luyện trực tiếp trên phần mềm mô phỏng giống 99% đề thi thật của Certiport và kèm cặp 1:1 sát sao.
               </p>
 
               {/* Teaching Style Highlights */}
@@ -172,7 +172,7 @@ export default function AboutPage() {
       <section className="py-20 bg-white text-center border-t border-slate-100/60 relative">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <h2 className="text-2xl sm:text-3xl font-bold text-slate-950 tracking-tight leading-snug">
-            Sẵn Sàng Chinh Phục Chứng Chỉ Cùng PH Digital Education?
+            Sẵn Sàng Chinh Phục Chứng Chỉ Cùng Tin Học Gen Z?
           </h2>
           <p className="text-slate-500 text-sm max-w-xl mx-auto leading-relaxed font-semibold">
             Đội ngũ tư vấn sẽ liên hệ phân tích chuẩn đầu ra theo trường của bạn và gợi ý lịch thi gần nhất.

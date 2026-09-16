@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Calendar, Clock, Users, ArrowRight, CheckCircle2, ShieldAlert } from "lucide-react";
 import { upcomingBatchesData } from "@/data/mockData";
 
 export default function ScheduleSection() {
+  const router = useRouter();
   return (
     <section className="py-20 sm:py-28 bg-slate-50 border-b border-slate-200/60 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -81,13 +83,28 @@ export default function ScheduleSection() {
                     <span>Cam kết bao đỗ 100%</span>
                   </div>
 
-                  <Link
-                    href="/lien-he"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wide bg-slate-900 hover:bg-blue-600 text-white transition-all duration-300"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const formElement = document.getElementById("dang-ky-tu-van");
+                      if (formElement) {
+                        formElement.scrollIntoView({ behavior: "smooth" });
+                        const noteInput = document.querySelector(
+                          'textarea[name="message"], textarea[name="note"]'
+                        ) as HTMLTextAreaElement | null;
+                        if (noteInput) {
+                          noteInput.value = `Đăng ký giữ chỗ: ${batch.courseName} - Khai giảng ${batch.startDate} (${batch.scheduleTime})`;
+                          noteInput.dispatchEvent(new Event("input", { bubbles: true }));
+                        }
+                      } else {
+                        router.push(`/lien-he?select=${encodeURIComponent(batch.courseName)}`);
+                      }
+                    }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wide bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 shadow-sm cursor-pointer"
                   >
-                    Giữ Chỗ Ngay
+                    <span>Giữ Chỗ Ca Này</span>
                     <ArrowRight size={13} />
-                  </Link>
+                  </button>
                 </div>
               </div>
             );
@@ -101,7 +118,7 @@ export default function ScheduleSection() {
               Bạn cần lịch thi hoặc kèm riêng 1:1 gấp trong tuần này để nộp hồ sơ tốt nghiệp?
             </h4>
             <p className="text-xs text-blue-700">
-              PH Digital Education sắp xếp giảng viên hỗ trợ kèm cấp tốc 24/7 theo thời gian biểu của bạn.
+              Tin Học Gen Z sắp xếp giảng viên hỗ trợ kèm cấp tốc 24/7 theo thời gian biểu của bạn.
             </p>
           </div>
           <Link

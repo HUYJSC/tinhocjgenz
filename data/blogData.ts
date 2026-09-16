@@ -30,7 +30,7 @@ export const BLOG_POSTS: BlogPost[] = [
     categoryName: "Luyện Thi MOS & IC3",
     author: {
       name: "Thầy Huy (MOS Master)",
-      role: "Giám Đốc Đào Tạo PH Digital",
+      role: "Giám Đốc Đào Tạo Tin Học Gen Z",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80"
     },
     publishedAt: "2026-08-15",
@@ -65,7 +65,7 @@ export const BLOG_POSTS: BlogPost[] = [
       </ul>
 
       <h2>3. Chiến lược phân bổ 50 phút làm bài tối ưu</h2>
-      <p>Để đạt mốc 950 - 1000 điểm, hãy áp dụng quy tắc <strong>35 - 10 - 5</strong> đã được kiểm chứng qua hàng ngàn học viên tại PH Digital Education:</p>
+      <p>Để đạt mốc 950 - 1000 điểm, hãy áp dụng quy tắc <strong>35 - 10 - 5</strong> đã được kiểm chứng qua hàng ngàn học viên tại Tin Học Gen Z:</p>
       <ol>
         <li><strong>35 phút đầu:</strong> Quét nhanh toàn bộ các dự án, làm dứt điểm các câu dễ và câu thao tác cơ bản (tạo Table, Chart, Sort/Filter, Header/Footer).</li>
         <li><strong>10 phút tiếp theo:</strong> Xử lý các câu hỏi phức tạp về hàm mảng, hàm điều kiện lồng nhau (IFS, COUNTIFS, INDEX-MATCH hoặc XLOOKUP) và PivotTable.</li>
@@ -82,7 +82,7 @@ export const BLOG_POSTS: BlogPost[] = [
       </ul>
 
       <h2>5. Lộ trình ôn luyện cấp tốc 3 - 5 buổi bao đỗ 100%</h2>
-      <p>Tại <strong>PH Digital Education</strong>, học viên được tiếp cận với phần mềm thi thử bản quyền Certiport có độ sát thực 99% so với đề thi thật tại IIG Việt Nam. Giảng viên MOS Master trực tiếp sửa từng lỗi thao tác 1:1, giúp học viên tự tin thi đỗ ngay lần đầu chỉ sau 3 - 5 buổi học trọng tâm.</p>
+      <p>Tại <strong>Tin Học Gen Z</strong>, học viên được tiếp cận với phần mềm thi thử bản quyền Certiport có độ sát thực 99% so với đề thi thật tại IIG Việt Nam. Giảng viên MOS Master trực tiếp sửa từng lỗi thao tác 1:1, giúp học viên tự tin thi đỗ ngay lần đầu chỉ sau 3 - 5 buổi học trọng tâm.</p>
     `
   },
   {
@@ -93,7 +93,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "chuan-quoc-te",
     categoryName: "Chứng Chỉ Quốc Tế",
     author: {
-      name: "Ban Đào Tạo PH Digital",
+      name: "Ban Đào Tạo Tin Học Gen Z",
       role: "Chuyên Viên Khảo Thí & Chứng Chỉ Quốc Tế",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80"
     },
@@ -155,7 +155,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "excel-office",
     categoryName: "Thực Chiến Excel & Office",
     author: {
-      name: "Chuyên Gia Excel PH Digital",
+      name: "Chuyên Gia Excel Tin Học Gen Z",
       role: "Chuyên Gia Dữ Liệu & Dashboard",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80"
     },
@@ -193,7 +193,7 @@ export const BLOG_POSTS: BlogPost[] = [
     categoryName: "Ứng Dụng AI Văn Phòng",
     author: {
       name: "Thầy Huy (MOS Master)",
-      role: "Giám Đốc Đào Tạo PH Digital",
+      role: "Giám Đốc Đào Tạo Tin Học Gen Z",
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80"
     },
     publishedAt: "2026-08-20",
@@ -226,7 +226,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "mos-ic3",
     categoryName: "Luyện Thi MOS & IC3",
     author: {
-      name: "Ban Đào Tạo PH Digital",
+      name: "Ban Đào Tạo Tin Học Gen Z",
       role: "Chuyên Viên Khảo Thí & Chứng Chỉ Quốc Tế",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80"
     },
@@ -286,7 +286,7 @@ export const BLOG_POSTS: BlogPost[] = [
     category: "chuan-quoc-te",
     categoryName: "Chứng Chỉ Quốc Tế",
     author: {
-      name: "Ban Đào Tạo PH Digital",
+      name: "Ban Đào Tạo Tin Học Gen Z",
       role: "Chuyên Viên Khảo Thí & Chứng Chỉ Quốc Tế",
       avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=120&auto=format&fit=crop&q=80"
     },

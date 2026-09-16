@@ -20,7 +20,7 @@ export default function ResourcesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <span className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-xs sm:text-xs font-bold tracking-wider uppercase text-blue-800">
             <BookOpen size={13} className="text-blue-600" />
-            PH DIGITAL EDUCATION • THƯ VIỆN HỌC LIỆU MỞ
+            TIN HỌC GEN Z • THƯ VIỆN HỌC LIỆU MỞ
           </span>
           <h1 className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight font-display">
             Kho Tài Liệu & Đề Thi MOS / IC3 Miễn Phí

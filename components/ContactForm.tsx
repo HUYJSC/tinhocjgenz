@@ -82,7 +82,14 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          phone: cleanPhone,
+          course: formData.selection || "Tư vấn tổng quát",
+          selection: formData.selection || "Tư vấn tổng quát",
+          message: formData.message.trim(),
+          note: formData.message.trim(),
+        }),
       });
 
       const result = await response.json();
@@ -258,11 +265,11 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full min-h-12 py-3.5 px-6 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-md shadow-blue-400/20 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-70"
+          className="w-full min-h-12 py-3.5 px-6 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all cursor-pointer disabled:opacity-70 flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>
-              <Loader2 size={16} className="animate-spin text-slate-900" />
+              <Loader2 size={16} className="animate-spin text-white" />
               <span>Đang gửi thông tin...</span>
             </>
           ) : (

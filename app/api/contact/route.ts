@@ -14,10 +14,11 @@ export async function POST(req: Request) {
     }
 
     // 2. Persist lead in database / CRM
+    const courseTitle = data.course || data.selection || data.subject || "Khóa học MOS / IC3 Cấp Tốc";
     const newLead = LeadsStore.addLead({
       name: String(data.name).trim(),
       phone: String(data.phone).trim(),
-      course: data.course || data.subject || "Khóa học MOS / IC3 Cấp Tốc",
+      course: courseTitle,
       university: data.university || data.school || "Học viên Website",
       note: data.note || data.message || `Đăng ký từ biểu mẫu: ${data.formType || "Tư vấn trực tiếp"}`,
     });

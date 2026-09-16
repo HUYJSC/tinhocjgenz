@@ -40,7 +40,7 @@ export default function PricingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <span className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-xs sm:text-xs font-bold tracking-wider uppercase text-blue-700">
             <Award size={13} className="text-blue-600" />
-            PH DIGITAL EDUCATION • HỌC PHÍ MINH BẠCH
+            TIN HỌC GEN Z • HỌC PHÍ MINH BẠCH
           </span>
           <h1 className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight font-display">
             Bảng Giá Khóa Học & Luyện Thi MOS / IC3
@@ -94,7 +94,7 @@ export default function PricingPage() {
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-950 tracking-tight leading-none">Câu Hỏi Thường Gặp</h2>
             <p className="text-slate-500 text-sm leading-relaxed max-w-lg mx-auto">
-              Giải đáp các thắc mắc phổ biến về kỳ thi Certiport, chuẩn đầu ra đại học và hình thức học tại PH Digital Education.
+              Giải đáp các thắc mắc phổ biến về kỳ thi Certiport, chuẩn đầu ra đại học và hình thức học tại Tin Học Gen Z.
             </p>
           </div>
 

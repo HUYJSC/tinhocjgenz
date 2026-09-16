@@ -64,10 +64,12 @@ export default function CourseScheduleWidget({ courseTitle, batches }: Props) {
     const formElement = document.getElementById("dang-ky");
     if (formElement) {
       formElement.scrollIntoView({ behavior: "smooth" });
-      // Pre-fill or highlight note if input exists
-      const noteInput = document.querySelector('textarea[name="note"], input[name="note"]') as HTMLInputElement | HTMLTextAreaElement;
+      const noteInput = document.querySelector(
+        'textarea[name="message"], textarea[name="note"], input[name="note"]'
+      ) as HTMLInputElement | HTMLTextAreaElement | null;
       if (noteInput) {
         noteInput.value = `Đăng ký: ${courseTitle} - ${batch.name} (${batch.time})`;
+        noteInput.dispatchEvent(new Event("input", { bubbles: true }));
       }
     }
   };

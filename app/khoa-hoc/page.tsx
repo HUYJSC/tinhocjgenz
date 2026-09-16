@@ -22,7 +22,7 @@ export default function CoursesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
           <span className="inline-flex items-center gap-1.5 border border-blue-100 bg-blue-50 px-3.5 py-1.5 rounded-full text-xs sm:text-xs font-bold tracking-wider uppercase text-blue-700">
             <Award size={13} className="text-blue-600" />
-            PH DIGITAL EDUCATION • HỆ THỐNG KHÓA HỌC CHUẨN QUỐC TẾ
+            TIN HỌC GEN Z • HỆ THỐNG KHÓA HỌC CHUẨN QUỐC TẾ
           </span>
           <h1 className="text-3xl sm:text-5xl font-bold text-slate-900 tracking-tight leading-tight font-display">
             Chương Trình Đào Tạo & Luyện Thi Chứng Chỉ
@@ -181,7 +181,7 @@ export default function CoursesPage() {
                   <td className="p-4 text-blue-700 font-bold">Chuẩn kỹ năng số toàn diện về máy tính & công nghệ</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-extrabold text-slate-900">Cam kết tại PH Digital Education</td>
+                  <td className="p-4 font-extrabold text-slate-900">Cam kết tại Tin Học Gen Z</td>
                   <td className="p-4 text-slate-800 font-extrabold">Bao đỗ 100% • Ôn 3 - 5 buổi</td>
                   <td className="p-4 text-slate-800 font-extrabold">Bao đỗ 100% • Bộ đề chuẩn 2026</td>
                 </tr>

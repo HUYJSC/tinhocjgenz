@@ -22,7 +22,7 @@ export default function GuaranteePolicy() {
     {
       icon: <HeartHandshake size={24} className="text-blue-500" />,
       title: "Hỗ Trợ Kỹ Thuật & Sửa Bài 1:1 Trọn Đời",
-      desc: "Kể cả sau khi đã cầm chứng chỉ trên tay, bạn vẫn luôn được đội ngũ giảng viên PH Digital Education hỗ trợ giải đáp các vướng mắc về Excel, Word, PowerPoint phát sinh trong quá trình đi làm thực tế."
+      desc: "Kể cả sau khi đã cầm chứng chỉ trên tay, bạn vẫn luôn được đội ngũ giảng viên Tin Học Gen Z hỗ trợ giải đáp các vướng mắc về Excel, Word, PowerPoint phát sinh trong quá trình đi làm thực tế."
     }
   ];
 
@@ -43,7 +43,7 @@ export default function GuaranteePolicy() {
             4 Cam Kết Vàng Bảo Đảm Đỗ 100%
           </h2>
           <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-            PH Digital Education cam kết bảo vệ tối đa quyền lợi của học viên bằng văn bản đào tạo minh bạch, rõ ràng và có trách nhiệm cao nhất.
+            Tin Học Gen Z cam kết bảo vệ tối đa quyền lợi của học viên bằng văn bản đào tạo minh bạch, rõ ràng và có trách nhiệm cao nhất.
           </p>
         </div>
 

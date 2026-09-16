@@ -58,17 +58,31 @@ export default function CourseCard({ course }: CourseCardProps) {
 
         <p className="mt-3 line-clamp-2 text-sm font-medium leading-6 text-blue-800">{course.tagline}</p>
 
-        <div className="mt-3 inline-flex w-fit items-center gap-2 text-sm text-slate-500">
-          <Clock size={15} className="text-blue-600" aria-hidden="true" />
-          {course.duration}
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+          <span className="inline-flex items-center gap-1.5 font-medium text-slate-700">
+            <Clock size={14} className="text-blue-600" aria-hidden="true" />
+            {course.duration}
+          </span>
+          <span className="inline-flex items-center gap-1 text-blue-700 bg-blue-50 px-2 py-0.5 rounded font-medium">
+            Zoom tương tác + Kèm 1:1
+          </span>
         </div>
 
-        <p className="mt-4 line-clamp-3 text-sm leading-6 text-slate-600">{course.description}</p>
+        {course.targetAudience && (
+          <p className="mt-3 text-xs text-slate-500 line-clamp-1">
+            <span className="font-semibold text-slate-700">Phù hợp: </span>
+            {course.targetAudience}
+          </p>
+        )}
 
-        <ul className="mt-5 space-y-2.5 border-t border-slate-100 pt-5">
-          {course.features.slice(0, 4).map((feature) => (
-            <li key={feature} className="flex gap-2.5 text-sm leading-5 text-slate-600">
-              <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-700"><Check size={13} strokeWidth={2.5} aria-hidden="true" /></span>
+        <p className="mt-3 line-clamp-2 text-sm leading-6 text-slate-600">{course.description}</p>
+
+        <ul className="mt-4 space-y-2 border-t border-slate-100 pt-4">
+          {course.features.slice(0, 3).map((feature) => (
+            <li key={feature} className="flex gap-2 text-xs leading-5 text-slate-600">
+              <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-blue-50 text-blue-700">
+                <Check size={11} strokeWidth={2.5} aria-hidden="true" />
+              </span>
               <span className="line-clamp-2">{feature}</span>
             </li>
           ))}
@@ -77,7 +91,11 @@ export default function CourseCard({ course }: CourseCardProps) {
 
       <div className="border-t border-slate-100 bg-slate-50 p-5 sm:p-6">
         <Price course={course} />
-        {course.priceNote && <p className="mt-2 text-xs leading-5 text-blue-700">{course.priceNote}</p>}
+        {course.priceNote ? (
+          <p className="mt-2 text-xs leading-5 font-semibold text-blue-700">🔥 {course.priceNote}</p>
+        ) : (
+          <p className="mt-1 text-[11px] text-slate-400">Trọn gói phần mềm thi thử & bảo hành học lại 0đ</p>
+        )}
         <div className="mt-4 grid grid-cols-2 gap-2.5">
           <Link href={`/khoa-hoc/${course.id}`} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100">
             Chi tiết

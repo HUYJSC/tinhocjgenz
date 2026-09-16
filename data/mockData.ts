@@ -488,7 +488,7 @@ export const testimonialsData: Testimonial[] = [
     universityOrCompany: "Ngân hàng Thương Mại Cổ Phần",
     courseOrService: "Combo MOS 3 Môn (Word, Excel, PowerPoint)",
     score: "980/1000 Điểm",
-    content: "Lúc cần chứng chỉ gấp để hoàn thiện hồ sơ mình khá lo lắng vì thời gian gấp. May mắn biết đến PH Digital Education, thầy kèm sát đề 3 buổi là mình tự tin đi thi và đạt luôn 980 điểm! Giờ mình đã tự tin làm việc và thăng tiến.",
+    content: "Lúc cần chứng chỉ gấp để hoàn thiện hồ sơ mình khá lo lắng vì thời gian gấp. May mắn biết đến Tin Học Gen Z, thầy kèm sát đề 3 buổi là mình tự tin đi thi và đạt luôn 980 điểm! Giờ mình đã tự tin làm việc và thăng tiến.",
     rating: 5,
   },
   {
@@ -507,7 +507,7 @@ export const testimonialsData: Testimonial[] = [
     role: "Chuyên Viên Nhân Sự & Tiền Lương",
     universityOrCompany: "Tập Đoàn Bán Lẻ & Chuỗi Cung Ứng",
     courseOrService: "Excel Thực Chiến & Ứng Dụng AI",
-    content: "Trước đây mỗi lần làm bảng tính lương và tổng hợp báo cáo nhân sự là mình phải tăng ca tới 8-9h tối. Sau khóa học tại PH Digital Education, mình tự viết được macro và dashboard tự động, tiết kiệm được 70% thời gian làm việc.",
+    content: "Trước đây mỗi lần làm bảng tính lương và tổng hợp báo cáo nhân sự là mình phải tăng ca tới 8-9h tối. Sau khóa học tại Tin Học Gen Z, mình tự viết được macro và dashboard tự động, tiết kiệm được 70% thời gian làm việc.",
     rating: 5,
   },
   {

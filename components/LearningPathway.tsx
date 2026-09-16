@@ -148,7 +148,7 @@ export default function LearningPathway() {
           Chọn Lộ Trình Phù Hợp Nhất Với Bạn
         </h3>
         <p className="text-slate-500 text-xs sm:text-sm">
-          Dù bạn là học sinh, sinh viên, người đi làm hay doanh nghiệp, PH Digital Education đều có chương trình đào tạo tối ưu riêng biệt.
+          Dù bạn là học sinh, sinh viên, người đi làm hay doanh nghiệp, Tin Học Gen Z đều có chương trình đào tạo tối ưu riêng biệt.
         </p>
       </div>
 
