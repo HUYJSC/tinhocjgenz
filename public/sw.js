@@ -1,5 +1,5 @@
 /* Tin Học Gen Z — conservative public-content service worker */
-const CACHE_VERSION = "tinhocgenz-public-v1";
+const CACHE_VERSION = "tinhocgenz-public-v2";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE = [
   OFFLINE_URL,
