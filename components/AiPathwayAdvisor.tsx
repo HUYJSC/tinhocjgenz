@@ -24,7 +24,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
     AnalyticsEvents.VIEW_ARTICLE("ai-advisor-used", `AI Advisor: ${userRole} - ${certificateTarget}`);
     setTimeout(() => {
       setStep("result");
-    }, 1600);
+    }, 1200);
   };
 
   const resetAnalysis = () => {
@@ -33,10 +33,14 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
 
   const getRoleLabel = () => {
     switch (userRole) {
-      case "student": return "Học Sinh & Sinh Viên";
-      case "worker": return "Người Đi Làm & Kế Toán";
-      case "business": return "Doanh Nghiệp & Tổ Chức";
-      default: return "Người Mới Bắt Đầu";
+      case "student":
+        return "Học Sinh & Sinh Viên";
+      case "worker":
+        return "Người Đi Làm & Kế Toán";
+      case "business":
+        return "Doanh Nghiệp & Tổ Chức";
+      default:
+        return "Người Mới Bắt Đầu";
     }
   };
 
@@ -50,7 +54,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
         scoreTarget: "Tối ưu 80% thời gian làm việc",
         discount: "Giảm 30% khi đăng ký hôm nay",
         code: "AI-PRO-30",
-        summary: "Làm chủ Excel Dashboard, PivotTable động, các hàm nâng cao và ứng dụng AI tự động hóa công việc văn phòng."
+        summary: "Làm chủ Excel Dashboard, PivotTable động, các hàm nâng cao và ứng dụng AI tự động hóa công việc văn phòng.",
       };
     }
     if (certificateTarget === "ic3") {
@@ -62,7 +66,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
         scoreTarget: "950+ / 1000",
         discount: "Giảm 30% khi đăng ký nhóm",
         code: "AI-IC3-30",
-        summary: "Bao quát toàn diện 3 cấp độ Máy tính, Ứng dụng văn phòng và Cuộc sống trực tuyến theo chuẩn GS6 mới nhất."
+        summary: "Bao quát toàn diện 3 cấp độ Máy tính, Ứng dụng văn phòng và Cuộc sống trực tuyến theo chuẩn GS6 mới nhất.",
       };
     }
     if (certificateTarget === "mos-single") {
@@ -74,7 +78,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
         scoreTarget: "980+ / 1000",
         discount: "Tặng tài khoản thi thử Certiport",
         code: "AI-MOS-FAST",
-        summary: "Luyện thẳng trên ngân hàng đề thi thật Multi-Project của IIG, chỉ mẹo tránh bẫy đạt điểm tuyệt đối."
+        summary: "Luyện thẳng trên ngân hàng đề thi thật Multi-Project của IIG, chỉ mẹo tránh bẫy đạt điểm tuyệt đối.",
       };
     }
     return {
@@ -85,55 +89,51 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       scoreTarget: "1000 / 1000 Điểm",
       discount: "Tiết kiệm 50% học phí trọn gói",
       code: "AI-COMBO-HOT",
-      summary: "Gói giải pháp trọn gói nâng cao kỹ năng và sở hữu bằng quốc tế Certiport trọn đời."
+      summary: "Gói giải pháp trọn gói nâng cao kỹ năng và sở hữu bằng quốc tế Certiport trọn đời.",
     };
   };
 
   const rec = getCourseRecommendation();
 
   const content = (
-    <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-slate-950 border border-slate-700/80 rounded-t-2xl sm:rounded-2xl p-5 sm:p-8 shadow-lg text-white">
-      
-      {/* Mobile drag indicator */}
-      <div className="sm:hidden w-10 h-1 bg-slate-600 rounded-full mx-auto mb-3" aria-hidden="true" />
+    <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-white border border-[#E5EEF8] rounded-t-2xl sm:rounded-2xl p-5 sm:p-8 shadow-xl text-slate-800 font-sans">
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-[#0057B8]" />
 
-      {/* Background Tech Glow */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/15 rounded-full blur-[90px] pointer-events-none" />
+      {/* Mobile drag indicator */}
+      <div className="sm:hidden w-10 h-1 bg-slate-200 rounded-full mx-auto mb-3" aria-hidden="true" />
 
       {/* Close button if modal */}
       {!isEmbedded && onClose && (
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 min-h-10 min-w-10 p-2 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center justify-center"
+          className="absolute top-4 right-4 min-h-10 min-w-10 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 transition-colors cursor-pointer flex items-center justify-center"
           aria-label="Đóng"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
       )}
 
       {/* Header */}
       <div className="space-y-2 mb-6">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-blue-300 text-xs font-bold uppercase tracking-wider">
-          <Brain size={14} className="text-blue-400" />
-          <span>TIN HỌC GEN Z AI ADVISOR • TƯ VẤN LỘ TRÌNH THÔNG MINH</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#0057B8] text-xs font-bold uppercase tracking-wider">
+          <Brain size={14} className="text-[#0057B8]" />
+          <span>TƯ VẤN LỘ TRÌNH ĐÀO TẠO THÔNG MINH</span>
         </div>
-        <h3 className="text-xl sm:text-2xl font-bold text-white font-display">
-          Trợ Lý AI Chuẩn Đoán & Thiết Kế Lộ Trình Phù Hợp Nhất
+        <h3 className="text-xl sm:text-2xl font-bold text-[#0B2545] font-display">
+          Trợ Lý Phân Tích & Thiết Kế Lộ Trình Phù Hợp
         </h3>
-        <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-          Nhập mục tiêu của bạn để thuật toán AI xây dựng kế hoạch đào tạo tối ưu và cấp mã ưu đãi học phí.
+        <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
+          Nhập mục tiêu của bạn để hệ thống xây dựng kế hoạch đào tạo tối ưu và cấp mã ưu đãi học phí hiện hành.
         </p>
       </div>
 
       {/* STEP 1: INPUT CRITERIA */}
       {step === "input" && (
         <div className="space-y-5">
-          
           {/* Select Target Role */}
           <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <Users size={14} className="text-blue-400" />
+            <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <Users size={14} className="text-[#0057B8]" />
               <span>Đối Tượng / Nhu Cầu Của Bạn:</span>
             </label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -149,8 +149,8 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
                   onClick={() => setUserRole(u.id)}
                   className={`py-2.5 px-3 rounded-xl text-xs font-bold transition-all border text-center cursor-pointer ${
                     userRole === u.id
-                      ? "bg-blue-600 border-blue-400 text-white shadow-md scale-[1.02]"
-                      : "bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white"
+                      ? "bg-[#0057B8] border-[#0057B8] text-white shadow-sm"
+                      : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
                   }`}
                 >
                   {u.label}
@@ -161,8 +161,8 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
 
           {/* Select Target Goal */}
           <div className="space-y-2">
-            <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <Award size={14} className="text-blue-400" />
+            <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+              <Award size={14} className="text-[#0057B8]" />
               <span>Mục Tiêu Đào Tạo Bạn Hướng Đến:</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -177,11 +177,11 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
                   onClick={() => setCertificateTarget(c.id)}
                   className={`p-3 rounded-2xl text-left border transition-all cursor-pointer ${
                     certificateTarget === c.id
-                      ? "bg-blue-600 border-blue-400 text-white shadow-md"
-                      : "bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white"
+                      ? "bg-blue-50 border-[#0057B8] text-[#003F88] shadow-sm"
+                      : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
                   }`}
                 >
-                  <div className="text-xs font-mono text-blue-300 uppercase font-bold">{c.badge}</div>
+                  <div className="text-[11px] font-mono text-[#0057B8] uppercase font-bold">{c.badge}</div>
                   <div className="text-xs font-bold mt-0.5 leading-snug">{c.label}</div>
                 </button>
               ))}
@@ -191,11 +191,11 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           {/* Current Level & Timeline */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-300">Trình Độ Hiện Tại:</label>
+              <label className="text-xs font-bold text-slate-700">Trình Độ Hiện Tại:</label>
               <select
                 value={currentLevel}
                 onChange={(e) => setCurrentLevel(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 font-medium"
+                className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8] font-medium"
               >
                 <option value="zero">Chưa biết gì / Mất gốc tin học</option>
                 <option value="basic">Biết gõ văn bản & tính toán cơ bản</option>
@@ -204,11 +204,11 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-300">Kế Hoạch Thời Gian:</label>
+              <label className="text-xs font-bold text-slate-700">Kế Hoạch Thời Gian:</label>
               <select
                 value={targetTimeline}
                 onChange={(e) => setTargetTimeline(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500 font-medium"
+                className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8] font-medium"
               >
                 <option value="urgent">Cấp tốc trong 3 - 7 ngày tới</option>
                 <option value="month">Trong tháng này</option>
@@ -221,13 +221,12 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <div className="pt-2">
             <button
               onClick={startAnalysis}
-              className="w-full py-3.5 rounded-2xl bg-blue-600 text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.01]"
+              className="w-full py-3.5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles size={16} />
-              <span>Kích Hoạt AI Phân Tích Lộ Trình & Nhận Ưu Đãi</span>
+              <span>Phân Tích Lộ Trình & Nhận Ưu Đãi</span>
             </button>
           </div>
-
         </div>
       )}
 
@@ -235,18 +234,17 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       {step === "analyzing" && (
         <div className="py-12 text-center space-y-5">
           <div className="relative w-16 h-16 mx-auto">
-            <div className="absolute inset-0 rounded-full border-4 border-blue-500/20 animate-ping" />
-            <div className="relative w-16 h-16 rounded-full border-4 border-t-blue-400 border-r-blue-500 border-b-blue-500 border-l-transparent animate-spin flex items-center justify-center">
-              <Brain size={24} className="text-blue-400" />
+            <div className="relative w-16 h-16 rounded-full border-4 border-t-[#0057B8] border-r-blue-200 border-b-blue-200 border-l-transparent animate-spin flex items-center justify-center">
+              <Brain size={24} className="text-[#0057B8]" />
             </div>
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm font-bold text-white">
-              AI Đang Tính Toán Lộ Trình Tối Ưu Cho Bạn...
+            <p className="text-sm font-bold text-[#0B2545]">
+              Đang Tính Toán Lộ Trình Tối Ưu Cho Bạn...
             </p>
-            <p className="text-xs text-slate-400">
-              Đang phân bổ lịch học kèm 1:1 và tạo mã học bổng ưu đãi riêng biệt.
+            <p className="text-xs text-slate-500">
+              Đang phân bổ lịch học kèm 1:1 và cấp mã học bổng ưu đãi riêng biệt.
             </p>
           </div>
         </div>
@@ -255,50 +253,47 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
       {/* STEP 3: RESULT & ROADMAP */}
       {step === "result" && (
         <div className="space-y-5 animate-fade-in">
-          
           {/* Diagnostic Summary Box */}
-          <div className="bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-3">
+          <div className="bg-[#F4F8FD] p-5 rounded-2xl border border-[#E5EEF8] space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                KẾT QUẢ PHÂN TÍCH DÀNH CHO: {getRoleLabel()}
+              <span className="text-xs font-bold uppercase tracking-wider text-[#0057B8]">
+                LỘ TRÌNH DÀNH CHO: {getRoleLabel()}
               </span>
-              <span className="px-2 py-0.5 rounded bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-500/30">
+              <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
                 Cam Kết Bao Đỗ 100%
               </span>
             </div>
 
-            <h4 className="text-base sm:text-lg font-bold text-white leading-snug font-display">
+            <h4 className="text-base sm:text-lg font-bold text-[#0B2545] leading-snug font-display">
               {rec.title}
             </h4>
 
-            <p className="text-slate-300 text-xs leading-relaxed">
-              {rec.summary}
-            </p>
+            <p className="text-slate-600 text-xs leading-relaxed">{rec.summary}</p>
 
             {/* Metrics */}
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-800 text-center">
-              <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-xs text-slate-400">Thời lượng:</span>
-                <p className="text-xs font-bold text-white mt-0.5">{rec.duration}</p>
+            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200 text-center">
+              <div className="p-2 rounded-xl bg-white border border-slate-100">
+                <span className="text-xs text-slate-500">Thời lượng:</span>
+                <p className="text-xs font-bold text-slate-800 mt-0.5">{rec.duration}</p>
               </div>
-              <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-xs text-slate-400">Mục tiêu:</span>
-                <p className="text-xs font-bold text-blue-400 mt-0.5">{rec.scoreTarget}</p>
+              <div className="p-2 rounded-xl bg-white border border-slate-100">
+                <span className="text-xs text-slate-500">Mục tiêu:</span>
+                <p className="text-xs font-bold text-[#0057B8] mt-0.5">{rec.scoreTarget}</p>
               </div>
-              <div className="p-2 rounded-xl bg-slate-900">
-                <span className="text-xs text-slate-400">Cam kết:</span>
-                <p className="text-xs font-bold text-blue-400 mt-0.5">{rec.passRate}</p>
+              <div className="p-2 rounded-xl bg-white border border-slate-100">
+                <span className="text-xs text-slate-500">Cam kết:</span>
+                <p className="text-xs font-bold text-[#0057B8] mt-0.5">{rec.passRate}</p>
               </div>
             </div>
           </div>
 
-          {/* AI Voucher Card */}
-          <div className="bg-blue-500/10 border border-blue-400/30 p-4 rounded-2xl flex items-center justify-between gap-3">
+          {/* Voucher Card */}
+          <div className="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-bold text-blue-300">Ưu Đãi Học Viên:</p>
-              <p className="text-xs text-slate-300">{rec.discount}</p>
+              <p className="text-xs font-bold text-[#003F88]">Ưu Đãi Học Viên:</p>
+              <p className="text-xs text-slate-600">{rec.discount}</p>
             </div>
-            <div className="px-3 py-1.5 rounded-xl bg-blue-400 text-slate-950 font-mono font-bold text-xs tracking-wider">
+            <div className="px-3 py-1.5 rounded-xl bg-[#0057B8] text-white font-mono font-bold text-xs tracking-wider">
               {rec.code}
             </div>
           </div>
@@ -307,7 +302,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
             <Link
               href="/lien-he"
-              className="w-full sm:flex-1 py-3 px-5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-lg transition-all"
+              className="w-full sm:flex-1 py-3 px-5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-sm transition-all"
             >
               <span>Đăng Ký Xếp Lớp Ngay</span>
               <ArrowRight size={14} />
@@ -317,7 +312,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
               href={SITE_CONFIG.contact.zaloUrl}
               target="_blank"
               rel="noreferrer"
-              className="w-full sm:w-auto py-3 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-blue-300 text-xs font-bold uppercase tracking-wider text-center border border-slate-700 transition-all flex items-center justify-center gap-1.5"
+              className="w-full sm:w-auto py-3 px-5 rounded-xl bg-white hover:bg-slate-50 text-[#0057B8] text-xs font-bold uppercase tracking-wider text-center border border-[#E5EEF8] transition-all flex items-center justify-center gap-1.5"
             >
               <MessageSquare size={14} />
               <span>Tư Vấn Trực Tiếp Zalo</span>
@@ -328,16 +323,14 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <div className="text-center">
             <button
               onClick={resetAnalysis}
-              className="text-xs text-slate-400 hover:text-slate-200 inline-flex items-center gap-1 cursor-pointer"
+              className="text-xs text-slate-500 hover:text-slate-800 inline-flex items-center gap-1 cursor-pointer"
             >
               <RefreshCw size={11} />
               <span>Thử phân tích với mục tiêu khác</span>
             </button>
           </div>
-
         </div>
       )}
-
     </div>
   );
 
@@ -348,8 +341,10 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in"
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-[90] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
     >
       <div onClick={(e) => e.stopPropagation()} className="w-full sm:w-auto flex justify-center">
