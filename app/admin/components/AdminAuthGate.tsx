@@ -42,7 +42,6 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [maskedTarget, setMaskedTarget] = useState("");
-  const [recoveryOtpHint, setRecoveryOtpHint] = useState<string | null>(null);
 
   // Status & Feedback
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -117,9 +116,6 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
         setMaskedTarget(data.maskedTarget || cred);
         setMode("forgot_reset");
         setInfoMsg(data.message);
-        if (data.otpCode) {
-          setRecoveryOtpHint(data.otpCode);
-        }
       } else {
         setErrorMsg(data.error || "Không thể gửi mã OTP khôi phục.");
       }
@@ -176,7 +172,6 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
         setRecoveryOtp("");
         setNewPassword("");
         setConfirmPassword("");
-        setRecoveryOtpHint(null);
       } else {
         setErrorMsg(data.error || "Không thể đặt lại mật khẩu.");
       }
@@ -249,18 +244,6 @@ export function AdminAuthGate({ children }: { children: React.ReactNode }) {
           <div className="mb-5 flex items-start gap-3 rounded-xl border border-blue-800/60 bg-blue-950/60 p-3.5 text-xs text-blue-200">
             <Info className="mt-0.5 h-4 w-4 shrink-0 text-blue-400" aria-hidden="true" />
             <div className="flex-1">{infoMsg}</div>
-          </div>
-        )}
-
-        {recoveryOtpHint && mode === "forgot_reset" && (
-          <div className="mb-5 rounded-xl border border-amber-800/60 bg-amber-950/40 p-3.5 text-xs text-amber-200 space-y-1">
-            <strong className="block text-amber-300 font-bold">Mã OTP xác thực chủ sở hữu:</strong>
-            <p className="font-mono text-base font-bold text-amber-100 tracking-wider">
-              {recoveryOtpHint}
-            </p>
-            <p className="text-[11px] text-amber-300/80 font-normal">
-              (Mã xác thực nội bộ có hiệu lực trong 10 phút để bạn tự đặt lại mật khẩu ngay)
-            </p>
           </div>
         )}
 

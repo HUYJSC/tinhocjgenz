@@ -49,6 +49,8 @@ export const PasswordResetStore = {
     otp?: string;
     maskedTarget?: string;
     username?: string;
+    targetType?: "email" | "phone";
+    targetValue?: string;
   } {
     const now = Date.now();
 
@@ -122,6 +124,8 @@ export const PasswordResetStore = {
       otp,
       maskedTarget,
       username: user.username,
+      targetType,
+      targetValue,
     };
   },
 

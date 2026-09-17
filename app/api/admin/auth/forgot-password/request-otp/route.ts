@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PasswordResetStore } from "@/lib/password-reset-store";
+import { SmsService } from "@/lib/sms-service";
 import { getErrorMessage } from "@/lib/errors";
 
 export async function POST(req: NextRequest) {
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
 
     const result = PasswordResetStore.createOtp(credential, ip);
 
-    if (!result.success) {
+    if (!result.success || !result.otp || !result.targetValue) {
       return NextResponse.json(
         {
           success: false,
@@ -34,15 +35,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // In a live production environment with SMS/Email gateway, send here.
-    // We also return the OTP in the response or hint for immediate self-service recovery by the site owner.
+    // Dispatch OTP directly to phone or email
+    const smsResult = await SmsService.sendOtp(result.targetValue, result.otp);
+
     return NextResponse.json({
       success: true,
-      message: `Mã xác thực OTP đã được tạo và gửi đến ${result.maskedTarget}. Mã có hiệu lực trong 10 phút.`,
+      message: `Mã xác thực OTP đã được gửi đến ${result.maskedTarget}. Vui lòng kiểm tra tin nhắn điện thoại để lấy mã xác thực.`,
       maskedTarget: result.maskedTarget,
       username: result.username,
-      // Provide OTP directly to assist the site owner in initial recovery / dev environments
-      otpCode: result.otp,
+      provider: smsResult.provider,
+      sentToPhone: smsResult.success,
+      providerNote: !smsResult.success ? smsResult.error : undefined,
     });
   } catch (err) {
     return NextResponse.json(
@@ -54,4 +57,3 @@ export async function POST(req: NextRequest) {
     );
   }
 }
-
