@@ -108,3 +108,4 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: false, error: getErrorMessage(err) }, { status: 500 });
   }
 }
+

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   X,
@@ -9,10 +8,10 @@ import {
   RotateCcw,
   CheckCircle2,
   UserCheck,
-  Loader2,
   ChevronRight,
 } from "lucide-react";
 import { RoadmapResult, PathwayCriteria } from "@/lib/ai-rag-service";
+import MascotBot, { MascotState } from "./MascotBot";
 
 interface AiChatbotModalProps {
   isOpen: boolean;
@@ -45,6 +44,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
 
   const [inputVal, setInputVal] = useState("");
   const [loading, setLoading] = useState(false);
+  const [botState, setBotState] = useState<MascotState>("greeting");
+  const speakingTimerRef = useRef<NodeJS.Timeout | null>(null);
   const [conversationId, setConversationId] = useState<string>("");
   const [criteria, setCriteria] = useState<PathwayCriteria>({});
 
@@ -63,6 +64,24 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isOpen, loading]);
+
+  // Trigger greeting animation on modal open
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const startTimer = setTimeout(() => {
+      setBotState("greeting");
+    }, 10);
+
+    const idleTimer = setTimeout(() => {
+      setBotState((prev) => (prev === "greeting" ? "idle" : prev));
+    }, 2200);
+
+    return () => {
+      clearTimeout(startTimer);
+      clearTimeout(idleTimer);
+    };
+  }, [isOpen]);
 
   // Focus trap and Escape key listener
   useEffect(() => {
@@ -101,6 +120,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
     setMessages((prev) => [...prev, userMsg]);
     setInputVal("");
     setLoading(true);
+    setBotState("thinking");
 
     try {
       const res = await fetch("/api/ai/chat", {
@@ -130,6 +150,11 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
         };
 
         setMessages((prev) => [...prev, botMsg]);
+        setBotState("speaking");
+        if (speakingTimerRef.current) clearTimeout(speakingTimerRef.current);
+        speakingTimerRef.current = setTimeout(() => {
+          setBotState("idle");
+        }, 2600);
       } else {
         messageCounter.current += 1;
         setMessages((prev) => [
@@ -141,6 +166,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
             quickReplies: ["Đăng ký nhận tư vấn trực tiếp"],
           },
         ]);
+        setBotState("idle");
       }
     } catch {
       messageCounter.current += 1;
@@ -152,6 +178,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
           content: "Lỗi kết nối tới hệ thống máy chủ AI. Vui lòng thử lại sau.",
         },
       ]);
+      setBotState("idle");
     } finally {
       setLoading(false);
     }
@@ -173,6 +200,10 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
       },
     ]);
     setCriteria({});
+    setBotState("greeting");
+    setTimeout(() => {
+      setBotState((prev) => (prev === "greeting" ? "idle" : prev));
+    }, 2200);
   };
 
   const handleSubmitLead = async (e: React.FormEvent) => {
@@ -221,10 +252,10 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
         <div className="absolute top-0 left-0 w-full h-[3px] bg-[#0057B8] z-20" />
 
         {/* Modal Header */}
-        <div className="bg-white border-b border-[#E5EEF8] px-5 py-3.5 flex items-center justify-between shrink-0">
+        <div className="bg-white border-b border-[#E5EEF8] px-5 py-3 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-2xl bg-[#F4F8FD] border border-[#E5EEF8] overflow-hidden shrink-0 shadow-xs">
-              <Image src="/ai-bot-avatar.png" alt="Trợ lý AI Mascot" fill className="object-contain p-0.5" />
+            <div className="w-10 h-10 flex items-center justify-center shrink-0">
+              <MascotBot state={botState} size={40} showShadow={false} />
             </div>
             <div>
               <h3 id="ai-chat-title" className="text-sm sm:text-base font-bold text-[#0B2545] flex items-center gap-1.5">
@@ -232,7 +263,13 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               </h3>
               <p className="text-[11px] text-slate-500 font-medium">
-                Tư vấn lộ trình bám sát dữ liệu khảo thí & đào tạo chính thức
+                {botState === "thinking"
+                  ? "Đang phân tích dữ liệu khóa học..."
+                  : botState === "listening"
+                  ? "Đang lắng nghe câu hỏi của bạn..."
+                  : botState === "speaking"
+                  ? "Đang giải đáp lộ trình học..."
+                  : "Tư vấn lộ trình bám sát dữ liệu khảo thí & đào tạo chính thức"}
               </p>
             </div>
           </div>
@@ -266,8 +303,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
               className={`flex gap-3 items-start ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
             >
               {msg.role === "assistant" && (
-                <div className="relative w-8 h-8 rounded-xl bg-white border border-[#E5EEF8] overflow-hidden shrink-0 shadow-2xs mt-0.5">
-                  <Image src="/ai-bot-avatar.png" alt="" fill className="object-contain p-0.5" />
+                <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5">
+                  <MascotBot state="idle" size={30} showShadow={false} />
                 </div>
               )}
 
@@ -386,13 +423,17 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
 
           {/* AI Thinking indicator */}
           {loading && (
-            <div className="flex gap-3 items-start">
-              <div className="relative w-8 h-8 rounded-xl bg-white border border-[#E5EEF8] overflow-hidden shrink-0 shadow-2xs">
-                <Image src="/ai-bot-avatar.png" alt="" fill className="object-contain p-0.5" />
+            <div className="flex gap-3 items-start animate-in fade-in duration-200">
+              <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5">
+                <MascotBot state="thinking" size={32} showShadow={false} />
               </div>
-              <div className="p-3.5 rounded-2xl rounded-tl-xs bg-white border border-[#E5EEF8] text-xs text-slate-500 flex items-center gap-2 shadow-2xs">
-                <Loader2 size={15} className="animate-spin text-[#0057B8]" />
-                <span>Trợ lý AI đang phân tích dữ liệu khóa học...</span>
+              <div className="p-3.5 rounded-2xl rounded-tl-xs bg-white border border-[#E5EEF8] text-xs text-slate-600 flex items-center gap-2.5 shadow-2xs">
+                <div className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce" />
+                </div>
+                <span className="font-medium text-slate-600">Trợ lý AI đang phân tích dữ liệu khóa học...</span>
               </div>
             </div>
           )}
@@ -412,7 +453,22 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
             <input
               type="text"
               value={inputVal}
-              onChange={(e) => setInputVal(e.target.value)}
+              onFocus={() => {
+                if (!loading && botState === "idle") {
+                  setBotState("listening");
+                }
+              }}
+              onBlur={() => {
+                if (!loading && botState === "listening") {
+                  setBotState("idle");
+                }
+              }}
+              onChange={(e) => {
+                setInputVal(e.target.value);
+                if (!loading && botState === "idle") {
+                  setBotState("listening");
+                }
+              }}
               placeholder="Nhập câu hỏi hoặc chọn các gợi ý bên trên..."
               className="flex-1 min-h-11 px-4 py-2.5 rounded-xl border border-[#E5EEF8] bg-[#F4F8FD]/50 text-xs sm:text-sm text-slate-800 focus:outline-none focus:bg-white focus:border-[#0057B8] focus:ring-2 focus:ring-[#0057B8]/20 transition-all font-sans"
             />

@@ -1,0 +1,457 @@
+/* ==========================================================================
+   MASCOT BOT ANIMATIONS (PH DIGITAL EDUCATION / TIN HỌC GEN Z)
+   High-performance GPU composited CSS (transform & opacity only)
+   Strictly compliant with Reduced Motion and Responsive constraints
+   ========================================================================== */
+
+.mascotContainer {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mascotContainer.interactive {
+  cursor: pointer;
+}
+
+.mascotContainer.interactive:hover {
+  transform: translateY(-4px) scale(1.03);
+}
+
+.mascotContainer.interactive:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+/* Floating bobbing wrapper */
+.bobbingWrapper {
+  position: relative;
+  will-change: transform;
+}
+
+/* 1. IDLE STATE */
+.stateIdle .bobbingWrapper {
+  animation: idleFloat 3.4s ease-in-out infinite alternate;
+}
+
+.stateIdle .groundShadow {
+  animation: shadowScale 3.4s ease-in-out infinite alternate;
+}
+
+/* 2. GREETING STATE */
+.stateGreeting .bobbingWrapper {
+  animation: greetingPop 2.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.stateGreeting .groundShadow {
+  animation: greetingShadow 2.2s ease-out forwards;
+}
+
+/* 3. LISTENING STATE */
+.stateListening .bobbingWrapper {
+  animation: listeningFloat 2.8s ease-in-out infinite alternate;
+}
+
+/* 4. THINKING STATE */
+.stateThinking .bobbingWrapper {
+  animation: thinkingFloat 2.2s ease-in-out infinite alternate;
+}
+
+/* 5. SPEAKING STATE */
+.stateSpeaking .bobbingWrapper {
+  animation: speakingBob 0.6s ease-in-out infinite alternate;
+}
+
+/* GROUND SHADOW */
+.groundShadow {
+  width: 70%;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 87, 184, 0.35) 0%, rgba(0, 87, 184, 0.08) 60%, transparent 100%);
+  margin-top: 2px;
+  transform-origin: center center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* OVERLAYS & DETAILS */
+
+/* Antenna Orange Dot Pulse */
+.antennaDot {
+  position: absolute;
+  top: 13.5%;
+  right: 21%;
+  width: 9%;
+  height: 9%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFA000 30%, #FF6D00 100%);
+  box-shadow: 0 0 6px rgba(255, 109, 0, 0.55);
+  pointer-events: none;
+  animation: antennaPulse 3s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+/* Microphone Cyan Tip Glow */
+.micTip {
+  position: absolute;
+  top: 43%;
+  right: 36%;
+  width: 7.5%;
+  height: 5.5%;
+  border-radius: 9999px;
+  background: #00E5FF;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  transform-origin: center center;
+}
+
+.stateSpeaking .micTip {
+  box-shadow: 0 0 10px #00E5FF, 0 0 18px rgba(0, 229, 255, 0.7);
+  animation: micSpeakGlow 0.35s ease-in-out infinite alternate;
+}
+
+.stateListening .micTip {
+  box-shadow: 0 0 8px #00E5FF, 0 0 12px rgba(0, 229, 255, 0.5);
+  animation: micListenPulse 1.6s ease-in-out infinite;
+}
+
+.stateThinking .micTip {
+  box-shadow: 0 0 6px rgba(0, 229, 255, 0.4);
+}
+
+/* Visor Center Area */
+.visorArea {
+  position: absolute;
+  top: 24%;
+  left: 30%;
+  width: 41%;
+  height: 24%;
+  border-radius: 26% 26% 36% 36%;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Subtle Shimmer for Thinking State */
+.visorScanner {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 229, 255, 0.25) 50%, transparent 100%);
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stateThinking .visorScanner {
+  opacity: 1;
+  animation: visorScan 1.4s ease-in-out infinite;
+}
+
+/* 3 Typing Dots on Visor for Thinking State */
+.typingDotsOverlay {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  z-index: 5;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.stateThinking .typingDotsOverlay {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #00E5FF;
+  box-shadow: 0 0 5px #00E5FF;
+  animation: dotBlink 1.2s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Greeting Wave Ticks (Left Arm side) */
+.wavingTicks {
+  position: absolute;
+  top: 36%;
+  left: 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(-15deg);
+}
+
+.stateGreeting .wavingTicks {
+  animation: waveTicksShow 1.8s ease-out forwards;
+}
+
+.tick {
+  width: 8px;
+  height: 3px;
+  border-radius: 9999px;
+  background: #00E5FF;
+  box-shadow: 0 0 6px #00E5FF;
+}
+
+.tick:nth-child(2) {
+  width: 6px;
+  margin-left: 2px;
+}
+
+/* Natural Eye Blink Overlay */
+.blinkOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 37, 69, 0.95);
+  opacity: 0;
+  pointer-events: none;
+  animation: naturalBlink 5.2s infinite ease-in-out;
+}
+
+.stateThinking .blinkOverlay,
+.stateGreeting .blinkOverlay {
+  animation: none;
+  opacity: 0;
+}
+
+/* ==========================================================================
+   KEYFRAME DEFINITIONS
+   ========================================================================== */
+
+@keyframes idleFloat {
+  0% {
+    transform: translateY(-5px) rotate(-1.2deg);
+  }
+  100% {
+    transform: translateY(5px) rotate(1.2deg);
+  }
+}
+
+@keyframes shadowScale {
+  0% {
+    transform: scaleX(0.85);
+    opacity: 0.22;
+  }
+  100% {
+    transform: scaleX(1.08);
+    opacity: 0.4;
+  }
+}
+
+@keyframes greetingPop {
+  0% {
+    transform: translateY(12px) scale(0.92);
+    opacity: 0.6;
+  }
+  30% {
+    transform: translateY(-7px) rotate(-3deg) scale(1.04);
+    opacity: 1;
+  }
+  55% {
+    transform: translateY(-2px) rotate(3deg) scale(1.02);
+  }
+  80% {
+    transform: translateY(-5px) rotate(-1deg) scale(1.01);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes greetingShadow {
+  0% {
+    transform: scaleX(0.6);
+    opacity: 0.15;
+  }
+  30% {
+    transform: scaleX(0.8);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0.32;
+  }
+}
+
+@keyframes listeningFloat {
+  0% {
+    transform: translateY(-2px) rotate(-2.5deg);
+  }
+  100% {
+    transform: translateY(2px) rotate(-1.8deg);
+  }
+}
+
+@keyframes thinkingFloat {
+  0% {
+    transform: translateY(-3px) rotate(-0.5deg);
+  }
+  100% {
+    transform: translateY(3px) rotate(0.5deg);
+  }
+}
+
+@keyframes speakingBob {
+  0% {
+    transform: translateY(-3px) rotate(-0.8deg);
+  }
+  100% {
+    transform: translateY(2px) rotate(0.8deg);
+  }
+}
+
+@keyframes antennaPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+    box-shadow: 0 0 5px rgba(255, 109, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 109, 0, 0.75);
+  }
+}
+
+@keyframes micSpeakGlow {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  100% {
+    transform: scale(1.18);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes micListenPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes visorScan {
+  0% {
+    transform: translateX(-100%);
+  }
+  50%, 100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes dotBlink {
+  0%, 80%, 100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes waveTicksShow {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translate(-4px, 4px);
+  }
+  30%, 75% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1) translate(-2px, -2px);
+  }
+}
+
+@keyframes naturalBlink {
+  0%, 94%, 100% {
+    opacity: 0;
+  }
+  96%, 98% {
+    opacity: 0.85;
+  }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS (Reduce amplitude by 35%)
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  @keyframes idleFloat {
+    0% {
+      transform: translateY(-3px) rotate(-0.8deg);
+    }
+    100% {
+      transform: translateY(3px) rotate(0.8deg);
+    }
+  }
+
+  @keyframes listeningFloat {
+    0% {
+      transform: translateY(-1.5px) rotate(-1.5deg);
+    }
+    100% {
+      transform: translateY(1.5px) rotate(-1deg);
+    }
+  }
+
+  @keyframes thinkingFloat {
+    0% {
+      transform: translateY(-2px) rotate(-0.3deg);
+    }
+    100% {
+      transform: translateY(2px) rotate(0.3deg);
+    }
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .stateIdle .bobbingWrapper,
+  .stateGreeting .bobbingWrapper,
+  .stateListening .bobbingWrapper,
+  .stateThinking .bobbingWrapper,
+  .stateSpeaking .bobbingWrapper,
+  .groundShadow,
+  .antennaDot,
+  .micTip,
+  .visorScanner,
+  .dot,
+  .wavingTicks,
+  .blinkOverlay {
+    animation: none !important;
+    transition: opacity 0.2s ease !important;
+  }
+
+  .mascotContainer.interactive:hover {
+    transform: none !important;
+  }
+}
