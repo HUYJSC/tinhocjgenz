@@ -207,6 +207,14 @@ export default function RootLayout({
           </noscript>
         )}
 
+        {/* Skip to main content for accessibility */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[#0057B8] focus:text-white focus:rounded-lg focus:shadow-md focus:font-bold focus:text-sm"
+        >
+          Bỏ qua đến nội dung chính
+        </a>
+
         {/* Desktop navigation is frozen; mobile uses an app-like shell. */}
         <div className="hidden lg:block">
           <Header />
@@ -214,7 +222,7 @@ export default function RootLayout({
         <MobileAppShell />
 
         {/* Main Content Area */}
-        <main className="flex-grow flex flex-col relative">{children}</main>
+        <main id="main-content" className="flex-grow flex flex-col relative">{children}</main>
 
         {/* Floating Hotline & Zalo Widget */}
         <FloatingContact />

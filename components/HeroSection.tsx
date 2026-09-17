@@ -1,58 +1,78 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, CheckCircle2, Laptop } from "lucide-react";
+import { ArrowRight, BookOpen, CheckCircle2, Award, ShieldCheck } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section aria-labelledby="home-hero-title" className="border-b border-blue-100 bg-blue-50">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-12 sm:px-6 sm:py-14 lg:grid-cols-12 lg:px-8 lg:py-20">
-        <div className="lg:col-span-7">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-blue-700">
-            Tin Học Gen Z · Học thực chiến
-          </p>
-          <h1 id="home-hero-title" className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-blue-950 sm:text-5xl lg:text-6xl">
-            Nâng kỹ năng số, mở rộng cơ hội học tập và công việc
+    <section aria-labelledby="home-hero-title" className="border-b border-[#E5EEF8] bg-[#F4F8FD]/60">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-12 lg:px-8 lg:py-20">
+        <div className="lg:col-span-7 space-y-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E5EEF8] text-[#0057B8] text-xs font-bold tracking-wider uppercase shadow-[0_2px_8px_rgba(0,87,184,0.06)]">
+            <Award size={14} className="text-[#0057B8]" />
+            <span>ĐÀO TẠO CNTT & CHỨNG CHỈ QUỐC TẾ</span>
+          </div>
+
+          <h1 id="home-hero-title" className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-[#0B2545] sm:text-5xl lg:text-6xl">
+            Học công nghệ.<br className="hidden sm:inline" /> Làm chủ tương lai.
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
-            Học tin học văn phòng, luyện thi MOS/IC3 và kỹ năng số theo lộ trình rõ ràng, tập trung vào thực hành và khả năng áp dụng thực tế.
+
+          <p className="max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg font-normal">
+            Khóa học CNTT thực tế, chứng chỉ quốc tế, kỹ năng đáp ứng doanh nghiệp. Lộ trình đào tạo tinh gọn, thực hành trên máy ảo thi thử chuẩn Certiport.
           </p>
 
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Link href="/khoa-hoc" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700">
-              Xem khóa học <ArrowRight size={17} aria-hidden="true" />
+          <div className="flex flex-col gap-3 sm:flex-row pt-2">
+            <Link
+              href="/khoa-hoc"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#0057B8] px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#003F88] shadow-sm cursor-pointer"
+            >
+              <span>Bắt đầu học ngay</span>
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
-            <Link href="/thi-thu" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-blue-200 bg-white px-6 py-3 text-sm font-semibold text-blue-700 transition-colors hover:bg-blue-50">
-              <BookOpen size={17} aria-hidden="true" /> Thi thử miễn phí
+            <Link
+              href="/thi-thu"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-[#E5EEF8] bg-white px-6 py-3.5 text-sm font-semibold text-[#0B2545] transition-colors hover:bg-[#F4F8FD] hover:text-[#0057B8] shadow-xs cursor-pointer"
+            >
+              <BookOpen size={16} className="text-[#0057B8]" aria-hidden="true" />
+              <span>Thi thử miễn phí</span>
             </Link>
           </div>
 
-          <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-slate-600" aria-label="Lợi ích nổi bật">
-            <li className="inline-flex items-center gap-2"><CheckCircle2 size={16} className="text-blue-600" aria-hidden="true" />Lộ trình rõ ràng</li>
-            <li className="inline-flex items-center gap-2"><CheckCircle2 size={16} className="text-blue-600" aria-hidden="true" />Bài tập thực hành</li>
-            <li className="inline-flex items-center gap-2"><CheckCircle2 size={16} className="text-blue-600" aria-hidden="true" />Hỗ trợ học viên</li>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2.5 text-xs sm:text-sm font-medium text-slate-600 pt-2" aria-label="Cam kết chất lượng">
+            <li className="inline-flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-[#0057B8] shrink-0" aria-hidden="true" />
+              <span>Chuẩn khảo thí Certiport & Bộ TT&TT</span>
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <ShieldCheck size={16} className="text-[#0057B8] shrink-0" aria-hidden="true" />
+              <span>Cam kết bao đỗ 100% (Học lại 0đ)</span>
+            </li>
+            <li className="inline-flex items-center gap-2">
+              <CheckCircle2 size={16} className="text-[#0057B8] shrink-0" aria-hidden="true" />
+              <span>Giảng viên kèm 1:1 sát sao</span>
+            </li>
           </ul>
         </div>
 
         <div className="hidden sm:block lg:col-span-5">
-          <div className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
-            <picture>
-              <source media="(max-width: 639px)" type="image/avif" srcSet="/banner-tin-hoc-gen-z-mobile.avif" />
-              <source media="(max-width: 639px)" type="image/webp" srcSet="/banner-tin-hoc-gen-z-mobile.webp" />
-              <source media="(min-width: 640px)" type="image/avif" srcSet="/banner-tin-hoc-gen-z-hoc-thuc-chien.avif" />
-              <source media="(min-width: 640px)" type="image/webp" srcSet="/banner-tin-hoc-gen-z-hoc-thuc-chien.webp" />
-              <img
+          <div className="overflow-hidden rounded-2xl border border-[#E5EEF8] bg-white p-2 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
+              <Image
                 src="/banner-tin-hoc-gen-z-hoc-thuc-chien.jpg"
                 alt="Học viên Tin Học Gen Z thực hành kỹ năng tin học trên máy tính"
-                width={1920}
-                height={720}
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="aspect-[16/10] h-full w-full object-cover"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover"
               />
-            </picture>
-            <div className="flex items-center gap-3 border-t border-blue-100 px-4 py-3 text-sm text-slate-700">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-700"><Laptop size={18} aria-hidden="true" /></span>
-              <span><strong className="block font-semibold text-slate-900">Luyện thi & kỹ năng thực hành</strong><span className="text-xs text-slate-500">MOS · IC3 · Tin học văn phòng</span></span>
+            </div>
+            <div className="flex items-center gap-3 px-3 py-3 text-sm text-slate-700 bg-white">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#F4F8FD] border border-[#E5EEF8] text-[#0057B8]">
+                <Award size={20} aria-hidden="true" />
+              </div>
+              <div className="min-w-0">
+                <strong className="block font-bold text-sm text-[#0B2545]">Chứng chỉ Tin học Quốc tế</strong>
+                <span className="text-xs text-slate-500 font-medium">MOS · IC3 GS6 · Tin học Doanh nghiệp</span>
+              </div>
             </div>
           </div>
         </div>

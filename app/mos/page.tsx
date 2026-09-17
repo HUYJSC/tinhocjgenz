@@ -83,52 +83,51 @@ export default function MosPillarPage() {
       <TopicClusterNav currentClusterId="mos" />
 
       {/* Hero Section */}
-      <section className="bg-blue-950 text-white pt-16 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="bg-[#F4F8FD] border-b border-[#E5EEF8] pt-14 pb-18">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
-                <Award className="w-4 h-4 text-blue-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E5EEF8] text-[#0057B8] text-xs font-bold shadow-xs">
+                <Award className="w-4 h-4 text-[#0057B8]" />
                 <span>CHỨNG CHỈ QUỐC TẾ MICROSOFT VĨNH VIỄN</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-[#0B2545]">
                 Khóa Học Luyện Thi MOS 2019 / 365{" "}
-                <span className="text-blue-300">
+                <span className="text-[#0057B8]">
                   Bao Đậu 100%
                 </span>
               </h1>
 
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-medium">
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
                 Sở hữu chứng chỉ <strong>Microsoft Office Specialist (Word, Excel, PowerPoint)</strong> chỉ sau 3 - 5 buổi học cấp tốc. Thực hành trên ngân hàng đề thi thật Certiport 2026.
               </p>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
-                <div className="bg-slate-800/60 backdrop-blur border border-slate-700/60 p-3.5 rounded-xl">
-                  <div className="text-2xl font-bold text-blue-400">99.6%</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Tỷ lệ đậu lần đầu</div>
+                <div className="bg-white border border-[#E5EEF8] p-4 rounded-xl shadow-xs">
+                  <div className="text-2xl font-bold text-[#0057B8]">99.6%</div>
+                  <div className="text-xs text-slate-500 mt-1 font-medium">Tỷ lệ đậu lần đầu</div>
                 </div>
-                <div className="bg-slate-800/60 backdrop-blur border border-slate-700/60 p-3.5 rounded-xl">
-                  <div className="text-2xl font-bold text-blue-400">3 - 5 Buổi</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Thời gian hoàn thành</div>
+                <div className="bg-white border border-[#E5EEF8] p-4 rounded-xl shadow-xs">
+                  <div className="text-2xl font-bold text-[#0057B8]">3 - 5 Buổi</div>
+                  <div className="text-xs text-slate-500 mt-1 font-medium">Thời gian hoàn thành</div>
                 </div>
-                <div className="bg-slate-800/60 backdrop-blur border border-slate-700/60 p-3.5 rounded-xl col-span-2 sm:col-span-1">
-                  <div className="text-2xl font-bold text-blue-400">100%</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Bảo hành học lại Free</div>
+                <div className="bg-white border border-[#E5EEF8] p-4 rounded-xl shadow-xs col-span-2 sm:col-span-1">
+                  <div className="text-2xl font-bold text-[#0057B8]">100%</div>
+                  <div className="text-xs text-slate-500 mt-1 font-medium">Bảo hành học lại Free</div>
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 pt-4">
+              <div className="flex flex-wrap items-center gap-4 pt-2">
                 <a
                   href="#dang-ky"
-                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-lg shadow-blue-400/20 transition-all transform hover:-translate-y-0.5"
+                  className="px-7 py-3.5 rounded-xl font-bold text-sm text-white bg-[#0057B8] hover:bg-[#003F88] shadow-sm transition-all"
                 >
                   Đăng Ký Tư Vấn Ngay &rarr;
                 </a>
                 <a
                   href="#cac-mon-mos"
-                  className="px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all"
+                  className="px-6 py-3.5 rounded-xl font-semibold text-sm text-[#0B2545] bg-white hover:bg-[#F4F8FD] border border-[#E5EEF8] transition-all"
                 >
                   Xem Các Môn MOS
                 </a>
@@ -137,26 +136,26 @@ export default function MosPillarPage() {
 
             {/* Right Card */}
             <div className="lg:col-span-5">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg backdrop-blur">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-blue-400" />
+              <div className="bg-white border border-[#E5EEF8] rounded-2xl p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+                <h3 className="text-lg font-bold text-[#0B2545] mb-4 flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-[#0057B8]" />
                   Quyền Lợi Đặc Quyền Tại TinHocGenZ
                 </h3>
-                <ul className="space-y-3 text-sm text-slate-300">
+                <ul className="space-y-3 text-sm text-slate-700">
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] mt-0.5 flex-shrink-0" />
                     <span>Bộ tài liệu & video bài giảng chuẩn format Certiport Multi-Project mới nhất.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] mt-0.5 flex-shrink-0" />
                     <span>Hệ thống chấm thi thử tự động, giao diện giống 100% phòng thi thật IIG.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] mt-0.5 flex-shrink-0" />
                     <span>Giảng viên kèm 1-1, sửa lỗi thao tác chi tiết từng bài tập.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] mt-0.5 flex-shrink-0" />
                     <span>Hỗ trợ thủ tục đăng ký thi tại IIG Việt Nam trọn gói.</span>
                   </li>
                 </ul>

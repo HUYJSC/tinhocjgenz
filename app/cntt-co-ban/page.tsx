@@ -43,30 +43,30 @@ export default function CnttCoBanPillarPage() {
       <TopicClusterNav currentClusterId="cntt-co-ban" />
 
       {/* Hero */}
-      <section className="bg-slate-950 text-white pt-16 pb-20 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="bg-[#F4F8FD] border-b border-[#E5EEF8] pt-14 pb-18">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-700/50 border border-slate-600 text-slate-300 text-xs font-bold">
-                <Award className="w-4 h-4 text-blue-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#E5EEF8] text-[#0057B8] text-xs font-bold shadow-xs">
+                <Award className="w-4 h-4 text-[#0057B8]" />
                 <span>CHUẨN THÔNG TƯ 03/2014/TT-BTTTT</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-[#0B2545]">
                 Luyện Thi Chứng Chỉ{" "}
-                <span className="text-transparent bg-clip-text bg-blue-400">
+                <span className="text-[#0057B8]">
                   Ứng Dụng CNTT Cơ Bản
                 </span>
               </h1>
 
-              <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-medium">
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
                 Chứng chỉ tin học chuẩn quốc gia cần thiết cho sinh viên tốt nghiệp, thi tuyển công chức, viên chức và nâng ngạch. Luyện đề trắc nghiệm và thực hành bao đỗ 100%.
               </p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-4">
+              <div className="flex flex-wrap items-center gap-4 pt-2">
                 <a
                   href="#dang-ky"
-                  className="px-7 py-3.5 rounded-xl font-extrabold text-sm text-slate-900 bg-blue-400 shadow-lg transition-all"
+                  className="px-7 py-3.5 rounded-xl font-bold text-sm text-white bg-[#0057B8] hover:bg-[#003F88] shadow-sm transition-all"
                 >
                   Đăng Ký Khóa Học Ngay &rarr;
                 </a>
@@ -74,34 +74,34 @@ export default function CnttCoBanPillarPage() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-lg">
-                <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-blue-400" />
+              <div className="bg-white border border-[#E5EEF8] rounded-2xl p-6 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.06)]">
+                <h3 className="text-lg font-bold text-[#0B2545] mb-4 flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-[#0057B8]" />
                   6 Module Chuẩn Bộ TT&TT
                 </h3>
-                <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-700">
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] flex-shrink-0" />
                     <span>IU01: Hiểu biết về CNTT cơ bản</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] flex-shrink-0" />
                     <span>IU02: Sử dụng máy tính cơ bản (Windows)</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] flex-shrink-0" />
                     <span>IU03: Xử lý văn bản cơ bản (Word)</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] flex-shrink-0" />
                     <span>IU04: Sử dụng bảng tính cơ bản (Excel)</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] flex-shrink-0" />
                     <span>IU05: Sử dụng trình chiếu cơ bản (PowerPoint)</span>
                   </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-blue-400 flex-shrink-0" />
+                  <li className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#0057B8] flex-shrink-0" />
                     <span>IU06: Sử dụng Internet cơ bản</span>
                   </li>
                 </ul>
