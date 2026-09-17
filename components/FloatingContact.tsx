@@ -1,18 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   PhoneCall,
   MessageCircle,
   GraduationCap,
   X,
-  Sparkles,
   Headphones,
   ChevronRight,
 } from "lucide-react";
 import { CONTACT_INFO } from "@/data/contactInfo";
-import AiPathwayAdvisor from "./AiPathwayAdvisor";
+import AiChatbotModal from "./AiChatbotModal";
 
 export default function FloatingContact() {
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
@@ -50,8 +50,8 @@ export default function FloatingContact() {
 
   return (
     <>
-      {/* Supporting Tool: AI Learning Pathway Advisor */}
-      <AiPathwayAdvisor
+      {/* Supporting Tool: AI Learning Pathway Advisor Chatbot */}
+      <AiChatbotModal
         isOpen={isAiModalOpen}
         onClose={() => setIsAiModalOpen(false)}
       />
@@ -187,8 +187,8 @@ export default function FloatingContact() {
               className="w-full p-2.5 rounded-xl bg-[#F4F8FD] hover:bg-blue-50/80 border border-[#E5EEF8] text-slate-700 flex items-center justify-between transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-6 h-6 rounded-lg bg-blue-100 text-[#0057B8] flex items-center justify-center shrink-0">
-                  <Sparkles size={13} className="text-[#0057B8]" />
+                <div className="relative w-7 h-7 rounded-lg bg-blue-100 overflow-hidden shrink-0 border border-blue-200">
+                  <Image src="/ai-bot-avatar.png" alt="AI Bot Mascot" fill className="object-contain p-0.5" />
                 </div>
                 <div className="text-left leading-tight">
                   <span className="text-xs font-bold text-[#0B2545] block">
@@ -199,7 +199,10 @@ export default function FloatingContact() {
                   </span>
                 </div>
               </div>
-              <ChevronRight size={14} className="text-slate-400 shrink-0" />
+              <ChevronRight
+                size={15}
+                className="text-slate-400 group-hover:text-slate-600 shrink-0"
+              />
             </button>
 
             {/* Trust Footer Note */}

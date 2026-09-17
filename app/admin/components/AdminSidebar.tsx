@@ -49,6 +49,12 @@ export function AdminSidebar({ onCloseMobile }: { onCloseMobile?: () => void }) 
           href: "/admin/certificates",
           icon: Award,
           badge: "Khảo thí"
+        },
+        {
+          title: "AI Tư Vấn Lộ Trình",
+          href: "/admin/ai",
+          icon: Sparkles,
+          badge: "RAG Smart"
         }
       ]
     },

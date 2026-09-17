@@ -32,7 +32,12 @@ export type Permission =
   | "audit.read"
   // Kết quả & Chứng nhận học viên
   | "certificate.issue"
-  | "certificate.revoke";
+  | "certificate.revoke"
+  // Module AI Tư Vấn Lộ Trình
+  | "ai.knowledge"
+  | "ai.roadmap"
+  | "ai.settings"
+  | "ai.conversations";
 
 /**
  * Role to Permissions Matrix (Deny by default)
@@ -59,6 +64,10 @@ export const ROLE_PERMISSIONS_MAP: Record<RoleType, Permission[]> = {
     "audit.read",
     "certificate.issue",
     "certificate.revoke",
+    "ai.knowledge",
+    "ai.roadmap",
+    "ai.settings",
+    "ai.conversations",
   ],
   admin: [
     "course.read",
@@ -80,6 +89,10 @@ export const ROLE_PERMISSIONS_MAP: Record<RoleType, Permission[]> = {
     "user.lock",
     "audit.read",
     "certificate.issue",
+    "ai.knowledge",
+    "ai.roadmap",
+    "ai.settings",
+    "ai.conversations",
   ],
   academic: [
     "course.read",
