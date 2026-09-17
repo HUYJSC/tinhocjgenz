@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
-import styles from "./MascotBot.module.css";
+import MascotAssistant, { MascotState } from "./MascotAssistant";
 
-export type MascotState = "idle" | "greeting" | "listening" | "thinking" | "speaking";
+export type { MascotState };
 
 export interface MascotBotProps {
   state?: MascotState;
@@ -17,43 +16,23 @@ export interface MascotBotProps {
 }
 
 export default function MascotBot({
+  state = "idle",
   size = 120,
   interactive = false,
+  showShadow = true,
   onClick,
   className = "",
   priority = false,
 }: MascotBotProps) {
   return (
-    <div
-      role={interactive ? "button" : undefined}
-      tabIndex={interactive ? 0 : undefined}
+    <MascotAssistant
+      state={state}
+      size={size}
+      interactive={interactive}
+      showShadow={showShadow}
       onClick={onClick}
-      onKeyDown={(e) => {
-        if (interactive && (e.key === "Enter" || e.key === " ")) {
-          e.preventDefault();
-          onClick?.();
-        }
-      }}
-      aria-label="Trợ lý AI Mascot Tin Học Gen Z"
-      className={`${styles.mascotContainer} ${
-        interactive ? styles.interactive : ""
-      } ${className}`}
-      style={{ width: size, background: "transparent" }}
-    >
-      <div
-        className={styles.mascotImageWrapper}
-        style={{ width: size, height: size, background: "transparent" }}
-      >
-        <Image
-          src="/mascot-ai.png"
-          alt="Mascot AI Tin Học Gen Z - PH Digital Education"
-          width={size}
-          height={size}
-          priority={priority}
-          unoptimized
-          className={styles.mascotImage}
-        />
-      </div>
-    </div>
+      className={className}
+      priority={priority}
+    />
   );
 }

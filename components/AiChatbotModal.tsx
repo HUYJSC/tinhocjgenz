@@ -9,6 +9,8 @@ import {
   CheckCircle2,
   UserCheck,
   ChevronRight,
+  Phone,
+  MessageCircle,
 } from "lucide-react";
 import { RoadmapResult, PathwayCriteria } from "@/lib/ai-rag-service";
 import MascotBot, { MascotState } from "./MascotBot";
@@ -166,7 +168,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
             quickReplies: ["Đăng ký nhận tư vấn trực tiếp"],
           },
         ]);
-        setBotState("idle");
+        setBotState("error");
+        setTimeout(() => setBotState("idle"), 2800);
       }
     } catch {
       messageCounter.current += 1;
@@ -178,7 +181,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
           content: "Lỗi kết nối tới hệ thống máy chủ AI. Vui lòng thử lại sau.",
         },
       ]);
-      setBotState("idle");
+      setBotState("error");
+      setTimeout(() => setBotState("idle"), 2800);
     } finally {
       setLoading(false);
     }
@@ -225,10 +229,12 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
 
       if (res.ok) {
         setLeadSuccess(true);
+        setBotState("success");
         setTimeout(() => {
           setShowLeadModal(false);
           setLeadSuccess(false);
-        }, 2500);
+          setBotState("idle");
+        }, 2800);
       }
     } catch {
       alert("Lỗi khi gửi thông tin. Vui lòng liên hệ hotline.");
@@ -252,7 +258,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
         <div className="absolute top-0 left-0 w-full h-[3px] bg-[#0057B8] z-20" />
 
         {/* Modal Header */}
-        <div className="bg-white border-b border-[#E5EEF8] px-5 py-3 flex items-center justify-between shrink-0">
+        <div className="bg-white border-b border-[#E5EEF8] px-4 sm:px-5 py-3 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center shrink-0">
               <MascotBot state={botState} size={40} showShadow={false} />
@@ -262,19 +268,43 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                 <span>Trợ Lý Học Tập AI</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               </h3>
-              <p className="text-[11px] text-slate-500 font-medium">
+              <p className="text-[11px] text-slate-500 font-medium line-clamp-1">
                 {botState === "thinking"
                   ? "Đang phân tích dữ liệu khóa học..."
                   : botState === "listening"
                   ? "Đang lắng nghe câu hỏi của bạn..."
                   : botState === "speaking"
                   ? "Đang giải đáp lộ trình học..."
+                  : botState === "success"
+                  ? "Tuyệt vời! Đã ghi nhận thông tin"
+                  : botState === "error"
+                  ? "Đang kết nối lại chuyên viên..."
                   : "Tư vấn lộ trình bám sát dữ liệu khảo thí & đào tạo chính thức"}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1 sm:gap-1.5">
+            <a
+              href="tel:0332298065"
+              title="Gọi hotline tư vấn: 033.229.8065"
+              className="p-2 rounded-xl text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-colors flex items-center gap-1"
+              aria-label="Gọi hotline tư vấn trực tiếp"
+            >
+              <Phone size={15} />
+              <span className="hidden md:inline text-xs font-semibold">033.229.8065</span>
+            </a>
+            <a
+              href="https://zalo.me/0332298065"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Chat Zalo cùng chuyên viên tư vấn"
+              className="p-2 rounded-xl text-slate-500 hover:text-[#0057B8] hover:bg-blue-50 transition-colors flex items-center gap-1"
+              aria-label="Chat Zalo với chuyên viên"
+            >
+              <MessageCircle size={15} />
+              <span className="hidden md:inline text-xs font-semibold">Zalo</span>
+            </a>
             <button
               type="button"
               onClick={handleReset}
