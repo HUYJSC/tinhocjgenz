@@ -1,49 +1,47 @@
 "use client";
 
-import { ShieldCheck, RefreshCw, Award, HeartHandshake, FileCheck2, Sparkles } from "lucide-react";
+import Link from "next/link";
+import { ShieldCheck, RefreshCw, Award, HeartHandshake, FileCheck2, ArrowRight } from "lucide-react";
 
 export default function GuaranteePolicy() {
   const policies = [
     {
-      icon: <RefreshCw size={24} className="text-blue-600" />,
+      icon: <RefreshCw size={22} className="text-[#0057B8]" />,
       title: "Cam Kết Học Lại Miễn Phí 100%",
-      desc: "Nếu học viên đi thi lần đầu chưa đạt số điểm mong muốn hoặc chưa đủ chuẩn đầu ra của trường, bạn sẽ được tham gia học lại toàn bộ khóa học và kèm 1:1 hoàn toàn miễn phí mà không phải đóng thêm bất kỳ chi phí nào."
+      desc: "Nếu học viên thi lần đầu chưa đạt số điểm mong muốn hoặc chưa đủ chuẩn đầu ra của trường, bạn sẽ được tham gia học lại toàn bộ khóa học và kèm 1:1 hoàn toàn miễn phí mà không phát sinh thêm bất kỳ chi phí nào."
     },
     {
-      icon: <Award size={24} className="text-blue-500" />,
+      icon: <Award size={22} className="text-[#0057B8]" />,
       title: "100% Giảng Viên MOS Master Cấp Quốc Tế",
-      desc: "Trực tiếp đứng lớp là các thầy cô có chứng chỉ Microsoft Office Specialist Master và IC3 Authorized Educator, giàu kinh nghiệm thực chiến và nắm rõ mọi bẫy đề thi khảo thí mới nhất của Certiport."
+      desc: "Trực tiếp đứng lớp là các thầy cô có chứng chỉ Microsoft Office Specialist Master và IC3 Authorized Educator, giàu kinh nghiệm thực chiến và nắm rõ mọi bộ đề thi khảo thí mới nhất của Certiport."
     },
     {
-      icon: <FileCheck2 size={24} className="text-blue-500" />,
+      icon: <FileCheck2 size={22} className="text-[#0057B8]" />,
       title: "Tài Khoản Phần Mềm Thi Thử Không Giới Hạn",
-      desc: "Mỗi học viên được cấp quyền truy cập vào hệ thống thi thử mô phỏng giống 99% phần mềm thi thật của Certiport. Luyện đề không giới hạn số lần cho đến khi tự tin đạt điểm chuẩn trên 850/1000."
+      desc: "Mỗi học viên được cấp quyền truy cập vào hệ thống thi thử mô phỏng chuẩn xác giao diện và đề thi thật của Certiport. Luyện đề không giới hạn số lần cho đến khi tự tin đạt chuẩn trên 850/1000."
     },
     {
-      icon: <HeartHandshake size={24} className="text-blue-500" />,
+      icon: <HeartHandshake size={22} className="text-[#0057B8]" />,
       title: "Hỗ Trợ Kỹ Thuật & Sửa Bài 1:1 Trọn Đời",
-      desc: "Kể cả sau khi đã cầm chứng chỉ trên tay, bạn vẫn luôn được đội ngũ giảng viên Tin Học Gen Z hỗ trợ giải đáp các vướng mắc về Excel, Word, PowerPoint phát sinh trong quá trình đi làm thực tế."
+      desc: "Kể cả sau khi đã cầm chứng chỉ trên tay, bạn vẫn luôn được đội ngũ giảng viên Tin Học Gen Z hỗ trợ giải đáp các vướng mắc về Excel, Word, PowerPoint phát sinh trong quá trình học tập và công việc thực tế."
     }
   ];
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-slate-900 text-white relative overflow-hidden border-t border-slate-800">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-12 sm:py-16 bg-[#F4F8FD] text-slate-800 relative border-t border-[#E5EEF8]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold tracking-wider uppercase">
-            <ShieldCheck size={14} className="text-blue-400" />
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#E5EEF8] text-[#0057B8] text-xs font-semibold tracking-wider uppercase shadow-sm">
+            <ShieldCheck size={14} className="text-[#0057B8]" />
             CHÍNH SÁCH BẢO HÀNH ĐÀO TẠO • QUYỀN LỢI HỌC VIÊN
           </span>
-          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-snug font-display">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0B2545] tracking-tight leading-snug">
             4 Cam Kết Vàng Bảo Đảm Đỗ 100%
           </h2>
-          <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-            Tin Học Gen Z cam kết bảo vệ tối đa quyền lợi của học viên bằng văn bản đào tạo minh bạch, rõ ràng và có trách nhiệm cao nhất.
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+            Tin Học Gen Z cam kết bảo vệ tối đa quyền lợi của học viên bằng chính sách đào tạo minh bạch, rõ ràng và có trách nhiệm cao nhất.
           </p>
         </div>
 
@@ -52,15 +50,15 @@ export default function GuaranteePolicy() {
           {policies.map((p, idx) => (
             <div
               key={idx}
-              className="bg-slate-800/60 hover:bg-slate-800 p-6 sm:p-8 rounded-2xl border border-slate-700/80 hover:border-blue-500/40 transition-all duration-300 shadow-md space-y-4 group"
+              className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E5EEF8] hover:border-blue-200 transition-all duration-300 shadow-sm hover:shadow-md space-y-4"
             >
-              <div className="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-700 flex items-center justify-center shadow-inner group-hover:scale-110 smooth-transition">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center">
                 {p.icon}
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white leading-snug">
+              <h3 className="text-lg sm:text-xl font-bold text-[#0B2545] leading-snug">
                 {p.title}
               </h3>
-              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                 {p.desc}
               </p>
             </div>
@@ -68,14 +66,14 @@ export default function GuaranteePolicy() {
         </div>
 
         {/* Action Link Footer */}
-        <div className="mt-12 text-center">
-          <a
+        <div className="mt-10 sm:mt-12 text-center">
+          <Link
             href="/lien-he"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-blue-400 text-slate-950 font-bold text-xs sm:text-sm tracking-wide uppercase shadow-lg hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white font-semibold text-xs sm:text-sm tracking-wide uppercase shadow-sm transition-colors"
           >
-            <Sparkles size={16} />
             <span>Đăng Ký Khóa Học Nhận Bảo Hành Bao Đỗ</span>
-          </a>
+            <ArrowRight size={15} />
+          </Link>
         </div>
 
       </div>

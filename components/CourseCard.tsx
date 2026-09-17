@@ -92,15 +92,15 @@ export default function CourseCard({ course }: CourseCardProps) {
       <div className="border-t border-slate-100 bg-slate-50 p-5 sm:p-6">
         <Price course={course} />
         {course.priceNote ? (
-          <p className="mt-2 text-xs leading-5 font-semibold text-blue-700">🔥 {course.priceNote}</p>
+          <p className="mt-2 text-xs leading-5 font-semibold text-[#0057B8]">{course.priceNote}</p>
         ) : (
           <p className="mt-1 text-[11px] text-slate-400">Trọn gói phần mềm thi thử & bảo hành học lại 0đ</p>
         )}
         <div className="mt-4 grid grid-cols-2 gap-2.5">
-          <Link href={`/khoa-hoc/${course.id}`} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100">
+          <Link href={`/khoa-hoc/${course.id}`} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#E5EEF8] bg-white px-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50">
             Chi tiết
           </Link>
-          <Link href={`/lien-he?select=${course.id}`} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 text-sm font-semibold text-white transition-colors hover:bg-blue-700">
+          <Link href={`/lien-he?select=${course.id}`} className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg bg-[#0057B8] px-3 text-sm font-semibold text-white transition-colors hover:bg-[#003F88] shadow-sm">
             Đăng ký <ArrowRight size={15} aria-hidden="true" />
           </Link>
         </div>

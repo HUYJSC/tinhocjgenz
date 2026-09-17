@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { Sparkles, Brain, Users, Award, ArrowRight, RefreshCw, X, MessageSquare } from "lucide-react";
+import { Sparkles, Brain, Users, Award, X } from "lucide-react";
 import { AnalyticsEvents } from "@/lib/analytics";
-import { SITE_CONFIG } from "@/data/siteConfig";
+import { getCourseRecommendation } from "@/lib/advisorRecommendations";
+import AdvisorResultView from "./AdvisorResultView";
 
 interface Props {
   isOpen?: boolean;
@@ -31,69 +31,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
     setStep("input");
   };
 
-  const getRoleLabel = () => {
-    switch (userRole) {
-      case "student":
-        return "Học Sinh & Sinh Viên";
-      case "worker":
-        return "Người Đi Làm & Kế Toán";
-      case "business":
-        return "Doanh Nghiệp & Tổ Chức";
-      default:
-        return "Người Mới Bắt Đầu";
-    }
-  };
-
-  const getCourseRecommendation = () => {
-    if (userRole === "worker" && certificateTarget === "excel-ai") {
-      return {
-        title: "Combo Thực Chiến Excel & Ứng Dụng AI Đột Phá 10X",
-        link: "/khoa-hoc/combo-survival-office",
-        duration: "4 - 6 buổi thực chiến",
-        passRate: "100% ứng dụng ngay",
-        scoreTarget: "Tối ưu 80% thời gian làm việc",
-        discount: "Giảm 30% khi đăng ký hôm nay",
-        code: "AI-PRO-30",
-        summary: "Làm chủ Excel Dashboard, PivotTable động, các hàm nâng cao và ứng dụng AI tự động hóa công việc văn phòng.",
-      };
-    }
-    if (certificateTarget === "ic3") {
-      return {
-        title: "Khóa Luyện Thi Chứng Chỉ Kỹ Năng Số IC3 GS6",
-        link: "/khoa-hoc/ic3-gs6",
-        duration: "3 - 5 buổi trọng tâm",
-        passRate: "100% bao đỗ",
-        scoreTarget: "950+ / 1000",
-        discount: "Giảm 30% khi đăng ký nhóm",
-        code: "AI-IC3-30",
-        summary: "Bao quát toàn diện 3 cấp độ Máy tính, Ứng dụng văn phòng và Cuộc sống trực tuyến theo chuẩn GS6 mới nhất.",
-      };
-    }
-    if (certificateTarget === "mos-single") {
-      return {
-        title: "Luyện Thi MOS 2019 / 365 Từng Môn Cấp Tốc (Word / Excel)",
-        link: "/khoa-hoc/mos-2019",
-        duration: "3 buổi thực chiến",
-        passRate: "100% bao đỗ",
-        scoreTarget: "980+ / 1000",
-        discount: "Tặng tài khoản thi thử Certiport",
-        code: "AI-MOS-FAST",
-        summary: "Luyện thẳng trên ngân hàng đề thi thật Multi-Project của IIG, chỉ mẹo tránh bẫy đạt điểm tuyệt đối.",
-      };
-    }
-    return {
-      title: "Combo MOS Master 3 Môn (Word + Excel + PowerPoint)",
-      link: "/khoa-hoc/mos-master-combo",
-      duration: "6 - 9 buổi toàn diện",
-      passRate: "100% bao đỗ",
-      scoreTarget: "1000 / 1000 Điểm",
-      discount: "Tiết kiệm 50% học phí trọn gói",
-      code: "AI-COMBO-HOT",
-      summary: "Gói giải pháp trọn gói nâng cao kỹ năng và sở hữu bằng quốc tế Certiport trọn đời.",
-    };
-  };
-
-  const rec = getCourseRecommendation();
+  const rec = getCourseRecommendation(userRole, certificateTarget);
 
   const content = (
     <div className="relative w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-white border border-[#E5EEF8] rounded-t-2xl sm:rounded-2xl p-5 sm:p-8 shadow-xl text-slate-800 font-sans">
@@ -119,7 +57,7 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
           <Brain size={14} className="text-[#0057B8]" />
           <span>TƯ VẤN LỘ TRÌNH ĐÀO TẠO THÔNG MINH</span>
         </div>
-        <h3 className="text-xl sm:text-2xl font-bold text-[#0B2545] font-display">
+        <h3 className="text-xl sm:text-2xl font-bold text-[#0B2545]">
           Trợ Lý Phân Tích & Thiết Kế Lộ Trình Phù Hợp
         </h3>
         <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
@@ -252,84 +190,11 @@ export default function AiPathwayAdvisor({ isOpen = true, onClose, isEmbedded = 
 
       {/* STEP 3: RESULT & ROADMAP */}
       {step === "result" && (
-        <div className="space-y-5 animate-fade-in">
-          {/* Diagnostic Summary Box */}
-          <div className="bg-[#F4F8FD] p-5 rounded-2xl border border-[#E5EEF8] space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#0057B8]">
-                LỘ TRÌNH DÀNH CHO: {getRoleLabel()}
-              </span>
-              <span className="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200">
-                Cam Kết Bao Đỗ 100%
-              </span>
-            </div>
-
-            <h4 className="text-base sm:text-lg font-bold text-[#0B2545] leading-snug font-display">
-              {rec.title}
-            </h4>
-
-            <p className="text-slate-600 text-xs leading-relaxed">{rec.summary}</p>
-
-            {/* Metrics */}
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-200 text-center">
-              <div className="p-2 rounded-xl bg-white border border-slate-100">
-                <span className="text-xs text-slate-500">Thời lượng:</span>
-                <p className="text-xs font-bold text-slate-800 mt-0.5">{rec.duration}</p>
-              </div>
-              <div className="p-2 rounded-xl bg-white border border-slate-100">
-                <span className="text-xs text-slate-500">Mục tiêu:</span>
-                <p className="text-xs font-bold text-[#0057B8] mt-0.5">{rec.scoreTarget}</p>
-              </div>
-              <div className="p-2 rounded-xl bg-white border border-slate-100">
-                <span className="text-xs text-slate-500">Cam kết:</span>
-                <p className="text-xs font-bold text-[#0057B8] mt-0.5">{rec.passRate}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Voucher Card */}
-          <div className="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex items-center justify-between gap-3">
-            <div>
-              <p className="text-xs font-bold text-[#003F88]">Ưu Đãi Học Viên:</p>
-              <p className="text-xs text-slate-600">{rec.discount}</p>
-            </div>
-            <div className="px-3 py-1.5 rounded-xl bg-[#0057B8] text-white font-mono font-bold text-xs tracking-wider">
-              {rec.code}
-            </div>
-          </div>
-
-          {/* Actions */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
-            <Link
-              href="/lien-he"
-              className="w-full sm:flex-1 py-3 px-5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-1.5 shadow-sm transition-all"
-            >
-              <span>Đăng Ký Xếp Lớp Ngay</span>
-              <ArrowRight size={14} />
-            </Link>
-
-            <a
-              href={SITE_CONFIG.contact.zaloUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="w-full sm:w-auto py-3 px-5 rounded-xl bg-white hover:bg-slate-50 text-[#0057B8] text-xs font-bold uppercase tracking-wider text-center border border-[#E5EEF8] transition-all flex items-center justify-center gap-1.5"
-            >
-              <MessageSquare size={14} />
-              <span>Tư Vấn Trực Tiếp Zalo</span>
-            </a>
-          </div>
-
-          {/* Reset button */}
-          <div className="text-center">
-            <button
-              onClick={resetAnalysis}
-              className="text-xs text-slate-500 hover:text-slate-800 inline-flex items-center gap-1 cursor-pointer"
-            >
-              <RefreshCw size={11} />
-              <span>Thử phân tích với mục tiêu khác</span>
-            </button>
-          </div>
-        </div>
+        <AdvisorResultView
+          userRole={userRole}
+          recommendation={rec}
+          onReset={resetAnalysis}
+        />
       )}
     </div>
   );

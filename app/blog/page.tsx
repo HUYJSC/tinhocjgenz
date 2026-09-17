@@ -44,7 +44,7 @@ export default function BlogPage() {
     <div className="flex flex-col w-full bg-slate-50/50 min-h-screen">
       
       {/* 1. Header Banner with Search */}
-      <section className="bg-white pt-24 pb-14 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
+      <section className="bg-white pt-24 pb-14 border-b border-slate-100 relative overflow-hidden">
         
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">

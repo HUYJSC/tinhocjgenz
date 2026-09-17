@@ -14,7 +14,7 @@ export default function MockExamPage() {
     <div className="flex flex-col w-full bg-slate-50/40">
 
       {/* 1. Header Banner */}
-      <section className="bg-white pt-10 pb-10 sm:pt-24 sm:pb-16 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
+      <section className="bg-white pt-10 pb-10 sm:pt-24 sm:pb-16 border-b border-slate-100 relative overflow-hidden">
         
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">

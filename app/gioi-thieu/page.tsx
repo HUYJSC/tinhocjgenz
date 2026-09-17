@@ -32,7 +32,7 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col w-full bg-slate-50/30">
       {/* 1. Header Banner */}
-      <section className="bg-white pt-24 pb-16 border-b border-slate-100 relative overflow-hidden tech-grid-pattern">
+      <section className="bg-white pt-24 pb-16 border-b border-slate-100 relative overflow-hidden">
         
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
@@ -180,7 +180,7 @@ export default function AboutPage() {
           <div className="pt-2">
             <Link
               href="/lien-he"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-xs font-bold tracking-wide uppercase btn-premium-primary"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-xs font-semibold tracking-wide uppercase bg-[#0057B8] hover:bg-[#003F88] text-white shadow-sm transition-colors"
             >
               Nhận Tư Vấn Lộ Trình Ngay
               <ArrowRight size={14} />

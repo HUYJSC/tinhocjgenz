@@ -47,8 +47,8 @@ export default function HomeTabbedHub() {
     <section className="py-10 sm:py-14 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Modern Interactive Tab Selector Bar (Sticky-friendly, Anti-Long-Scroll) */}
-        <div className="bg-slate-900 text-white p-1.5 sm:p-2.5 rounded-2xl sm:rounded-full shadow-md border border-slate-800 max-w-3xl mx-auto mb-8">
+        {/* Modern Interactive Tab Selector Bar (Clean EdTech Light Surface) */}
+        <div className="bg-[#F4F8FD] p-1.5 sm:p-2 rounded-2xl border border-[#E5EEF8] max-w-3xl mx-auto mb-8 shadow-sm">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 sm:gap-1.5">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.id;
@@ -58,18 +58,18 @@ export default function HomeTabbedHub() {
                   type="button"
                   onClick={() => setActiveTab(tab.id as "pathway" | "courses" | "halloffame" | "guarantee")}
                   aria-pressed={isActive}
-                  className={`min-h-16 py-2.5 px-3 rounded-xl sm:rounded-full text-center transition-all duration-300 flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
+                  className={`min-h-14 py-2 px-3 rounded-xl text-center transition-all flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
                     isActive
-                      ? "bg-blue-600 text-white shadow-md scale-[1.02]"
-                      : "text-slate-400 hover:text-white hover:bg-slate-800/60"
+                      ? "bg-white text-[#0057B8] shadow-sm border border-[#E5EEF8]"
+                      : "text-slate-600 hover:text-[#0B2545] hover:bg-white/60"
                   }`}
                 >
-                  <span className={isActive ? "text-white" : "text-slate-400"}>
+                  <span className={isActive ? "text-[#0057B8]" : "text-slate-500"}>
                     {tab.icon}
                   </span>
                   <div className="text-left">
                     <div className="text-xs font-bold tracking-tight leading-tight">{tab.label}</div>
-                    <div className="text-xs text-slate-300 font-normal hidden sm:block leading-none mt-0.5">{tab.sub}</div>
+                    <div className="text-[11px] text-slate-400 font-normal hidden sm:block leading-none mt-0.5">{tab.sub}</div>
                   </div>
                 </button>
               );
@@ -91,11 +91,11 @@ export default function HomeTabbedHub() {
           {activeTab === "courses" && (
             <div className="animate-fade-in space-y-8">
               <div className="text-center max-w-2xl mx-auto space-y-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-700 font-extrabold text-xs uppercase tracking-wider">
-                  <Sparkles size={12} className="text-blue-600" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#0057B8] font-bold text-xs uppercase tracking-wider border border-blue-100">
+                  <Sparkles size={12} className="text-[#0057B8]" />
                   LỘ TRÌNH TINH GỌN 3 - 9 BUỔI
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 font-display">
+                <h3 className="text-2xl sm:text-3xl font-bold text-[#0B2545]">
                   3 Khóa Học MOS & IC3 Phổ Biến Nhất
                 </h3>
               </div>
@@ -109,10 +109,10 @@ export default function HomeTabbedHub() {
               <div className="text-center pt-2">
                 <Link
                   href="/khoa-hoc"
-                  className="min-h-12 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-blue-600 text-white font-bold text-xs uppercase tracking-wider shadow-md transition-all group"
+                  className="min-h-11 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white font-semibold text-xs uppercase tracking-wider shadow-sm transition-colors group"
                 >
                   <span>Xem Toàn Bộ 6+ Khóa Học & Bảng Giá Chi Tiết</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                 </Link>
               </div>
             </div>

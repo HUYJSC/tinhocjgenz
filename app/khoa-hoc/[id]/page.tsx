@@ -206,8 +206,8 @@ export default async function CourseDetailPage(props: CoursePageProps) {
                     )}
                   </div>
                   {course.priceNote && (
-                    <p className="text-xs font-bold text-blue-600 mt-2">
-                      🔥 {course.priceNote}
+                    <p className="text-xs font-semibold text-[#0057B8] mt-2">
+                      {course.priceNote}
                     </p>
                   )}
                 </div>
