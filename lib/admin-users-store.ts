@@ -151,9 +151,24 @@ export const AdminUsersStore = {
     if (q === "admin") {
       return ADMIN_USERS.find((u) => u.username === "admin_super");
     }
+    const cleanPhone = q.replace(/\D/g, "");
     return ADMIN_USERS.find(
-      (u) => u.username.toLowerCase() === q || u.email.toLowerCase() === q
+      (u) =>
+        u.username.toLowerCase() === q ||
+        u.email.toLowerCase() === q ||
+        (cleanPhone.length >= 7 && u.phone.replace(/\D/g, "") === cleanPhone)
     );
+  },
+
+  updatePassword(id: string, passwordHash: string, salt: string): boolean {
+    const user = ADMIN_USERS.find((u) => u.id === id);
+    if (!user) return false;
+    user.passwordHash = passwordHash;
+    user.salt = salt;
+    user.failedAttempts = 0;
+    user.lockedUntil = undefined;
+    user.isActive = true;
+    return true;
   },
 
   recordFailedAttempt(id: string): { locked: boolean; remainingAttempts: number } {
