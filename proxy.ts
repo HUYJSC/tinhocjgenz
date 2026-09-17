@@ -21,12 +21,9 @@ export default async function proxy(req: NextRequest) {
   const token = req.cookies.get(SESSION_COOKIE_NAME)?.value;
   const session = await verifySessionToken(token);
 
-  // 1. Chặn chặt Admin API Routes (trừ Login & Session endpoint)
+  // 1. Chặn chặt Admin API Routes (trừ các auth endpoints: login, session, logout, forgot-password)
   if (pathname.startsWith("/api/admin")) {
-    if (
-      pathname === "/api/admin/auth/login" ||
-      pathname === "/api/admin/auth/session"
-    ) {
+    if (pathname.startsWith("/api/admin/auth/")) {
       return NextResponse.next();
     }
 

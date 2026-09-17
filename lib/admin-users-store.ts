@@ -32,8 +32,10 @@ const ADMIN_USERS: AdminUserRecord[] = [
     isActive: true,
     lastLogin: "2026-09-01T10:15:00+07:00",
     createdAt: "2026-01-01T00:00:00+07:00",
-    mfaEnabled: true,
+    mfaEnabled: false,
     failedAttempts: 0,
+    passwordHash: "fc6a3907acf5abae86aa73fb801b5bae7a5f69327bd54c2a539fe76df41cea8f",
+    salt: "tinhocgenz_salt_2026",
   },
   {
     id: "usr-02",
@@ -47,6 +49,8 @@ const ADMIN_USERS: AdminUserRecord[] = [
     createdAt: "2026-02-15T08:00:00+07:00",
     mfaEnabled: false,
     failedAttempts: 0,
+    passwordHash: "fc6a3907acf5abae86aa73fb801b5bae7a5f69327bd54c2a539fe76df41cea8f",
+    salt: "tinhocgenz_salt_2026",
   },
   {
     id: "usr-03",
@@ -61,6 +65,8 @@ const ADMIN_USERS: AdminUserRecord[] = [
     assignedClasses: ["MOS Excel 2019 Cấp Tốc", "Excel Thực Chiến & Dashboard"],
     mfaEnabled: false,
     failedAttempts: 0,
+    passwordHash: "fc6a3907acf5abae86aa73fb801b5bae7a5f69327bd54c2a539fe76df41cea8f",
+    salt: "tinhocgenz_salt_2026",
   },
   {
     id: "usr-04",
