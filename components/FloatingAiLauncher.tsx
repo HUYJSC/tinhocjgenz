@@ -64,3 +64,4 @@ export default function FloatingAiLauncher({ onOpenChat }: FloatingAiLauncherPro
     </div>
   );
 }
+
