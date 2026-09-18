@@ -133,3 +133,4 @@ export const JourneyStateManager = {
     this.calculateProgress(state);
   },
 };
+

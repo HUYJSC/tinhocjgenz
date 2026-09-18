@@ -28,9 +28,12 @@ export const AnswerParser = {
     return text
       .toLowerCase()
       .trim()
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "d")
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "") // Remove accents for lenient comparison
-      .replace(/[^\w\s]/g, " "); // Remove special chars
+      .replace(/[^\w\s]/g, " ") // Replace punctuation with space
+      .replace(/\s+/g, " "); // Collapse multiple spaces
   },
 
   /**
@@ -186,6 +189,14 @@ export const AnswerParser = {
    * 5. Extracts Target Date / Timeline
    */
   extractTimeline(norm: string): TargetDate | undefined {
+    const monthMatch = norm.match(/\b(\d+)\s*(?:thang|m)\b/);
+    if (monthMatch) {
+      const m = parseInt(monthMatch[1], 10);
+      if (m <= 1) return "within_1_month";
+      if (m <= 3) return "1_3_months";
+      return "3_6_months";
+    }
+
     if (
       norm.includes("1 thang") ||
       norm.includes("mot thang") ||
@@ -202,7 +213,8 @@ export const AnswerParser = {
       norm.includes("3 thang") ||
       norm.includes("ba thang") ||
       norm.includes("1 3 thang") ||
-      norm.includes("khoang 2 thang")
+      norm.includes("khoang 2 thang") ||
+      norm.includes("thang toi")
     ) {
       return "1_3_months";
     }
@@ -232,6 +244,16 @@ export const AnswerParser = {
    * 6. Extracts Study Time Per Week
    */
   extractStudyTime(norm: string): StudyTimePerWeek | undefined {
+    // Check numbers of hours: e.g. "4 tieng", "4 gio", "4h", "5 tieng moi tuan"
+    const hourMatch = norm.match(/\b(\d+)\s*(?:gio|tieng|h)\b/);
+    if (hourMatch) {
+      const h = parseInt(hourMatch[1], 10);
+      if (h <= 2) return "under_3h";
+      if (h <= 5) return "3_5h";
+      if (h <= 8) return "5_8h";
+      return "over_8h";
+    }
+
     if (
       norm.includes("duoi 3") ||
       norm.includes("1 2 gio") ||
@@ -245,7 +267,9 @@ export const AnswerParser = {
       norm.includes("3 5") ||
       norm.includes("ca toi") ||
       norm.includes("2 3 buoi") ||
-      norm.includes("3 den 5")
+      norm.includes("3 den 5") ||
+      norm.includes("khoang 4") ||
+      norm.includes("tam 4")
     ) {
       return "3_5h";
     }

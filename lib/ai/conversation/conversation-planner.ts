@@ -99,7 +99,10 @@ export const ConversationPlanner = {
     const parsed = AnswerParser.parseMessage(userMessage);
 
     // 3. If goal switched mid-conversation
-    if (parsed.goalSwitched && parsed.slots.goal) {
+    if (
+      parsed.slots.goal &&
+      (parsed.goalSwitched || (state.flow && parsed.slots.goal !== state.flow))
+    ) {
       JourneyStateManager.switchGoal(state, parsed.slots.goal);
     }
 

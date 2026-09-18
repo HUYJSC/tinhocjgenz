@@ -87,3 +87,4 @@ export interface ConversationTurnResult {
   recommendationReady: boolean;
   roadmapData?: Record<string, unknown>;
 }
+
