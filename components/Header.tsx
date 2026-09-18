@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
 import { ArrowRight, ChevronDown, GraduationCap } from "lucide-react";
 
 const courseLinks = [
@@ -21,22 +21,16 @@ const primaryLinks = [
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[#E5EEF8] bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[#E2E8F0] bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex shrink-0 items-center gap-3 group" aria-label="Tin Học Gen Z - Trang chủ">
-          <div className="p-1 rounded-xl bg-[#F4F8FD] border border-[#E5EEF8]">
-            <Image src="/logo-icon.png" alt="" width={36} height={36} priority className="h-9 w-9 object-contain" />
-          </div>
-          <span className="leading-tight">
-            <strong className="block text-sm font-bold tracking-tight text-[#0B2545] group-hover:text-[#0057B8] transition-colors">TIN HỌC GEN Z</strong>
-            <span className="mt-0.5 block text-xs font-semibold text-slate-500">MOS · IC3 · KỸ NĂNG SỐ</span>
-          </span>
-        </Link>
+        <div className="flex shrink-0 items-center py-1">
+          <BrandLogo variant="horizontal" size="md" priority />
+        </div>
 
         <nav className="ml-auto flex items-center gap-1.5" aria-label="Điều hướng chính">
           <Link
             href="/"
-            className="relative inline-flex h-10 items-center px-3 text-sm font-semibold text-slate-700 hover:text-[#0057B8] transition-colors after:content-[''] after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-[#0057B8] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
+            className="relative inline-flex h-10 items-center px-3 text-sm font-semibold text-slate-800 hover:text-[#0057B8] transition-colors after:content-[''] after:absolute after:bottom-1 after:left-3 after:right-3 after:h-0.5 after:bg-[#0057B8] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
           >
             Trang chủ
           </Link>

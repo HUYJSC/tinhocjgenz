@@ -1,10 +1,11 @@
 /* Tin Học Gen Z — conservative public-content service worker */
-const CACHE_VERSION = "tinhocgenz-public-v3";
+const CACHE_VERSION = "tinhocgenz-brand-v4";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE = [
   OFFLINE_URL,
   "/site.webmanifest",
-  "/logo-icon.png",
+  "/brand/logo-horizontal.png",
+  "/brand/logo-symbol.png",
   "/icon-192.png",
   "/icon.png",
 ];

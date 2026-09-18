@@ -25,10 +25,10 @@ export interface SiteConfig {
 
 export const SITE_CONFIG: SiteConfig = {
   name: "Tin Học Gen Z",
-  shortName: "Tin Học Gen Z",
-  tagline: "Đào Tạo MOS, IC3 & Tin Học Văn Phòng Thực Chiến",
+  shortName: "TinHocGenZ",
+  tagline: "Tin Học Ứng Dụng & Kỹ Năng Số",
   description:
-    "Hệ sinh thái đào tạo Tin học văn phòng thực chiến, luyện thi chứng chỉ quốc tế MOS, IC3 GS6 chuẩn Certiport. Cam kết tài trợ học lại 100% miễn phí cho đến khi thi đỗ.",
+    "Tin Học Gen Z đào tạo tin học ứng dụng, MOS, IC3, CNTT cơ bản và nâng cao theo lộ trình thực tiễn, học online và offline.",
   domain: "tinhocgenz.io.vn",
   url: "https://tinhocgenz.io.vn",
   author: "Tin Học Gen Z",

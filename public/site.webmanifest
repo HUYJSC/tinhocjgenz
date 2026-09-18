@@ -1,7 +1,7 @@
 {
   "name": "Tin Học Gen Z",
   "short_name": "TinHocGenZ",
-  "description": "Học và luyện thi MOS, IC3, tin học văn phòng thực chiến trên mọi thiết bị.",
+  "description": "Tin Học Gen Z đào tạo tin học ứng dụng, MOS, IC3, CNTT cơ bản và nâng cao theo lộ trình thực tiễn, học online và offline.",
   "id": "/",
   "scope": "/",
   "icons": [
@@ -18,7 +18,7 @@
       "purpose": "any maskable"
     }
   ],
-  "theme_color": "#2563eb",
+  "theme_color": "#0057B8",
   "background_color": "#ffffff",
   "display": "standalone",
   "start_url": "/",

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
 import { ArrowRight, Clock, Mail, MapPin, Phone, ShieldCheck } from "lucide-react";
 import { SITE_CONFIG } from "@/data/siteConfig";
 
@@ -29,15 +29,9 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 border-b border-white/10 pb-12 md:grid-cols-2 xl:grid-cols-4">
           <section aria-label="Thông tin Tin Học Gen Z">
-            <Link href="/" className="inline-flex items-center gap-3" aria-label="Tin Học Gen Z - Trang chủ">
-              <div className="p-1.5 rounded-xl bg-white/10 border border-white/15">
-                <Image src="/logo-icon.png" alt="" width={38} height={38} className="h-9 w-9 object-contain" />
-              </div>
-              <span>
-                <strong className="block text-base font-bold text-white tracking-wide">TIN HỌC GEN Z</strong>
-                <span className="block text-xs font-semibold text-blue-300">MOS · IC3 · KỸ NĂNG SỐ</span>
-              </span>
-            </Link>
+            <div className="mb-3">
+              <BrandLogo variant="horizontal" theme="light" size="md" />
+            </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-300">
               Đào tạo tin học văn phòng thực chiến và luyện thi chứng chỉ quốc tế theo lộ trình rõ ràng, bám sát yêu cầu tuyển dụng của doanh nghiệp.
             </p>

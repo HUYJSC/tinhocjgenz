@@ -96,10 +96,10 @@ export default async function TechArticleDetailPage({
     },
     publisher: {
       "@type": "Organization",
-      name: "Tin học GenZ",
+      name: "Tin Học Gen Z",
       logo: {
         "@type": "ImageObject",
-        url: `${siteUrl}/logo-icon.png`,
+        url: `${siteUrl}/brand/logo-horizontal.png`,
       },
     },
     mainEntityOfPage: {

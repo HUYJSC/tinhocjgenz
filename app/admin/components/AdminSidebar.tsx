@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import BrandLogo from "@/components/BrandLogo";
 import { LayoutDashboard, BookOpen, Calendar, Users, FileSpreadsheet, FileText, Sparkles, Award, ExternalLink, LogOut, ShieldCheck, ShieldAlert, ChevronRight, Globe } from "lucide-react";
 
 import { useAdminAuth } from "../context/AdminAuthContext";
@@ -119,17 +120,10 @@ export function AdminSidebar({ onCloseMobile }: { onCloseMobile?: () => void }) 
   return (
     <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col h-full shrink-0">
       {/* Brand Header */}
-      <div className="p-5 border-b border-slate-800 flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md shrink-0">
-          TG
-        </div>
-        <div className="overflow-hidden">
-          <div className="text-sm font-bold text-white tracking-tight leading-tight truncate font-display">
-            TIN HỌC GEN Z
-          </div>
-          <div className="text-xs font-extrabold text-blue-400 tracking-wider uppercase mt-0.5 flex items-center gap-1">
-            <ShieldCheck size={11} className="text-blue-400" /> CỔNG QUẢN TRỊ ADMIN
-          </div>
+      <div className="p-4 border-b border-slate-800 flex flex-col gap-2">
+        <BrandLogo variant="horizontal" theme="light" size="sm" asLink={true} href="/admin" />
+        <div className="text-[10px] font-extrabold text-blue-400 tracking-wider uppercase flex items-center gap-1 pl-0.5">
+          <ShieldCheck size={12} className="text-blue-400" /> CỔNG QUẢN TRỊ ADMIN
         </div>
       </div>
 

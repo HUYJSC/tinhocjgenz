@@ -24,7 +24,7 @@ export default function AdminBlogCMSPage() {
       title: "",
       excerpt: "",
       content: "",
-      coverImage: "/logo-icon.png",
+      coverImage: "/brand/logo-horizontal.png",
       category: "mos-ic3",
       categoryName: "Luyện Thi MOS & IC3",
       publishedAt: new Date().toLocaleDateString("vi-VN"),
@@ -34,7 +34,7 @@ export default function AdminBlogCMSPage() {
       tableOfContents: [],
       author: {
         name: "Ban Đào Tạo Tin Học Gen Z",
-        avatar: "/logo-icon.png",
+        avatar: "/brand/logo-symbol.png",
         role: "Giảng viên Certiport Master"
       }
     });

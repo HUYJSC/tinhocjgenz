@@ -12,7 +12,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import BrandLogo from "@/components/BrandLogo";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
@@ -296,10 +296,9 @@ export default function MobileAppShell() {
   return (
     <div className="mobile-app-shell lg:hidden">
       {!isPortal && <header className="mobile-app-header">
-        <Link href="/" className="mobile-brand" aria-label="Tin Học Gen Z - Trang chủ">
-          <Image src="/logo-icon.png" width={40} height={40} alt="" aria-hidden="true" priority />
-          <span><strong>TIN HỌC GEN Z</strong><small>MOS • IC3 • VĂN PHÒNG</small></span>
-        </Link>
+        <div className="mobile-brand py-0.5">
+          <BrandLogo variant="horizontal" size="sm" priority />
+        </div>
         <div className="flex items-center gap-1">
           <button type="button" className="mobile-icon-button" onClick={(event) => openOverlay("search", event.currentTarget)} aria-label="Mở tìm kiếm"><Search size={21} /></button>
           <button type="button" className="mobile-icon-button relative" onClick={(event) => openOverlay("notifications", event.currentTarget)} aria-label="Mở thông báo"><Bell size={21} /></button>

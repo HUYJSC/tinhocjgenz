@@ -1,6 +1,6 @@
-import NextImage from "next/image";
 import { Metadata } from "next";
 import Link from "next/link";
+import BrandLogo from "@/components/BrandLogo";
 import { Award, BookOpen, ShieldCheck, Heart, Sparkles, School, ArrowRight } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
 
@@ -58,7 +58,7 @@ export default function AboutPage() {
             <div className="lg:col-span-5 flex justify-center items-center">
               <div className="relative w-full max-w-sm aspect-[4/5] rounded-2xl bg-blue-950 shadow-sm overflow-hidden p-6 sm:p-8 flex flex-col justify-between text-white border border-slate-800 transition-colors duration-200">
                 <div className="flex justify-between items-start">
-                  <NextImage src="/logo-icon.png" alt="Tin Học Gen Z" width={48} height={48} sizes="48px" className="h-12 w-auto object-contain drop-shadow-md" />
+                  <BrandLogo variant="symbol" size="md" asLink={false} />
                   <span className="text-xs uppercase font-bold tracking-widest text-blue-300 bg-blue-900/60 px-3 py-1 rounded-full border border-blue-500/40">
                     Certiport Certified
                   </span>

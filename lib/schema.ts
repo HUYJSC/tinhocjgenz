@@ -44,9 +44,9 @@ export function generateOrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     name: SITE_CONFIG.name,
-    alternateName: "Tin Học GenZ",
+    alternateName: "TinHocGenZ",
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/logo-icon.png`,
+    logo: `${SITE_CONFIG.url}/brand/logo-horizontal.png`,
     image: `${SITE_CONFIG.url}/og-cover.png`,
     description: SITE_CONFIG.description,
     telephone: SITE_CONFIG.contact.phone,
@@ -161,7 +161,7 @@ export function generateArticleSchema(article: ArticleSchemaProps) {
       name: SITE_CONFIG.name,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_CONFIG.url}/logo-icon.png`,
+        url: `${SITE_CONFIG.url}/brand/logo-horizontal.png`,
       },
     },
     mainEntityOfPage: {

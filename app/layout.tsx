@@ -66,10 +66,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon.png", sizes: "512x512", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -83,7 +85,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#ffffff",
+  themeColor: "#0057B8",
 };
 
 // JSON-LD Structured Data for Google Rich Results
@@ -91,9 +93,9 @@ const jsonLdOrganization = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
   name: SITE_CONFIG.name,
-  alternateName: "Tin Học GenZ",
+  alternateName: "TinHocGenZ",
   url: SITE_CONFIG.url,
-  logo: `${SITE_CONFIG.url}/logo-icon.png`,
+  logo: `${SITE_CONFIG.url}/brand/logo-horizontal.png`,
   description: SITE_CONFIG.description,
   telephone: SITE_CONFIG.contact.phone,
   email: SITE_CONFIG.contact.email,
