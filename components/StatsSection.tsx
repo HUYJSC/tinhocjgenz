@@ -25,19 +25,19 @@ export default function StatsSection() {
           {statsData.map((item) => (
             <div
               key={item.id}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl sm:rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-blue-500/30 transition-all duration-300 shadow-premium hover:shadow-premium-hover group"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-5 p-4 sm:p-6 rounded-2xl bg-[#F4F8FD]/50 hover:bg-white border border-[#E2E8F0] hover:border-[#0057B8]/40 transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,87,184,0.08)] group"
             >
-              <div className="p-3.5 bg-white border border-slate-100 rounded-2xl shadow-sm shrink-0 group-hover:bg-slate-50 group-hover:border-blue-100 smooth-transition">
+              <div className="p-3 bg-white border border-[#E2E8F0] rounded-xl shadow-xs shrink-0 group-hover:bg-[#F4F8FD] group-hover:border-[#0057B8]/30 transition-colors">
                 {getIcon(item.id)}
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="text-xl sm:text-3xl font-bold text-slate-900 tracking-tight leading-none mb-1.5 font-display">
+                <span className="text-2xl sm:text-3xl font-extrabold text-[#012A62] tracking-tight leading-none mb-1.5 font-display">
                   {item.value}
                 </span>
-                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide sm:tracking-wider line-clamp-2 sm:truncate">
+                <span className="text-xs font-bold text-slate-800 uppercase tracking-wide line-clamp-2 sm:truncate">
                   {item.label}
                 </span>
-                <span className="hidden sm:block text-xs text-slate-500 font-medium mt-0.5 leading-snug">
+                <span className="hidden sm:block text-xs text-slate-600 font-medium mt-0.5 leading-snug">
                   {item.description}
                 </span>
               </div>

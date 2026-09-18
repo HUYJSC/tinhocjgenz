@@ -1,5 +1,4 @@
-/* Tin Học Gen Z — conservative public-content service worker */
-const CACHE_VERSION = "tinhocgenz-brand-v4";
+const CACHE_VERSION = "tinhocgenz-brand-v5";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE = [
   OFFLINE_URL,
@@ -18,7 +17,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((key) => key.startsWith("tinhocgenz-public-") && key !== CACHE_VERSION).map((key) => caches.delete(key))))
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_VERSION).map((key) => caches.delete(key))))
       .then(() => self.clients.claim()),
   );
 });

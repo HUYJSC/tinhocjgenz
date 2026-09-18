@@ -60,16 +60,18 @@ export default function HomeTabbedHub() {
                   aria-pressed={isActive}
                   className={`min-h-14 py-2 px-3 rounded-xl text-center transition-all flex flex-col sm:flex-row items-center justify-center gap-2 cursor-pointer ${
                     isActive
-                      ? "bg-white text-[#0057B8] shadow-sm border border-[#E5EEF8]"
-                      : "text-slate-600 hover:text-[#0B2545] hover:bg-white/60"
+                      ? "bg-[#0057B8] text-white shadow-md font-bold"
+                      : "text-slate-700 hover:text-[#0057B8] hover:bg-white/80 font-medium"
                   }`}
                 >
-                  <span className={isActive ? "text-[#0057B8]" : "text-slate-500"}>
+                  <span className={isActive ? "text-white" : "text-[#0057B8]"}>
                     {tab.icon}
                   </span>
                   <div className="text-left">
                     <div className="text-xs font-bold tracking-tight leading-tight">{tab.label}</div>
-                    <div className="text-[11px] text-slate-400 font-normal hidden sm:block leading-none mt-0.5">{tab.sub}</div>
+                    <div className={`text-[11px] font-normal hidden sm:block leading-none mt-0.5 ${isActive ? "text-white/80" : "text-slate-500"}`}>
+                      {tab.sub}
+                    </div>
                   </div>
                 </button>
               );
