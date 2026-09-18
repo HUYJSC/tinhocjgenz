@@ -499,12 +499,14 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                           onClick={() => {
                             if (
                               value === "register_lead" ||
-                              label === "Đăng ký nhận tư vấn trực tiếp" ||
-                              label === "Đăng ký xếp lớp ngay"
+                              label.includes("Đăng ký nhận tư vấn") ||
+                              label.includes("Đăng ký xếp lớp")
                             ) {
                               setShowLeadModal(true);
-                            } else if (value === "chat_zalo") {
+                            } else if (value === "chat_zalo" || label.includes("Zalo")) {
                               window.open("https://zalo.me/0332298065", "_blank");
+                            } else if (value === "call_hotline" || label.includes("Hotline")) {
+                              window.location.href = "tel:0332298065";
                             } else {
                               handleSendMessage(label);
                             }

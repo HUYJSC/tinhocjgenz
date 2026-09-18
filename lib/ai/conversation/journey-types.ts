@@ -83,8 +83,9 @@ export interface ConversationTurnResult {
     slots: JourneySlots;
   };
   quickReplies: QuickReplyOption[];
-  mascotState: "idle" | "listening" | "thinking" | "speaking" | "success" | "error";
+  mascotState: "idle" | "listening" | "thinking" | "speaking" | "success" | "error" | "greeting";
   recommendationReady: boolean;
   roadmapData?: Record<string, unknown>;
+  action?: "human_handoff" | "show_lead_modal" | "open_zalo";
 }
 

@@ -87,6 +87,7 @@ export async function POST(req: NextRequest) {
       mascotState: result.mascotState,
       recommendationReady: result.recommendationReady,
       roadmapData: result.roadmapData,
+      action: result.action,
     });
   } catch (err) {
     console.error("AI Chat API Error:", err);
