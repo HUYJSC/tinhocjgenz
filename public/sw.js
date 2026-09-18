@@ -1,10 +1,12 @@
-const CACHE_VERSION = "tinhocgenz-brand-v5";
+const CACHE_VERSION = "tinhocgenz-brand-v6";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE = [
   OFFLINE_URL,
   "/site.webmanifest",
   "/brand/logo-horizontal.png",
   "/brand/logo-symbol.png",
+  "/icon-48.png",
+  "/icon-96.png",
   "/icon-192.png",
   "/icon.png",
 ];
