@@ -4,21 +4,23 @@ import React from "react";
 import { useAiAssistant } from "@/hooks/useAiAssistant";
 import AiLauncher from "./AiLauncher";
 import AiChatWindow from "./AiChatWindow";
+import AiProactiveBubble from "./AiProactiveBubble";
 
 export default function AiAssistant() {
   const {
     isOpen,
-    setIsOpen,
     toggleChat,
+    handleOpenChat,
+    handleCloseChat,
     messages,
     loading,
     inputVal,
     setInputVal,
-    mascotState,
     placeholder,
-    greetingBubbleText,
-    showGreetingBubble,
-    setShowGreetingBubble,
+    mascotState,
+    proactiveBubbleVisible,
+    proactiveBubbleText,
+    handleDismissBubble,
     handleSendMessage,
     handleReset,
     handleHoverStart,
@@ -27,10 +29,20 @@ export default function AiAssistant() {
 
   return (
     <>
-      {/* Floating AI Assistant Chat Window Panel */}
+      {/* 1. Proactive Speech Bubble (appears 7-10s after visit when closed, auto hides, left of mascot) */}
+      {!isOpen && (
+        <AiProactiveBubble
+          text={proactiveBubbleText}
+          visible={proactiveBubbleVisible}
+          onOpen={handleOpenChat}
+          onDismiss={handleDismissBubble}
+        />
+      )}
+
+      {/* 2. Anchored Floating Chat Window (Desktop: left of mascot, Mobile: above mascot) */}
       <AiChatWindow
         isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={handleCloseChat}
         messages={messages}
         loading={loading}
         botState={mascotState}
@@ -41,10 +53,16 @@ export default function AiAssistant() {
         placeholder={placeholder}
       />
 
-      {/* Floating Mascot Launcher (Positioned at bottom-right, respecting safe areas) */}
+      {/* 3. Floating Mascot Launcher - Visual Anchor (Always present in bottom-right corner) */}
       <aside
-        aria-label="Trợ lý học tập AI Tin Học Gen Z"
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end pointer-events-auto select-none font-sans pb-[env(safe-area-inset-bottom,0px)]"
+        aria-label="Kênh hỗ trợ và tư vấn AI Tin Học Gen Z"
+        className="fixed z-40 flex items-center justify-center pointer-events-auto select-none
+          /* Mobile position */
+          right-3.5 bottom-[calc(14px+env(safe-area-inset-bottom,0px))]
+          /* Tablet position */
+          sm:right-5 sm:bottom-5
+          /* Desktop position */
+          lg:right-6 lg:bottom-6"
       >
         <AiLauncher
           isOpen={isOpen}
@@ -52,12 +70,8 @@ export default function AiAssistant() {
           mascotState={mascotState}
           onHoverStart={handleHoverStart}
           onHoverEnd={handleHoverEnd}
-          greetingBubbleText={greetingBubbleText}
-          showGreetingBubble={showGreetingBubble}
-          onDismissGreetingBubble={() => setShowGreetingBubble(false)}
         />
       </aside>
     </>
   );
 }
-

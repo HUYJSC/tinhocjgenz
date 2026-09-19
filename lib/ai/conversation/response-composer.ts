@@ -278,14 +278,14 @@ export const ResponseComposer = {
     // ==========================================
     if (intent === "clarification") {
       let explanation =
-        "Để giải thích dễ hiểu hơn: Tin Học Gen Z giúp bạn xây dựng lộ trình học từ con số 0 đến khi thi đậu chứng chỉ hoặc ứng dụng thành thạo vào công việc.";
+        "Để mình nói đơn giản hơn nhé: Tin Học Gen Z giúp bạn xây dựng lộ trình học từ con số 0 đến khi thi đậu chứng chỉ quốc tế hoặc ứng dụng thành thạo vào công việc.";
 
       if (state.flow === "mos_certification") {
         explanation =
-          "MOS là bài thi thực hành thao tác trên máy tính cho từng môn Word, Excel hoặc PowerPoint. Mỗi môn thi độc lập, đạt 700/1000 điểm là có bằng quốc tế của Microsoft.";
+          "Để mình nói đơn giản hơn nhé: MOS là bài thi thực hành thao tác trên máy tính cho từng môn Word, Excel hoặc PowerPoint. Mỗi môn thi độc lập, đạt 700/1000 điểm là có bằng quốc tế trọn đời của Microsoft.";
       } else if (state.flow === "ic3_certification") {
         explanation =
-          "IC3 GS6 là chứng chỉ đánh giá kiến thức máy tính và mạng cơ bản, gồm 3 bài thi (Level 1, 2, 3). Thường áp dụng cho sinh viên các trường đại học/cao đẳng làm chuẩn đầu ra công nghệ.";
+          "Để mình nói đơn giản hơn nhé: IC3 GS6 là chứng chỉ đánh giá kiến thức máy tính, mạng và kỹ năng số cơ bản, gồm 3 bài thi (Level 1, 2, 3) để xét chuẩn đầu ra đại học.";
       }
 
       if (hasActiveJourney) {

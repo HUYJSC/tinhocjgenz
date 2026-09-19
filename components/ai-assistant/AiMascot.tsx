@@ -29,7 +29,7 @@ export default function AiMascot({
   onClick,
   alt = "Trợ lý học tập AI Tin Học Gen Z",
 }: AiMascotProps) {
-  // Determine state-based animation / transform classes
+  // Determine state-based animation / transform classes according to Sections 16 & 17
   let stateClass = "";
   if (animated) {
     switch (state) {
@@ -37,46 +37,77 @@ export default function AiMascot({
         stateClass = "animate-mascot-idle";
         break;
       case "hover":
-        stateClass = "scale-[1.06] -translate-y-0.5 -rotate-1";
+        stateClass = "scale-[1.03] -translate-y-[2px] transition-transform duration-[170ms]";
+        break;
+      case "active":
+        stateClass = "scale-[0.96] transition-transform duration-[180ms]";
         break;
       case "thinking":
-        stateClass = "animate-mascot-thinking";
-        break;
       case "typing":
       case "speaking":
         stateClass = "animate-mascot-thinking";
         break;
       case "success":
-        stateClass = "animate-mascot-success";
+        stateClass = "scale-[1.02] transition-transform duration-200";
         break;
       case "error":
         stateClass = "animate-mascot-error";
         break;
       case "sleeping":
-        stateClass = "opacity-75 scale-[0.98]";
+        stateClass = "opacity-80 scale-[0.98]";
         break;
       case "greeting":
-        stateClass = "rotate-2 scale-[1.03]";
+        stateClass = "scale-[1.02] -translate-y-0.5";
         break;
       case "opened":
-        stateClass = "scale-[1.02]";
+        stateClass = "scale-[1.01]";
         break;
       default:
         stateClass = "animate-mascot-idle";
     }
   }
 
+  const content = (
+    <div
+      className={`w-full h-full relative flex items-center justify-center transition-all duration-180 will-change-transform ${stateClass}`}
+    >
+      {/* Single Master Transparent Mascot Asset */}
+      <Image
+        src="/brand/chatbot/chatbot-ai-mascot.png"
+        alt={alt}
+        width={size}
+        height={size}
+        priority={priority}
+        unoptimized
+        className="w-full h-full object-contain pointer-events-none drop-shadow-[0_8px_18px_rgba(0,87,184,0.18)]"
+      />
+
+      {/* Online indicator dot if requested */}
+      {showStateIndicator && (
+        <span
+          className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white shadow-2xs pointer-events-none"
+          aria-hidden="true"
+        />
+      )}
+    </div>
+  );
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        aria-label={alt}
+        className={`relative inline-flex items-center justify-center select-none bg-transparent border-none p-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8] focus-visible:ring-offset-2 rounded-full ${className}`}
+        style={{ width: size, height: size }}
+      >
+        {content}
+      </button>
+    );
+  }
+
   return (
     <div
-      role={onClick ? "button" : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onClick={onClick}
-      onKeyDown={(e) => {
-        if (onClick && (e.key === "Enter" || e.key === " ")) {
-          e.preventDefault();
-          onClick();
-        }
-      }}
       className={`relative inline-flex items-center justify-center select-none bg-transparent ${
         interactive ? "cursor-pointer group" : ""
       } ${className}`}
@@ -85,47 +116,7 @@ export default function AiMascot({
         height: size,
       }}
     >
-      {/* Animated container */}
-      <div
-        className={`w-full h-full relative flex items-center justify-center transition-all duration-200 will-change-transform ${stateClass}`}
-      >
-        {/* Single Master Transparent Mascot Asset */}
-        <Image
-          src="/brand/chatbot/chatbot-ai-mascot.png"
-          alt={alt}
-          width={size}
-          height={size}
-          priority={priority}
-          unoptimized
-          className="w-full h-full object-contain pointer-events-none drop-shadow-[0_8px_14px_rgba(0,87,184,0.16)]"
-          style={{ background: "transparent" }}
-        />
-
-        {/* State Indicators */}
-        {showStateIndicator && (
-          <>
-            {state === "thinking" || state === "typing" ? (
-              /* Thinking / Typing mini stagger dots */
-              <span
-                className="absolute -bottom-1 -right-1 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#0B2545] border border-white/60 shadow-xs text-white pointer-events-none"
-                aria-label={state === "thinking" ? "Đang suy nghĩ..." : "Đang trả lời..."}
-              >
-                <span className="w-1 h-1 rounded-full bg-[#00AEEF] animate-bounce [animation-delay:-0.3s]" />
-                <span className="w-1 h-1 rounded-full bg-[#00AEEF] animate-bounce [animation-delay:-0.15s]" />
-                <span className="w-1 h-1 rounded-full bg-[#00AEEF] animate-bounce" />
-              </span>
-            ) : state === "success" ? (
-              /* Success check beacon */
-              <span
-                className="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-xs pointer-events-none animate-in zoom-in-50 duration-200"
-                aria-label="Thành công"
-              >
-                ✓
-              </span>
-            ) : null}
-          </>
-        )}
-      </div>
+      {content}
     </div>
   );
 }

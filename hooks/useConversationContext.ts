@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
-import { usePathname } from "next/navigation";
-import { ConversationContext, PageContext, UserIntent } from "@/types/ai-assistant";
+import { ConversationContext, UserIntent } from "@/types/ai-assistant";
+import { usePageContext } from "./usePageContext";
 
 const SESSION_STORAGE_KEY = "tinhocgenz_ai_context_v1";
 
@@ -69,7 +69,7 @@ function getContextServerSnapshot() {
 }
 
 export function useConversationContext() {
-  const pathname = usePathname();
+  const pageContext = usePageContext();
 
   const conversationId = useSyncExternalStore(
     subscribe,
@@ -83,78 +83,7 @@ export function useConversationContext() {
     getContextServerSnapshot
   );
 
-  // 1. Resolve Page Context from pathname
-  const resolvePageContext = useCallback((path: string): PageContext => {
-    if (!path || path === "/") {
-      return { pageType: "home", pathname: "/" };
-    }
-
-    if (path.startsWith("/python")) {
-      return {
-        pageType: "course",
-        pathname: path,
-        courseId: "python-starter",
-        courseName: "Lập trình Python cho người mới bắt đầu",
-        category: "programming",
-      };
-    }
-
-    if (path.startsWith("/mos")) {
-      return {
-        pageType: "course",
-        pathname: path,
-        courseId: "mos-master-combo",
-        courseName: "Microsoft Office (MOS Master)",
-        category: "office",
-      };
-    }
-
-    if (path.startsWith("/ic3")) {
-      return {
-        pageType: "course",
-        pathname: path,
-        courseId: "ic3-gs6",
-        courseName: "Chứng chỉ Tin học Quốc tế IC3 GS6",
-        category: "certification",
-      };
-    }
-
-    if (
-      path.startsWith("/excel") ||
-      path.startsWith("/word") ||
-      path.startsWith("/powerpoint") ||
-      path.startsWith("/tin-hoc-van-phong")
-    ) {
-      return {
-        pageType: "course",
-        pathname: path,
-        courseName: "Tin học văn phòng thực chiến",
-        category: "office",
-      };
-    }
-
-    if (path.startsWith("/thi-thu")) {
-      return { pageType: "exam", pathname: path };
-    }
-
-    if (path.startsWith("/tai-lieu")) {
-      return { pageType: "docs", pathname: path };
-    }
-
-    if (path.startsWith("/bang-gia")) {
-      return { pageType: "pricing", pathname: path };
-    }
-
-    if (path.startsWith("/gioi-thieu")) {
-      return { pageType: "about", pathname: path };
-    }
-
-    return { pageType: "other", pathname: path };
-  }, []);
-
-  const pageContext = resolvePageContext(pathname);
-
-  // 2. Persist context updates
+  // 1. Persist context updates
   const updateContext = useCallback((updater: (prev: ConversationContext) => ConversationContext) => {
     ensureInitialized();
     const updated = updater(currentContext);
@@ -169,9 +98,14 @@ export function useConversationContext() {
     notify();
   }, []);
 
-  // 3. Context mutators
+  // 2. Context mutators
   const recordTurn = useCallback(
-    (intent?: UserIntent, topic?: string, level?: ConversationContext["currentLevel"]) => {
+    (
+      intent?: UserIntent,
+      topic?: string,
+      level?: ConversationContext["currentLevel"],
+      currentCourse?: string
+    ) => {
       updateContext((prev) => {
         const topics = prev.interestedTopics ? [...prev.interestedTopics] : [];
         if (topic && !topics.includes(topic)) {
@@ -183,6 +117,7 @@ export function useConversationContext() {
           lastIntent: intent || prev.lastIntent,
           lastTopic: topic || prev.lastTopic,
           currentLevel: level || prev.currentLevel,
+          currentCourse: currentCourse || prev.currentCourse,
           interestedTopics: topics,
           turnCount: prev.turnCount + 1,
         };
@@ -216,4 +151,3 @@ export function useConversationContext() {
     resetConversation,
   };
 }
-

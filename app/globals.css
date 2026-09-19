@@ -572,29 +572,29 @@ button, a, input, select, textarea {
 /* AI Mascot Floating & Expression Keyframes (Alive but Calm) */
 @keyframes mascotIdleFloat {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg) scale(1);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-4px) rotate(0.6deg) scale(1.015);
+    transform: translateY(-2px);
   }
 }
 
 .animate-mascot-idle {
-  animation: mascotIdleFloat 4s ease-in-out infinite;
+  animation: mascotIdleFloat 5.5s ease-in-out infinite;
   will-change: transform;
 }
 
 @keyframes mascotThinking {
   0%, 100% {
-    transform: translateY(-2px) scale(1.01);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-2px);
   }
 }
 
 .animate-mascot-thinking {
-  animation: mascotThinking 2s ease-in-out infinite;
+  animation: mascotThinking 2.4s ease-in-out infinite;
   will-change: transform;
 }
 
