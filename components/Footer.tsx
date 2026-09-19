@@ -29,8 +29,8 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 border-b border-white/10 pb-12 md:grid-cols-2 xl:grid-cols-4">
           <section aria-label="Thông tin Tin Học Gen Z">
-            <div className="mb-3">
-              <BrandLogo variant="horizontal" theme="light" size="md" />
+            <div className="mb-4">
+              <BrandLogo variant="horizontal" theme="light" size="lg" />
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-300">
               Đào tạo tin học văn phòng thực chiến và luyện thi chứng chỉ quốc tế theo lộ trình rõ ràng, bám sát yêu cầu tuyển dụng của doanh nghiệp.

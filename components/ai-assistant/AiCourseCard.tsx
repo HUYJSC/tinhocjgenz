@@ -56,3 +56,4 @@ export default function AiCourseCard({ course, onSelect }: AiCourseCardProps) {
     </div>
   );
 }
+

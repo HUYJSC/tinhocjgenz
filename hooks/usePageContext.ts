@@ -110,3 +110,4 @@ export function usePageContext(): PageContext {
     return { pageType: "other", pathname: path };
   }, [pathname]);
 }
+
