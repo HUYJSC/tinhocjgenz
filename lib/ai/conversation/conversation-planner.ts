@@ -12,6 +12,8 @@ import { AiRagService, PathwayCriteria } from "@/lib/ai-rag-service";
 import { IntentRouter } from "./intent-router";
 import { ResponseComposer } from "./response-composer";
 
+import { ConversationContext, PageContext } from "@/types/ai-assistant";
+
 export const ConversationPlanner = {
   /**
    * Generates a warm conversational acknowledgment for filled slots
@@ -94,11 +96,37 @@ export const ConversationPlanner = {
   async planTurn(params: {
     conversationId: string;
     userMessage: string;
+    context?: Partial<ConversationContext>;
+    pageContext?: Partial<PageContext>;
   }): Promise<ConversationTurnResult> {
-    const { conversationId, userMessage } = params;
+    const { conversationId, userMessage, context, pageContext } = params;
 
     // 1. Get or create journey state
     const state = JourneyStateManager.getOrCreate(conversationId);
+
+    // Contextual hints: If state slots are not yet set, enrich from context / pageContext
+    if (pageContext?.category && !state.goal) {
+      const cat = pageContext.category.toLowerCase();
+      if (cat.includes("mos")) state.goal = "mos_certification";
+      else if (cat.includes("ic3")) state.goal = "ic3_certification";
+      else if (cat.includes("excel")) state.goal = "practical_excel";
+    }
+    if (context?.goal && !state.goal) {
+      if (
+        context.goal === "mos_certification" ||
+        context.goal === "ic3_certification" ||
+        context.goal === "practical_excel" ||
+        context.goal === "office_comprehensive"
+      ) {
+        state.goal = context.goal;
+      }
+    }
+    if (context?.currentLevel && !state.currentLevel) {
+      if (context.currentLevel === "zero") state.currentLevel = "beginner_zero";
+      else if (context.currentLevel === "beginner") state.currentLevel = "basic_elementary";
+      else if (context.currentLevel === "intermediate" || context.currentLevel === "advanced")
+        state.currentLevel = "intermediate_adv";
+    }
 
     // 2. Classify intent via IntentRouter
     const intentRes = IntentRouter.classify(userMessage, state);

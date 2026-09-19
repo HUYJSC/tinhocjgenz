@@ -93,5 +93,77 @@ export const KNOWLEDGE_BASE: Record<string, KnowledgeEntry> = {
       "Trợ giảng sửa lỗi sai thao tác từng li từng tí",
     ],
   },
+
+  excel_skills: {
+    topic: "excel_skills",
+    title: "Khóa học Excel thực chiến từ số 0 đến đi làm",
+    content:
+      "Khóa học Excel tại Tin Học Gen Z tập trung vào kỹ năng làm việc thực tế: từ các hàm cơ bản đến hàm nâng cao (VLOOKUP, INDEX/MATCH, XLOOKUP), xử lý dữ liệu với PivotTable, tự động hóa với Power Query và thiết kế Dashboard báo cáo chuyên nghiệp. Khóa kéo dài 10 - 12 buổi, phù hợp cả cho người mất gốc lẫn người muốn nâng cao tốc độ làm việc.",
+    highlights: [
+      "Học thực hành 100% trên số liệu thực tế doanh nghiệp",
+      "Kèm 1:1 từ cách định dạng đến lập Dashboard tự động",
+      "Tặng kho tài liệu và 50+ file mẫu Excel văn phòng",
+    ],
+  },
+
+  python_starter: {
+    topic: "python_starter",
+    title: "Lập trình Python cho người mới bắt đầu",
+    content:
+      "Khóa học Python cho người mới bắt đầu được thiết kế đặc biệt cho Gen Z chưa từng học lập trình. Bạn sẽ được rèn luyện tư duy logic, cú pháp hiện đại, xử lý dữ liệu và tự động hóa các tác vụ hàng ngày qua các dự án mini thực tiễn. Khóa kéo dài 10 buổi với lộ trình rõ ràng, dễ tiếp cận.",
+    highlights: [
+      "Xây dựng nền tảng tư duy code từ con số 0",
+      "Thực hành viết script tự động hóa công việc",
+      "Giảng viên giải đáp code 1:1 trực tiếp",
+    ],
+  },
+
+  web_development: {
+    topic: "web_development",
+    title: "Lập trình Web cho Gen Z",
+    content:
+      "Khóa học Web giúp bạn làm chủ HTML, CSS, JavaScript hiện đại và xây dựng những trang web hoàn chỉnh, có giao diện đẹp mắt và tương thích trên cả điện thoại lẫn máy tính. Nếu bạn thích nhìn thấy kết quả trực quan ngay lập tức thì Web là lựa chọn rất thú vị!",
+    highlights: [
+      "Thực hành xây dựng trang web cá nhân/portfolio",
+      "Học HTML5, CSS3, Flexbox/Grid và JS cơ bản",
+      "Tư duy thiết kế giao diện UI/UX hiện đại",
+    ],
+  },
+
+  ai_skills: {
+    topic: "ai_skills",
+    title: "Ứng dụng AI trong học tập & công việc",
+    content:
+      "Khóa học Ứng dụng AI hướng dẫn bạn làm chủ các công cụ AI thế hệ mới như ChatGPT, Claude, Perplexity và Midjourney để nhân 3 tốc độ nghiên cứu tài liệu, soạn thảo bài thuyết trình, phân tích dữ liệu và tự động hóa học tập. Khóa học ngắn gọn trong 6 buổi thực chiến.",
+    highlights: [
+      "Làm chủ Prompt Engineering thực tiễn",
+      "Ứng dụng AI làm slide, viết báo cáo nhanh",
+      "Tiết kiệm 50% thời gian học tập và làm việc",
+    ],
+  },
+
+  duration_query: {
+    topic: "duration_query",
+    title: "Thời lượng các khóa học tại Tin Học Gen Z",
+    content:
+      "Thời lượng các khóa học tại Tin Học Gen Z được thiết kế cô đọng, hiệu quả cao:\n• MOS từng môn (Word/Excel/PowerPoint): 8 - 10 buổi (khoảng 3 tuần).\n• Combo 3 môn MOS Master: 16 - 20 buổi (khoảng 1.5 - 2 tháng).\n• Lập trình Python: 10 buổi thực chiến.\n• Ứng dụng AI: 6 buổi cấp tốc.\nLịch học linh hoạt ca tối hoặc cuối tuần, bạn có thể học cấp tốc nếu cần thi gấp!",
+    highlights: [
+      "Thời lượng linh hoạt từ 3 tuần đến 2 tháng",
+      "Có thể học cấp tốc đẩy nhanh tiến độ",
+      "Hỗ trợ bảo lưu và học bù miễn phí",
+    ],
+  },
+
+  beginner_level: {
+    topic: "beginner_level",
+    title: "Học từ con số 0 cho người mất gốc",
+    content:
+      "Nếu bạn chưa biết gì hoặc mất gốc tin học thì hoàn toàn đừng lo lắng nhé! Tại Tin Học Gen Z, hơn 70% học viên bắt đầu từ số 0. Giáo trình được chia nhỏ từng bước cực kỳ dễ hiểu, giảng viên kèm 1:1 sửa bài trực tiếp trên máy của bạn cho tới khi thuần thục.",
+    highlights: [
+      "Cầm tay chỉ việc từng thao tác từ số 0",
+      "Không sợ bị bỏ lại phía sau",
+      "Học lại 100% miễn phí nếu chưa tự tin",
+    ],
+  },
 };
 

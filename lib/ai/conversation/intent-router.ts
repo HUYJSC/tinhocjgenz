@@ -107,6 +107,86 @@ export const IntentRouter = {
       return { intent: "greeting", confidence: 0.95, userMessage: text };
     }
 
+    // 4b. Duration Query ("học bao lâu", "mất bao lâu", "thời gian học")
+    if (
+      norm.includes("bao lau") ||
+      norm.includes("hoc bao lau") ||
+      norm.includes("mat bao lau") ||
+      norm.includes("thoi gian hoc") ||
+      norm.includes("may buoi") ||
+      norm.includes("may thang") ||
+      norm.includes("may tuan") ||
+      norm.includes("keo dai bao lau")
+    ) {
+      return { intent: "faq", subType: "duration_query", confidence: 0.95, userMessage: text };
+    }
+
+    // 4c. Level statement ("tui chưa biết gì", "mất gốc", "mới bắt đầu")
+    if (
+      norm.includes("chua biet gi") ||
+      norm.includes("chua hoc bao gio") ||
+      norm.includes("mat goc") ||
+      norm.includes("so 0") ||
+      norm.includes("con so 0") ||
+      norm.includes("moi bat dau") ||
+      norm.includes("nguoi moi")
+    ) {
+      return { intent: "journey_answer", subType: "beginner_level", confidence: 0.95, userMessage: text };
+    }
+
+    // 4d. Specific Course: Python
+    if (
+      norm.includes("hoc python") ||
+      norm.includes("lap trinh python") ||
+      norm === "python" ||
+      norm.startsWith("python")
+    ) {
+      return { intent: "knowledge_question", subType: "python_starter", confidence: 0.95, userMessage: text };
+    }
+
+    // 4e. Specific Course: Web Development ("còn web", "học web")
+    if (
+      norm.includes("con web") ||
+      norm.includes("hoc web") ||
+      norm.includes("lap trinh web") ||
+      norm.includes("lam website") ||
+      norm.includes("front end") ||
+      norm.includes("html css")
+    ) {
+      return { intent: "knowledge_question", subType: "web_development", confidence: 0.95, userMessage: text };
+    }
+
+    // 4f. Specific Domain: Excel
+    if (
+      norm.includes("hoc excel") ||
+      norm.includes("excel thuc chien") ||
+      norm.includes("tui muon hoc excel") ||
+      norm.includes("muon hoc excel") ||
+      norm === "excel"
+    ) {
+      return { intent: "knowledge_question", subType: "excel_skills", confidence: 0.95, userMessage: text };
+    }
+
+    // 4g. Specific Domain: Word / PowerPoint / Office general
+    if (
+      norm.includes("hoc word") ||
+      norm.includes("hoc powerpoint") ||
+      norm.includes("tin hoc van phong") ||
+      norm.includes("tin hoc can ban")
+    ) {
+      return { intent: "knowledge_question", subType: "office_general", confidence: 0.95, userMessage: text };
+    }
+
+    // 4h. Specific Domain: AI Tools
+    if (
+      norm.includes("hoc ai") ||
+      norm.includes("ung dung ai") ||
+      norm.includes("chatgpt") ||
+      norm.includes("cong cu ai")
+    ) {
+      return { intent: "knowledge_question", subType: "ai_skills", confidence: 0.95, userMessage: text };
+    }
+
     // 5. Bot Identity
     if (
       norm.includes("ban la ai") ||

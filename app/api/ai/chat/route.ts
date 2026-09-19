@@ -5,7 +5,7 @@ import { AiStore } from "@/lib/ai-store";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { message, conversationId, reset } = body;
+    const { message, conversationId, reset, context, pageContext } = body;
 
     const convId =
       conversationId ||
@@ -36,6 +36,8 @@ export async function POST(req: NextRequest) {
     const result = await ConversationPlanner.planTurn({
       conversationId: convId,
       userMessage: message,
+      context,
+      pageContext,
     });
 
     // 3. Persist conversation history in AiStore for Admin audit & knowledge learning

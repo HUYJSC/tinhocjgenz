@@ -569,63 +569,73 @@ button, a, input, select, textarea {
   }
 }
 
-/* AI Mascot Floating & Expression Keyframes */
+/* AI Mascot Floating & Expression Keyframes (Alive but Calm) */
 @keyframes mascotIdleFloat {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-2px) rotate(0.8deg);
+    transform: translateY(0px) rotate(0deg) scale(1);
   }
   50% {
-    transform: translateY(-4.5px) rotate(0deg);
-  }
-  75% {
-    transform: translateY(-2px) rotate(-0.8deg);
+    transform: translateY(-4px) rotate(0.6deg) scale(1.015);
   }
 }
 
 .animate-mascot-idle {
-  animation: mascotIdleFloat 3.6s ease-in-out infinite;
+  animation: mascotIdleFloat 4s ease-in-out infinite;
   will-change: transform;
 }
 
-@keyframes scanlineMove {
-  0% {
-    transform: translateX(-100%);
+@keyframes mascotThinking {
+  0%, 100% {
+    transform: translateY(-2px) scale(1.01);
   }
-  100% {
-    transform: translateX(100%);
+  50% {
+    transform: translateY(-4px) scale(1.02);
   }
 }
 
-.animate-scanline {
-  animation: scanlineMove 1.6s ease-in-out infinite;
+.animate-mascot-thinking {
+  animation: mascotThinking 2s ease-in-out infinite;
+  will-change: transform;
 }
 
-@keyframes elasticPop {
+@keyframes mascotSuccess {
   0% {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
   40% {
-    transform: scale(0.92);
-  }
-  75% {
-    transform: scale(1.06);
+    transform: translateY(-6px) scale(1.05);
   }
   100% {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
   }
 }
 
-.animate-elastic-pop {
-  animation: elasticPop 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.animate-mascot-success {
+  animation: mascotSuccess 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1;
+}
+
+@keyframes mascotError {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+}
+
+.animate-mascot-error {
+  animation: mascotError 0.4s ease-in-out 2;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-mascot-idle,
-  .animate-scanline,
-  .animate-elastic-pop {
+  .animate-mascot-thinking,
+  .animate-mascot-success,
+  .animate-mascot-error {
     animation: none !important;
+    transition: none !important;
   }
 }

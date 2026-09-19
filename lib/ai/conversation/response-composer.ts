@@ -162,12 +162,43 @@ export const ResponseComposer = {
     }
 
     // ==========================================
-    // 5. KNOWLEDGE QUESTION (MOS, IC3, Comparisons)
+    // ==========================================
+    // 5. KNOWLEDGE QUESTION (MOS, IC3, Comparisons, Excel, Python, AI)
     // ==========================================
     if (intent === "knowledge_question") {
       const key = subType || "mos_overview";
       const entry = KNOWLEDGE_BASE[key] || KNOWLEDGE_BASE["mos_overview"];
 
+      // Context-aware dynamic quick replies
+      let customReplies: QuickReplyOption[] = START_STEP.quickReplies;
+      if (key === "excel_skills") {
+        customReplies = [
+          { label: "Excel cơ bản từ số 0", value: "Mình muốn học Excel cơ bản từ đầu" },
+          { label: "Excel thực chiến đi làm", value: "Mình muốn học Excel nâng cao để đi làm" },
+          { label: "Luyện thi MOS Excel", value: "Mình muốn luyện thi chứng chỉ MOS Excel" },
+          { label: "Học bao lâu?", value: "Khóa Excel học bao lâu vậy bạn?" },
+        ];
+      } else if (key === "python_starter") {
+        customReplies = [
+          { label: "Python cho người mới", value: "Mình chưa biết gì về Python" },
+          { label: "Lộ trình học Python", value: "Tư vấn lộ trình học Python cho mình" },
+          { label: "Thời gian học bao lâu?", value: "Khóa Python học bao lâu vậy bạn?" },
+          { label: "Còn lập trình Web?", value: "Còn lập trình Web thì thế nào?" },
+        ];
+      } else if (key === "web_development") {
+        customReplies = [
+          { label: "Khóa Lập trình Web", value: "Tư vấn khóa lập trình Web cho mình" },
+          { label: "Khóa Python cơ bản", value: "Mình muốn học Python" },
+          { label: "Cái nào dễ hơn?", value: "Học Web hay Python dễ hơn cho người mới?" },
+        ];
+      } else if (key === "ai_skills") {
+        customReplies = [
+          { label: "Khóa Ứng dụng AI (6 buổi)", value: "Tư vấn khóa học ứng dụng AI cho mình" },
+          { label: "Học phí khóa AI", value: "Học phí khóa AI là bao nhiêu?" },
+          { label: "Lịch khai giảng", value: "Lịch khai giảng khóa AI gần nhất?" },
+        ];
+      }
+
       if (hasActiveJourney) {
         const ret = this.getGentleReturnToFlow(state);
         return {
@@ -178,18 +209,33 @@ export const ResponseComposer = {
       }
 
       return {
-        reply: `${entry.content}\n\nBạn có muốn mình thiết kế lộ trình học cho chương trình này không?`,
-        quickReplies: START_STEP.quickReplies,
+        reply: `${entry.content}\n\nBạn có muốn mình tư vấn thêm về khóa học nào trong chương trình này không?`,
+        quickReplies: customReplies,
         mascotState: "speaking",
       };
     }
 
     // ==========================================
-    // 6. FAQ (Tuition, Guarantee, Schedule)
+    // 6. FAQ (Tuition, Guarantee, Schedule, Duration)
     // ==========================================
     if (intent === "faq") {
       const key = subType || "tuition_policy";
       const entry = KNOWLEDGE_BASE[key] || KNOWLEDGE_BASE["tuition_policy"];
+
+      let customReplies: QuickReplyOption[] = START_STEP.quickReplies;
+      if (key === "duration_query") {
+        customReplies = [
+          { label: "Xem chi tiết khóa học", value: "Xem chi tiết các khóa học" },
+          { label: "Học phí trọn gói", value: "Học phí các khóa thế nào?" },
+          { label: "Đăng ký tư vấn xếp lớp", value: "register_lead" },
+        ];
+      } else if (key === "tuition_policy") {
+        customReplies = [
+          { label: "Ưu đãi học phí nhóm 30%", value: "Chính sách ưu đãi nhóm 30% thế nào?" },
+          { label: "Tư vấn xếp lớp", value: "register_lead" },
+          { label: "Lịch khai giảng", value: "Cho mình hỏi lịch khai giảng gần nhất" },
+        ];
+      }
 
       if (hasActiveJourney) {
         const ret = this.getGentleReturnToFlow(state);
@@ -201,8 +247,8 @@ export const ResponseComposer = {
       }
 
       return {
-        reply: `${entry.content}\n\nBạn đang dự định học môn nào để mình báo lộ trình và ưu đãi chính xác nhất?`,
-        quickReplies: START_STEP.quickReplies,
+        reply: `${entry.content}\n\nBạn đang dự định học môn nào để mình kiểm tra lịch học và ưu đãi tốt nhất cho bạn nhé?`,
+        quickReplies: customReplies,
         mascotState: "speaking",
       };
     }

@@ -2,24 +2,12 @@
 
 import React from "react";
 import Image from "next/image";
+import { MascotState } from "@/types/ai-assistant";
 
-export type MascotSize = "xs" | "sm" | "md" | "lg" | "xl" | number;
-
-export type MascotState =
-  | "idle"
-  | "online"
-  | "thinking"
-  | "listening"
-  | "speaking"
-  | "greeting"
-  | "success"
-  | "error"
-  | "attention"
-  | "near"
-  | "hover";
+export type { MascotState };
 
 export interface AiMascotProps {
-  size?: MascotSize;
+  size?: number;
   state?: MascotState;
   showStateIndicator?: boolean;
   interactive?: boolean;
@@ -28,19 +16,10 @@ export interface AiMascotProps {
   className?: string;
   onClick?: () => void;
   alt?: string;
-  tooltipText?: string;
 }
 
-const SIZE_MAP: Record<string, number> = {
-  xs: 28,
-  sm: 34,
-  md: 48,
-  lg: 68,
-  xl: 80,
-};
-
 export default function AiMascot({
-  size = "md",
+  size = 48,
   state = "idle",
   showStateIndicator = false,
   interactive = false,
@@ -50,10 +29,42 @@ export default function AiMascot({
   onClick,
   alt = "Trợ lý học tập AI Tin Học Gen Z",
 }: AiMascotProps) {
-  const pixelSize = typeof size === "number" ? size : SIZE_MAP[size] || 48;
-
-  const isThinking = state === "thinking";
-  const isOnline = state === "online" || state === "greeting" || state === "idle";
+  // Determine state-based animation / transform classes
+  let stateClass = "";
+  if (animated) {
+    switch (state) {
+      case "idle":
+        stateClass = "animate-mascot-idle";
+        break;
+      case "hover":
+        stateClass = "scale-[1.06] -translate-y-0.5 -rotate-1";
+        break;
+      case "thinking":
+        stateClass = "animate-mascot-thinking";
+        break;
+      case "typing":
+      case "speaking":
+        stateClass = "animate-mascot-thinking";
+        break;
+      case "success":
+        stateClass = "animate-mascot-success";
+        break;
+      case "error":
+        stateClass = "animate-mascot-error";
+        break;
+      case "sleeping":
+        stateClass = "opacity-75 scale-[0.98]";
+        break;
+      case "greeting":
+        stateClass = "rotate-2 scale-[1.03]";
+        break;
+      case "opened":
+        stateClass = "scale-[1.02]";
+        break;
+      default:
+        stateClass = "animate-mascot-idle";
+    }
+  }
 
   return (
     <div
@@ -66,53 +77,50 @@ export default function AiMascot({
           onClick();
         }
       }}
-      className={`relative inline-flex items-center justify-center select-none ${
+      className={`relative inline-flex items-center justify-center select-none bg-transparent ${
         interactive ? "cursor-pointer group" : ""
       } ${className}`}
       style={{
-        width: pixelSize,
-        height: pixelSize,
+        width: size,
+        height: size,
       }}
     >
-      {/* Floating animation container */}
+      {/* Animated container */}
       <div
-        className={`w-full h-full relative flex items-center justify-center transition-transform duration-200 will-change-transform ${
-          animated ? "animate-mascot-idle" : ""
-        } ${interactive ? "group-hover:scale-105 group-active:scale-95" : ""}`}
+        className={`w-full h-full relative flex items-center justify-center transition-all duration-200 will-change-transform ${stateClass}`}
       >
-        {/* Master Asset Image */}
+        {/* Single Master Transparent Mascot Asset */}
         <Image
-          src="/brand/chatbot/chatbot-ai-master.png"
+          src="/brand/chatbot/chatbot-ai-mascot.png"
           alt={alt}
-          width={pixelSize}
-          height={pixelSize}
+          width={size}
+          height={size}
           priority={priority}
           unoptimized
-          className="w-full h-full object-contain pointer-events-none drop-shadow-[0_4px_14px_rgba(0,87,184,0.16)]"
+          className="w-full h-full object-contain pointer-events-none drop-shadow-[0_8px_14px_rgba(0,87,184,0.16)]"
           style={{ background: "transparent" }}
         />
 
-        {/* Status Indicator Overlays */}
+        {/* State Indicators */}
         {showStateIndicator && (
           <>
-            {isThinking ? (
-              /* Thinking animated dots badge */
+            {state === "thinking" || state === "typing" ? (
+              /* Thinking / Typing mini stagger dots */
               <span
-                className="absolute -bottom-1 -right-1 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#0B2545] border border-white/60 shadow-xs text-white"
-                aria-label="Đang suy nghĩ"
+                className="absolute -bottom-1 -right-1 flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-[#0B2545] border border-white/60 shadow-xs text-white pointer-events-none"
+                aria-label={state === "thinking" ? "Đang suy nghĩ..." : "Đang trả lời..."}
               >
                 <span className="w-1 h-1 rounded-full bg-[#00AEEF] animate-bounce [animation-delay:-0.3s]" />
                 <span className="w-1 h-1 rounded-full bg-[#00AEEF] animate-bounce [animation-delay:-0.15s]" />
                 <span className="w-1 h-1 rounded-full bg-[#00AEEF] animate-bounce" />
               </span>
-            ) : isOnline ? (
-              /* Online green beacon dot */
+            ) : state === "success" ? (
+              /* Success check beacon */
               <span
-                className="absolute top-0 right-0 flex h-2.5 w-2.5"
-                aria-label="Đang hoạt động"
+                className="absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 rounded-full bg-emerald-500 text-white text-[10px] font-bold shadow-xs pointer-events-none animate-in zoom-in-50 duration-200"
+                aria-label="Thành công"
               >
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 ring-1.5 ring-white" />
+                ✓
               </span>
             ) : null}
           </>
@@ -121,4 +129,3 @@ export default function AiMascot({
     </div>
   );
 }
-
