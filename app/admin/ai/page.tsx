@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { AdminCourseItem } from "@/lib/courses-store";
 import { AiKnowledgeDocument, AiRoadmapTemplate, AiConversation, AiSettings } from "@/lib/ai-store";
-import MascotBot from "@/components/MascotBot";
+import AiMascot from "@/components/ai-assistant/AiMascot";
 
 export default function AdminAiAdvisorPage() {
   const [activeTab, setActiveTab] = useState<
@@ -256,7 +256,7 @@ export default function AdminAiAdvisorPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-[#E5EEF8] shadow-xs">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 flex items-center justify-center shrink-0">
-            <MascotBot state="idle" size={44} showShadow={false} />
+            <AiMascot state="idle" size={44} />
           </div>
           <div>
             <h1 className="text-xl font-bold text-[#0B2545] flex items-center gap-2">
@@ -656,10 +656,9 @@ export default function AdminAiAdvisorPage() {
                 </p>
               </div>
               <div className="w-12 h-12 flex items-center justify-center shrink-0">
-                <MascotBot
+                <AiMascot
                   state={testLoading ? "thinking" : testResponse ? "speaking" : "idle"}
                   size={46}
-                  showShadow={false}
                 />
               </div>
             </div>
