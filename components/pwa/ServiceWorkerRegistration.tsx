@@ -14,7 +14,39 @@ function subscribeToNetworkStatus(callback: () => void) {
 export default function ServiceWorkerRegistration() {
   useEffect(() => {
     if (process.env.NODE_ENV !== "production" || !("serviceWorker" in navigator)) return;
-    const register = () => { void navigator.serviceWorker.register("/sw.js", { scope: "/" }); };
+
+    // Clean up any stale/legacy caches from earlier versions
+    if ("caches" in window) {
+      caches.keys().then((keys) => {
+        const CURRENT_CACHE = "tinhocgenz-brand-v8";
+        keys.forEach((key) => {
+          if (key !== CURRENT_CACHE) {
+            caches.delete(key);
+          }
+        });
+      });
+    }
+
+    const register = () => {
+      navigator.serviceWorker
+        .register("/sw.js", { scope: "/" })
+        .then((registration) => {
+          // If a new worker is installed, update immediately
+          registration.addEventListener("updatefound", () => {
+            const newWorker = registration.installing;
+            if (newWorker) {
+              newWorker.addEventListener("statechange", () => {
+                if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+                  // New update available, claim clients
+                  newWorker.postMessage({ type: "SKIP_WAITING" });
+                }
+              });
+            }
+          });
+        })
+        .catch(() => {});
+    };
+
     if (document.readyState === "complete") {
       register();
       return;

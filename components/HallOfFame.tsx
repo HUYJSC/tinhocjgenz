@@ -115,7 +115,7 @@ export default function HallOfFame() {
     : CERTIFICATES.filter((c) => c.category === selectedCategory);
 
   return (
-    <section className="py-12 bg-white relative overflow-hidden font-sans">
+    <section className="py-14 sm:py-18 bg-white relative overflow-hidden font-sans">
       {/* Credential Verification Modal */}
       <CredentialVerifyModal
         cert={verifyingCert}
@@ -125,7 +125,7 @@ export default function HallOfFame() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
         {/* Header Section */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-[#0057B8] text-xs font-bold tracking-wider uppercase">
+          <div className="section-badge mx-auto">
             <ShieldCheck size={14} className="text-[#0057B8]" />
             <span>CERTIPORT HALL OF FAME • BẢNG VÀNG THÀNH TÍCH</span>
           </div>
@@ -150,7 +150,7 @@ export default function HallOfFame() {
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
                   selectedCategory === tab.id
                     ? "bg-[#0057B8] text-white shadow-sm"
-                    : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200"
+                    : "bg-white text-slate-700 hover:bg-[#F4F8FD] hover:text-[#0057B8] border border-[#E2E8F0]"
                 }`}
               >
                 {tab.label}
@@ -164,7 +164,7 @@ export default function HallOfFame() {
           {filteredCerts.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-2xl border border-[#E5EEF8] hover:border-blue-300 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden"
+              className="bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#0057B8]/40 p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between group relative overflow-hidden"
             >
               {/* Top Accent line */}
               <div className="absolute top-0 left-0 w-full h-[3px] bg-[#0057B8]" />
@@ -172,44 +172,44 @@ export default function HallOfFame() {
               <div className="space-y-4">
                 {/* Badge Header */}
                 <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-[#0057B8] border border-blue-100">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#F4F8FD] text-[#0057B8] border border-[#E2E8F0]">
                     <Star size={10} className="fill-[#0057B8] text-[#0057B8]" />
                     {item.badge}
                   </span>
-                  <span className="text-xs font-bold text-slate-400">{item.completionDate}</span>
+                  <span className="text-xs font-semibold text-slate-500">{item.completionDate}</span>
                 </div>
 
                 {/* Student & Score Info Box */}
-                <div className="bg-[#F4F8FD] border border-[#E5EEF8] rounded-2xl p-4 space-y-2.5">
+                <div className="bg-[#F4F8FD] border border-[#E2E8F0] rounded-2xl p-4 space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div>
                       <h4 className="font-bold text-sm text-[#0B2545] tracking-wide">{item.studentName}</h4>
-                      <p className="text-xs text-slate-500 font-medium mt-0.5 flex items-center gap-1">
+                      <p className="text-xs text-slate-600 font-medium mt-0.5 flex items-center gap-1">
                         <Users size={11} /> {item.roleTitle}
                       </p>
                     </div>
                     <div className="text-right">
                       <div className="text-xl font-bold text-[#0057B8] leading-none">{item.score}</div>
-                      <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">/ {item.maxScore} ĐIỂM</div>
+                      <div className="text-[10px] font-bold text-slate-600 uppercase tracking-wider mt-0.5">/ {item.maxScore} ĐIỂM</div>
                     </div>
                   </div>
 
-                  <div className="pt-2 border-t border-slate-200/80 flex items-center justify-between text-xs">
-                    <span className="text-slate-700 font-semibold">{item.courseName}</span>
-                    <span className="text-xs px-2 py-0.5 rounded bg-white text-[#003F88] font-mono font-bold border border-blue-200">
+                  <div className="pt-2 border-t border-[#E2E8F0] flex items-center justify-between text-xs">
+                    <span className="text-slate-800 font-semibold">{item.courseName}</span>
+                    <span className="text-xs px-2 py-0.5 rounded bg-white text-[#003F88] font-mono font-bold border border-[#E2E8F0]">
                       {item.examCode}
                     </span>
                   </div>
                 </div>
 
                 {/* Testimonial Quote */}
-                <p className="text-slate-600 text-xs sm:text-sm leading-relaxed italic font-normal">
+                <p className="text-slate-700 text-xs sm:text-sm leading-relaxed italic font-normal">
                   &ldquo;{item.quote}&rdquo;
                 </p>
               </div>
 
               {/* Card Footer Verification Button */}
-              <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-4 mt-4 border-t border-[#E2E8F0] flex items-center justify-between text-xs">
                 <button
                   type="button"
                   onClick={() =>
@@ -247,7 +247,7 @@ export default function HallOfFame() {
                       certiportRegId: item.certiportRegId,
                     })
                   }
-                  className="font-mono text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200 font-bold text-xs cursor-pointer"
+                  className="font-mono text-[#0057B8] bg-[#F4F8FD] hover:bg-[#E5EEF8] px-2.5 py-1 rounded-md border border-[#0057B8]/30 font-bold text-xs cursor-pointer transition-colors"
                 >
                   XÁC THỰC ✓
                 </button>

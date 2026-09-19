@@ -26,8 +26,8 @@ export default function PricingTable() {
             const [label, val] = part.split(":");
             return (
               <div key={index} className="text-xs leading-normal">
-                <span className="font-bold text-slate-500">{label.trim()}: </span>
-                <span className="font-bold text-blue-600 bg-blue-50/50 border border-blue-100/20 px-1.5 py-0.5 rounded-md inline-block my-0">
+                <span className="font-bold text-slate-700">{label.trim()}: </span>
+                <span className="font-bold text-[#0057B8] bg-[#F4F8FD] border border-[#E2E8F0] px-1.5 py-0.5 rounded-md inline-block my-0">
                   {val?.trim() || part.trim()}
                 </span>
               </div>
@@ -43,7 +43,7 @@ export default function PricingTable() {
           {formatPrice(price)}
         </span>
         {originalPrice && (
-          <span className="text-xs sm:text-xs font-bold text-slate-400 line-through mt-0">
+          <span className="text-xs sm:text-xs font-semibold text-slate-500 line-through mt-0">
             {formatPrice(originalPrice)}
           </span>
         )}
@@ -52,10 +52,10 @@ export default function PricingTable() {
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl border border-[#E5EEF8] shadow-sm overflow-hidden">
+    <div className="w-full bg-white rounded-2xl border border-[#E2E8F0] shadow-sm overflow-hidden">
       
       {/* Mobile Card List (< sm) */}
-      <div className="sm:hidden divide-y divide-slate-100">
+      <div className="sm:hidden divide-y divide-[#E2E8F0]">
         <div className="bg-[#F4F8FD] py-3 px-4 font-bold text-[#0057B8] text-xs tracking-wider uppercase border-l-[3px] border-l-[#0057B8] flex items-center gap-2">
           <BookOpen size={14} className="text-[#0057B8]" />
           <span>Khóa Học Tin Học Văn Phòng Chuyên Nghiệp</span>
@@ -67,23 +67,23 @@ export default function PricingTable() {
                 <h4 className="font-bold text-[#0B2545] text-base leading-snug">
                   {course.title}
                 </h4>
-                <p className="text-slate-500 text-xs mt-1 leading-relaxed">{course.description}</p>
+                <p className="text-slate-600 text-xs mt-1 leading-relaxed">{course.description}</p>
               </div>
               {course.popular && (
-                <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold text-[#0057B8] bg-blue-50 border border-blue-200/60">
+                <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold text-[#0057B8] bg-[#F4F8FD] border border-[#E2E8F0]">
                   Khuyên dùng
                 </span>
               )}
             </div>
 
-            <div className="flex items-center justify-between gap-3 pt-1 border-t border-slate-100/80">
+            <div className="flex items-center justify-between gap-3 pt-1 border-t border-[#E2E8F0]">
               <div>
-                <span className="text-xs font-bold text-slate-400 block">Học phí trọn gói</span>
+                <span className="text-xs font-bold text-slate-500 block">Học phí trọn gói</span>
                 {renderPriceCell(course.price, course.originalPrice)}
               </div>
               <div className="text-right">
-                <span className="text-xs font-bold text-slate-400 block">Thời lượng</span>
-                <span className="text-slate-700 font-bold text-xs bg-slate-100 px-2 py-1 rounded-md inline-block">
+                <span className="text-xs font-bold text-slate-500 block">Thời lượng</span>
+                <span className="text-slate-700 font-bold text-xs bg-slate-100 px-2 py-1 rounded-md inline-block border border-slate-200">
                   {course.duration}
                 </span>
               </div>
@@ -94,7 +94,7 @@ export default function PricingTable() {
               className={`w-full min-h-11 py-2.5 px-4 rounded-xl text-xs font-semibold tracking-wide uppercase transition-colors flex items-center justify-center gap-2 ${
                 course.popular
                   ? "bg-[#0057B8] hover:bg-[#003F88] text-white shadow-sm"
-                  : "bg-white hover:bg-slate-50 text-slate-700 border border-[#E5EEF8]"
+                  : "bg-white hover:bg-[#F4F8FD] text-slate-700 hover:text-[#0057B8] border border-slate-300 hover:border-[#0057B8]"
               }`}
             >
               <span>Đăng Ký Tư Vấn</span>
@@ -116,7 +116,7 @@ export default function PricingTable() {
             </tr>
           </thead>
           
-          <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
+          <tbody className="divide-y divide-[#E2E8F0] text-xs sm:text-sm">
             
             {/* --- SECTION 1: KHÓA HỌC TIN HỌC VĂN PHÒNG --- */}
             <tr className="bg-[#F4F8FD]">
@@ -132,7 +132,7 @@ export default function PricingTable() {
                 key={course.id}
                 className={`group transition-colors ${
                   course.popular
-                    ? "bg-blue-50/20 hover:bg-blue-50/40 font-medium"
+                    ? "bg-[#F4F8FD]/50 hover:bg-[#F4F8FD] font-medium"
                     : "hover:bg-slate-50/70"
                 }`}
               >
@@ -143,12 +143,12 @@ export default function PricingTable() {
                       {course.title}
                     </span>
                     {course.popular && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold text-[#0057B8] bg-blue-50 border border-blue-200/60">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold text-[#0057B8] bg-[#F4F8FD] border border-[#E2E8F0]">
                         Khuyên dùng
                       </span>
                     )}
                   </div>
-                  <p className="text-slate-400 text-xs mt-0.5 leading-relaxed line-clamp-1">{course.description}</p>
+                  <p className="text-slate-600 text-xs mt-0.5 leading-relaxed line-clamp-1">{course.description}</p>
                 </td>
                 
                 {/* Price */}
@@ -158,7 +158,7 @@ export default function PricingTable() {
                 
                 {/* Duration */}
                 <td className="py-3.5 px-4">
-                  <span className="text-slate-600 font-semibold text-xs bg-slate-100 border border-slate-200/60 px-2.5 py-1 rounded-lg">
+                  <span className="text-slate-700 font-semibold text-xs bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-lg">
                     {course.duration}
                   </span>
                 </td>
@@ -170,7 +170,7 @@ export default function PricingTable() {
                     className={`inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide uppercase transition-colors ${
                       course.popular
                         ? "bg-[#0057B8] hover:bg-[#003F88] text-white shadow-sm"
-                        : "bg-white hover:bg-slate-50 text-slate-700 border border-[#E5EEF8]"
+                        : "bg-white hover:bg-[#F4F8FD] text-slate-700 hover:text-[#0057B8] border border-slate-300 hover:border-[#0057B8]"
                     }`}
                   >
                     Đăng ký
@@ -185,9 +185,9 @@ export default function PricingTable() {
       </div>
       
       {/* Table Footer Helper */}
-      <div className="bg-slate-50/80 px-5 py-4 border-t border-slate-100/80 text-xs text-slate-600 flex flex-col sm:flex-row justify-between items-center gap-2">
-        <p className="font-semibold">* Học viên đăng ký theo nhóm từ 3 bạn được giảm ngay 15% - 40% tổng học phí.</p>
-        <p className="font-bold text-blue-700">Cam kết bao đỗ 100% - Học lại miễn phí nếu chưa đạt!</p>
+      <div className="bg-[#F4F8FD] px-5 py-4 border-t border-[#E2E8F0] text-xs text-slate-600 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p className="font-semibold text-slate-700">* Học viên đăng ký theo nhóm từ 3 bạn được giảm ngay 15% - 40% tổng học phí.</p>
+        <p className="font-bold text-[#0057B8]">Cam kết bao đỗ 100% - Học lại miễn phí nếu chưa đạt!</p>
       </div>
 
     </div>

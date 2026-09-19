@@ -116,21 +116,21 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
 
   if (submitSuccess) {
     return (
-      <div className="bg-blue-50 p-8 sm:p-10 rounded-2xl border border-blue-200 shadow-md text-center flex flex-col items-center gap-5">
-        <div className="w-14 h-14 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shadow-md">
+      <div className="bg-[#F4F8FD] p-8 sm:p-10 rounded-2xl border border-[#E2E8F0] shadow-sm text-center flex flex-col items-center gap-5">
+        <div className="w-14 h-14 rounded-full bg-white text-[#0057B8] flex items-center justify-center shadow-xs border border-[#E2E8F0]">
           <CheckCircle2 size={32} className="stroke-[2.5]" />
         </div>
         <div className="space-y-2">
-          <h3 className="text-2xl font-bold text-slate-900">Đăng Ký Thành Công!</h3>
+          <h3 className="text-2xl font-bold text-[#0B2545]">Đăng Ký Thành Công!</h3>
           <p className="text-slate-600 text-sm max-w-md mx-auto">
-            Cảm ơn <strong className="text-blue-600">{formData.name}</strong>, đội ngũ giảng viên sẽ liên hệ qua SĐT <strong className="text-blue-600">{formData.phone}</strong> trong vòng 15 phút.
+            Cảm ơn <strong className="text-[#0057B8]">{formData.name}</strong>, đội ngũ giảng viên sẽ liên hệ qua SĐT <strong className="text-[#0057B8]">{formData.phone}</strong> trong vòng 15 phút.
           </p>
         </div>
         <div className="flex gap-3 pt-2">
           <button
             type="button"
             onClick={handleReset}
-            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+            className="px-5 py-2.5 rounded-xl text-xs font-bold bg-white hover:bg-slate-100 text-slate-700 border border-[#E2E8F0] transition-colors cursor-pointer"
           >
             Đăng ký thêm người khác
           </button>
@@ -138,7 +138,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
             href={SITE_CONFIG.contact.zaloUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#0057B8] hover:bg-[#003F88] transition-colors shadow-sm"
           >
             <PhoneCall size={13} />
             <span>Chat Zalo Ngay</span>
@@ -149,11 +149,11 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
   }
 
   return (
-    <div className="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-md">
+    <div className="bg-white rounded-2xl p-6 sm:p-10 border border-[#E2E8F0] shadow-sm">
       {title && (
         <div className="mb-6 text-center space-y-1">
-          <h3 className="text-xl sm:text-2xl font-bold text-slate-900">{title}</h3>
-          {subtitle && <p className="text-slate-500 text-xs sm:text-sm">{subtitle}</p>}
+          <h3 className="text-xl sm:text-2xl font-bold text-[#0B2545]">{title}</h3>
+          {subtitle && <p className="text-slate-600 text-xs sm:text-sm">{subtitle}</p>}
         </div>
       )}
 
@@ -183,7 +183,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
               className={`w-full px-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 transition-all ${
                 errors.name
                   ? "border-red-400 focus:ring-red-200 bg-red-50/20"
-                  : "border-slate-300 focus:border-blue-500 focus:ring-blue-100"
+                  : "border-slate-300 focus:border-[#0057B8] focus:ring-[#0057B8]/15"
               }`}
             />
             {errors.name && <p id="name-error" role="alert" className="text-xs text-red-600 font-medium">{errors.name}</p>}
@@ -207,7 +207,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
               className={`w-full px-4 py-3 rounded-xl border text-base sm:text-sm focus:outline-none focus:ring-2 transition-all ${
                 errors.phone
                   ? "border-red-400 focus:ring-red-200 bg-red-50/20"
-                  : "border-slate-300 focus:border-blue-500 focus:ring-blue-100"
+                  : "border-slate-300 focus:border-[#0057B8] focus:ring-[#0057B8]/15"
               }`}
             />
             {errors.phone && <p id="phone-error" role="alert" className="text-xs text-red-600 font-medium">{errors.phone}</p>}
@@ -223,7 +223,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
             name="selection"
             value={formData.selection}
             onChange={handleChange}
-            className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all text-slate-800"
+            className="w-full px-4 py-3 rounded-xl border border-slate-300 bg-white text-sm focus:outline-none focus:border-[#0057B8] focus:ring-2 focus:ring-[#0057B8]/15 transition-all text-slate-800"
           >
             <option value="">-- Chọn khóa học hoặc tư vấn theo yêu cầu --</option>
             <optgroup label="Chứng Chỉ Quốc Tế MOS & IC3">
@@ -258,14 +258,14 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
             placeholder="Ví dụ: Em muốn ôn cấp tốc 3 buổi để thi vào cuối tuần sau..."
             value={formData.message}
             onChange={handleChange}
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all resize-none"
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-[#0057B8] focus:ring-2 focus:ring-[#0057B8]/15 transition-all resize-none"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full min-h-12 py-3.5 px-6 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all cursor-pointer disabled:opacity-70 flex items-center justify-center gap-2"
+          className="w-full min-h-12 py-3.5 px-6 rounded-xl font-bold text-sm text-white bg-[#0057B8] hover:bg-[#003F88] shadow-sm transition-all cursor-pointer disabled:opacity-70 flex items-center justify-center gap-2 active:scale-[0.99]"
         >
           {isSubmitting ? (
             <>
@@ -280,7 +280,7 @@ function ContactFormContent({ defaultCourse, title, subtitle }: ContactFormProps
           )}
         </button>
 
-        <p className="text-center text-xs text-slate-400 font-medium">
+        <p className="text-center text-xs text-slate-500 font-medium">
           🔒 Thông tin cá nhân của bạn được bảo mật tuyệt đối theo chính sách đào tạo.
         </p>
       </form>

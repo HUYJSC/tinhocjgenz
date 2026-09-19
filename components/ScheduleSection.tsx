@@ -8,21 +8,21 @@ import { upcomingBatchesData } from "@/data/mockData";
 export default function ScheduleSection() {
   const router = useRouter();
   return (
-    <section className="py-20 sm:py-28 bg-slate-50 border-b border-slate-200/60 relative overflow-hidden">
+    <section className="py-20 sm:py-24 bg-[#F4F8FD] border-b border-[#E2E8F0] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 font-extrabold text-xs uppercase tracking-wider">
-            <Calendar size={13} className="text-blue-600" />
+          <div className="section-badge mx-auto">
+            <Calendar size={13} className="text-[#0057B8]" />
             <span>Lịch Khai Giảng & Lịch Thi Certiport Hàng Tháng</span>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight">
-            Lịch Học Gần Nhất & <span className="text-blue-600">Đợt Thi Cấp Chứng Chỉ</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0B2545] tracking-tight leading-tight">
+            Lịch Học Gần Nhất & <span className="text-[#0057B8]">Đợt Thi Cấp Chứng Chỉ</span>
           </h2>
           
-          <p className="text-slate-500 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
             Các lớp học được tổ chức liên tục theo hình thức Online tương tác trực tiếp hoặc Kèm 1:1 cấp tốc. Số lượng học viên mỗi lớp giới hạn để đảm bảo chất lượng bao đỗ cao nhất.
           </p>
         </div>
@@ -34,19 +34,19 @@ export default function ScheduleSection() {
             return (
               <div
                 key={batch.id}
-                className="bg-white rounded-2xl p-6 sm:p-7 border border-slate-200/80 hover:border-blue-500/30 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between gap-6 relative group"
+                className="bg-white rounded-2xl p-6 sm:p-7 border border-[#E2E8F0] hover:border-[#0057B8]/40 shadow-premium hover:shadow-premium-hover transition-all duration-300 flex flex-col justify-between gap-6 relative group"
               >
                 {/* Top Badge & Type */}
                 <div className="flex items-center justify-between gap-2">
-                  <span className="px-3 py-1 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100">
+                  <span className="px-3 py-1 rounded-xl text-xs font-bold bg-[#F4F8FD] text-[#0057B8] border border-[#E2E8F0]">
                     Phân hệ: {batch.courseType}
                   </span>
                   
                   <span
                     className={`px-3 py-1 rounded-full text-xs font-extrabold flex items-center gap-1.5 ${
                       isUrgent
-                        ? "bg-blue-50 text-blue-700 border border-blue-200"
-                        : "bg-blue-50 text-blue-700 border border-blue-200"
+                        ? "bg-[#F4F8FD] text-[#0057B8] border border-[#0057B8]/30"
+                        : "bg-[#F4F8FD] text-[#0057B8] border border-[#E2E8F0]"
                     }`}
                   >
                     {isUrgent && <ShieldAlert size={13} />}
@@ -56,29 +56,29 @@ export default function ScheduleSection() {
 
                 {/* Course Name & Time */}
                 <div className="space-y-3">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#0B2545] group-hover:text-[#0057B8] transition-colors leading-snug">
                     {batch.courseName}
                   </h3>
 
                   <div className="space-y-2 text-xs sm:text-sm text-slate-600">
                     <div className="flex items-center gap-2">
-                      <Calendar size={15} className="text-blue-600 shrink-0" />
+                      <Calendar size={15} className="text-[#0057B8] shrink-0" />
                       <span><strong>Thời gian:</strong> {batch.startDate}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Clock size={15} className="text-blue-600 shrink-0" />
+                      <Clock size={15} className="text-[#0057B8] shrink-0" />
                       <span><strong>Thời lượng:</strong> {batch.scheduleTime}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Users size={15} className="text-blue-600 shrink-0" />
+                      <Users size={15} className="text-[#0057B8] shrink-0" />
                       <span><strong>Hình thức:</strong> {batch.mode}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-blue-600">
+                <div className="pt-4 border-t border-[#E2E8F0] flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#0057B8]">
                     <CheckCircle2 size={14} />
                     <span>Cam kết bao đỗ 100%</span>
                   </div>
@@ -100,7 +100,7 @@ export default function ScheduleSection() {
                         router.push(`/lien-he?select=${encodeURIComponent(batch.courseName)}`);
                       }
                     }}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wide bg-blue-600 hover:bg-blue-700 text-white transition-all duration-300 shadow-sm cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wide bg-[#0057B8] hover:bg-[#003F88] text-white transition-all duration-300 shadow-sm cursor-pointer active:scale-[0.99]"
                   >
                     <span>Giữ Chỗ Ca Này</span>
                     <ArrowRight size={13} />
@@ -112,18 +112,18 @@ export default function ScheduleSection() {
         </div>
 
         {/* Global Schedule Notice */}
-        <div className="mt-12 bg-blue-50 border border-blue-100 rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="mt-12 bg-white border border-[#E2E8F0] rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-sm">
           <div className="space-y-1">
-            <h4 className="text-sm sm:text-base font-extrabold text-blue-950">
+            <h4 className="text-sm sm:text-base font-extrabold text-[#0B2545]">
               Bạn cần lịch thi hoặc kèm riêng 1:1 gấp trong tuần này để nộp hồ sơ tốt nghiệp?
             </h4>
-            <p className="text-xs text-blue-700">
+            <p className="text-xs text-slate-600">
               Tin Học Gen Z sắp xếp giảng viên hỗ trợ kèm cấp tốc 24/7 theo thời gian biểu của bạn.
             </p>
           </div>
           <Link
             href="/lien-he"
-            className="shrink-0 px-6 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all"
+            className="shrink-0 px-6 py-2.5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white text-xs font-bold uppercase tracking-wider shadow-sm transition-all"
           >
             Đăng Ký Kèm Riêng 1:1
           </Link>
