@@ -1,131 +1,162 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Code, Sparkles, Award, Clock } from "lucide-react";
+import { ArrowRight, Cpu, Users } from "lucide-react";
 
-interface FeaturedCourseItem {
+interface CourseItem {
   id: string;
   title: string;
-  description: string;
-  badge: "Phổ biến" | "Bán chạy" | "Mới" | "Khuyên dùng";
+  subtitle: string;
+  badge?: "Phổ biến" | "Bán chạy" | "Mới";
   href: string;
-  duration: string;
   icon: React.ReactNode;
 }
 
-const FEATURED_COURSES: FeaturedCourseItem[] = [
+function OfficeStackIcon() {
+  return (
+    <div className="relative w-12 h-10 flex items-center shrink-0" aria-hidden="true">
+      {/* Word */}
+      <div className="absolute left-0 top-1 w-6 h-6 rounded-md bg-[#0057B8] text-white font-extrabold text-[10px] flex items-center justify-center shadow-xs">
+        W
+      </div>
+      {/* PowerPoint */}
+      <div className="absolute left-3 top-0 w-6 h-6 rounded-md bg-[#D83B01] text-white font-extrabold text-[10px] flex items-center justify-center shadow-xs z-10">
+        P
+      </div>
+      {/* Excel */}
+      <div className="absolute left-6 top-2 w-6 h-6 rounded-md bg-[#107C41] text-white font-extrabold text-[10px] flex items-center justify-center shadow-xs z-20">
+        X
+      </div>
+    </div>
+  );
+}
+
+function PythonIcon() {
+  return (
+    <svg
+      viewBox="0 0 110 110"
+      className="w-10 h-10 shrink-0"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <path
+        d="M54.2 3C29.2 3 30.8 13.9 30.8 13.9L30.9 25.2H54.6V28.7H21.7C9.3 28.7 3.3 35.5 3.3 47.9C3.3 62.6 11.2 62.9 11.2 62.9H19.7V51.2C19.7 37.3 31.9 37.3 31.9 37.3H54.4V34.5C54.4 34.5 54.7 3 54.2 3ZM40.5 10.8C42.8 10.8 44.7 12.7 44.7 15C44.7 17.3 42.8 19.2 40.5 19.2C38.2 19.2 36.3 17.3 36.3 15C36.3 12.7 38.2 10.8 40.5 10.8Z"
+        fill="#366D9C"
+      />
+      <path
+        d="M55.8 107C80.8 107 79.2 96.1 79.2 96.1L79.1 84.8H55.4V81.3H88.3C100.7 81.3 106.7 74.5 106.7 62.1C106.7 47.4 98.8 47.1 98.8 47.1H90.3V58.8C90.3 72.7 78.1 72.7 78.1 72.7H55.6V75.5C55.6 75.5 55.3 107 55.8 107ZM69.5 99.2C67.2 99.2 65.3 97.3 65.3 95C65.3 92.7 67.2 90.8 69.5 90.8C71.8 90.8 73.7 92.7 73.7 95C73.7 97.3 71.8 99.2 69.5 99.2Z"
+        fill="#FFD43B"
+      />
+    </svg>
+  );
+}
+
+const FEATURED_COURSES: CourseItem[] = [
   {
-    id: "mos-master",
-    title: "Microsoft Office (MOS Master)",
-    description: "Thành thạo Word, Excel, PowerPoint chuẩn quốc tế IIG. Cam kết điểm 900+ bao đỗ 100%.",
+    id: "office-master",
+    title: "Làm chủ Microsoft Office",
+    subtitle: "Từ cơ bản đến nâng cao",
     badge: "Phổ biến",
     href: "/mos",
-    duration: "12 buổi • Online / Offline",
-    icon: <BookOpen size={22} className="text-[#0057B8]" />,
+    icon: <OfficeStackIcon />,
   },
   {
     id: "python-starter",
     title: "Lập trình Python cho người mới bắt đầu",
-    description: "Tư duy lập trình hiện đại, xử lý dữ liệu và tự động hóa công việc thường nhật từ con số 0.",
-    badge: "Mới",
+    subtitle: "Xây nền tảng vững chắc",
+    badge: "Bán chạy",
     href: "/python",
-    duration: "10 buổi • Thực hành dự án",
-    icon: <Code size={22} className="text-[#0057B8]" />,
+    icon: <PythonIcon />,
   },
   {
     id: "ai-skills",
     title: "Ứng dụng AI trong học tập & công việc",
-    description: "Làm chủ ChatGPT, Claude và các công cụ AI thế hệ mới để nhân 3 tốc độ nghiên cứu và làm báo cáo.",
-    badge: "Bán chạy",
+    subtitle: "Làm việc thông minh hơn",
+    badge: "Mới",
     href: "/khoa-hoc",
-    duration: "6 buổi • Cấp tốc thực chiến",
-    icon: <Sparkles size={22} className="text-[#0057B8]" />,
+    icon: (
+      <div className="w-10 h-10 rounded-xl bg-[#EBF3FF] flex items-center justify-center shrink-0">
+        <Cpu size={22} className="text-[#0066FF]" />
+      </div>
+    ),
   },
   {
-    id: "ic3-gs6",
-    title: "Chứng chỉ IC3 GS6 Quốc tế",
-    description: "Chuẩn đầu ra tin học của hơn 50 trường đại học hàng đầu: Công nghệ, Mạng máy tính & Ứng dụng số.",
-    badge: "Khuyên dùng",
-    href: "/ic3",
-    duration: "8 buổi • Bao đỗ 100%",
-    icon: <Award size={22} className="text-[#0057B8]" />,
+    id: "effective-learning",
+    title: "Kỹ năng học tập hiệu quả",
+    subtitle: "Phương pháp và công cụ cho Gen Z",
+    href: "/blog",
+    icon: (
+      <div className="w-10 h-10 rounded-xl bg-[#EBF3FF] flex items-center justify-center shrink-0">
+        <Users size={22} className="text-[#0066FF]" />
+      </div>
+    ),
   },
 ];
 
 export default function FeaturedCourses() {
   return (
-    <section aria-labelledby="featured-courses-title" className="py-14 sm:py-20 bg-white border-b border-[#DDE8F5]">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 space-y-10">
+    <section aria-labelledby="featured-courses-title" className="py-10 sm:py-14 bg-white border-b border-[#E5EEF8]">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 space-y-8">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F4F8FD] border border-[#DDE8F5] text-[#0057B8] font-bold text-xs uppercase tracking-wider mb-2.5">
-              <Award size={13} className="text-[#0057B8]" />
-              CHƯƠNG TRÌNH ĐÀO TẠO TRỌNG TÂM
-            </span>
-            <h2 id="featured-courses-title" className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0B2545] tracking-tight">
+            <h2 id="featured-courses-title" className="text-2xl sm:text-3xl font-extrabold text-[#0B2545] tracking-tight">
               Khóa học nổi bật
             </h2>
-            <p className="text-sm sm:text-base text-[#54657A] mt-1">
-              Những khóa học được Gen Z yêu thích và lựa chọn nhiều nhất hiện nay
+            <p className="text-xs sm:text-sm text-[#54657A] mt-1 font-normal">
+              Những khóa học được Gen Z yêu thích nhất hiện nay
             </p>
           </div>
 
           <Link
             href="/khoa-hoc"
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#0057B8] hover:text-[#003F88] transition-colors group self-start sm:self-auto"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#0066FF] hover:text-[#0052CC] transition-colors group self-start sm:self-auto"
           >
-            <span>Xem tất cả khóa học</span>
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <span>Xem tất cả</span>
+            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
         {/* Courses Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {FEATURED_COURSES.map((course) => (
-            <div
+            <Link
               key={course.id}
-              className="group relative flex flex-col justify-between rounded-[20px] bg-white border border-[#DDE8F5] p-6 shadow-[0_2px_12px_rgba(11,37,69,0.04)] hover:shadow-[0_8px_24px_rgba(0,87,184,0.08)] hover:border-[#0057B8]/40 hover:-translate-y-0.5 transition-all duration-200"
+              href={course.href}
+              className="group relative flex flex-col justify-between rounded-2xl bg-white border border-[#E5EEF8] p-5 shadow-xs hover:shadow-md hover:border-[#0066FF]/40 transition-all duration-200"
             >
-              <div className="space-y-4">
-                {/* Top icon and badge */}
-                <div className="flex items-center justify-between gap-2">
-                  <div className="w-11 h-11 rounded-xl bg-[#F4F8FD] border border-[#DDE8F5] flex items-center justify-center group-hover:bg-[#0057B8]/10 group-hover:border-[#0057B8]/30 transition-colors">
-                    {course.icon}
-                  </div>
-                  <span className="text-[11px] font-bold text-[#0057B8] bg-[#F4F8FD] border border-[#DDE8F5] px-2.5 py-0.5 rounded-full">
-                    {course.badge}
-                  </span>
+              {/* Top Badge */}
+              {course.badge && (
+                <span className="absolute top-3.5 right-3.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#0066FF] text-white">
+                  {course.badge}
+                </span>
+              )}
+
+              <div className="space-y-3 pt-1">
+                {/* Course Icon */}
+                <div className="h-11 flex items-center">
+                  {course.icon}
                 </div>
 
-                {/* Course info */}
+                {/* Info */}
                 <div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#0B2545] group-hover:text-[#0057B8] transition-colors leading-snug line-clamp-2">
+                  <h3 className="text-sm sm:text-base font-bold text-[#0B2545] group-hover:text-[#0066FF] transition-colors leading-snug line-clamp-2">
                     {course.title}
                   </h3>
-                  <p className="text-xs text-[#54657A] mt-2 leading-relaxed line-clamp-3">
-                    {course.description}
+                  <p className="text-xs text-[#54657A] mt-1 line-clamp-1 font-normal">
+                    {course.subtitle}
                   </p>
                 </div>
+              </div>
 
-                {/* Duration info */}
-                <div className="flex items-center gap-1.5 text-xs text-[#54657A] pt-1">
-                  <Clock size={13} className="text-[#0057B8]" />
-                  <span>{course.duration}</span>
+              {/* Bottom Arrow Action */}
+              <div className="pt-3 mt-2 flex justify-end">
+                <div className="w-8 h-8 rounded-full bg-[#EBF3FF] text-[#0066FF] flex items-center justify-center group-hover:bg-[#0066FF] group-hover:text-white transition-all">
+                  <ArrowRight size={14} />
                 </div>
               </div>
-
-              {/* Bottom CTA */}
-              <div className="pt-4 mt-4 border-t border-[#DDE8F5] flex items-center justify-between">
-                <Link
-                  href={course.href}
-                  className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-center bg-[#F4F8FD] text-[#0057B8] group-hover:bg-[#0057B8] group-hover:text-white transition-all flex items-center justify-center gap-1.5"
-                >
-                  <span>Chi tiết khóa học</span>
-                  <ArrowRight size={13} />
-                </Link>
-              </div>
-            </div>
+            </Link>
           ))}
         </div>
 
@@ -133,4 +164,3 @@ export default function FeaturedCourses() {
     </section>
   );
 }
-

@@ -4,15 +4,14 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   X,
-  Send,
   RotateCcw,
   CheckCircle2,
   UserCheck,
   ChevronRight,
   Minus,
-  Paperclip,
+  Image as ImageIcon,
   Compass,
-  BookOpen,
+  GraduationCap,
   Calendar,
 } from "lucide-react";
 import { RoadmapResult } from "@/lib/ai-rag-service";
@@ -42,21 +41,21 @@ const DEFAULT_ACTIONS = [
     title: "Tư vấn lộ trình học",
     subtitle: "Lộ trình học phù hợp với mục tiêu của bạn",
     query: "Tư vấn lộ trình học cho mình nhé",
-    icon: <Compass size={18} className="text-[#0057B8]" />,
+    icon: <Compass size={18} className="text-[#0066FF]" />,
   },
   {
     id: "action-courses",
     title: "Khóa học phù hợp",
     subtitle: "Gợi ý khóa học theo nhu cầu",
     query: "Khóa học nào phù hợp với mình nhất hiện nay?",
-    icon: <BookOpen size={18} className="text-[#0057B8]" />,
+    icon: <GraduationCap size={18} className="text-[#0066FF]" />,
   },
   {
     id: "action-schedule",
     title: "Hỏi lịch học",
     subtitle: "Lịch khai giảng và thời gian học",
     query: "Cho mình hỏi lịch khai giảng gần nhất nhé",
-    icon: <Calendar size={18} className="text-[#0057B8]" />,
+    icon: <Calendar size={18} className="text-[#0066FF]" />,
   },
 ];
 
@@ -298,13 +297,13 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
       {/* Floating Chat Panel (Desktop 380-420px, Mobile full-width with margins) */}
       <div
         ref={modalRef}
-        className="w-[calc(100vw-32px)] sm:w-[400px] h-[580px] sm:h-[620px] max-h-[calc(100dvh-32px)] bg-white rounded-[24px] border border-[#DDE8F5] shadow-[0_20px_60px_rgba(11,37,69,0.18)] flex flex-col overflow-hidden relative animate-in fade-in slide-in-from-bottom-3 duration-200"
+        className="w-[calc(100vw-32px)] sm:w-[380px] h-[580px] sm:h-[620px] max-h-[calc(100dvh-32px)] bg-white rounded-[28px] border border-[#E5EEF8] shadow-[0_20px_60px_rgba(0,102,255,0.18)] flex flex-col overflow-hidden relative animate-in fade-in slide-in-from-bottom-3 duration-200"
       >
-        {/* Chat Header: Primary Blue background */}
-        <div className="bg-[#0057B8] px-4 py-3.5 flex items-center justify-between shrink-0 text-white select-none">
+        {/* Chat Header: Primary Electric Blue background */}
+        <div className="bg-[#0066FF] px-4 py-3.5 flex items-center justify-between shrink-0 text-white select-none">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 flex items-center justify-center shrink-0">
-              <AiMascot state={botState} size={36} priority={true} animated={false} />
+            <div className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center shrink-0 border border-white/30">
+              <AiMascot state={botState} size={32} priority={true} animated={false} />
             </div>
             <div>
               <h3 id="ai-chat-title" className="text-sm font-bold flex items-center gap-1.5 leading-none">
@@ -374,17 +373,17 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
               <div
                 className={`max-w-[85%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                   msg.role === "user"
-                    ? "bg-[#0057B8] text-white rounded-tr-xs shadow-xs"
-                    : "bg-white text-[#0B2545] border border-[#DDE8F5] rounded-tl-xs shadow-[0_2px_10px_rgba(11,37,69,0.04)]"
+                    ? "bg-[#0066FF] text-white rounded-tr-xs shadow-xs"
+                    : "bg-white text-[#0B2545] border border-[#E5EEF8] rounded-tl-xs shadow-[0_2px_10px_rgba(11,37,69,0.04)]"
                 }`}
               >
                 <div className="whitespace-pre-line">{msg.content}</div>
 
                 {/* Structured Roadmap Card if present */}
                 {msg.roadmap && (
-                  <div className="mt-3.5 p-3.5 bg-[#F4F8FD] rounded-xl border border-[#DDE8F5] space-y-2.5 text-xs">
-                    <div className="font-bold text-[#0057B8] flex items-center gap-1.5">
-                      <CheckCircle2 size={14} className="text-[#0057B8]" />
+                  <div className="mt-3.5 p-3.5 bg-[#F7FAFE] rounded-xl border border-[#E5EEF8] space-y-2.5 text-xs">
+                    <div className="font-bold text-[#0066FF] flex items-center gap-1.5">
+                      <CheckCircle2 size={14} className="text-[#0066FF]" />
                       <span>{msg.roadmap.assessment || "Lộ trình đào tạo đề xuất"}</span>
                     </div>
                     {msg.roadmap.primaryCourse && (
@@ -397,7 +396,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                       <ul className="space-y-1 text-slate-600">
                         {msg.roadmap.phases.map((ph, idx) => (
                           <li key={idx} className="flex items-start gap-1.5">
-                            <span className="text-[#0057B8] font-bold">•</span>
+                            <span className="text-[#0066FF] font-bold">•</span>
                             <span><strong>{ph.title}:</strong> {ph.focus} ({ph.duration})</span>
                           </li>
                         ))}
@@ -407,13 +406,13 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                       <button
                         type="button"
                         onClick={() => setShowLeadModal(true)}
-                        className="w-full py-2 rounded-lg bg-[#0057B8] text-white font-bold text-center hover:bg-[#003F88] transition-colors cursor-pointer"
+                        className="w-full py-2 rounded-lg bg-[#0066FF] text-white font-bold text-center hover:bg-[#0052CC] transition-colors cursor-pointer"
                       >
                         Đăng ký xếp lớp theo lộ trình này
                       </button>
                       <Link
                         href={msg.roadmap.primaryCourse?.enrollmentUrl || "/khoa-hoc"}
-                        className="text-center font-semibold text-[#0057B8] hover:underline text-[11px] py-0.5"
+                        className="text-center font-semibold text-[#0066FF] hover:underline text-[11px] py-0.5"
                       >
                         Xem chi tiết khóa học →
                       </Link>
@@ -423,20 +422,20 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
 
                 {/* Quick Actions Row below welcome message */}
                 {index === 0 && msg.role === "assistant" && (
-                  <div className="mt-3.5 space-y-2 pt-2 border-t border-[#DDE8F5]">
+                  <div className="mt-3.5 space-y-2 pt-2 border-t border-[#E5EEF8]">
                     {DEFAULT_ACTIONS.map((action) => (
                       <button
                         key={action.id}
                         type="button"
                         onClick={() => handleSendMessage(action.query)}
-                        className="w-full p-2.5 rounded-xl bg-[#F4F8FD] hover:bg-[#E5EEF8] border border-[#DDE8F5] text-left transition-colors flex items-center justify-between gap-2 cursor-pointer group"
+                        className="w-full p-2.5 rounded-xl bg-[#F7FAFE] hover:bg-[#EBF3FF] border border-[#E5EEF8] text-left transition-colors flex items-center justify-between gap-2 cursor-pointer group"
                       >
                         <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-lg bg-white border border-[#DDE8F5] flex items-center justify-center shrink-0">
+                          <div className="w-8 h-8 rounded-lg bg-[#EBF3FF] flex items-center justify-center shrink-0 group-hover:bg-[#0066FF] group-hover:text-white transition-colors [&>svg]:group-hover:text-white">
                             {action.icon}
                           </div>
                           <div>
-                            <div className="font-bold text-xs text-[#0B2545] group-hover:text-[#0057B8] transition-colors">
+                            <div className="font-bold text-xs text-[#0B2545] group-hover:text-[#0066FF] transition-colors">
                               {action.title}
                             </div>
                             <div className="text-[11px] text-[#54657A] line-clamp-1">
@@ -459,11 +458,11 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
               <div className="w-7 h-7 flex items-center justify-center shrink-0 mt-0.5">
                 <AiMascot state="thinking" size={28} animated={false} />
               </div>
-              <div className="p-3 rounded-2xl rounded-tl-xs bg-white border border-[#DDE8F5] text-xs text-[#54657A] flex items-center gap-2 shadow-2xs">
+              <div className="p-3 rounded-2xl rounded-tl-xs bg-white border border-[#E5EEF8] text-xs text-[#54657A] flex items-center gap-2 shadow-2xs">
                 <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce [animation-delay:-0.3s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce [animation-delay:-0.15s]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-bounce [animation-delay:-0.3s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-bounce [animation-delay:-0.15s]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0066FF] animate-bounce" />
                 </div>
                 <span className="font-medium">Đang suy nghĩ...</span>
               </div>
@@ -473,8 +472,23 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Peeking Mascot with Speech Bubble (matching reference design) */}
+        {messages.length <= 2 && !loading && (
+          <div className="absolute right-2.5 bottom-[70px] z-20 pointer-events-none flex items-end gap-1 select-none animate-in fade-in duration-300">
+            {/* Speech Bubble */}
+            <div className="relative mb-8 px-2.5 py-1 rounded-2xl bg-white border border-[#0066FF] shadow-xs text-[10px] font-bold text-[#0066FF] text-center leading-tight whitespace-nowrap">
+              <span>Hỏi mình<br />bất cứ điều gì nhé!</span>
+              <div className="absolute -bottom-1.5 right-2 w-2 h-2 bg-white border-r border-b border-[#0066FF] rotate-45" />
+            </div>
+            {/* Peeking Mascot Asset */}
+            <div className="w-16 h-16 shrink-0 relative -mr-1 -mb-1">
+              <AiMascot state="greeting" size={64} animated={false} priority={true} />
+            </div>
+          </div>
+        )}
+
         {/* Chat Input Footer */}
-        <div className="bg-white border-t border-[#DDE8F5] p-3 shrink-0">
+        <div className="bg-white border-t border-[#E5EEF8] p-3 shrink-0 relative z-30">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -485,10 +499,10 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
             <button
               type="button"
               title="Đính kèm tệp / ảnh"
-              className="p-2 rounded-xl text-slate-400 hover:text-[#0057B8] hover:bg-[#F4F8FD] transition-colors cursor-pointer shrink-0"
+              className="p-2 rounded-xl text-slate-400 hover:text-[#0066FF] hover:bg-[#EBF3FF] transition-colors cursor-pointer shrink-0"
               aria-label="Đính kèm"
             >
-              <Paperclip size={18} />
+              <ImageIcon size={18} />
             </button>
 
             <input
@@ -497,22 +511,22 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
               onChange={(e) => setInputVal(e.target.value)}
               placeholder="Nhập câu hỏi của bạn..."
               disabled={loading}
-              className="flex-1 h-11 px-3.5 text-xs sm:text-sm bg-[#F7FAFE] rounded-xl border border-[#DDE8F5] text-[#0B2545] placeholder:text-slate-400 focus:outline-none focus:border-[#0057B8] focus:bg-white focus:ring-2 focus:ring-[#0057B8]/10 transition-all"
+              className="flex-1 h-10 px-3.5 text-xs sm:text-sm bg-[#F7FAFE] rounded-xl border border-[#E5EEF8] text-[#0B2545] placeholder:text-slate-400 focus:outline-none focus:border-[#0066FF] focus:bg-white focus:ring-2 focus:ring-[#0066FF]/10 transition-all"
             />
 
             <button
               type="submit"
               disabled={!inputVal.trim() || loading}
-              className="w-11 h-11 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white transition-colors disabled:opacity-40 flex items-center justify-center cursor-pointer shrink-0 shadow-xs active:scale-95"
+              className="w-10 h-10 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white transition-colors disabled:opacity-40 flex items-center justify-center cursor-pointer shrink-0 shadow-xs active:scale-95"
               aria-label="Gửi tin nhắn"
             >
-              <Send size={16} />
+              <ChevronRight size={18} className="stroke-[2.5]" />
             </button>
           </form>
 
           {/* Footer Text */}
           <div className="mt-2 text-center text-[10px] text-slate-400 font-medium select-none">
-            Tin Học Gen Z • Luôn đồng hành cùng bạn ♡
+            Tin Học Gen Z • Luôn đồng hành cùng bạn 💙
           </div>
         </div>
       </div>

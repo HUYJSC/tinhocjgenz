@@ -2,9 +2,9 @@
 
 :root {
   --brand-navy: #0b2545;
-  --brand-primary: #0057b8;
-  --brand-primary-hover: #003f88;
-  --brand-blue-accent: #087cf0;
+  --brand-primary: #0066ff;
+  --brand-primary-hover: #0052cc;
+  --brand-blue-accent: #0066ff;
   --brand-bright: #00aeef;
   --brand-bg: #f7fafe;
   --brand-surface: #ffffff;
@@ -12,8 +12,8 @@
 
   --background: #f7fafe;
   --foreground: #0b2545;
-  --primary: #0057b8;
-  --primary-hover: #003f88;
+  --primary: #0066ff;
+  --primary-hover: #0052cc;
   --navy: #0b2545;
   --soft-blue: #f4f8fd;
   --card-border: #dde8f5;

@@ -39,15 +39,14 @@ export default function FloatingAiLauncher({
       {/* Speech Hint Bubble (Desktop & Tablet) */}
       <div
         aria-hidden="true"
-        className={`hidden sm:flex items-center gap-2 mb-2 px-3.5 py-2 rounded-2xl bg-white border border-[#E2E8F0] shadow-[0_4px_20px_rgba(11,37,69,0.1)] text-xs text-[#0B2545] font-semibold transition-all duration-300 origin-bottom-right ${
+        className={`hidden sm:flex items-center gap-1.5 mb-2 px-3 py-1.5 rounded-2xl bg-white border border-[#0066FF] shadow-[0_4px_16px_rgba(0,102,255,0.12)] text-xs text-[#0066FF] font-bold transition-all duration-300 origin-bottom-right ${
           shouldShowBubble
             ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
             : "opacity-0 scale-95 translate-y-2 pointer-events-none"
         }`}
       >
-        <span className="text-sm">👋</span>
-        <span>Học gì hôm nay? Để mình tư vấn nhé!</span>
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+        <span>Hỏi mình bất cứ điều gì nhé!</span>
+        <div className="absolute -bottom-1.5 right-6 w-2.5 h-2.5 bg-white border-r border-b border-[#0066FF] rotate-45" />
       </div>
 
       {/* Floating Mascot Button */}
@@ -57,7 +56,7 @@ export default function FloatingAiLauncher({
         aria-label="Mở trợ lý học tập AI - Tin Học Gen Z"
         aria-expanded={isOpen}
         title="Trợ lý học tập AI Tin Học Gen Z"
-        className="group relative flex items-center justify-center p-1 sm:p-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#0057B8]/25 shadow-[0_8px_24px_rgba(0,87,184,0.16)] hover:shadow-[0_12px_28px_rgba(0,87,184,0.25)] hover:border-[#0057B8]/50 hover:bg-white active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0057B8] focus-visible:outline-offset-2"
+        className="group relative flex items-center justify-center p-1 sm:p-1.5 rounded-full bg-white/95 backdrop-blur-md border border-[#0066FF]/30 shadow-[0_8px_24px_rgba(0,102,255,0.2)] hover:shadow-[0_12px_32px_rgba(0,102,255,0.3)] hover:border-[#0066FF] hover:bg-white active:scale-95 transition-all duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#0066FF] focus-visible:outline-offset-2"
       >
         {/* Active Online Beacon Dot */}
         <span

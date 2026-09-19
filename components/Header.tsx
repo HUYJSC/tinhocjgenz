@@ -30,13 +30,16 @@ export default function Header() {
         <nav className="hidden xl:flex items-center gap-1.5" aria-label="Điều hướng chính">
           <Link
             href="/"
-            className={`relative inline-flex h-11 items-center px-3.5 text-sm font-semibold transition-colors ${
+            className={`relative inline-flex items-center px-3 text-sm font-semibold transition-colors h-11 ${
               pathname === "/"
-                ? "text-[#0057B8] after:content-[''] after:absolute after:bottom-1.5 after:left-3.5 after:right-3.5 after:h-0.5 after:bg-[#0057B8]"
-                : "text-[#54657A] hover:text-[#0057B8]"
+                ? "text-[#0066FF]"
+                : "text-[#54657A] hover:text-[#0066FF]"
             }`}
           >
-            Trang chủ
+            <span>Trang chủ</span>
+            {pathname === "/" && (
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#0066FF] rounded-full" />
+            )}
           </Link>
 
           {/* Courses Dropdown */}
@@ -44,14 +47,17 @@ export default function Header() {
             <Link
               href="/khoa-hoc"
               aria-haspopup="true"
-              className={`relative inline-flex h-11 items-center gap-1 px-3.5 text-sm font-semibold transition-colors ${
+              className={`relative inline-flex items-center gap-1 px-3 text-sm font-semibold transition-colors h-11 ${
                 pathname.startsWith("/khoa-hoc") || pathname === "/mos" || pathname === "/ic3" || pathname === "/excel"
-                  ? "text-[#0057B8] after:content-[''] after:absolute after:bottom-1.5 after:left-3.5 after:right-3.5 after:h-0.5 after:bg-[#0057B8]"
-                  : "text-[#54657A] hover:text-[#0057B8]"
+                  ? "text-[#0066FF]"
+                  : "text-[#54657A] hover:text-[#0066FF]"
               }`}
             >
-              Khóa học
+              <span>Khóa học</span>
               <ChevronDown size={14} aria-hidden="true" className="group-hover:rotate-180 transition-transform duration-200 text-slate-400" />
+              {(pathname.startsWith("/khoa-hoc") || pathname === "/mos" || pathname === "/ic3" || pathname === "/excel") && (
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#0066FF] rounded-full" />
+              )}
             </Link>
 
             <div className="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
@@ -123,17 +129,17 @@ export default function Header() {
           <form
             action="/khoa-hoc"
             method="GET"
-            className="relative hidden md:block w-[240px] lg:w-[280px] xl:w-[300px]"
+            className="relative hidden md:block w-[240px] lg:w-[280px] xl:w-[320px]"
             role="search"
           >
             <label htmlFor="header-search" className="sr-only">Tìm kiếm khóa học, bài viết, chủ đề</label>
-            <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" aria-hidden="true" />
             <input
               id="header-search"
               name="q"
               type="search"
               placeholder="Tìm kiếm khóa học, bài viết, chủ đề..."
-              className="w-full h-11 pl-10 pr-4 text-xs font-medium bg-[#F4F8FD] border border-[#DDE8F5] rounded-xl text-[#0B2545] placeholder:text-slate-400 focus:outline-none focus:border-[#0057B8] focus:bg-white focus:ring-2 focus:ring-[#0057B8]/10 transition-all"
+              className="w-full h-10 pl-11 pr-4 text-xs font-medium bg-[#F1F5F9]/80 border border-slate-200/80 rounded-full text-[#0B2545] placeholder:text-slate-400 focus:outline-none focus:border-[#0066FF] focus:bg-white focus:ring-2 focus:ring-[#0066FF]/10 transition-all"
             />
           </form>
 
@@ -142,7 +148,7 @@ export default function Header() {
             href="https://hoctructuyen.tinhocgenz.io.vn/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-[#0057B8] px-6 sm:px-7 text-sm font-bold text-white transition-colors hover:bg-[#003F88] shadow-sm cursor-pointer active:scale-[0.99]"
+            className="inline-flex h-10 items-center justify-center rounded-xl bg-[#0066FF] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0052CC] shadow-xs cursor-pointer active:scale-[0.99]"
           >
             Đăng nhập
           </a>
