@@ -7,8 +7,10 @@ import {
   GraduationCap,
   Home,
   Menu,
+  MessageSquare,
+  Phone,
   Search,
-  UserRound,
+  Sparkles,
   X,
 } from "lucide-react";
 import Link from "next/link";
@@ -34,7 +36,7 @@ const BOTTOM_NAV = [
   { label: "Khóa học", shortLabel: "Khóa học", href: "/khoa-hoc", icon: GraduationCap, match: (path: string) => ["/khoa-hoc", "/mos", "/ic3", "/word", "/excel", "/powerpoint", "/python", "/cntt-co-ban", "/tin-hoc-van-phong"].some((route) => path === route || path.startsWith(`${route}/`)) },
   { label: "Thi thử", shortLabel: "Thi thử", href: "/thi-thu", icon: FileText, match: (path: string) => path.startsWith("/thi-thu") },
   { label: "Học liệu", shortLabel: "Học liệu", href: "/tai-lieu", icon: BookOpen, match: (path: string) => path.startsWith("/tai-lieu") || path.startsWith("/blog") || path.startsWith("/tin-cong-nghe") },
-  { label: "Tài khoản", shortLabel: "Tài khoản", href: "/portal/student", icon: UserRound, match: (path: string) => path.startsWith("/portal") },
+  { label: "Tư vấn", shortLabel: "Tư vấn", href: "/lien-he", icon: MessageSquare, match: (path: string) => path.startsWith("/lien-he") },
 ];
 
 const DRAWER_GROUPS = [
@@ -148,16 +150,30 @@ function MobileDrawer({ open, pathname, onClose }: { open: boolean; pathname: st
             </section>
           ))}
 
-          <section aria-labelledby="drawer-lms">
-            <h3 id="drawer-lms" className="mobile-drawer-group-title">Hệ thống học trực tuyến</h3>
+          <section aria-labelledby="drawer-consult">
+            <h3 id="drawer-consult" className="mobile-drawer-group-title">Hỗ trợ & Tư vấn tuyển sinh</h3>
             <div className="grid gap-2">
-              <a href="https://hoctructuyen.tinhocgenz.io.vn/" target="_blank" rel="noopener noreferrer" onClick={() => { trackEvent("student_portal_click", { source: "mobile_drawer" }); onClose(); }} className="mobile-portal-link">
-                <GraduationCap size={20} aria-hidden="true" />
-                <span><strong>Cổng Học viên</strong><small>Đăng nhập và vào lớp học</small></span>
-              </a>
-              <a href="https://hoctructuyen.tinhocgenz.io.vn/" target="_blank" rel="noopener noreferrer" onClick={() => { trackEvent("teacher_portal_click", { source: "mobile_drawer" }); onClose(); }} className="mobile-portal-link mobile-portal-link--teacher">
-                <UserRound size={20} aria-hidden="true" />
-                <span><strong>Cổng Giảng viên</strong><small>Quản lý lớp và học viên</small></span>
+              <Link
+                href="/lien-he"
+                onClick={() => {
+                  trackEvent("consultation_click", { source: "mobile_drawer" });
+                  onClose();
+                }}
+                className="mobile-portal-link"
+              >
+                <Sparkles size={20} aria-hidden="true" className="text-[#0057B8]" />
+                <span><strong>Nhận tư vấn lộ trình 1:1</strong><small>Đăng ký xếp lớp & nhận ưu đãi học phí</small></span>
+              </Link>
+              <a
+                href="tel:0332298065"
+                onClick={() => {
+                  trackEvent("hotline_click", { source: "mobile_drawer" });
+                  onClose();
+                }}
+                className="mobile-portal-link mobile-portal-link--teacher"
+              >
+                <Phone size={20} aria-hidden="true" className="text-[#0057B8]" />
+                <span><strong>Hotline: 033.229.8065</strong><small>Giải đáp 24/7 trực tiếp qua điện thoại / Zalo</small></span>
               </a>
             </div>
           </section>
@@ -244,8 +260,8 @@ function NotificationSheet({ open, onClose }: { open: boolean; onClose: () => vo
           <div><p className="mobile-kicker">Cập nhật</p><h2 id="notification-title" className="text-lg font-bold text-slate-950">Thông báo</h2></div>
           <button ref={closeRef} type="button" onClick={onClose} className="mobile-icon-button" aria-label="Đóng thông báo"><X size={22} /></button>
         </div>
-        <div className="mobile-empty-state py-8"><Bell size={30} /><strong>Chưa có thông báo mới</strong><span>Thông báo lớp học sẽ hiển thị trong hệ thống học trực tuyến.</span></div>
-        <a href="https://hoctructuyen.tinhocgenz.io.vn/" target="_blank" rel="noopener noreferrer" className="mobile-primary-button" onClick={onClose}>Mở hệ thống học tập</a>
+        <div className="mobile-empty-state py-8"><Bell size={30} /><strong>Chưa có thông báo mới</strong><span>Thông báo lịch khai giảng và ưu đãi học phí sẽ được cập nhật sớm nhất tại đây.</span></div>
+        <Link href="/lien-he" className="mobile-primary-button" onClick={onClose}>Nhận tư vấn khóa học</Link>
       </div>
     </div>
   );

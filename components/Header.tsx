@@ -38,7 +38,7 @@ export default function Header() {
           >
             <span>Trang chủ</span>
             {pathname === "/" && (
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#0066FF] rounded-full" />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#0057B8] rounded-full" />
             )}
           </Link>
 
@@ -49,14 +49,14 @@ export default function Header() {
               aria-haspopup="true"
               className={`relative inline-flex items-center gap-1 px-3 text-sm font-semibold transition-colors h-11 ${
                 pathname.startsWith("/khoa-hoc") || pathname === "/mos" || pathname === "/ic3" || pathname === "/excel"
-                  ? "text-[#0066FF]"
-                  : "text-[#54657A] hover:text-[#0066FF]"
+                  ? "text-[#0057B8]"
+                  : "text-[#54657A] hover:text-[#0057B8]"
               }`}
             >
               <span>Khóa học</span>
               <ChevronDown size={14} aria-hidden="true" className="group-hover:rotate-180 transition-transform duration-200 text-slate-400" />
               {(pathname.startsWith("/khoa-hoc") || pathname === "/mos" || pathname === "/ic3" || pathname === "/excel") && (
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#0066FF] rounded-full" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-6 h-[3px] bg-[#0057B8] rounded-full" />
               )}
             </Link>
 
@@ -123,7 +123,7 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* RIGHT: Search Box + Login CTA Button */}
+        {/* RIGHT: Search Box + Consultation CTA Button (No Login) */}
         <div className="flex items-center gap-3">
           {/* Search Box */}
           <form
@@ -139,19 +139,17 @@ export default function Header() {
               name="q"
               type="search"
               placeholder="Tìm kiếm khóa học, bài viết, chủ đề..."
-              className="w-full h-10 pl-11 pr-4 text-xs font-medium bg-[#F1F5F9]/80 border border-slate-200/80 rounded-full text-[#0B2545] placeholder:text-slate-400 focus:outline-none focus:border-[#0066FF] focus:bg-white focus:ring-2 focus:ring-[#0066FF]/10 transition-all"
+              className="w-full h-10 pl-11 pr-4 text-xs font-medium bg-[#F1F5F9]/80 border border-slate-200/80 rounded-full text-[#0B2545] placeholder:text-slate-400 focus:outline-none focus:border-[#0057B8] focus:bg-white focus:ring-2 focus:ring-[#0057B8]/10 transition-all"
             />
           </form>
 
-          {/* Login Button */}
-          <a
-            href="https://hoctructuyen.tinhocgenz.io.vn/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-10 items-center justify-center rounded-xl bg-[#0066FF] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#0052CC] shadow-xs cursor-pointer active:scale-[0.99]"
+          {/* High-Conversion Consultation CTA (Replaced Login) */}
+          <Link
+            href="/lien-he"
+            className="inline-flex h-10 items-center justify-center rounded-xl bg-[#0057B8] px-5 text-sm font-bold text-white transition-all hover:bg-[#003F88] shadow-xs cursor-pointer active:scale-[0.99]"
           >
-            Đăng nhập
-          </a>
+            Nhận tư vấn
+          </Link>
         </div>
 
       </div>

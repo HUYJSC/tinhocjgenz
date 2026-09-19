@@ -76,7 +76,7 @@ const FEATURED_COURSES: CourseItem[] = [
     href: "/khoa-hoc",
     icon: (
       <div className="w-10 h-10 rounded-xl bg-[#EBF3FF] flex items-center justify-center shrink-0">
-        <Cpu size={22} className="text-[#0066FF]" />
+        <Cpu size={22} className="text-[#0057B8]" />
       </div>
     ),
   },
@@ -87,7 +87,7 @@ const FEATURED_COURSES: CourseItem[] = [
     href: "/blog",
     icon: (
       <div className="w-10 h-10 rounded-xl bg-[#EBF3FF] flex items-center justify-center shrink-0">
-        <Users size={22} className="text-[#0066FF]" />
+        <Users size={22} className="text-[#0057B8]" />
       </div>
     ),
   },
@@ -111,7 +111,7 @@ export default function FeaturedCourses() {
 
           <Link
             href="/khoa-hoc"
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#0066FF] hover:text-[#0052CC] transition-colors group self-start sm:self-auto"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#0057B8] hover:text-[#003F88] transition-colors group self-start sm:self-auto"
           >
             <span>Xem tất cả</span>
             <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
@@ -124,11 +124,11 @@ export default function FeaturedCourses() {
             <Link
               key={course.id}
               href={course.href}
-              className="group relative flex flex-col justify-between rounded-2xl bg-white border border-[#E5EEF8] p-5 shadow-xs hover:shadow-md hover:border-[#0066FF]/40 transition-all duration-200"
+              className="group relative flex flex-col justify-between rounded-2xl bg-white border border-[#E5EEF8] p-5 shadow-xs hover:shadow-md hover:border-[#0057B8]/40 transition-all duration-200"
             >
               {/* Top Badge */}
               {course.badge && (
-                <span className="absolute top-3.5 right-3.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#0066FF] text-white">
+                <span className="absolute top-3.5 right-3.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#0057B8] text-white">
                   {course.badge}
                 </span>
               )}
@@ -141,7 +141,7 @@ export default function FeaturedCourses() {
 
                 {/* Info */}
                 <div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#0B2545] group-hover:text-[#0066FF] transition-colors leading-snug line-clamp-2">
+                  <h3 className="text-sm sm:text-base font-bold text-[#0B2545] group-hover:text-[#0057B8] transition-colors leading-snug line-clamp-2">
                     {course.title}
                   </h3>
                   <p className="text-xs text-[#54657A] mt-1 line-clamp-1 font-normal">
@@ -150,11 +150,10 @@ export default function FeaturedCourses() {
                 </div>
               </div>
 
-              {/* Bottom Arrow Action */}
-              <div className="pt-3 mt-2 flex justify-end">
-                <div className="w-8 h-8 rounded-full bg-[#EBF3FF] text-[#0066FF] flex items-center justify-center group-hover:bg-[#0066FF] group-hover:text-white transition-all">
-                  <ArrowRight size={14} />
-                </div>
+              {/* Bottom CTA Text */}
+              <div className="pt-4 mt-2 border-t border-[#F1F5F9] flex items-center justify-between text-xs font-semibold text-[#0057B8] group-hover:text-[#003F88]">
+                <span>Xem chi tiết</span>
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
           ))}

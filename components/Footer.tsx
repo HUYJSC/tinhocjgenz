@@ -76,15 +76,13 @@ export default function Footer() {
                 </li>
               ))}
               <li className="pt-1">
-                <a
-                  href="https://hoctructuyen.tinhocgenz.io.vn/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-bold text-[#5f9ee2] hover:text-white"
+                <Link
+                  href="/lien-he"
+                  className="inline-flex items-center gap-1.5 text-sm font-bold text-[#00A3FF] hover:text-white"
                 >
-                  <span>Hệ thống học trực tuyến</span>
+                  <span>Đăng ký nhận tư vấn 1:1</span>
                   <ArrowRight size={14} aria-hidden="true" />
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
