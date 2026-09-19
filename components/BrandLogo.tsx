@@ -17,98 +17,69 @@ interface BrandLogoProps {
   ariaLabel?: string;
 }
 
-export function GraduationCapMark({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 36 32"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={`shrink-0 ${className}`}
-    >
-      {/* Top Diamond */}
-      <path d="M18 2L35 10L18 18L1 10L18 2Z" fill="#0066FF" />
-      {/* Cylinder base / cap underside */}
-      <path
-        d="M6.5 14V22.5C6.5 22.5 10.5 27 18 27C25.5 27 29.5 22.5 29.5 22.5V14C26.5 16.5 22.5 18 18 18C13.5 18 9.5 16.5 6.5 14Z"
-        fill="#0052CC"
-      />
-      {/* Tassel */}
-      <path
-        d="M31 11V21C31 22 32 23 33 23"
-        stroke="#0066FF"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <circle cx="33" cy="23" r="1.5" fill="#0066FF" />
-    </svg>
-  );
-}
+// Dimensions mapping maintaining original aspect ratios
+// logo-horizontal: 928 x 215 (~4.316 : 1)
+// logo-symbol: 304 x 304 (1 : 1)
+const SIZE_CONFIG = {
+  horizontal: {
+    xs: { width: 121, height: 28 },
+    sm: { width: 147, height: 34 },
+    md: { width: 173, height: 40 },
+    lg: { width: 200, height: 46 },
+    xl: { width: 233, height: 54 },
+  },
+  symbol: {
+    xs: { width: 28, height: 28 },
+    sm: { width: 34, height: 34 },
+    md: { width: 40, height: 40 },
+    lg: { width: 48, height: 48 },
+    xl: { width: 56, height: 56 },
+  },
+};
 
 export default function BrandLogo({
   variant = "horizontal",
   theme = "default",
+  size = "md",
   priority = false,
   className = "",
   asLink = true,
   href = "/",
-  ariaLabel = "Tin Học Gen Z - Trang chủ",
+  ariaLabel = "Tin Học Gen Z - Học Thiệt, Thi Thật, Giá Trị Thật",
 }: BrandLogoProps) {
-  // If variant is "master" or "symbol", render the original image assets
-  if (variant === "master" || variant === "symbol") {
-    const src =
-      variant === "symbol"
-        ? "/brand/logo-symbol.png"
-        : theme === "light"
-        ? "/brand/logo-horizontal-light.png"
-        : "/brand/logo-horizontal.png";
+  const isSymbol = variant === "symbol";
+  const sizeMap = isSymbol ? SIZE_CONFIG.symbol : SIZE_CONFIG.horizontal;
+  const dimensions = sizeMap[size] || sizeMap.md;
 
-    const imageElement = (
-      <Image
-        src={src}
-        alt="Tin Học Gen Z"
-        width={variant === "symbol" ? 36 : 180}
-        height={36}
-        priority={priority}
-        className={`object-contain transition-transform duration-200 select-none ${className}`}
-        style={{ height: "36px", width: "auto" }}
-      />
-    );
+  const src = isSymbol
+    ? "/brand/logo-symbol.png"
+    : theme === "light"
+    ? "/brand/logo-horizontal-light.png"
+    : "/brand/logo-horizontal.png";
 
-    if (asLink) {
-      return (
-        <Link href={href} className="inline-flex items-center shrink-0" aria-label={ariaLabel}>
-          {imageElement}
-        </Link>
-      );
-    }
-    return <div className="inline-flex items-center shrink-0">{imageElement}</div>;
-  }
-
-  // Default "horizontal" uses the clean reference logo (Graduation Cap + Tin Học Gen Z) from the design reference
-  const content = (
-    <div className={`inline-flex items-center gap-2.5 select-none group/logo ${className}`}>
-      <GraduationCapMark className="w-8 h-8 sm:w-9 sm:h-9" />
-      <span
-        className={`text-xl sm:text-[22px] font-extrabold tracking-tight transition-colors ${
-          theme === "light" ? "text-white" : "text-[#0B2545] group-hover/logo:text-[#0066FF]"
-        }`}
-      >
-        Tin Học Gen Z
-      </span>
-    </div>
+  const imageElement = (
+    <Image
+      src={src}
+      alt="Tin Học Gen Z - Học Thiệt, Thi Thật, Giá Trị Thật"
+      width={dimensions.width}
+      height={dimensions.height}
+      priority={priority}
+      className={`object-contain select-none transition-transform duration-200 group-hover/logo:scale-[1.02] ${className}`}
+      style={{ height: `${dimensions.height}px`, width: "auto" }}
+    />
   );
 
   if (asLink) {
     return (
       <Link
         href={href}
-        className="inline-flex items-center shrink-0 focus-visible:outline-2 focus-visible:outline-[#0066FF] rounded-lg p-0.5"
+        className="group/logo inline-flex items-center shrink-0 focus-visible:outline-2 focus-visible:outline-[#0057B8] rounded-lg p-0.5"
         aria-label={ariaLabel}
       >
-        {content}
+        {imageElement}
       </Link>
     );
   }
 
-  return <div className="inline-flex items-center shrink-0">{content}</div>;
+  return <div className="inline-flex items-center shrink-0">{imageElement}</div>;
 }
