@@ -9,8 +9,11 @@ import {
   CheckCircle2,
   UserCheck,
   ChevronRight,
-  Phone,
-  MessageCircle,
+  Minus,
+  Paperclip,
+  Compass,
+  BookOpen,
+  Calendar,
 } from "lucide-react";
 import { RoadmapResult } from "@/lib/ai-rag-service";
 import AiMascot, { MascotState } from "./ai-assistant/AiMascot";
@@ -33,19 +36,36 @@ interface Message {
   roadmap?: RoadmapResult;
 }
 
+const DEFAULT_ACTIONS = [
+  {
+    id: "action-roadmap",
+    title: "Tư vấn lộ trình học",
+    subtitle: "Lộ trình học phù hợp với mục tiêu của bạn",
+    query: "Tư vấn lộ trình học cho mình nhé",
+    icon: <Compass size={18} className="text-[#0057B8]" />,
+  },
+  {
+    id: "action-courses",
+    title: "Khóa học phù hợp",
+    subtitle: "Gợi ý khóa học theo nhu cầu",
+    query: "Khóa học nào phù hợp với mình nhất hiện nay?",
+    icon: <BookOpen size={18} className="text-[#0057B8]" />,
+  },
+  {
+    id: "action-schedule",
+    title: "Hỏi lịch học",
+    subtitle: "Lịch khai giảng và thời gian học",
+    query: "Cho mình hỏi lịch khai giảng gần nhất nhé",
+    icon: <Calendar size={18} className="text-[#0057B8]" />,
+  },
+];
+
 export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "msg-welcome",
       role: "assistant",
-      content:
-        "Chào bạn! Mình là Trợ lý học tập AI của Tin Học Gen Z. Mình sẽ giúp bạn xây dựng lộ trình học chuẩn xác và tối ưu nhất. Mục tiêu chính của bạn hiện tại là gì?",
-      quickReplies: [
-        { label: "Thi lấy bằng MOS quốc tế", value: "mos_certification" },
-        { label: "Thi chứng chỉ IC3 GS6", value: "ic3_certification" },
-        { label: "Thực chiến Excel đi làm", value: "practical_excel" },
-        { label: "Học văn phòng toàn diện", value: "office_comprehensive" },
-      ],
+      content: "Chào bạn! 👋\nMình là trợ lý học tập AI.\nMình có thể giúp gì cho bạn?",
     },
   ]);
 
@@ -72,14 +92,10 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
     }
   }, [messages, isOpen, loading]);
 
-  // Trigger greeting animation on modal open
+  // Trigger greeting animation on open
   useEffect(() => {
     if (!isOpen) return;
-
-    const startTimer = setTimeout(() => {
-      setBotState("greeting");
-    }, 10);
-
+    const startTimer = setTimeout(() => setBotState("greeting"), 10);
     const idleTimer = setTimeout(() => {
       setBotState((prev) => (prev === "greeting" ? "idle" : prev));
     }, 2200);
@@ -90,7 +106,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
     };
   }, [isOpen]);
 
-  // Focus trap and Escape key listener
+  // Escape key listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isOpen) {
@@ -99,11 +115,9 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
     };
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
     }
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
@@ -116,10 +130,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
     if (!text || loading) return;
 
     messageCounter.current += 1;
-    const userMsgId = `usr-${messageCounter.current}`;
-
     const userMsg: Message = {
-      id: userMsgId,
+      id: `user-${messageCounter.current}`,
       role: "user",
       content: text,
     };
@@ -136,43 +148,41 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
         body: JSON.stringify({
           message: text,
           conversationId,
+          history: messages.map((m) => ({ role: m.role, content: m.content })),
         }),
       });
 
       const data = await res.json();
+
       if (res.ok && data.success) {
         if (data.conversationId && !conversationId) {
           setConversationId(data.conversationId);
         }
 
-        if (data.journey?.progress !== undefined) {
-          setJourneyProgress(data.journey.progress);
-        }
-
         messageCounter.current += 1;
-        const botMsg: Message = {
+        const botReply: Message = {
           id: `bot-${messageCounter.current}`,
           role: "assistant",
           content: data.reply,
           quickReplies: data.quickReplies,
-          roadmap: data.roadmapData,
+          roadmap: data.roadmap,
         };
 
-        setMessages((prev) => [...prev, botMsg]);
+        setMessages((prev) => [...prev, botReply]);
 
-        if (data.recommendationReady || data.mascotState === "success") {
-          setBotState("success");
-          if (speakingTimerRef.current) clearTimeout(speakingTimerRef.current);
-          speakingTimerRef.current = setTimeout(() => {
-            setBotState("idle");
-          }, 3200);
-        } else {
-          setBotState(data.mascotState || "speaking");
-          if (speakingTimerRef.current) clearTimeout(speakingTimerRef.current);
-          speakingTimerRef.current = setTimeout(() => {
-            setBotState("idle");
-          }, 2400);
+        if (data.journey?.progress) {
+          setJourneyProgress(data.journey.progress);
         }
+
+        if (data.shouldCaptureLead) {
+          setShowLeadModal(true);
+        }
+
+        setBotState(data.mascotState || "speaking");
+        if (speakingTimerRef.current) clearTimeout(speakingTimerRef.current);
+        speakingTimerRef.current = setTimeout(() => {
+          setBotState("idle");
+        }, 2400);
       } else {
         messageCounter.current += 1;
         setMessages((prev) => [
@@ -180,7 +190,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
           {
             id: `err-${messageCounter.current}`,
             role: "assistant",
-            content: "Có lỗi khi xử lý câu trả lời. Bạn có thể để lại SĐT hoặc gọi hotline 033.229.8065 để được hỗ trợ ngay!",
+            content:
+              "Có lỗi khi xử lý câu trả lời. Bạn có thể để lại SĐT hoặc gọi hotline 033.229.8065 để được hỗ trợ ngay!",
             quickReplies: [{ label: "Đăng ký nhận tư vấn trực tiếp", value: "register_lead" }],
           },
         ]);
@@ -224,34 +235,23 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
           {
             id: `msg-welcome-reset-${Date.now()}`,
             role: "assistant",
-            content: data.reply,
-            quickReplies: data.quickReplies,
+            content: "Chào bạn! 👋\nMình là trợ lý học tập AI.\nMình có thể giúp gì cho bạn?",
           },
         ]);
         setJourneyProgress(data.journey?.progress || 10);
       }
     } catch {
-      // Local fallback reset
       setMessages([
         {
           id: "msg-welcome-reset",
           role: "assistant",
-          content:
-            "Chào bạn! Mình là Trợ lý học tập AI của Tin Học Gen Z. Mình sẽ giúp bạn xây dựng lộ trình học chuẩn xác và tối ưu nhất. Mục tiêu chính của bạn hiện tại là gì?",
-          quickReplies: [
-            { label: "Thi lấy bằng MOS quốc tế", value: "mos_certification" },
-            { label: "Thi chứng chỉ IC3 GS6", value: "ic3_certification" },
-            { label: "Thực chiến Excel đi làm", value: "practical_excel" },
-            { label: "Học văn phòng toàn diện", value: "office_comprehensive" },
-          ],
+          content: "Chào bạn! 👋\nMình là trợ lý học tập AI.\nMình có thể giúp gì cho bạn?",
         },
       ]);
       setJourneyProgress(10);
     } finally {
       setLoading(false);
-      setTimeout(() => {
-        setBotState((prev) => (prev === "greeting" ? "idle" : prev));
-      }, 2000);
+      setTimeout(() => setBotState("idle"), 1500);
     }
   };
 
@@ -267,8 +267,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
         body: JSON.stringify({
           name: leadForm.name,
           phone: leadForm.phone,
-          note: `Đăng ký từ AI Chatbot Lộ trình: ${leadForm.note || "Tư vấn xếp lớp"}`,
-          formType: "AI Learning Pathway Advisor",
+          note: `[Tư vấn Chatbot AI] ${leadForm.note}`,
+          selection: "Tư vấn lộ trình học từ Trợ lý AI",
         }),
       });
 
@@ -293,230 +293,160 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
       role="dialog"
       aria-modal="true"
       aria-labelledby="ai-chat-title"
-      className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in duration-200"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-end justify-end pointer-events-auto select-none"
     >
+      {/* Floating Chat Panel (Desktop 380-420px, Mobile full-width with margins) */}
       <div
         ref={modalRef}
-        className="w-full sm:max-w-2xl h-[92dvh] sm:h-[85vh] bg-white rounded-t-3xl sm:rounded-3xl border border-[#E5EEF8] shadow-2xl flex flex-col overflow-hidden relative"
+        className="w-[calc(100vw-32px)] sm:w-[400px] h-[580px] sm:h-[620px] max-h-[calc(100dvh-32px)] bg-white rounded-[24px] border border-[#DDE8F5] shadow-[0_20px_60px_rgba(11,37,69,0.18)] flex flex-col overflow-hidden relative animate-in fade-in slide-in-from-bottom-3 duration-200"
       >
-        {/* Top Accent line */}
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-[#0057B8] z-20" />
-
-        {/* Journey Progress Bar */}
-        {journeyProgress > 0 && (
-          <div className="absolute top-[3px] left-0 w-full h-[2.5px] bg-[#0057B8]/10 z-20">
-            <div
-              className="h-full bg-emerald-500 transition-all duration-500 ease-out"
-              style={{ width: `${journeyProgress}%` }}
-            />
-          </div>
-        )}
-
-        {/* Modal Header */}
-        <div className="bg-white border-b border-[#E5EEF8] px-4 sm:px-5 py-3 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center shrink-0">
-              <AiMascot state={botState} size={38} priority={true} />
+        {/* Chat Header: Primary Blue background */}
+        <div className="bg-[#0057B8] px-4 py-3.5 flex items-center justify-between shrink-0 text-white select-none">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 flex items-center justify-center shrink-0">
+              <AiMascot state={botState} size={36} priority={true} animated={false} />
             </div>
             <div>
-              <h3 id="ai-chat-title" className="text-sm sm:text-base font-bold text-[#0B2545] flex items-center gap-1.5">
-                <span>Trợ Lý Học Tập AI</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                {journeyProgress > 10 && journeyProgress < 100 && (
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-[#0057B8] border border-blue-200">
-                    Tiến độ {journeyProgress}%
-                  </span>
-                )}
+              <h3 id="ai-chat-title" className="text-sm font-bold flex items-center gap-1.5 leading-none">
+                <span>Trợ lý học tập AI</span>
               </h3>
-              <p className="text-[11px] text-slate-500 font-medium line-clamp-1">
-                {botState === "thinking"
-                  ? "Đang phân tích thông tin & dữ liệu khóa học..."
-                  : botState === "listening"
-                  ? "Đang lắng nghe câu trả lời của bạn..."
-                  : botState === "speaking"
-                  ? "Đang giải đáp lộ trình học..."
-                  : botState === "success"
-                  ? "Tuyệt vời! Lộ trình đã sẵn sàng"
-                  : botState === "error"
-                  ? "Đang kết nối lại chuyên viên..."
-                  : "Tư vấn lộ trình bám sát dữ liệu khảo thí & đào tạo chính thức"}
-              </p>
+              <div className="flex items-center gap-1 mt-1 text-[11px] text-white/80 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span>Đang hoạt động</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-1 sm:gap-1.5">
-            <a
-              href="tel:0332298065"
-              title="Gọi hotline tư vấn: 033.229.8065"
-              className="p-2 rounded-xl text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-colors flex items-center gap-1"
-              aria-label="Gọi hotline tư vấn trực tiếp"
-            >
-              <Phone size={15} />
-              <span className="hidden md:inline text-xs font-semibold">033.229.8065</span>
-            </a>
-            <a
-              href="https://zalo.me/0332298065"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Chat Zalo cùng chuyên viên tư vấn"
-              className="p-2 rounded-xl text-slate-500 hover:text-[#0057B8] hover:bg-blue-50 transition-colors flex items-center gap-1"
-              aria-label="Chat Zalo với chuyên viên"
-            >
-              <MessageCircle size={15} />
-              <span className="hidden md:inline text-xs font-semibold">Zalo</span>
-            </a>
+          <div className="flex items-center gap-1">
             <button
               type="button"
               onClick={handleReset}
-              title="Làm lại lộ trình"
-              className="p-2 rounded-xl text-slate-500 hover:text-[#0057B8] hover:bg-[#F4F8FD] transition-colors cursor-pointer"
-              aria-label="Làm lại lộ trình"
+              title="Làm mới cuộc trò chuyện"
+              className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              aria-label="Làm mới"
             >
-              <RotateCcw size={16} />
+              <RotateCcw size={15} />
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+              title="Thu nhỏ"
+              className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              aria-label="Thu nhỏ"
+            >
+              <Minus size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              title="Đóng bảng chat"
+              className="p-1.5 rounded-lg text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
               aria-label="Đóng bảng chat"
             >
-              <X size={18} />
+              <X size={17} />
             </button>
           </div>
         </div>
 
+        {/* Journey Progress Bar */}
+        {journeyProgress > 10 && (
+          <div className="h-1 bg-white/20 w-full overflow-hidden shrink-0">
+            <div
+              className="h-full bg-emerald-400 transition-all duration-500"
+              style={{ width: `${Math.min(100, journeyProgress)}%` }}
+            />
+          </div>
+        )}
+
         {/* Chat History Body */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#F4F8FD]/40">
-          {messages.map((msg) => (
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#F7FAFE]">
+          {messages.map((msg, index) => (
             <div
               key={msg.id}
-              className={`flex gap-3 items-start ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
+              className={`flex gap-2.5 items-start ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}
             >
               {msg.role === "assistant" && (
-                <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5">
-                  <AiMascot state="idle" size={30} animated={false} />
+                <div className="w-7 h-7 flex items-center justify-center shrink-0 mt-0.5">
+                  <AiMascot state="idle" size={28} animated={false} />
                 </div>
               )}
 
               <div
-                className={`max-w-[86%] sm:max-w-[80%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed ${
+                className={`max-w-[85%] rounded-2xl p-3.5 text-xs sm:text-sm leading-relaxed ${
                   msg.role === "user"
                     ? "bg-[#0057B8] text-white rounded-tr-xs shadow-xs"
-                    : "bg-white text-slate-800 border border-[#E5EEF8] rounded-tl-xs shadow-[0_4px_16px_rgba(0,0,0,0.04)]"
+                    : "bg-white text-[#0B2545] border border-[#DDE8F5] rounded-tl-xs shadow-[0_2px_10px_rgba(11,37,69,0.04)]"
                 }`}
               >
                 <div className="whitespace-pre-line">{msg.content}</div>
 
                 {/* Structured Roadmap Card if present */}
                 {msg.roadmap && (
-                  <div className="mt-4 pt-4 border-t border-[#E5EEF8] space-y-3 animate-in fade-in zoom-in-95 duration-300">
-                    {/* Assessment summary */}
-                    <div className="p-3 rounded-xl bg-[#F4F8FD] border border-[#E5EEF8] text-xs text-[#0B2545] font-medium leading-relaxed">
-                      <strong className="block text-[#0057B8] font-bold mb-1">Đánh Giá Đầu Vào:</strong>
-                      {msg.roadmap.assessment}
+                  <div className="mt-3.5 p-3.5 bg-[#F4F8FD] rounded-xl border border-[#DDE8F5] space-y-2.5 text-xs">
+                    <div className="font-bold text-[#0057B8] flex items-center gap-1.5">
+                      <CheckCircle2 size={14} className="text-[#0057B8]" />
+                      <span>{msg.roadmap.assessment || "Lộ trình đào tạo đề xuất"}</span>
                     </div>
-
-                    {/* Primary Recommended Course Card */}
-                    <div className="p-3.5 rounded-2xl bg-gradient-to-br from-blue-50/50 to-white border-2 border-[#0057B8]/20 shadow-sm space-y-2">
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <span className="inline-block px-2 py-0.5 rounded-full bg-[#0057B8] text-white text-[10px] font-bold uppercase tracking-wider mb-1">
-                            {msg.roadmap.primaryCourse.badge}
-                          </span>
-                          <h4 className="font-bold text-sm text-[#0B2545]">
-                            {msg.roadmap.primaryCourse.title}
-                          </h4>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <span className="text-sm font-extrabold text-[#0057B8]">
-                            {msg.roadmap.primaryCourse.priceFormatted}
-                          </span>
-                          <span className="block text-[11px] text-slate-500">
-                            {msg.roadmap.primaryCourse.duration}
-                          </span>
-                        </div>
+                    {msg.roadmap.primaryCourse && (
+                      <div className="text-slate-700">
+                        <strong>Khóa học trọng tâm:</strong> {msg.roadmap.primaryCourse.title}
+                        {msg.roadmap.totalEstimatedWeeks ? ` (${msg.roadmap.totalEstimatedWeeks} tuần)` : ""}
                       </div>
-
-                      <div className="pt-1 flex items-center gap-2">
-                        <Link
-                          href={`/khoa-hoc/${msg.roadmap.primaryCourse.id}`}
-                          target="_blank"
-                          className="text-xs font-semibold text-[#0057B8] hover:underline flex items-center gap-1"
-                        >
-                          <span>Xem chi tiết môn học</span>
-                          <ChevronRight size={13} />
-                        </Link>
-                      </div>
-                    </div>
-
-                    {/* Timeline Phases */}
-                    <div className="space-y-2 pt-1">
-                      <strong className="text-xs font-bold text-[#0B2545] block">
-                        Các Giai Đoạn Đào Tạo:
-                      </strong>
-                      {msg.roadmap.phases.map((phase) => (
-                        <div key={phase.phaseIndex} className="p-3 rounded-xl bg-white border border-[#E5EEF8] space-y-1.5">
-                          <div className="flex items-center justify-between">
-                            <h5 className="font-bold text-xs text-[#0B2545]">{phase.title}</h5>
-                            <span className="text-[11px] text-slate-500 font-medium">{phase.duration}</span>
-                          </div>
-                          <p className="text-xs text-slate-600 leading-relaxed">{phase.focus}</p>
-                          <div className="pt-1 text-[11px] text-slate-500 flex items-center gap-1.5">
-                            <CheckCircle2 size={13} className="text-[#0057B8] shrink-0" />
-                            <span>Dự án: {phase.practicalProject}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Call to action buttons */}
-                    <div className="pt-2 flex flex-col sm:flex-row gap-2">
+                    )}
+                    {msg.roadmap.phases && msg.roadmap.phases.length > 0 && (
+                      <ul className="space-y-1 text-slate-600">
+                        {msg.roadmap.phases.map((ph, idx) => (
+                          <li key={idx} className="flex items-start gap-1.5">
+                            <span className="text-[#0057B8] font-bold">•</span>
+                            <span><strong>{ph.title}:</strong> {ph.focus} ({ph.duration})</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <div className="pt-2 flex flex-col gap-1.5">
                       <button
                         type="button"
-                        onClick={() => {
-                          setLeadForm((prev) => ({ ...prev, note: `Lộ trình: ${msg.roadmap?.primaryCourse.title}` }));
-                          setShowLeadModal(true);
-                        }}
-                        className="flex-1 py-3 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+                        onClick={() => setShowLeadModal(true)}
+                        className="w-full py-2 rounded-lg bg-[#0057B8] text-white font-bold text-center hover:bg-[#003F88] transition-colors cursor-pointer"
                       >
-                        <UserCheck size={15} />
-                        <span>Đăng Ký Nhận Tư Vấn Xếp Lớp</span>
+                        Đăng ký xếp lớp theo lộ trình này
                       </button>
+                      <Link
+                        href={msg.roadmap.primaryCourse?.enrollmentUrl || "/khoa-hoc"}
+                        className="text-center font-semibold text-[#0057B8] hover:underline text-[11px] py-0.5"
+                      >
+                        Xem chi tiết khóa học →
+                      </Link>
                     </div>
                   </div>
                 )}
 
-                {/* Quick Reply Chips */}
-                {msg.quickReplies && msg.quickReplies.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1.5 pt-1">
-                    {msg.quickReplies.map((reply, idx) => {
-                      const label = typeof reply === "string" ? reply : reply.label;
-                      const value = typeof reply === "string" ? reply : reply.value;
-                      return (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => {
-                            if (
-                              value === "register_lead" ||
-                              label.includes("Đăng ký nhận tư vấn") ||
-                              label.includes("Đăng ký xếp lớp")
-                            ) {
-                              setShowLeadModal(true);
-                            } else if (value === "chat_zalo" || label.includes("Zalo")) {
-                              window.open("https://zalo.me/0332298065", "_blank");
-                            } else if (value === "call_hotline" || label.includes("Hotline")) {
-                              window.location.href = "tel:0332298065";
-                            } else {
-                              handleSendMessage(label);
-                            }
-                          }}
-                          className="px-3 py-1.5 rounded-full bg-[#F4F8FD] hover:bg-blue-50 border border-[#E5EEF8] hover:border-[#0057B8]/40 text-[#0057B8] text-xs font-semibold transition-all cursor-pointer text-left shadow-2xs active:scale-95"
-                        >
-                          {label}
-                        </button>
-                      );
-                    })}
+                {/* Quick Actions Row below welcome message */}
+                {index === 0 && msg.role === "assistant" && (
+                  <div className="mt-3.5 space-y-2 pt-2 border-t border-[#DDE8F5]">
+                    {DEFAULT_ACTIONS.map((action) => (
+                      <button
+                        key={action.id}
+                        type="button"
+                        onClick={() => handleSendMessage(action.query)}
+                        className="w-full p-2.5 rounded-xl bg-[#F4F8FD] hover:bg-[#E5EEF8] border border-[#DDE8F5] text-left transition-colors flex items-center justify-between gap-2 cursor-pointer group"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-lg bg-white border border-[#DDE8F5] flex items-center justify-center shrink-0">
+                            {action.icon}
+                          </div>
+                          <div>
+                            <div className="font-bold text-xs text-[#0B2545] group-hover:text-[#0057B8] transition-colors">
+                              {action.title}
+                            </div>
+                            <div className="text-[11px] text-[#54657A] line-clamp-1">
+                              {action.subtitle}
+                            </div>
+                          </div>
+                        </div>
+                        <ChevronRight size={14} className="text-slate-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                      </button>
+                    ))}
                   </div>
                 )}
               </div>
@@ -525,17 +455,17 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
 
           {/* AI Thinking indicator */}
           {loading && (
-            <div className="flex gap-3 items-start animate-in fade-in duration-200">
-              <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5">
-                <AiMascot state="thinking" size={32} showStateIndicator={false} />
+            <div className="flex gap-2.5 items-start animate-in fade-in duration-200">
+              <div className="w-7 h-7 flex items-center justify-center shrink-0 mt-0.5">
+                <AiMascot state="thinking" size={28} animated={false} />
               </div>
-              <div className="p-3.5 rounded-2xl rounded-tl-xs bg-white border border-[#E5EEF8] text-xs text-slate-600 flex items-center gap-2.5 shadow-2xs">
+              <div className="p-3 rounded-2xl rounded-tl-xs bg-white border border-[#DDE8F5] text-xs text-[#54657A] flex items-center gap-2 shadow-2xs">
                 <div className="flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce [animation-delay:-0.3s]" />
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce [animation-delay:-0.15s]" />
                   <span className="w-1.5 h-1.5 rounded-full bg-[#0057B8] animate-bounce" />
                 </div>
-                <span className="font-medium text-slate-600">Trợ lý AI đang phân tích và lập lộ trình...</span>
+                <span className="font-medium">Đang suy nghĩ...</span>
               </div>
             </div>
           )}
@@ -543,8 +473,8 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Footer Bar */}
-        <div className="bg-white border-t border-[#E5EEF8] p-3 sm:p-4 shrink-0">
+        {/* Chat Input Footer */}
+        <div className="bg-white border-t border-[#DDE8F5] p-3 shrink-0">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -552,49 +482,45 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
             }}
             className="flex items-center gap-2"
           >
+            <button
+              type="button"
+              title="Đính kèm tệp / ảnh"
+              className="p-2 rounded-xl text-slate-400 hover:text-[#0057B8] hover:bg-[#F4F8FD] transition-colors cursor-pointer shrink-0"
+              aria-label="Đính kèm"
+            >
+              <Paperclip size={18} />
+            </button>
+
             <input
               type="text"
               value={inputVal}
-              onFocus={() => {
-                if (!loading && botState === "idle") {
-                  setBotState("listening");
-                }
-              }}
-              onBlur={() => {
-                if (!loading && botState === "listening") {
-                  setBotState("idle");
-                }
-              }}
-              onChange={(e) => {
-                setInputVal(e.target.value);
-                if (!loading && botState === "idle") {
-                  setBotState("listening");
-                }
-              }}
-              placeholder="Nhập câu trả lời hoặc chọn gợi ý bên trên..."
-              className="flex-1 min-h-11 px-4 py-2.5 rounded-xl border border-[#E5EEF8] bg-[#F4F8FD]/50 text-xs sm:text-sm text-slate-800 focus:outline-none focus:bg-white focus:border-[#0057B8] focus:ring-2 focus:ring-[#0057B8]/20 transition-all font-sans"
+              onChange={(e) => setInputVal(e.target.value)}
+              placeholder="Nhập câu hỏi của bạn..."
+              disabled={loading}
+              className="flex-1 h-11 px-3.5 text-xs sm:text-sm bg-[#F7FAFE] rounded-xl border border-[#DDE8F5] text-[#0B2545] placeholder:text-slate-400 focus:outline-none focus:border-[#0057B8] focus:bg-white focus:ring-2 focus:ring-[#0057B8]/10 transition-all"
             />
+
             <button
               type="submit"
               disabled={!inputVal.trim() || loading}
-              className="min-h-11 px-4 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white transition-colors disabled:opacity-40 flex items-center justify-center cursor-pointer shrink-0 shadow-xs"
+              className="w-11 h-11 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white transition-colors disabled:opacity-40 flex items-center justify-center cursor-pointer shrink-0 shadow-xs active:scale-95"
               aria-label="Gửi tin nhắn"
             >
               <Send size={16} />
             </button>
           </form>
-          <div className="mt-2 text-center">
-            <span className="text-[10px] text-slate-400">
-              Trợ lý học tập AI Tin Học Gen Z cam kết thông tin bám sát khung chuẩn khảo thí IIG & Certiport
-            </span>
+
+          {/* Footer Text */}
+          <div className="mt-2 text-center text-[10px] text-slate-400 font-medium select-none">
+            Tin Học Gen Z • Luôn đồng hành cùng bạn ♡
           </div>
         </div>
       </div>
 
       {/* Lead Registration Modal */}
       {showLeadModal && (
-        <div className="fixed inset-0 z-60 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-[#E5EEF8] space-y-4 animate-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 z-60 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl border border-[#DDE8F5] space-y-4 animate-in zoom-in-95 duration-200">
             <div className="flex items-center justify-between">
               <h4 className="text-base font-bold text-[#0B2545] flex items-center gap-2">
                 <UserCheck size={18} className="text-[#0057B8]" />
@@ -603,7 +529,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
               <button
                 type="button"
                 onClick={() => setShowLeadModal(false)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
               >
                 <X size={16} />
               </button>
@@ -616,7 +542,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                 </div>
                 <h5 className="font-bold text-slate-800 text-sm">Đăng ký thành công!</h5>
                 <p className="text-xs text-slate-500">
-                  Giảng viên chuyên môn sẽ liên hệ tư vấn và gửi bài thi thử miễn phí cho bạn qua số điện thoại sớm nhất.
+                  Giảng viên chuyên môn sẽ liên hệ tư vấn và gửi bài thi thử miễn phí cho bạn sớm nhất.
                 </p>
               </div>
             ) : (
@@ -631,7 +557,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                     value={leadForm.name}
                     onChange={(e) => setLeadForm({ ...leadForm, name: e.target.value })}
                     placeholder="Nguyễn Văn A"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8]"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8]"
                   />
                 </div>
 
@@ -645,20 +571,20 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                     value={leadForm.phone}
                     onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
                     placeholder="0912 345 678"
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8]"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8]"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1">
-                    Ghi chú thêm (khung giờ học rảnh, mục tiêu thi...)
+                    Ghi chú thêm
                   </label>
                   <textarea
                     rows={2}
                     value={leadForm.note}
                     onChange={(e) => setLeadForm({ ...leadForm, note: e.target.value })}
                     placeholder="Ví dụ: Rảnh tối 2-4-6, muốn thi trong 1 tháng..."
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8]"
+                    className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 focus:outline-none focus:border-[#0057B8]"
                   />
                 </div>
 
@@ -666,14 +592,14 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
                   <button
                     type="button"
                     onClick={() => setShowLeadModal(false)}
-                    className="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors"
+                    className="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-xs font-semibold transition-colors cursor-pointer"
                   >
                     Hủy
                   </button>
                   <button
                     type="submit"
                     disabled={leadSubmitting}
-                    className="flex-1 py-2.5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white text-xs font-bold transition-colors disabled:opacity-50"
+                    className="flex-1 py-2.5 rounded-xl bg-[#0057B8] hover:bg-[#003F88] text-white text-xs font-bold transition-colors disabled:opacity-50 cursor-pointer"
                   >
                     {leadSubmitting ? "Đang gửi..." : "Gửi Thông Tin"}
                   </button>

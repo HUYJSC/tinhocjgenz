@@ -2,6 +2,8 @@ import NextImage from "next/image";
 import Link from "next/link";
 import { ArrowRight, School, BookOpen, Clock, ChevronRight, CheckCircle2, ShieldCheck, Award } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
+import CategoryCards from "@/components/home/CategoryCards";
+import FeaturedCourses from "@/components/home/FeaturedCourses";
 import StatsSection from "@/components/StatsSection";
 import HomeTabbedHub from "@/components/HomeTabbedHub";
 import ScheduleSection from "@/components/ScheduleSection";
@@ -18,13 +20,19 @@ export default function Home() {
       {/* 1. Hero Section & Brand Value */}
       <HeroSection />
 
-      {/* 2. Key Trust Metrics */}
-      <StatsSection />
+      {/* 2. Focus Training Categories */}
+      <CategoryCards />
 
-      {/* 3. Interactive Anti-Long-Scroll Tabbed Hub (Lộ Trình | Khóa Học | Bảng Vàng | Cam Kết) */}
+      {/* 3. Featured Courses */}
+      <FeaturedCourses />
+
+      {/* 4. Interactive Tabbed Hub (Lộ Trình | Khóa Học | Bảng Vàng | Cam Kết) */}
       <section id="khoa-hoc-trong-tam">
         <HomeTabbedHub />
       </section>
+
+      {/* 5. Additional Key Trust Metrics */}
+      <StatsSection />
 
       {/* 4. Practical Certiport Diagnostic & Mock Exam Showcase */}
       <section className="py-14 sm:py-18 bg-[#F4F8FD] border-y border-[#E5EEF8]">
