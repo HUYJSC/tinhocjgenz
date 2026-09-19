@@ -2,7 +2,7 @@
 
 import React from "react";
 import { X } from "lucide-react";
-import MascotBot from "./MascotBot";
+import AiMascot from "./ai-assistant/AiMascot";
 import SupportActions from "./SupportActions";
 
 interface SupportCenterWidgetProps {
@@ -54,8 +54,8 @@ export default function SupportCenterWidget({
 
       {/* Free-standing Transparent Mascot (NO box, NO card, NO background, Pure character) */}
       <div className="pt-3.5 pb-4 flex justify-center items-center">
-        <MascotBot
-          size={120}
+        <AiMascot
+          size={110}
           interactive={true}
           onClick={openAIChat}
           priority={true}

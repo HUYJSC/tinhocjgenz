@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import MascotAssistant, { MascotState } from "./MascotAssistant";
+import AiMascot, { MascotState } from "./ai-assistant/AiMascot";
 
 export type { MascotState };
 
@@ -17,22 +17,21 @@ export interface MascotBotProps {
 
 export default function MascotBot({
   state = "idle",
-  size = 120,
+  size = 48,
   interactive = false,
-  showShadow = true,
   onClick,
   className = "",
   priority = false,
 }: MascotBotProps) {
   return (
-    <MascotAssistant
+    <AiMascot
       state={state}
       size={size}
       interactive={interactive}
-      showShadow={showShadow}
       onClick={onClick}
       className={className}
       priority={priority}
+      showStateIndicator={state === "thinking"}
     />
   );
 }

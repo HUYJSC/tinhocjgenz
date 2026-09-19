@@ -1,4 +1,4 @@
-const CACHE_VERSION = "tinhocgenz-brand-v8";
+const CACHE_VERSION = "tinhocgenz-brand-v9";
 const OFFLINE_URL = "/offline.html";
 const PRECACHE = [
   OFFLINE_URL,
@@ -6,6 +6,7 @@ const PRECACHE = [
   "/brand/logo-horizontal.png",
   "/brand/logo-horizontal-light.png",
   "/brand/logo-symbol.png",
+  "/brand/chatbot/chatbot-ai-master.png",
   "/icon-48.png",
   "/icon-96.png",
   "/icon-192.png",

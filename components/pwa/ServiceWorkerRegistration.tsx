@@ -18,7 +18,7 @@ export default function ServiceWorkerRegistration() {
     // Clean up any stale/legacy caches from earlier versions
     if ("caches" in window) {
       caches.keys().then((keys) => {
-        const CURRENT_CACHE = "tinhocgenz-brand-v8";
+        const CURRENT_CACHE = "tinhocgenz-brand-v9";
         keys.forEach((key) => {
           if (key !== CURRENT_CACHE) {
             caches.delete(key);

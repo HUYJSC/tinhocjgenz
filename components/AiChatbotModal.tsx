@@ -13,7 +13,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { RoadmapResult } from "@/lib/ai-rag-service";
-import MascotBot, { MascotState } from "./MascotBot";
+import AiMascot, { MascotState } from "./ai-assistant/AiMascot";
 
 interface AiChatbotModalProps {
   isOpen: boolean;
@@ -316,7 +316,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
         <div className="bg-white border-b border-[#E5EEF8] px-4 sm:px-5 py-3 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 flex items-center justify-center shrink-0">
-              <MascotBot state={botState} size={40} showShadow={false} />
+              <AiMascot state={botState} size={38} priority={true} />
             </div>
             <div>
               <h3 id="ai-chat-title" className="text-sm sm:text-base font-bold text-[#0B2545] flex items-center gap-1.5">
@@ -394,7 +394,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
             >
               {msg.role === "assistant" && (
                 <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5">
-                  <MascotBot state="idle" size={30} showShadow={false} />
+                  <AiMascot state="idle" size={30} animated={false} />
                 </div>
               )}
 
@@ -527,7 +527,7 @@ export default function AiChatbotModal({ isOpen, onClose }: AiChatbotModalProps)
           {loading && (
             <div className="flex gap-3 items-start animate-in fade-in duration-200">
               <div className="w-8 h-8 flex items-center justify-center shrink-0 mt-0.5">
-                <MascotBot state="thinking" size={32} showShadow={false} />
+                <AiMascot state="thinking" size={32} showStateIndicator={false} />
               </div>
               <div className="p-3.5 rounded-2xl rounded-tl-xs bg-white border border-[#E5EEF8] text-xs text-slate-600 flex items-center gap-2.5 shadow-2xs">
                 <div className="flex items-center gap-1">

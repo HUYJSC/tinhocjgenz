@@ -20,7 +20,10 @@ export default function FloatingContact() {
         aria-label="Kênh hỗ trợ và tư vấn nhanh"
         className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end pointer-events-auto select-none font-sans pb-[env(safe-area-inset-bottom,0px)]"
       >
-        <FloatingAiLauncher onOpenChat={() => setIsAiModalOpen(true)} />
+        <FloatingAiLauncher
+          isOpen={isAiModalOpen}
+          onOpenChat={() => setIsAiModalOpen(true)}
+        />
       </aside>
     </>
   );
